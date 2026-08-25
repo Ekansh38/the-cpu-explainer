@@ -74,19 +74,32 @@ def wrap(body):
     return f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>The CPU: A very tall pile of simple</title>
 <style>
-@page {{ size: A4; margin: 0; }}
-html, body {{
+@page {{ size: A4; margin: 22mm 24mm; }}
+html {{
   background: #111;
-  color: #e6e6e6;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-  margin: 0;
 }}
 body {{
+  background: transparent;
+  color: #e6e6e6;
   font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   font-size: 12pt;
   line-height: 1.6;
-  padding: 22mm 24mm;
+  margin: 0;
+  padding: 0;
+}}
+body::before {{
+  content: "";
+  position: fixed;
+  top: -22mm;
+  left: -24mm;
+  right: -24mm;
+  bottom: -22mm;
+  background: #111;
+  z-index: -1;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }}
 h1 {{ font-size: 22pt; margin: 0 0 1em; }}
 h2 {{ font-size: 16pt; margin: 2em 0 0.5em; break-after: avoid; }}
