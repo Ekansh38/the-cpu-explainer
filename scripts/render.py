@@ -74,7 +74,7 @@ def wrap(body):
     return f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>The CPU: A very tall pile of simple</title>
 <style>
-@page {{ size: A4; margin: 0; }}
+@page {{ size: A4; margin: 22mm 24mm; }}
 html, body {{
   background: #111;
   color: #e6e6e6;
@@ -86,7 +86,6 @@ body {{
   font-family: Georgia, "Times New Roman", serif;
   font-size: 12pt;
   line-height: 1.55;
-  padding: 22mm 24mm;
 }}
 h1 {{ font-size: 22pt; margin: 0 0 1em; }}
 h2 {{ font-size: 16pt; margin: 2em 0 0.5em; break-after: avoid; }}
