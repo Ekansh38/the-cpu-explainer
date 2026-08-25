@@ -56,7 +56,7 @@ a few things:
 - an abacus for basic arithmetic.
 - A decoder chart that does some stuff. We will come back to this later.
 
-<a id="diagram-1-1"></a> <img src="./images/desk.svg" alt="the desk with 3 drawers, the
+<a id="diagram-1-1"></a> <img src="./assets/final/desk.svg" alt="the desk with 3 drawers, the
 abacus and decoder chart">
 
 *Diagram 1.1. The desk setup.*
@@ -68,7 +68,7 @@ One quick distinction before we start: when I say "drawer," I mean the desk draw
 Otto where he works. When I say "slot," I mean the numbered compartments in the upstairs filing
 cabinet.
 
-<a id="diagram-1-2"></a> <img src="./images/cabinet.svg" alt="the filing cabinet">
+<a id="diagram-1-2"></a> <img src="./assets/final/cabinet.svg" alt="the filing cabinet">
 
 *Diagram 1.2. The filing cabinet.*
 
@@ -81,7 +81,7 @@ Slot 99 works the opposite way. It's connected to a dial outside the house. Otto
 reads from it like any other slot, but the value comes from whoever is turning the dial. He could
 technically write to slot 99 too, but that would be a bit disruptive. 
 
-<a id="diagram-1-3"></a> <img src="./images/house.svg" alt="The outside of the house with a display, an input dial, a small ladder, windows, and a door.">
+<a id="diagram-1-3"></a> <img src="./assets/final/house.svg" alt="The outside of the house with a display, an input dial, a small ladder, windows, and a door.">
 
 *Diagram 1.3. The outside of the house, with the display and input dial.*
 
@@ -90,7 +90,7 @@ Instructions are just numbers stored in slots. Otto uses `PC` to know which slot
 uses the decoder chart to decide what that number means, and what procedure to follow based on each
 instruction.
 
-<a id="diagram-1-4"></a> <img src="./images/loop.svg" alt="Otto's loop">
+<a id="diagram-1-4"></a> <img src="./assets/final/loop.svg" alt="Otto's loop">
 
 Diagram 1.4. Otto's basic loop. He reads the address in `PC`, fetches the number from that cabinet
 slot, uses the decoder chart to choose what to do, does it, updates `PC`, and repeats.
@@ -118,7 +118,7 @@ Let's explore the basics of how electricity and circuits work for the purposes o
 
 Here is a simple circuit:
 
-<a id="diagram-2-1"></a> <img src="./images/basic-circuit.gif" alt="A basic circuit with a switch and light bulb and drawings not symbols">
+<a id="diagram-2-1"></a> <img src="./assets/final/basic-circuit.gif" alt="A basic circuit with a switch and light bulb and drawings not symbols">
 
 *Diagram 2.1. The circuit.*
 
@@ -159,7 +159,7 @@ Or in other words, if the dog is stinky and its last wash was over 5 days ago, t
 
 Let's see the circuit:
 
-<a id="diagram-3-1"></a> <img src="./images/switches-1.gif" alt="A logical AND circuit">
+<a id="diagram-3-1"></a> <img src="./assets/final/switches-1.gif" alt="A logical AND circuit">
 
 *Diagram 3.1. The hand-switch version of AND.*
 
@@ -177,7 +177,7 @@ wash, you should wash the dog.
 
 Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-<a id="diagram-3-2"></a> <img src="./images/or-gate-logical.gif" alt="A logical OR circuit">
+<a id="diagram-3-2"></a> <img src="./assets/final/or-gate-logical.gif" alt="A logical OR circuit">
 
 *Diagram 3.2. The hand-switch version of OR.*
 
@@ -194,7 +194,7 @@ Or in other words the OR circuit we built outputs a result as electricity, but t
 want to combine it with expects a input as a metal switch physically being moved. A signal in a wire
 can't reach over and somehow close that switch.
 
-<a id="diagram-3-3"></a> <img src="./images/combination-problem.svg" alt="The problem we currently face">
+<a id="diagram-3-3"></a> <img src="./assets/final/combination-problem.svg" alt="The problem we currently face">
 
 *Diagram 3.3. The problem we currently face.*
 
@@ -212,7 +212,7 @@ One thing to mention: if you see several little batteries in a circuit, don't in
 several totally separate power sources. I am using the battery drawing as a symbol for "this point
 is connected to power," so the diagram doesn't turn into spaghetti.
 
-<a id="diagram-3-4"></a> <img src="./images/basic-relay.gif" alt="An electromagnetic relay">
+<a id="diagram-3-4"></a> <img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
 *Diagram 3.4. An electromagnetic relay.*
 
@@ -233,7 +233,7 @@ metal arm moving. Relays are mechanical, so they do not switch instantly.
 Now lets see how we can build an actual electrical AND gate that takes in as input, 2 wires, and
 outputs an electrical signal.
 
-<a id="diagram-3-5"></a> <img src="./images/electronic-and-gate.gif" alt="An AND gate">
+<a id="diagram-3-5"></a> <img src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
 *Diagram 3.5. An AND gate.*
 
@@ -260,19 +260,19 @@ makes the current path easier to follow visually.
 
 This is how the ground symbol looks:
 
-<a id="diagram-3-6"></a> <img src="./images/ground-symbol.svg" class="small" alt="The ground symbol">
+<a id="diagram-3-6"></a> <img src="./assets/final/ground-symbol.svg" class="small" alt="The ground symbol">
 
 *Diagram 3.6. The ground symbol.*
 
 Now here is the OR gate:
 
-<a id="diagram-3-7"></a> <img src="./images/electronic-or-gate.gif" alt="An electronic OR gate">
+<a id="diagram-3-7"></a> <img src="./assets/final/electronic-or-gate.gif" alt="An electronic OR gate">
 
 *Diagram 3.7. An electronic OR gate.*
 
 That is an OR gate using relays. Now here is the full dog washer circuit up to this point:
 
-<a id="diagram-3-8"></a> <img src="./images/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
+<a id="diagram-3-8"></a> <img src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
 
 *Diagram 3.8. The full dog washer circuit built with relays.*
 
@@ -295,7 +295,7 @@ outputs no signal; if it receives no signal, it outputs signal.
 
 That is what a NOT gate does.
 
-<a id="diagram-3-9"></a> <img src="./images/not-gate.gif" alt="A NOT gate">
+<a id="diagram-3-9"></a> <img src="./assets/final/not-gate.gif" alt="A NOT gate">
 
 *Diagram 3.9. A NOT gate.*
 
@@ -303,7 +303,7 @@ Now before we look at the completed circuit, lets learn some basic logic gate sy
 
 An AND gate is drawn like this:
 
-<a id="diagram-3-10"></a> <img src="./images/and-gate.svg" alt="An AND gate">
+<a id="diagram-3-10"></a> <img src="./assets/final/and-gate.svg" alt="An AND gate">
 
 *Diagram 3.10. An AND gate.*
 
@@ -311,7 +311,7 @@ This symbol represents the [AND circuit](#diagram-3-5) we made previously.
 
 An OR gate is drawn like this:
 
-<a id="diagram-3-11"></a> <img src="./images/or-gate.svg" alt="A OR gate">
+<a id="diagram-3-11"></a> <img src="./assets/final/or-gate.svg" alt="A OR gate">
 
 *Diagram 3.11. A OR gate.*
 
@@ -323,7 +323,7 @@ stay hidden for cleanliness sake.
 
 Here are three more useful gate symbols:
 
-<a id="diagram-3-12"></a> <img src="./images/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
+<a id="diagram-3-12"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
 
 *Diagram 3.12. NOT, NAND, NOR gates.*
 
@@ -333,7 +333,7 @@ I hope the pattern makes sense now, any regular gate with a circle at the end fl
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
-<a id="diagram-3-13"></a> <img src="./images/dog-washer-v2.gif" alt="The final dog washer circuit">
+<a id="diagram-3-13"></a> <img src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
 
 *Diagram 3.13. The final dog washer circuit.*
 
@@ -370,7 +370,7 @@ either be `0` or `1`.
 
 These are just labels that represent the state of a wire.
 
-<a id="diagram-4-1"></a> <img src="./images/0-s-and-1-s.svg" class="small" alt="0's and 1's">
+<a id="diagram-4-1"></a> <img src="./assets/final/0-s-and-1-s.svg" class="small" alt="0's and 1's">
 
 *Diagram 4.1. 0's and 1's.*
 
@@ -382,7 +382,7 @@ represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-<a id="diagram-4-2"></a> <img src="./images/3-states.gif" class="small" alt="States with 3 wires">
+<a id="diagram-4-2"></a> <img src="./assets/final/3-states.gif" class="small" alt="States with 3 wires">
 
 *Diagram 4.2. States with 3 wires.*
 
@@ -392,7 +392,7 @@ But, why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned?
 
 Not exactly. To understand this, let's take a quick detour to decimal, a.k.a. base ten.
 
-<a id="diagram-4-3"></a> <img src="./images/decimal.svg" alt="The decimal system">
+<a id="diagram-4-3"></a> <img src="./assets/final/decimal.svg" alt="The decimal system">
 
 *Diagram 4.3. The decimal system.*
 
@@ -402,7 +402,7 @@ digits: 0-9.
 This exact same place value logic can apply to the binary system too. We have two digits, 0 and 1, so
 each place is a multiple of 2.
 
-<a id="diagram-4-4"></a> <img src="./images/binary.svg" alt="The binary system">
+<a id="diagram-4-4"></a> <img src="./assets/final/binary.svg" alt="The binary system">
 
 *Diagram 4.4. The binary system.*
 
@@ -420,7 +420,7 @@ You don't need to do these problems in your head, but I hope the idea of how bin
 
 Let's walk through `1101` together.
 
-<a id="diagram-4-5"></a> <img src="./images/binary-example.svg" alt="An example in binary">
+<a id="diagram-4-5"></a> <img src="./assets/final/binary-example.svg" alt="An example in binary">
 
 *Diagram 4.5. An example in binary.*
 
@@ -430,7 +430,7 @@ the digit by a power of 10, we multiply it by a power of 2. That's it.
 So now that we can represent numbers with wires, how can we add numbers together? How can we compute
 sums. That is what the next section is all about.
 
-<a id="diagram-4-6"></a> <img src="./images/add-magic-box.svg" alt="Addition?">
+<a id="diagram-4-6"></a> <img src="./assets/final/add-magic-box.svg" alt="Addition?">
 
 *Diagram 4.6. Addition?*
 
@@ -438,7 +438,7 @@ sums. That is what the next section is all about.
 
 Let's start with a brief reminder of how we algorithmically add two decimal numbers.
 
-<a id="diagram-5-1"></a> <img src="./images/decimal-addition.gif" alt="Standard decimal addition">
+<a id="diagram-5-1"></a> <img src="./assets/final/decimal-addition.gif" alt="Standard decimal addition">
 
 *Diagram 5.1. Standard decimal addition.*
 
@@ -446,7 +446,7 @@ We start at the rightmost column, do 5+8, get 13, we carry the 1. So we write 3 
 the carry. We then move left and repeat over and over remembering to add any carry-in values. Binary
 addition works the same way.
 
-<a id="diagram-5-2"></a> <img src="./images/binary-addition.gif" alt="Binary addition">
+<a id="diagram-5-2"></a> <img src="./assets/final/binary-addition.gif" alt="Binary addition">
 
 *Diagram 5.2. Binary addition.*
 
@@ -498,7 +498,7 @@ This is called XOR short for exclusive OR.
 
 If we combine an OR gate and a NAND gate, and AND them together we get XOR:
 
-<a id="diagram-5-3"></a> <img src="./images/half-adder-sum.gif" alt="Half adder sum / XOR">
+<a id="diagram-5-3"></a> <img src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
 
 *Diagram 5.3. Half adder sum / XOR.*
 
@@ -506,7 +506,7 @@ OR checks that at least one input is on, and NAND makes sure that both inputs ar
 
 Here is how an XOR gate looks:
 
-<a id="diagram-5-4"></a> <img src="./images/xor-gate.svg" alt="An XOR gate">
+<a id="diagram-5-4"></a> <img src="./assets/final/xor-gate.svg" alt="An XOR gate">
 
 *Diagram 5.4. An XOR gate.*
 
