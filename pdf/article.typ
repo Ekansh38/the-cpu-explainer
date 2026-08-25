@@ -1,27 +1,6 @@
-#set page(
-  paper: "a4",
-  fill: rgb("#111111"),
-  margin: (x: 24mm, y: 22mm),
-)
-#set text(
-  font: ("Charter", "New York", "Georgia"),
-  size: 11pt,
-  fill: rgb("#e6e6e6"),
-)
-#set par(leading: 0.7em, spacing: 1.1em, justify: false)
-#show heading.where(level: 1): set text(size: 22pt, weight: "bold")
-#show heading.where(level: 2): set text(size: 16pt, weight: "bold")
-#show heading.where(level: 3): set text(size: 13pt, weight: "bold")
-#show heading: it => block(above: 1.8em, below: 0.6em, it)
-#show link: set text(fill: rgb("#e6e6e6"))
-#show raw.where(block: true): block.with(
-  fill: rgb("#1a1a1a"),
-  inset: 12pt,
-  radius: 4pt,
-  width: 100%,
-)
-#show raw: set text(font: "Menlo")
-#show image: it => align(center, block(above: 1.2em, below: 1.2em, it))
+#set page(paper: "a4", fill: rgb("#111111"), margin: (x: 24mm, y: 22mm))
+#set text(fill: rgb("#e6e6e6"))
+#show heading.where(level: 1): it => block(below: 2em, it)
 
 = The CPU: A very tall pile of simple
 <the-cpu-a-very-tall-pile-of-simple>
@@ -83,7 +62,7 @@ serious work. On the desk are a few things:
 - an abacus for basic arithmetic.
 - A decoder chart that does some stuff. We will come back to this later.
 
-#box(image("/assets/final/desk.svg", alt: "the desk with 3 drawers, the abacus and decoder chart"))
+#box(image("/pdf/.raster/desk.png", alt: "the desk with 3 drawers, the abacus and decoder chart"))
 
 #emph[Diagram 1.1. The desk setup.]
 
@@ -95,7 +74,7 @@ One quick distinction before we start: when I say \"drawer,\" I mean the
 desk drawers right next to Otto where he works. When I say \"slot,\" I
 mean the numbered compartments in the upstairs filing cabinet.
 
-#box(image("/assets/final/cabinet.svg", alt: "the filing cabinet"))
+#box(image("/pdf/.raster/cabinet.png", alt: "the filing cabinet"))
 
 #emph[Diagram 1.2. The filing cabinet.]
 
@@ -111,7 +90,7 @@ house. Otto reads from it like any other slot, but the value comes from
 whoever is turning the dial. He could technically write to slot 99 too,
 but that would be a bit disruptive.
 
-#box(image("/assets/final/house.svg", alt: "The outside of the house with a display, an input dial, a small ladder, windows, and a door."))
+#box(image("/pdf/.raster/house.png", alt: "The outside of the house with a display, an input dial, a small ladder, windows, and a door."))
 
 #emph[Diagram 1.3. The outside of the house, with the display and input
 dial.]
@@ -122,7 +101,7 @@ Otto uses `PC` to know which slot to read next, then uses the decoder
 chart to decide what that number means, and what procedure to follow
 based on each instruction.
 
-#box(image("/assets/final/loop.svg", alt: "Otto's loop"))
+#box(image("/pdf/.raster/loop.png", alt: "Otto's loop"))
 
 Diagram 1.4. Otto\'s basic loop. He reads the address in `PC`, fetches
 the number from that cabinet slot, uses the decoder chart to choose what
@@ -239,7 +218,7 @@ electricity, but the AND circuit we want to combine it with expects a
 input as a metal switch physically being moved. A signal in a wire
 can\'t reach over and somehow close that switch.
 
-#box(image("/assets/final/combination-problem.svg", alt: "The problem we currently face"))
+#box(image("/pdf/.raster/combination-problem.png", alt: "The problem we currently face"))
 
 #emph[Diagram 3.3. The problem we currently face.]
 
@@ -316,7 +295,7 @@ path easier to follow visually.
 
 This is how the ground symbol looks:
 
-#box(image("/assets/final/ground-symbol.svg", alt: "The ground symbol"))
+#box(image("/pdf/.raster/ground-symbol.png", alt: "The ground symbol"))
 
 #emph[Diagram 3.6. The ground symbol.]
 
@@ -364,7 +343,7 @@ gate symbols.
 
 An AND gate is drawn like this:
 
-#box(image("/assets/final/and-gate.svg", alt: "An AND gate"))
+#box(image("/pdf/.raster/and-gate.png", alt: "An AND gate"))
 
 #emph[Diagram 3.10. An AND gate.]
 
@@ -372,7 +351,7 @@ This symbol represents the AND circuit we made previously.
 
 An OR gate is drawn like this:
 
-#box(image("/assets/final/or-gate.svg", alt: "A OR gate"))
+#box(image("/pdf/.raster/or-gate.png", alt: "A OR gate"))
 
 #emph[Diagram 3.11. A OR gate.]
 
@@ -385,7 +364,7 @@ cleanliness sake.
 
 Here are three more useful gate symbols:
 
-#box(image("/assets/final/not-nand-nor-gates.svg", alt: "NOT, NAND, NOR gates"))
+#box(image("/pdf/.raster/not-nand-nor-gates.png", alt: "NOT, NAND, NOR gates"))
 
 #emph[Diagram 3.12. NOT, NAND, NOR gates.]
 
@@ -441,7 +420,7 @@ one wire, one bit. A bit can either be `0` or `1`.
 
 These are just labels that represent the state of a wire.
 
-#box(image("/assets/final/0-s-and-1-s.svg", alt: "0's and 1's"))
+#box(image("/pdf/.raster/0-s-and-1-s.png", alt: "0's and 1's"))
 
 #emph[Diagram 4.1. 0\'s and 1\'s.]
 
@@ -467,7 +446,7 @@ assigned?
 Not exactly. To understand this, let\'s take a quick detour to decimal,
 a.k.a. base ten.
 
-#box(image("/assets/final/decimal.svg", alt: "The decimal system"))
+#box(image("/pdf/.raster/decimal.png", alt: "The decimal system"))
 
 #emph[Diagram 4.3. The decimal system.]
 
@@ -477,7 +456,7 @@ That is because we have ten digits: 0-9.
 This exact same place value logic can apply to the binary system too. We
 have two digits, 0 and 1, so each place is a multiple of 2.
 
-#box(image("/assets/final/binary.svg", alt: "The binary system"))
+#box(image("/pdf/.raster/binary.png", alt: "The binary system"))
 
 #emph[Diagram 4.4. The binary system.]
 
@@ -496,7 +475,7 @@ of how binary works makes sense.
 
 Let\'s walk through `1101` together.
 
-#box(image("/assets/final/binary-example.svg", alt: "An example in binary"))
+#box(image("/pdf/.raster/binary-example.png", alt: "An example in binary"))
 
 #emph[Diagram 4.5. An example in binary.]
 
@@ -508,7 +487,7 @@ So now that we can represent numbers with wires, how can we add numbers
 together? How can we compute sums. That is what the next section is all
 about.
 
-#box(image("/assets/final/add-magic-box.svg", alt: "Addition?"))
+#box(image("/pdf/.raster/add-magic-box.png", alt: "Addition?"))
 
 #emph[Diagram 4.6. Addition?]
 
@@ -602,7 +581,7 @@ inputs are not on.
 
 Here is how an XOR gate looks:
 
-#box(image("/assets/final/xor-gate.svg", alt: "An XOR gate"))
+#box(image("/pdf/.raster/xor-gate.png", alt: "An XOR gate"))
 
 #emph[Diagram 5.4. An XOR gate.]
 

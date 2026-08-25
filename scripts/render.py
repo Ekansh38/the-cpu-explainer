@@ -7,35 +7,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "pdf" / "article.pdf.md"
 FRAMES = ROOT / "assets" / "frames"
+FINAL = ROOT / "assets" / "final"
+RASTER = ROOT / "pdf" / ".raster"
 TYP_OUT = ROOT / "pdf" / "article.typ"
 PDF_OUT = ROOT / "pdf" / "the-cpu-explainer.pdf"
 
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+RASTER_WIDTH = 1800
 
 PREAMBLE = """\
-#set page(
-  paper: "a4",
-  fill: rgb("#111111"),
-  margin: (x: 24mm, y: 22mm),
-)
-#set text(
-  font: ("Charter", "New York", "Georgia"),
-  size: 11pt,
-  fill: rgb("#e6e6e6"),
-)
-#set par(leading: 0.7em, spacing: 1.1em, justify: false)
-#show heading.where(level: 1): set text(size: 22pt, weight: "bold")
-#show heading.where(level: 2): set text(size: 16pt, weight: "bold")
-#show heading.where(level: 3): set text(size: 13pt, weight: "bold")
-#show heading: it => block(above: 1.8em, below: 0.6em, it)
-#show link: set text(fill: rgb("#e6e6e6"))
-#show raw.where(block: true): block.with(
-  fill: rgb("#1a1a1a"),
-  inset: 12pt,
-  radius: 4pt,
-  width: 100%,
-)
-#show raw: set text(font: "Menlo")
-#show image: it => align(center, block(above: 1.2em, below: 1.2em, it))
+#set page(paper: "a4", fill: rgb("#111111"), margin: (x: 24mm, y: 22mm))
+#set text(fill: rgb("#e6e6e6"))
+#show heading.where(level: 1): it => block(below: 2em, it)
 
 """
 
@@ -98,6 +81,61 @@ def html_img_to_md(match):
     return f"![{alt}]({src})"
 
 
+def svg_aspect(svg_path):
+    text = svg_path.read_text()
+    m = re.search(r'viewBox="[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)"', text)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    m = re.search(r'width="([\d.]+)"[^>]*height="([\d.]+)"', text)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    return 800.0, 600.0
+
+
+def rasterize(svg_path):
+    RASTER.mkdir(exist_ok=True)
+    out = RASTER / (svg_path.stem + ".png")
+    if out.exists() and out.stat().st_mtime >= svg_path.stat().st_mtime:
+        return out
+
+    w, h = svg_aspect(svg_path)
+    px_w = RASTER_WIDTH
+    px_h = max(1, int(px_w * h / w))
+
+    wrapper = RASTER / f".{svg_path.stem}.html"
+    wrapper.write_text(
+        f'<html><head><style>html,body{{margin:0;background:transparent}}'
+        f'img{{width:{px_w}px;height:{px_h}px;display:block}}</style></head>'
+        f'<body><img src="{svg_path.as_uri()}"></body></html>'
+    )
+
+    subprocess.run([
+        CHROME, "--headless=new", "--disable-gpu",
+        f"--window-size={px_w},{px_h}",
+        "--hide-scrollbars",
+        "--default-background-color=00000000",
+        f"--screenshot={out}",
+        wrapper.as_uri(),
+    ], check=True, capture_output=True)
+    wrapper.unlink()
+    return out
+
+
+def swap_svg_refs(text):
+    def sub(match):
+        alt, src = match.group(1), match.group(2)
+        if not src.endswith(".svg"):
+            return match.group(0)
+        svg_path = (ROOT / src.lstrip("/").removeprefix("./")).resolve()
+        if not svg_path.exists():
+            return match.group(0)
+        png = rasterize(svg_path)
+        rel = "/" + str(png.relative_to(ROOT))
+        return f"![{alt}]({rel})"
+
+    return re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", sub, text)
+
+
 def to_typst(md_text):
     result = subprocess.run(
         ["pandoc", "-f", "gfm", "-t", "typst"],
@@ -117,6 +155,7 @@ def main():
     text = re.sub(r"\[([^\]]+)\]\(#[^)]+\)", r"\1", text)
     text = re.sub(r"<img [^>]*>", expand, text)
     text = re.sub(r"<img [^>]*>", html_img_to_md, text)
+    text = swap_svg_refs(text)
     text = text.replace("./assets/", "/assets/")
 
     typst_body = to_typst(text)
