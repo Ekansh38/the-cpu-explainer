@@ -17,8 +17,21 @@ RASTER_WIDTH = 1800
 
 PREAMBLE = """\
 #set page(paper: "a4", fill: rgb("#111111"), margin: (x: 24mm, y: 22mm))
-#set text(fill: rgb("#e6e6e6"))
-#show heading.where(level: 1): it => block(below: 2em, it)
+#set text(fill: rgb("#e6e6e6"), size: 11pt)
+#show heading.where(level: 1): it => block(below: 2.5em)[
+  #set text(size: 26pt, weight: "bold")
+  #it
+]
+#show heading.where(level: 2): it => block(above: 2.6em, below: 1em)[
+  #set text(size: 18pt, weight: "bold")
+  #it
+  #v(0.2em)
+  #line(length: 100%, stroke: 0.5pt + rgb("#333333"))
+]
+#show heading.where(level: 3): it => block(above: 1.8em, below: 0.6em)[
+  #set text(size: 13pt, weight: "bold")
+  #it
+]
 
 """
 

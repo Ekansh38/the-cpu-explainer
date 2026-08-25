@@ -438,7 +438,7 @@ sums. That is what the next section is all about.
 
 Let's start with a brief reminder of how we algorithmically add two decimal numbers.
 
-<a id="diagram-5-1"></a> <img src="./assets/final/decimal-addition.gif" alt="Standard decimal addition">
+<a id="diagram-5-1"></a> <img src="./assets/final/decimal-addition.gif" class="small" alt="Standard decimal addition">
 
 *Diagram 5.1. Standard decimal addition.*
 
@@ -446,7 +446,7 @@ We start at the rightmost column, do 5+8, get 13, we carry the 1. So we write 3 
 the carry. We then move left and repeat over and over remembering to add any carry-in values. Binary
 addition works the same way.
 
-<a id="diagram-5-2"></a> <img src="./assets/final/binary-addition.gif" alt="Binary addition">
+<a id="diagram-5-2"></a> <img src="./assets/final/binary-addition.gif" class="small" alt="Binary addition">
 
 *Diagram 5.2. Binary addition.*
 
