@@ -74,7 +74,7 @@ def wrap(body):
     return f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>The CPU: A very tall pile of simple</title>
 <style>
-@page {{ size: A4; margin: 22mm 24mm; }}
+@page {{ size: A4; margin: 0; }}
 html, body {{
   background: #111;
   color: #e6e6e6;
@@ -83,9 +83,10 @@ html, body {{
   margin: 0;
 }}
 body {{
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   font-size: 12pt;
-  line-height: 1.55;
+  line-height: 1.6;
+  padding: 22mm 24mm;
 }}
 h1 {{ font-size: 22pt; margin: 0 0 1em; }}
 h2 {{ font-size: 16pt; margin: 2em 0 0.5em; break-after: avoid; }}
@@ -93,7 +94,7 @@ h3 {{ font-size: 13pt; margin: 1.5em 0 0.5em; break-after: avoid; }}
 p {{ margin: 0 0 1em; orphans: 3; widows: 3; }}
 img {{ max-width: 100%; max-height: 21cm; display: block; margin: 1.2em auto; break-inside: avoid; }}
 img.small {{ max-width: 220px; }}
-code {{ font-family: "Courier New", monospace; font-size: 0.9em; }}
+code {{ font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em; }}
 pre {{ background: #1a1a1a; padding: 12px; overflow-x: auto; break-inside: avoid; }}
 blockquote {{ border-left: 2px solid #444; margin: 1em 0; padding-left: 1em; color: #bbb; break-inside: avoid; }}
 hr {{ border: none; border-top: 1px solid #444; margin: 2em 0; }}
