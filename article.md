@@ -369,6 +369,8 @@ either be `0` or `1`.
 
 These are just labels that represent the state of a wire.
 
+A group of 8 bits is called a byte. With 8 bits, there are `2^8`, or 256, possible patterns. So if we use those patterns to represent non-negative numbers, one byte can represent 0 through 255.
+
 <a id="diagram-4-1"></a> <img src="./assets/final/0-s-and-1-s.svg" class="small" alt="0's and 1's">
 
 *Diagram 4.1. 0's and 1's.*
@@ -567,8 +569,9 @@ Let's again package this up into a box:
 
 We have made a full adder!
 
-Now we can chain full adders together to add two 8-bit numbers. One 8-bit number can represent any
-number form 0-255. That is 256 total combinations because `2^8` is 256.
+Now we can chain full adders together to add two 8-bit numbers. Since 8 bits make one byte, this is
+an adder that can add two one-byte numbers. One byte can represent any number from 0 to 255. That is
+256 total combinations because `2^8` is 256.
 
 <a id="diagram-5-10"></a> <img src="./assets/final/8-bit-adder.svg" alt="An 8-bit adder">
 
@@ -602,16 +605,16 @@ As you can see in the third example, adding 1 to 255 turns every sum bit to `0` 
 carry-out on.
 
 This doesn't mean the adder got the wrong answer. In fact, `255 + 1` is `1 00000000` in binary:
-eight `0` sum bits, plus one extra carry-out bit on the left. If we only look at the eight sum bits,
-the result looks like `00000000`, or 0. If we also look at the carry-out, we can see that the real
-answer was 256.
+eight `0` output bits, plus one extra carry-out bit on the left. If we only look at the one-byte
+output, the result looks like `00000000`, or 0. If we also look at the carry-out, we can see that the
+real answer was 256.
 
-That is called an overflow: the result was too large to fit inside eight bits, so the extra
+That is called an overflow: the result was too large to fit inside one byte, so the extra
 information spilled out into the carry-out bit.
 
 The adder can also produce little status wires, called flags.
 
-For example, if the answer is `00000000`, a ZERO flag can turn on. If addition spills past eight bits,
+For example, if the answer is `00000000`, a ZERO flag can turn on. If addition spills past one byte,
 a CARRY flag can turn on. So `11111111 + 00000001` gives `00000000` with carry-out `1`.
 
 I don't want to go deep into flags yet. Just remember that the adder can output little yes/no facts
