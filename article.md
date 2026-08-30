@@ -10,9 +10,9 @@ You can hear the phrase
 
 "computers think in 1s and 0s"
 
-a hundred times and still not understand how a computer actually works. It sounds like an
-explanation, but by itself it explains basically nothing. Sure, a wire can be high or low, a light
-can be on or off, and a switch can be open or closed. But how does that become addition?
+a hundred times and still not understand how a computer actually works. By itself, this explains
+basically nothing. Sure, a wire can be high or low. Sure, a light can be on or off. But how does that
+become addition?
 
 How does that become memory?
 
@@ -20,10 +20,10 @@ How does that become a program sitting in RAM, one instruction after another, te
 to do?
 
 This article is going to walk you through how a CPU is built, starting with the simplest
-possible components. 
+possible components.
 
-We start with a simple circuit turning on and off a light bulb and work our way through fundamental
-digital logic and electrical engineering concepts. 
+We start with a simple circuit turning a light bulb on and off, then work our way through logic
+gates, memory, and the basic circuits underneath them.
 
 Some resources stay extremely high-level, so you never really understand how a CPU actually works.
 
@@ -183,16 +183,16 @@ Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the bulb to turn on.
 
-Now lets combine the two to form the complete circuit. 
+Now let's combine the two to form the complete circuit.
 
 But now we have a problem. 
 
 The `MUDDY OR STINKY` circuit outputs its result with an electrical signal: on or off.
 Our previous AND circuit relies on a human flipping a switch in order to compute a result.
 
-Or in other words the OR circuit we built outputs a result as electricity, but the AND circuit we
-want to combine it with expects a input as a metal switch physically being moved. A signal in a wire
-can't reach over and somehow close that switch.
+Or in other words, the OR circuit we built outputs a result as electricity, but the AND circuit we
+want to combine it with expects an input as a metal switch physically being moved. A signal in a wire
+can't reach over and close that switch by itself.
 
 <a id="diagram-3-3"></a> <img src="./assets/final/combination-problem.svg" alt="The problem we currently face">
 
@@ -201,8 +201,8 @@ can't reach over and somehow close that switch.
 So if we want to chain circuits together, we need a way for an electrical signal to control a switch
 automatically. How can we do this?
 
-Electromagnetic relays, that's how. (or at least that is one of the early solutions to this problem,
-we will talk about other solutions a little more later on)
+Electromagnetic relays, that's how. Or at least, that is one early solution to this problem. We will
+talk about other solutions a little more later on.
 
 This probably sounds quite complicated, but it is just a magnet powered by electricity.
 
@@ -230,8 +230,8 @@ demonstrate how the relay works.
 As you can also tell by the diagram, there is a slight delay between the coil turning on and the
 metal arm moving. Relays are mechanical, so they do not switch instantly.
 
-Now lets see how we can build an actual electrical AND gate that takes in as input, 2 wires, and
-outputs an electrical signal.
+Now let's see how we can build an actual electrical AND gate that takes two input wires and outputs
+an electrical signal.
 
 <a id="diagram-3-5"></a> <img src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
@@ -277,8 +277,7 @@ That is an OR gate using relays. Now here is the full dog washer circuit up to t
 *Diagram 3.8. The full dog washer circuit built with relays.*
 
 The animation does not show every possible combination of switches, only a handful. But in a
-nutshell, if any of the first 2 inputs are on, and the third the bulb will be on. I hope it makes
-sense how it works.
+nutshell, if `MUDDY` or `STINKY` is on, and `OLD_WASH` is also on, the bulb turns on.
 
 Okay, now let's introduce one last input, or "sensor": `RAIN_SOON`, whether it is predicted to rain soon.
 The rules of the circuit change once again:
@@ -299,7 +298,7 @@ That is what a NOT gate does.
 
 *Diagram 3.9. A NOT gate.*
 
-Now before we look at the completed circuit, lets learn some basic logic gate symbols.
+Now before we look at the completed circuit, let's learn some basic logic gate symbols.
 
 An AND gate is drawn like this:
 
@@ -311,9 +310,9 @@ This symbol represents the [AND circuit](#diagram-3-5) we made previously.
 
 An OR gate is drawn like this:
 
-<a id="diagram-3-11"></a> <img src="./assets/final/or-gate.svg" alt="A OR gate">
+<a id="diagram-3-11"></a> <img src="./assets/final/or-gate.svg" alt="An OR gate">
 
-*Diagram 3.11. A OR gate.*
+*Diagram 3.11. An OR gate.*
 
 This symbol represents the [OR circuit](#diagram-3-7) we made previously.
 
@@ -327,9 +326,9 @@ Here are three more useful gate symbols:
 
 *Diagram 3.12. NOT, NAND, NOR gates.*
 
-NAND is just AND but then flip the result, so AND + NOT or NAND. Same with NOR. OR + NOT = NOR.
+NAND is AND with the output flipped. NOR is OR with the output flipped.
 
-I hope the pattern makes sense now, any regular gate with a circle at the end flips its output.
+That little circle at the end of a gate means "flip the output."
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
@@ -345,8 +344,8 @@ Relays aren't the only solution. They are simply one of the early and intuitive 
 understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) 
 actually used these types of relays.
 
-In modern computers a similar behavior is achieved by using transistors. 
-If you want to learn more about transistor based logic gates: [visit this site](https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html)
+In modern computers, similar behavior is achieved by using transistors. 
+If you want to learn more about transistor based logic gates: [visit this site](https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html).
 I don't know about you, but addition seems like a pretty logical next step to these logic gates. But
 not so fast.
 
@@ -515,20 +514,27 @@ we just use an AND gate to check if both inputs are on.
 
 Now here is our half adder:
 
-<diagram, use the xor gate>
+<a id="diagram-5-5"></a> <img src="./assets/final/half-adder.gif" alt="A half adder">
+
+*Diagram 5.5. A half adder.*
+
+As you can see it works! `0+0 = 0, 1+0 = 1, 0+1 = 1, and 1+1 = 10`!
 
 Now lets package up our half adder into a little box:
 
-<half adder diagram in a box with inputs and outputs>
+<a id="diagram-5-6"></a> <img src="./assets/final/half-adder-box.svg" alt="A half adder chip">
+
+*Diagram 5.6. A half adder chip.*
 
 Now that we have a half adder, we can add the rightmost column. That works because the rightmost
 column has no carry-in from a previous column. It only needs to add two bits.
 
 So if we have a number like this:
 
-    1111
-+   1111
--------- <diagram>
+<a id="diagram-5-7"></a> <img src="./assets/final/carry-in-issue.svg" alt="We can't add 3 numbers yet!">
+
+*Diagram 5.7. We can't add 3 numbers yet!*
+
 
 The half adder can handle the first column: `1 + 1`. That gives us a sum bit of `0` and a carry-out
 of `1`.
@@ -536,14 +542,16 @@ of `1`.
 But now the next column has three things to add: `1 + 1 + 1`. The two original bits, plus the carry
 from the previous column.
 
-A half adder cannot do that. It only accepts two inputs. To continue adding across multiple columns,
-we need a circuit that can take three inputs: `A`, `B`, and `carry-in`.
+A half adder cannot do that. It only accepts two inputs. To continue adding up the other columns,
+we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`.
 
 To add three binary numbers we use two half adders and a OR gate:
 
-<diagram>
+<a id="diagram-5-8"></a> <img src="./assets/final/full-adder.gif" alt="A full adder">
 
-This might look confusing at first. What if both half adders output a carry at the same time?
+*Diagram 5.8. A full adder.*
+
+This might look confusing at first. What if both half adders output a carry-out at the same time?
 
 That actually never happens. If a half adder outputs a carry, the sum bit is always 0. So both are
 not able to output carries. Take a moment to think about this if you are confused.
@@ -553,21 +561,53 @@ carry-out is `1`.
 
 Let's again package this up into a box:
 
-<diagram, full adder>
+<a id="diagram-5-9"></a> <img src="./assets/final/full-adder-box.svg" alt="A full adder chip">
+
+*Diagram 5.9. A full adder chip.*
 
 We have made a full adder!
 
 Now we can chain full adders together to add two 8-bit numbers. One 8-bit number can represent any
-number form 0-255.
+number form 0-255. That is 256 total combinations because `2^8` is 256.
 
-<diagram>
+<a id="diagram-5-10"></a> <img src="./assets/final/8-bit-adder.svg" alt="An 8-bit adder">
+
+*Diagram 5.10. An 8-bit adder.*
 
 Each full adder handles one column. The carry-out from one column becomes the carry-in for the next
-column. That is it! That is all addition is!
+column. That is it! That is all addition is! 
+
+Keep in mind carry-in for the first adder is set to ground, a.k.a 0.
+
+Also notice how we have 9 outputs, not 8, that is because two 8-bit values can add up to a number
+greater than eight bits. Its like how adding two 2-digit numbers could result in a three digit
+number for us. Like `50+50=100`.
 
 Now let's package that up into a box once again:
 
-<diagram, animated>
+<a id="diagram-5-11"></a> <img src="./assets/final/8-bit-adder-box.svg" alt="An 8-bit adder chip">
+
+*Diagram 5.11. An 8-bit adder chip.*
+
+Now we have the carry-out and carry-in as separate inputs and outputs and the whole adder nicely
+organized into this chip.
+
+Lets have a look at some example problems:
+
+<a id="diagram-5-12"></a> <img src="./assets/final/8-bit-adder-examples.gif" alt="Some examples on the adder">
+
+*Diagram 5.12. Some examples on the adder.*
+
+As you can see in the third example, adding 1 to 255 turns every sum bit to `0` and turns the
+carry-out on.
+
+This doesn't mean the adder got the wrong answer. In fact, `255 + 1` is `1 00000000` in binary:
+eight `0` sum bits, plus one extra carry-out bit on the left. If we only look at the eight sum bits,
+the result looks like `00000000`, or 0. If we also look at the carry-out, we can see that the real
+answer was 256.
+
+That is called an overflow: the result was too large to fit inside eight bits, so the extra
+information spilled out into the carry-out bit.
 
 The adder can also produce little status wires, called flags.
 
@@ -578,7 +618,7 @@ I don't want to go deep into flags yet. Just remember that the adder can output 
 about the sum. That matters later for instructions like "jump if zero." But let's not get ahead of
 ourselves.
 
-Now let's see if we can build a circuit that counts by ones.
+Now let's see if we can build a circuit that counts by ones like, 1, 2, 3, 4,...
 
 The obvious idea is to feed the output of the adder back into one of its inputs. Start with
 `00000000`, add `00000001`, get `00000001`. Feed that back in, add `00000001` again, get
