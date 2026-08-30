@@ -621,7 +621,17 @@ I don't want to go deep into flags yet. Just remember that the adder can output 
 about the sum. That matters later for instructions like "jump if zero." But let's not get ahead of
 ourselves.
 
-Now let's see if we can build a circuit that counts by ones like, 1, 2, 3, 4,...
+Before we move on, this is the first real payoff we have hit.
+
+We have built Otto's abacus! If you remember closely Otto used his abacus for adding two numbers,
+and we have build a circuit that does just that!
+
+But Otto also had something else on his desk: drawers.
+
+Those drawers had a very important ability. A drawer could hold a number still while Otto worked,
+then change only when Otto specifically replaced it with a new number.
+
+For example, let's say we want to build a circuit that counts by ones like, 1, 2, 3, 4,...
 
 The obvious idea is to feed the output of the adder back into one of its inputs. Start with
 `00000000`, add `00000001`, get `00000001`. Feed that back in, add `00000001` again, get
@@ -652,3 +662,5 @@ So this is not enough. We need a circuit that can hold a value still, then updat
 tell it to.
 
 That is the next problem: memory.
+
+## Storing a Bit
