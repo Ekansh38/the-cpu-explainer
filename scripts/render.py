@@ -115,12 +115,35 @@ def html_img_to_md(match):
     return f"![{alt}]({src})"
 
 
-def swap_white(s, target):
-    s = re.sub(r"#[fF]{6}(?![0-9a-fA-F])", target, s)
-    s = re.sub(r"#[fF]{3}(?![0-9a-fA-F])", target, s)
-    s = re.sub(r"\bwhite\b", target, s)
-    s = re.sub(r"\brgb\(\s*255\s*,\s*255\s*,\s*255\s*\)", target, s)
-    return s
+def swap_near_white(text, target_hex):
+    target_no_hash = target_hex.lstrip("#")
+    tr = int(target_no_hash[0:2], 16)
+    tg = int(target_no_hash[2:4], 16)
+    tb = int(target_no_hash[4:6], 16)
+
+    def rgb_sub(m):
+        r, g, b = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if r >= 240 and g >= 240 and b >= 240:
+            return f"rgb({tr}, {tg}, {tb})"
+        return m.group(0)
+
+    def hex_sub(m):
+        h = m.group(1)
+        if len(h) == 3:
+            h = h[0] * 2 + h[1] * 2 + h[2] * 2
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        if r >= 240 and g >= 240 and b >= 240:
+            return target_hex
+        return m.group(0)
+
+    text = re.sub(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)", rgb_sub, text)
+    text = re.sub(r"#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})(?![0-9a-fA-F])", hex_sub, text)
+    text = re.sub(r"\bwhite\b", target_hex, text)
+    return text
+
+
+def strip_text_shadow(text):
+    return re.sub(r"text-shadow:[^;]*;", "text-shadow: none;", text)
 
 
 def transform_svg_light(svg_text):
@@ -132,9 +155,11 @@ def transform_svg_light(svg_text):
     out = []
     for i, part in enumerate(parts):
         if i % 2 == 1:
-            out.append(swap_white(part, TEXT_BLACK))
+            part = swap_near_white(part, TEXT_BLACK)
+            part = strip_text_shadow(part)
         else:
-            out.append(swap_white(part, LINE_GRAY))
+            part = swap_near_white(part, LINE_GRAY)
+        out.append(part)
     return "".join(out)
 
 
@@ -195,9 +220,8 @@ def recolor_raster(raster_path):
         return out
     subprocess.run([
         "magick", str(raster_path),
-        "-fuzz", "8%",
-        "-fill", RASTER_GRAY,
-        "-opaque", "white",
+        "-fuzz", "15%", "-fill", RASTER_GRAY, "-opaque", "white",
+        "-fuzz", "15%", "-fill", "#ffffff00", "-opaque", "#101011",
         str(out),
     ], check=True)
     return out
