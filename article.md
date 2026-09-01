@@ -237,8 +237,8 @@ an electrical signal.
 
 *Diagram 3.5. An AND gate.*
 
-If both inputs have signal, then the output circuit forms a complete loop. The output circuit has 2
-breaks which are both controlled by each input.
+The output circuit has two breaks in it, one controlled by each input relay. Only when both inputs
+have signal do both relays close, completing the output loop.
 
 Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
 OR gate:
@@ -346,6 +346,7 @@ actually used these types of relays.
 
 In modern computers, similar behavior is achieved by using transistors. 
 If you want to learn more about transistor based logic gates: [visit this site](https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html).
+
 I don't know about you, but addition seems like a pretty logical next step to these logic gates. But
 not so fast.
 
@@ -511,7 +512,7 @@ Here is how an XOR gate looks:
 
 *Diagram 5.4. An XOR gate.*
 
-Now lets do the carry value. The carry is simple! We only want to carry if we are doing `1 + 1`, so we
+Now let's do the carry value. The carry is simple! We only want to carry if we are doing `1 + 1`, so
 we just use an AND gate to check if both inputs are on.
 
 Now here is our half adder:
@@ -520,9 +521,9 @@ Now here is our half adder:
 
 *Diagram 5.5. A half adder.*
 
-As you can see it works! `0+0 = 0, 1+0 = 1, 0+1 = 1, and 1+1 = 10`!
+As you can see it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and `1 + 1 = 10`.
 
-Now lets package up our half adder into a little box:
+Now let's package up our half adder into a little box:
 
 <a id="diagram-5-6"></a> <img src="./assets/final/half-adder-box.svg" alt="A half adder chip">
 
@@ -586,7 +587,7 @@ Also notice how we have 9 outputs, not 8, that is because two 8-bit values can a
 greater than eight bits. Its like how adding two 2-digit numbers could result in a three digit
 number for us. Like `50+50=100`.
 
-Now let's package that up into a box once again:
+Now let's package this up into a box once again:
 
 <a id="diagram-5-11"></a> <img src="./assets/final/8-bit-adder-box.svg" alt="An 8-bit adder chip">
 
@@ -623,8 +624,8 @@ ourselves.
 
 Before we move on, this is the first real payoff we have hit.
 
-We have built Otto's abacus! If you remember closely Otto used his abacus for adding two numbers,
-and we have build a circuit that does just that!
+We have built Otto's abacus! If you remember, Otto used his abacus for adding two numbers, and we
+have built a circuit that does just that!
 
 But Otto also had something else on his desk: drawers.
 
@@ -651,8 +652,8 @@ input = input + 1
 That can never settle. As soon as the output changes, the input changes too, which means the output
 has to change again, which means the input changes again.
 
-With relays, you might physically see this mess. With transistors, it would happen so super insanely
-quickly.
+With relays, you might physically see this mess play out. With transistors, it would happen almost
+instantly.
 
 There is no boundary between the old value and the new value.
 
@@ -664,3 +665,103 @@ tell it to.
 That is the next problem: memory.
 
 ## Storing a Bit
+
+To store a bit, we need to understand feedback. Feedback is simply feeding the output of a circuit
+into the input. There are two main kinds of feedback, unstable and stable. We just witnessed an
+example of unstable feedback, where feeding the output of the adder into its input resulted in
+messy and unpredictable behavior. 
+
+The other type of feedback is known as stable, because it can produce two stable states. Stable
+feedback is used to create circuits whose outputs aren't purely based on their inputs, but also based
+on what happened before. Stable feedback is exactly what we need to create memory. 
+
+This diagram should help this make sense:
+
+<diagram of SR latch with Q and opposite of Q>
+
+This is called an SR latch, SR stands for set-reset. The value `Q` is the output we really care
+about, if it is `1` that means the latch is storing a `1`, if it is `0`, the latch is storing a `0`.
+
+The two inputs are `set` and `reset`. Turning `set` on forces `Q` to `1` and turning `reset` on
+forces `Q` to `0`.
+
+For this circuit to be used properly set and reset should never be on at the same time.
+
+The cool part is, if both set and reset are `0`, then `Q` is whatever we last did to it! The output
+loops back into the circuit, so the current state keeps reinforcing itself. This is the basic
+concept behind memory.
+
+A simple way to think about this is:
+
+If `SET` is on, the bottom NOR gate has to output `0`, because one of its inputs is on. That makes
+`NOT Q` equal to `0`.
+
+Now the top NOR gate sees two `0` inputs: `RESET` is `0`, and `NOT Q` is `0`. So the top NOR gate
+outputs `1`, making `Q` equal to `1`.
+
+Then even if we turn `SET` back off, the latch stays in that state. `Q` is still `1`, which keeps
+forcing `NOT Q` to `0`, and `NOT Q` being `0` allows `Q` to stay `1`.
+
+`RESET` works the other way. If `RESET` is on, it forces `Q` to `0`, which allows `NOT Q` to become
+`1`. Then even after `RESET` turns off, `NOT Q` keeps forcing `Q` to stay `0`.
+
+The circuit has state. Its output depends not only on the current input, but on what happened before.
+
+Now that we have the core mechanism, lets refine the interface. All I mean by that is, right now
+`SET` and `RESET` is super clunky, while it demonstrates the mechanism, what we would really like to
+have is two inputs.
+
+- `Data` (`D`)
+- `Enable` (`E`)
+
+When the enable wire turns on, `Data` gets stored in `Q`. Or in other words, when we turn the
+`Enable` wire on, `Q` mirrors `D`. Then when we turn `E` off, `Q` stays stable with whatever `D` was
+last. 
+
+This is much easier than fiddling with `SET` and `RESET`.
+
+This type of latch called a D latch, D meaning data can be made using the SR latch and a few extra
+logic gates. 
+
+It basically checks, if data is true and enable is true, set is true, and if data is false and
+enable is true, reset is false. That's it, so lets not worry about the exact implementation.
+
+If you really want to know how it works have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
+
+<diagram, black box>
+
+But we have a problem. Lets say we now try and use 8 of these D latches to hold the result of our
+add which would then feedback back into the input, for our accumulator, it still wouldn't work.
+
+
+This is because lets say we have the enable wire hooked up to a button. When that button is pressed
+down, the enable wire is on, thus `Q=D` for that time, okay. But if `Q` feeds back into the adder,
+and the result of the adder `D` changes quick enough `Q` can change again, jumping unpredictable
+based on how long we hold that button for. 
+
+If we want the accumulator to work correctly we need to have the enable wire on for an instant and
+then back off. That is just hard to do.
+
+<diagram, showing this setup>
+
+But what if we had a type of latch that only stores `D` as `E` turns on?
+
+<diagram, of that edge and the graph>
+
+This graph shows the state of a wire, when it is at the top it is on, when it as the bottom it is
+off. When a switch if flicked or a button pressed a transition happens. What if we only set `Q` to
+`D` on that transition, also known as an "edge" because it looks like an edge, on the graph.
+
+<diagram>
+
+This is called a D-type edge-triggered flip-flop. This might sound like a mouthful but, D-type just
+means it takes in a data input, it is edge-triggered because it triggers on the edge of a signal,
+and flip-flop is another word for latch, usually used for edge-triggered designs.
+
+How it works is, when the enable wire is off, the first latch stores `D`, right. Because the not
+gate means that if enable is off then its on. Then when enable turns on, the second latch will store
+the output of the first one. Now because it is on, the first latch is locked, it can't change! 
+
+That is how this flip-flop works.
+
+
