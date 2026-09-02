@@ -4,6 +4,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+import numpy as np
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "pdf" / "article.pdf.md"
 FRAMES = ROOT / "assets" / "frames"
@@ -218,12 +221,34 @@ def recolor_raster(raster_path):
     out = out_dir / raster_path.name
     if out.exists() and out.stat().st_mtime >= raster_path.stat().st_mtime:
         return out
-    subprocess.run([
-        "magick", str(raster_path),
-        "-fuzz", "15%", "-fill", RASTER_GRAY, "-opaque", "white",
-        "-fuzz", "15%", "-fill", "#ffffff00", "-opaque", "#101011",
-        str(out),
-    ], check=True)
+
+    img = np.array(Image.open(raster_path).convert("RGBA"))
+    r = img[..., 0].astype(np.int32)
+    g = img[..., 1].astype(np.int32)
+    b = img[..., 2].astype(np.int32)
+    a = img[..., 3].astype(np.int32)
+
+    max_c = np.maximum(np.maximum(r, g), b)
+    min_c = np.minimum(np.minimum(r, g), b)
+    chroma = max_c - min_c
+    luminance = (r + g + b) // 3
+
+    gray_mask = chroma < 30
+    fill = 0x44
+    gray_alpha = (luminance * a) // 255
+
+    light_chroma_mask = (~gray_mask) & (luminance > 180)
+    dr = (r * 65) // 100
+    dg = (g * 65) // 100
+    db = (b * 65) // 100
+
+    out_r = np.where(gray_mask, fill, np.where(light_chroma_mask, dr, r))
+    out_g = np.where(gray_mask, fill, np.where(light_chroma_mask, dg, g))
+    out_b = np.where(gray_mask, fill, np.where(light_chroma_mask, db, b))
+    out_a = np.where(gray_mask, gray_alpha, a)
+
+    result = np.stack([out_r, out_g, out_b, out_a], axis=-1).astype(np.uint8)
+    Image.fromarray(result, "RGBA").save(out)
     return out
 
 
