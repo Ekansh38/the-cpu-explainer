@@ -675,25 +675,21 @@ The other type of feedback is known as stable, because it can produce two stable
 feedback is used to create circuits whose outputs aren't purely based on their inputs, but also based
 on what happened before. Stable feedback is exactly what we need to create memory. 
 
-The circuit that does this is called an SR latch, SR stands for set-reset. The value `Q` is the output we really care
+This diagram should help this make sense:
+
+<diagram of SR latch with Q and opposite of Q>
+
+This is called an SR latch, SR stands for set-reset. The value `Q` is the output we really care
 about, if it is `1` that means the latch is storing a `1`, if it is `0`, the latch is storing a `0`.
 
-The diagram also shows a second output written as a Q with a bar over it. That is just how engineers
-write `NOT Q`, pronounced "not Q". It always holds the opposite of `Q`. I will write it as `NOT Q`
-in the text.
-
-The two inputs are `SET` and `RESET`, drawn as little buttons in the diagram: gray means not
-pressed, red means pressed. Pressing `SET` forces `Q` to `1` and pressing `RESET` forces `Q` to `0`.
+The two inputs are `set` and `reset`. Turning `set` on forces `Q` to `1` and turning `reset` on
+forces `Q` to `0`.
 
 For this circuit to be used properly set and reset should never be on at the same time.
 
 The cool part is, if both set and reset are `0`, then `Q` is whatever we last did to it! The output
 loops back into the circuit, so the current state keeps reinforcing itself. This is the basic
 concept behind memory.
-
-This diagram should help this make sense:
-
-<diagram of SR latch with Q and opposite of Q>
 
 A simple way to think about this is:
 
@@ -711,9 +707,9 @@ forcing `NOT Q` to `0`, and `NOT Q` being `0` allows `Q` to stay `1`.
 
 The circuit has state. Its output depends not only on the current input, but on what happened before.
 
-Now that we have the core mechanism, let's refine the interface. All I mean by that is, right now
-`SET` and `RESET` are super clunky. While they demonstrate the mechanism, what we would really like
-to have is two inputs.
+Now that we have the core mechanism, lets refine the interface. All I mean by that is, right now
+`SET` and `RESET` is super clunky, while it demonstrates the mechanism, what we would really like to
+have is two inputs.
 
 - `Data` (`D`)
 - `Enable` (`E`)
@@ -724,23 +720,23 @@ last.
 
 This is much easier than fiddling with `SET` and `RESET`.
 
-This type of latch is called a D latch, D meaning data. It can be made using the SR latch and a few
-extra logic gates.
+This type of latch called a D latch, D meaning data can be made using the SR latch and a few extra
+logic gates. 
 
 It basically checks, if data is true and enable is true, set is true, and if data is false and
-enable is true, reset is true. That's it, so let's not worry about the exact implementation.
+enable is true, reset is false. That's it, so lets not worry about the exact implementation.
 
 If you really want to know how it works have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
 
 <diagram, black box>
 
-But we have a problem. Let's say we now try and use 8 of these D latches to hold the result of our
-add, which would then feed back into the input for our accumulator. It still wouldn't work.
+But we have a problem. Lets say we now try and use 8 of these D latches to hold the result of our
+add which would then feedback back into the input, for our accumulator, it still wouldn't work.
 
 
-This is because let's say we have the enable wire hooked up to a button. When that button is pressed
+This is because lets say we have the enable wire hooked up to a button. When that button is pressed
 down, the enable wire is on, thus `Q=D` for that time, okay. But if `Q` feeds back into the adder,
-and the result of the adder `D` changes quickly enough, `Q` can change again, jumping unpredictably
+and the result of the adder `D` changes quick enough `Q` can change again, jumping unpredictable
 based on how long we hold that button for. 
 
 If we want the accumulator to work correctly we need to have the enable wire on for an instant and
@@ -752,8 +748,8 @@ But what if we had a type of latch that only stores `D` as `E` turns on?
 
 <diagram, of that edge and the graph>
 
-This graph shows the state of a wire, when it is at the top it is on, when it is at the bottom it is
-off. When a switch is flicked or a button pressed, a transition happens. What if we only set `Q` to
+This graph shows the state of a wire, when it is at the top it is on, when it as the bottom it is
+off. When a switch if flicked or a button pressed a transition happens. What if we only set `Q` to
 `D` on that transition, also known as an "edge" because it looks like an edge, on the graph.
 
 <diagram>
@@ -762,10 +758,9 @@ This is called a D-type edge-triggered flip-flop. This might sound like a mouthf
 means it takes in a data input, it is edge-triggered because it triggers on the edge of a signal,
 and flip-flop is another word for latch, usually used for edge-triggered designs.
 
-How it works is, when the enable wire is off, the first latch stores `D`. That is because the NOT
-gate flips the enable signal, so the first latch sees it as on. Then when enable turns on, the
-second latch stores the output of the first one. And because enable is now on, the first latch is
-locked, it can't change! 
+How it works is, when the enable wire is off, the first latch stores `D`, right. Because the not
+gate means that if enable is off then its on. Then when enable turns on, the second latch will store
+the output of the first one. Now because it is on, the first latch is locked, it can't change! 
 
 That is how this flip-flop works.
 
@@ -785,20 +780,21 @@ Now with this register, lets build a basic accumulator/adder circuit.
 
 <diagram>
 
-How this works is, when the `STEP` button is pressed, the output from the adder gets saved into the
+How this works is, when the `step` button is pressed, the output from the adder gets saved into the
 register at that instant. This then changes the input to the adder, which changes its output, but
 the register holds the previous value, this is because it only captures on the edge of the press.
-Holding `STEP` down does nothing special. So each press increments the register's value by, in this
+Holding `step` down does nothing special. So each press increments the register's value by, in this
 case, 1.
 
 Now, a real computer would need to do these kinds of things millions and billions of times per
-second, and we don't have some human clicking a step button. What we have is a circuit that
+second, and we don't have some human clicking a step button. What we have a circuit that
 automatically goes, on, off, on, off billions of times per second. This is called a clock. Every
-time the clock turns on, this counts as 1 press of `STEP`.
+time the clock turns on, this counts as 1 press of `step`.
+
 
 Here is the basic concept of a clock:
 
-<diagram gif, of logic gates not output back into input not.>
+<diagram gif, of logic gates not into not.>
 
 Real modern clocks are made via oscillating crystals really fast but that is out of the scope of this
 article.
