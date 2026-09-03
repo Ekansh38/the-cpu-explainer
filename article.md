@@ -734,7 +734,9 @@ enable is true, reset is true. That's it, so let's not worry about the exact imp
 
 If you really want to know how it works have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
 
-<diagram, black box>
+<a id="diagram-6-2"></a> <img src="./assets/final/d-latch.svg" alt="D latch">
+
+*Diagram 6.2. D latch.*
 
 But we have a problem. Let's say we now try and use 8 of these D latches to hold the result of our
 add, which would then feed back into the input for our accumulator. It still wouldn't work.
