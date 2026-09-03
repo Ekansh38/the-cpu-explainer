@@ -693,7 +693,9 @@ concept behind memory.
 
 This diagram should help this make sense:
 
-<diagram of SR latch with Q and opposite of Q>
+<a id="diagram-6-1"></a> <img src="./assets/final/sr-latch.gif" alt="An SR latch">
+
+*Diagram 6.1. An SR latch.*
 
 A simple way to think about this is:
 
