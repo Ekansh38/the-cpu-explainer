@@ -852,5 +852,5 @@ Now we have a circuit version of one of Otto's desk drawers: a register that can
 update when we want.
 
 But Otto also had the upstairs filing cabinet, not just three desk drawers. So the next problem is
-organization and scale. H do we organize many stored bytes so the machine can choose one slot, read
+organization and scale. How do we organize many stored bytes so the machine can choose one slot, read
 it, and write back to it?
