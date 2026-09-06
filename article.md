@@ -741,7 +741,6 @@ If you really want to know how it works have a look at [this site](https://www.b
 But we have a problem. Let's say we now try and use 8 of these D latches to hold the result of our
 add, which would then feed back into the input for our accumulator. It still wouldn't work.
 
-
 This is because let's say we have the enable wire hooked up to a button. When that button is pressed
 down, the enable wire is on, thus `Q=D` for that time, okay. But if `Q` feeds back into the adder,
 and the result of the adder `D` changes quickly enough, `Q` can change again, jumping unpredictably
@@ -750,7 +749,15 @@ based on how long we hold that button for.
 If we want the accumulator to work correctly we need to have the enable wire on for an instant and
 then back off. That is just hard to do.
 
-<diagram, showing this setup>
+<a id="diagram-6-3"></a> <img src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
+
+*Diagram 6.3. D latch accumulator.*
+
+As you can see in this diagram, even pressing the button quickly jumps the result up by 5. With real
+transistors, even if you try and physically just tap the button, it could count up by millions,
+overflowing these 8-bits thousands of times.
+
+How long you hold the button decides the answer. It doesn't count in ones. 
 
 But what if we had a type of latch that only stores `D` as `E` turns on?
 
