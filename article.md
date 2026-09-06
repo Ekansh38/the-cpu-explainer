@@ -797,21 +797,29 @@ That is how this flip-flop works.
 
 Here is one storage cell, (just the flip-flop we showed above):
 
-<a id="diagram-6-6"></a> <img src="./assets/final/flip-flop-storage-cell.svg" alt="One flip flop storage cell">
+<a id="diagram-6-6"></a> <img src="./assets/final/flip-flop-storage-cell.svg" alt="A one-bit storage cell">
 
-*Diagram 6.6. One flip-flop storage cell.*
+*Diagram 6.6. A one-bit storage cell.*
 
 If we connect 8 of them side by side and we get 1 byte worth of storage:
 
-<diagram>
+<a id="diagram-6-7"></a> <img src="./assets/final/8-storage-cells.svg" alt="Eight storage cells">
+
+*Diagram 6.7. Eight storage cells.*
 
 And we can put all that into a box called an 8-bit register:
 
-<diagram>
+<a id="diagram-6-8"></a> <img src="./assets/final/8-bit-register.svg" alt="An 8-bit register">
+
+*Diagram 6.8. An 8-bit register.*
 
 Now with this register, lets build a basic accumulator/adder circuit.
 
-<diagram>
+<a id="diagram-6-9"></a> <img src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
+
+*Diagram 6.9. Our full accumulator.*
+
+As you can see, the circuit kindly waits for us, and is incrementing by 1's!
 
 How this works is, when the `STEP` button is pressed, the output from the adder gets saved into the
 register at that instant. This then changes the input to the adder, which changes its output, but
@@ -826,11 +834,18 @@ time the clock turns on, this counts as 1 press of `STEP`.
 
 Here is the basic concept of a clock:
 
-<diagram gif, of logic gates not output back into input not.>
+<a id="diagram-6-10"></a> <img src="./assets/final/clock-signal.svg" alt="A clock signal">
 
-Real modern clocks are made via oscillating crystals really fast but that is out of the scope of this
-article.
+*Diagram 6.10. A clock signal.*
 
-Here is our accumulator with a clock instead of the `STEP` button, slowed down.
+This repeating on-off behavior can be achieved in different ways. A rough toy example is feeding the
+output of a NOT gate back into its input, so the signal keeps trying to flip back and forth between
+on and off.
 
-<diargam>
+Real clocks are built in more sophisticated and reliable ways, often using crystals or other oscillator
+circuits. But we do not need to build the clock itself here. For now, we can treat it as a little box
+that repeatedly produces the same on-off signal.
+
+Just imagine the new accumulator with a clock signal instead of a `STEP` button. 
+I am too lazy to draw it for you.
+
