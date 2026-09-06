@@ -738,28 +738,28 @@ If you really want to know how it works have a look at [this site](https://www.b
 
 *Diagram 6.2. D latch.*
 
-But we have a problem. Let's say we now try and use 8 of these D latches to hold the result of our
-add, which would then feed back into the input for our accumulator. It still wouldn't work.
+But we have a problem. Let's say we now try to use 8 of these D latches to hold the result from our
+adder, which would then feed back into the input for our accumulator. It still wouldn't work.
 
 This is because let's say we have the enable wire hooked up to a button. When that button is pressed
-down, the enable wire is on, thus `Q=D` for that time, okay. But if `Q` feeds back into the adder,
-and the result of the adder `D` changes quickly enough, `Q` can change again, jumping unpredictably
-based on how long we hold that button for. 
+down, the enable wire is on, so `Q=D` for that time. But if `Q` feeds back into the adder, and the
+result of the adder `D` changes quickly enough, `Q` can change again, jumping unpredictably based on
+how long we hold that button for.
 
-If we want the accumulator to work correctly we need to have the enable wire on for an instant and
-then back off. That is just hard to do.
+If we want the accumulator to work correctly, we need the enable wire to turn on for an instant and
+then turn back off. That is just hard to do.
 
 <a id="diagram-6-3"></a> <img src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
 
 *Diagram 6.3. D latch accumulator.*
 
 As you can see in this diagram, even pressing the button quickly jumps the result up by 5. With real
-transistors, even if you try and physically just tap the button, it could count up by millions,
-overflowing these 8-bits thousands of times.
+transistors, even if you try to physically tap the button, it could count up by millions, overflowing
+these 8 bits thousands of times.
 
 How long you hold the button decides the answer. It doesn't count in ones. 
 
-But what if we had a type of latch that only copied `D` into `Q` at the exact instant `E` turns on?
+But what if we had a storage circuit that only copied `D` into `Q` at the exact instant `E` turns on?
 
 <a id="diagram-6-4"></a> <img src="./assets/final/edge-graph.svg" alt="The rising edge of a signal">
 
@@ -775,33 +775,32 @@ Now what if we only set `Q` to `D` on that transition, at the rising edge? The e
 of time, not a duration.
 
 The circuit that does this is called a D-type edge-triggered flip-flop. This might sound like a
-mouthful but, D-type just means it takes in a data input, it is edge-triggered because it triggers
-on the edge of a signal, and flip-flop is another word for latch, usually used for edge-triggered
-designs.
+mouthful, but D-type just means it takes in a data input, edge-triggered means it triggers on the
+edge of a signal, and flip-flop means it is a storage circuit similar to a latch, but usually
+edge-triggered.
 
 <a id="diagram-6-5"></a> <img src="./assets/final/d-type-edge-triggered-flip-flop.svg" alt="A flip-flop">
 
 *Diagram 6.5. A flip-flop.*
 
-How it works is, when the enable wire is off, the first latch stores `D`, or in other words mirrors
-`D` for as long as the enable wire is off. That is because the NOT gate flips the enable signal, so
-the first latch sees it as on. 
+How it works is, when the enable wire is off, the first latch mirrors `D`. That is because the NOT
+gate flips the enable signal, so the first latch sees it as on.
 
 Then when enable turns on, the second latch stores the output of the first one. And because enable
-is now on, the first latch is locked, it can't change! 
+is now on, the first latch is locked, so it can't change!
 
-So if `D` changes while enable is off, well we are all good because the second flip-flop is locked.
-But if `D` changes while enable is on, we are fine because the first flip-flop is locked.
+So if `D` changes while enable is off, we are all good because the second latch is locked. But if
+`D` changes while enable is on, we are fine because the first latch is locked.
 
 That is how this flip-flop works.
 
-Here is one storage cell, (just the flip-flop we showed above):
+Here is one storage cell, which is just the flip-flop we showed above:
 
 <a id="diagram-6-6"></a> <img src="./assets/final/flip-flop-storage-cell.svg" alt="A one-bit storage cell">
 
 *Diagram 6.6. A one-bit storage cell.*
 
-If we connect 8 of them side by side and we get 1 byte worth of storage:
+If we connect 8 of them side by side, we get one byte of storage:
 
 <a id="diagram-6-7"></a> <img src="./assets/final/8-storage-cells.svg" alt="Eight storage cells">
 
@@ -813,24 +812,24 @@ And we can put all that into a box called an 8-bit register:
 
 *Diagram 6.8. An 8-bit register.*
 
-Now with this register, lets build a basic accumulator/adder circuit.
+Now with this register, let's build a basic accumulator/adder circuit.
 
 <a id="diagram-6-9"></a> <img src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
 
 *Diagram 6.9. Our full accumulator.*
 
-As you can see, the circuit kindly waits for us, and is incrementing by 1's!
+As you can see, the circuit kindly waits for us, and is incrementing by ones!
 
 How this works is, when the `STEP` button is pressed, the output from the adder gets saved into the
-register at that instant. This then changes the input to the adder, which changes its output, but
-the register holds the previous value, this is because it only captures on the edge of the press.
+register on the rising edge of that press. This then changes the input to the adder, which changes
+its output, but the register holds its value because it only captures on the edge of the press.
 Holding `STEP` down does nothing special. So each press increments the register's value by, in this
 case, 1.
 
 Now, a real computer would need to do these kinds of things millions and billions of times per
 second, and we don't have some human clicking a step button. What we have is a circuit that
-automatically goes, on, off, on, off billions of times per second. This is called a clock. Every
-time the clock turns on, this counts as 1 press of `STEP`.
+automatically goes on, off, on, off billions of times per second. This is called a clock. Each rising
+edge of the clock acts like one press of `STEP`.
 
 Here is the basic concept of a clock:
 
@@ -849,3 +848,9 @@ that repeatedly produces the same on-off signal.
 Just imagine the new accumulator with a clock signal instead of a `STEP` button. 
 I am too lazy to draw it for you.
 
+Now we have a circuit version of one of Otto's desk drawers: a register that can hold a byte and
+update when we want.
+
+But Otto also had the upstairs filing cabinet, not just three desk drawers. So the next problem is
+organization and scale. H do we organize many stored bytes so the machine can choose one slot, read
+it, and write back to it?
