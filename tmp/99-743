@@ -1,0 +1,14 @@
+[frame 1]
+`STINKY` & `OLD_WASH` are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 2]
+`STINKY` is closed but `OLD_WASH` is open, thus no current can flow. That is why the bulb is off.
+
+[frame 3]
+`STINKY` & `OLD_WASH` are both closed, thus current can flow. That is why the bulb is on.
+
+[frame 4]
+`STINKY` & `OLD_WASH` are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 5]
+`OLD_WASH` is closed but `STINKY` is open, thus no current can flow. That is why the bulb is off.

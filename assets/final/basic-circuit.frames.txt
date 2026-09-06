@@ -1,0 +1,7 @@
+title: basic circuit
+
+[frame 1]
+The switch is open, so current can't flow through the circuit. That is why the light bulb is off.
+
+[frame 2]
+The switch is closed, so current can flow through the circuit. That is why the light bulb is on.

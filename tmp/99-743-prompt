@@ -1,0 +1,77 @@
+<Context>
+You receive a selection in neovim that you need to replace with new code.
+The selection's contents may contain notes, incorporate the notes every time if there are some.
+consider the context of the selection and what you are suppose to be implementing
+<SELECTION_LOCATION>
+range(point(3,1),point(16,94))
+</SELECTION_LOCATION>
+<SELECTION_CONTENT>
+[frame 1]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 2]
+STINKY is closed but OLD_WASH is open, thus no current can flow. That is why the bulb is off.
+
+[frame 3]
+STINKY & OLD_WASH are both closed, thus current can flow. That is why the bulb is on.
+
+[frame 4]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 5]
+OLD_WASH is closed but STINKY is open, thus no current can flow. That is why the bulb is off.
+</SELECTION_CONTENT>
+<SURROUNDING_CONTEXT>
+title: switches 1
+
+[frame 1]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 2]
+STINKY is closed but OLD_WASH is open, thus no current can flow. That is why the bulb is off.
+
+[frame 3]
+STINKY & OLD_WASH are both closed, thus current can flow. That is why the bulb is on.
+
+[frame 4]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 5]
+OLD_WASH is closed but STINKY is open, thus no current can flow. That is why the bulb is off.
+
+[frame 6]
+`STINKY` & `OLD_WASH` are both closed, thus current can flow. That is why the bulb is on.
+</SURROUNDING_CONTEXT>
+
+</Context>
+<Prompt>
+use backticks around STINKY and OLD_WASH
+</Prompt>
+
+<Location><File>/Users/ekanshgoenka/Desktop/Projects/the-cpu-explainer/assets/final/switches-1.frames.txt</File><Function>range(point(3,1),point(16,94))</Function></Location>
+<FunctionText>[frame 1]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 2]
+STINKY is closed but OLD_WASH is open, thus no current can flow. That is why the bulb is off.
+
+[frame 3]
+STINKY & OLD_WASH are both closed, thus current can flow. That is why the bulb is on.
+
+[frame 4]
+STINKY & OLD_WASH are both open, thus no current can flow. That is why the bulb is off.
+
+[frame 5]
+OLD_WASH is closed but STINKY is open, thus no current can flow. That is why the bulb is off.</FunctionText>
+<TEMP_FILE>./tmp/99-743</TEMP_FILE>
+<MustObey>
+NEVER alter any file other than TEMP_FILE.
+never provide the requested changes as conversational output. Return only the code.
+ONLY provide requested changes by writing the change to TEMP_FILE
+
+never attempt to read TEMP_FILE.
+It is purely for output.
+Previous contents, which may not exist, can be written over without worry
+After writing TEMP_FILE once you should be done.  Be done and end the session.
+
+</MustObey>

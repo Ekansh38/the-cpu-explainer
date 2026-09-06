@@ -759,30 +759,47 @@ overflowing these 8-bits thousands of times.
 
 How long you hold the button decides the answer. It doesn't count in ones. 
 
-But what if we had a type of latch that only stores `D` as `E` turns on?
+But what if we had a type of latch that only copied `D` into `Q` at the exact instant `E` turns on?
 
-<diagram, of that edge and the graph>
+<a id="diagram-6-4"></a> <img src="./assets/final/edge-graph.svg" alt="The rising edge of a signal">
 
-This graph shows the state of a wire, when it is at the top it is on, when it is at the bottom it is
-off. When a switch is flicked or a button pressed, a transition happens. What if we only set `Q` to
-`D` on that transition, also known as an "edge" because it looks like an edge, on the graph.
+*Diagram 6.4. The rising edge of a signal.*
 
-<diagram>
+This graph shows the state of a wire. When the line is at the top, it is on. When it is at the bottom,
+it is off.
 
-This is called a D-type edge-triggered flip-flop. This might sound like a mouthful but, D-type just
-means it takes in a data input, it is edge-triggered because it triggers on the edge of a signal,
-and flip-flop is another word for latch, usually used for edge-triggered designs.
+When a switch is flicked or a button is pressed, a transition happens. That transition is called an
+"edge", and when the wire turns from off to on, it is a rising edge.
 
-How it works is, when the enable wire is off, the first latch stores `D`. That is because the NOT
-gate flips the enable signal, so the first latch sees it as on. Then when enable turns on, the
-second latch stores the output of the first one. And because enable is now on, the first latch is
-locked, it can't change! 
+Now what if we only set `Q` to `D` on that transition, at the rising edge? The edge is an instant
+of time, not a duration.
+
+The circuit that does this is called a D-type edge-triggered flip-flop. This might sound like a
+mouthful but, D-type just means it takes in a data input, it is edge-triggered because it triggers
+on the edge of a signal, and flip-flop is another word for latch, usually used for edge-triggered
+designs.
+
+<a id="diagram-6-5"></a> <img src="./assets/final/d-type-edge-triggered-flip-flop.svg" alt="A flip-flop">
+
+*Diagram 6.5. A flip-flop.*
+
+How it works is, when the enable wire is off, the first latch stores `D`, or in other words mirrors
+`D` for as long as the enable wire is off. That is because the NOT gate flips the enable signal, so
+the first latch sees it as on. 
+
+Then when enable turns on, the second latch stores the output of the first one. And because enable
+is now on, the first latch is locked, it can't change! 
+
+So if `D` changes while enable is off, well we are all good because the second flip-flop is locked.
+But if `D` changes while enable is on, we are fine because the first flip-flop is locked.
 
 That is how this flip-flop works.
 
 Here is one storage cell, (just the flip-flop we showed above):
 
-<diagram>
+<a id="diagram-6-6"></a> <img src="./assets/final/flip-flop-storage-cell.svg" alt="One flip flop storage cell">
+
+*Diagram 6.6. One flip-flop storage cell.*
 
 If we connect 8 of them side by side and we get 1 byte worth of storage:
 
