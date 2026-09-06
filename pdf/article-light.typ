@@ -22,9 +22,8 @@ You can hear the phrase
 \"computers think in 1s and 0s\"
 
 a hundred times and still not understand how a computer actually works.
-It sounds like an explanation, but by itself it explains basically
-nothing. Sure, a wire can be high or low, a light can be on or off, and
-a switch can be open or closed. But how does that become addition?
+By itself, this explains basically nothing. Sure, a wire can be high or
+low. Sure, a light can be on or off. But how does that become addition?
 
 How does that become memory?
 
@@ -34,9 +33,9 @@ another, telling a machine what to do?
 This article is going to walk you through how a CPU is built, starting
 with the simplest possible components.
 
-We start with a simple circuit turning on and off a light bulb and work
-our way through fundamental digital logic and electrical engineering
-concepts.
+We start with a simple circuit turning a light bulb on and off, then
+work our way through logic gates, memory, and the basic circuits
+underneath them.
 
 Some resources stay extremely high-level, so you never really understand
 how a CPU actually works.
@@ -218,7 +217,7 @@ Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
 bulb to turn on.
 
-Now lets combine the two to form the complete circuit.
+Now let\'s combine the two to form the complete circuit.
 
 But now we have a problem.
 
@@ -226,10 +225,10 @@ The `MUDDY OR STINKY` circuit outputs its result with an electrical
 signal: on or off. Our previous AND circuit relies on a human flipping a
 switch in order to compute a result.
 
-Or in other words the OR circuit we built outputs a result as
-electricity, but the AND circuit we want to combine it with expects a
+Or in other words, the OR circuit we built outputs a result as
+electricity, but the AND circuit we want to combine it with expects an
 input as a metal switch physically being moved. A signal in a wire
-can\'t reach over and somehow close that switch.
+can\'t reach over and close that switch by itself.
 
 #box(image("/pdf/.raster/light/combination-problem.png", alt: "The problem we currently face"))
 
@@ -238,9 +237,9 @@ can\'t reach over and somehow close that switch.
 So if we want to chain circuits together, we need a way for an
 electrical signal to control a switch automatically. How can we do this?
 
-Electromagnetic relays, that\'s how. (or at least that is one of the
-early solutions to this problem, we will talk about other solutions a
-little more later on)
+Electromagnetic relays, that\'s how. Or at least, that is one early
+solution to this problem. We will talk about other solutions a little
+more later on.
 
 This probably sounds quite complicated, but it is just a magnet powered
 by electricity.
@@ -272,16 +271,16 @@ As you can also tell by the diagram, there is a slight delay between the
 coil turning on and the metal arm moving. Relays are mechanical, so they
 do not switch instantly.
 
-Now lets see how we can build an actual electrical AND gate that takes
-in as input, 2 wires, and outputs an electrical signal.
+Now let\'s see how we can build an actual electrical AND gate that takes
+two input wires and outputs an electrical signal.
 
 #box(image("/pdf/.raster/light/electronic-and-gate-9-t.png", alt: "An AND gate"))
 
 #emph[Diagram 3.5. An AND gate.]
 
-If both inputs have signal, then the output circuit forms a complete
-loop. The output circuit has 2 breaks which are both controlled by each
-input.
+The output circuit has two breaks in it, one controlled by each input
+relay. Only when both inputs have signal do both relays close,
+completing the output loop.
 
 Using these relays chained in clever ways, you can create every
 fundamental logic gate, such as the OR gate:
@@ -326,8 +325,8 @@ up to this point:
 #emph[Diagram 3.8. The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
-a handful. But in a nutshell, if any of the first 2 inputs are on, and
-the third the bulb will be on. I hope it makes sense how it works.
+a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
+`OLD_WASH` is also on, the bulb turns on.
 
 Okay, now let\'s introduce one last input, or \"sensor\": `RAIN_SOON`,
 whether it is predicted to rain soon. The rules of the circuit change
@@ -351,8 +350,8 @@ That is what a NOT gate does.
 
 #emph[Diagram 3.9. A NOT gate.]
 
-Now before we look at the completed circuit, lets learn some basic logic
-gate symbols.
+Now before we look at the completed circuit, let\'s learn some basic
+logic gate symbols.
 
 An AND gate is drawn like this:
 
@@ -364,9 +363,9 @@ This symbol represents the AND circuit we made previously.
 
 An OR gate is drawn like this:
 
-#box(image("/pdf/.raster/light/or-gate.png", alt: "A OR gate"))
+#box(image("/pdf/.raster/light/or-gate.png", alt: "An OR gate"))
 
-#emph[Diagram 3.11. A OR gate.]
+#emph[Diagram 3.11. An OR gate.]
 
 This symbol represents the OR circuit we made previously.
 
@@ -381,11 +380,9 @@ Here are three more useful gate symbols:
 
 #emph[Diagram 3.12. NOT, NAND, NOR gates.]
 
-NAND is just AND but then flip the result, so AND + NOT or NAND. Same
-with NOR. OR + NOT = NOR.
+NAND is AND with the output flipped. NOR is OR with the output flipped.
 
-I hope the pattern makes sense now, any regular gate with a circle at
-the end flips its output.
+That little circle at the end of a gate means \"flip the output.\"
 
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
@@ -404,9 +401,10 @@ intuitive methods to understand, and many real computers like the
 #link("https://en.wikipedia.org/wiki/Harvard_Mark_I")[Harvard Mark I]
 actually used these types of relays.
 
-In modern computers a similar behavior is achieved by using transistors.
+In modern computers, similar behavior is achieved by using transistors.
 If you want to learn more about transistor based logic gates:
-#link("https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html")[visit this site]
+#link("https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html")[visit this site].
+
 I don\'t know about you, but addition seems like a pretty logical next
 step to these logic gates. But not so fast.
 
@@ -432,6 +430,10 @@ A wire with no signal is `0`, and a wire with signal is `1`. Let\'s call
 one wire, one bit. A bit can either be `0` or `1`.
 
 These are just labels that represent the state of a wire.
+
+A group of 8 bits is called a byte. With 8 bits, there are `2^8`, or
+256, possible patterns. So if we use those patterns to represent
+non-negative numbers, one byte can represent 0 through 255.
 
 #box(image("/pdf/.raster/light/0-s-and-1-s.png", alt: "0's and 1's"))
 
@@ -598,15 +600,24 @@ Here is how an XOR gate looks:
 
 #emph[Diagram 5.4. An XOR gate.]
 
-Now lets do the carry value. The carry is simple! We only want to carry
-if we are doing `1 + 1`, so we we just use an AND gate to check if both
-inputs are on.
+Now let\'s do the carry value. The carry is simple! We only want to
+carry if we are doing `1 + 1`, so we just use an AND gate to check if
+both inputs are on.
 
 Now here is our half adder:
 
-\<diagram, use the xor gate\>
+#box(image("/pdf/.raster/light/half-adder-sum-4.png", alt: "A half adder"))
 
-Now lets package up our half adder into a little box:
+#emph[Diagram 5.5. A half adder.]
+
+As you can see it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
+`1 + 1 = 10`.
+
+Now let\'s package up our half adder into a little box:
+
+#box(image("/pdf/.raster/light/half-adder-box.png", alt: "A half adder chip"))
+
+#emph[Diagram 5.6. A half adder chip.]
 
 Now that we have a half adder, we can add the rightmost column. That
 works because the rightmost column has no carry-in from a previous
@@ -614,11 +625,9 @@ column. It only needs to add two bits.
 
 So if we have a number like this:
 
-```
-1111
-```
+#box(image("/pdf/.raster/light/carry-in-issue.png", alt: "We can't add 3 numbers yet!"))
 
-- 1111 -\-\-\-\-\-\-\-
+#emph[Diagram 5.7. We can\'t add 3 numbers yet!]
 
 The half adder can handle the first column: `1 + 1`. That gives us a sum
 bit of `0` and a carry-out of `1`.
@@ -627,13 +636,17 @@ But now the next column has three things to add: `1 + 1 + 1`. The two
 original bits, plus the carry from the previous column.
 
 A half adder cannot do that. It only accepts two inputs. To continue
-adding across multiple columns, we need a circuit that can take three
+adding up the other columns, we need a circuit that can take in three
 inputs: `A`, `B`, and `carry-in`.
 
 To add three binary numbers we use two half adders and a OR gate:
 
+#box(image("/pdf/.raster/light/full-adder-8.png", alt: "A full adder"))
+
+#emph[Diagram 5.8. A full adder.]
+
 This might look confusing at first. What if both half adders output a
-carry at the same time?
+carry-out at the same time?
 
 That actually never happens. If a half adder outputs a carry, the sum
 bit is always 0. So both are not able to output carries. Take a moment
@@ -644,25 +657,63 @@ is `1`, the full adder\'s carry-out is `1`.
 
 Let\'s again package this up into a box:
 
-\<diagram, full adder\>
+#box(image("/pdf/.raster/light/full-adder-box.png", alt: "A full adder chip"))
+
+#emph[Diagram 5.9. A full adder chip.]
 
 We have made a full adder!
 
-Now we can chain full adders together to add two 8-bit numbers. One
-8-bit number can represent any number form 0-255.
+Now we can chain full adders together to add two 8-bit numbers. Since 8
+bits make one byte, this is an adder that can add two one-byte numbers.
+One byte can represent any number from 0 to 255. That is 256 total
+combinations because `2^8` is 256.
+
+#box(image("/pdf/.raster/light/8-bit-adder.png", alt: "An 8-bit adder"))
+
+#emph[Diagram 5.10. An 8-bit adder.]
 
 Each full adder handles one column. The carry-out from one column
 becomes the carry-in for the next column. That is it! That is all
 addition is!
 
-Now let\'s package that up into a box once again:
+Keep in mind carry-in for the first adder is set to ground, a.k.a 0.
 
-\<diagram, animated\>
+Also notice how we have 9 outputs, not 8, that is because two 8-bit
+values can add up to a number greater than eight bits. Its like how
+adding two 2-digit numbers could result in a three digit number for us.
+Like `50+50=100`.
+
+Now let\'s package this up into a box once again:
+
+#box(image("/pdf/.raster/light/8-bit-adder-box.png", alt: "An 8-bit adder chip"))
+
+#emph[Diagram 5.11. An 8-bit adder chip.]
+
+Now we have the carry-out and carry-in as separate inputs and outputs
+and the whole adder nicely organized into this chip.
+
+Lets have a look at some example problems:
+
+#box(image("/pdf/.raster/light/8-bit-adder-examples.gif", alt: "Some examples on the adder"))
+
+#emph[Diagram 5.12. Some examples on the adder.]
+
+As you can see in the third example, adding 1 to 255 turns every sum bit
+to `0` and turns the carry-out on.
+
+This doesn\'t mean the adder got the wrong answer. In fact, `255 + 1` is
+`1 00000000` in binary: eight `0` output bits, plus one extra carry-out
+bit on the left. If we only look at the one-byte output, the result
+looks like `00000000`, or 0. If we also look at the carry-out, we can
+see that the real answer was 256.
+
+That is called an overflow: the result was too large to fit inside one
+byte, so the extra information spilled out into the carry-out bit.
 
 The adder can also produce little status wires, called flags.
 
 For example, if the answer is `00000000`, a ZERO flag can turn on. If
-addition spills past eight bits, a CARRY flag can turn on. So
+addition spills past one byte, a CARRY flag can turn on. So
 `11111111 + 00000001` gives `00000000` with carry-out `1`.
 
 I don\'t want to go deep into flags yet. Just remember that the adder
@@ -670,7 +721,19 @@ can output little yes/no facts about the sum. That matters later for
 instructions like \"jump if zero.\" But let\'s not get ahead of
 ourselves.
 
-Now let\'s see if we can build a circuit that counts by ones.
+Before we move on, this is the first real payoff we have hit.
+
+We have built Otto\'s abacus! If you remember, Otto used his abacus for
+adding two numbers, and we have built a circuit that does just that!
+
+But Otto also had something else on his desk: drawers.
+
+Those drawers had a very important ability. A drawer could hold a number
+still while Otto worked, then change only when Otto specifically
+replaced it with a new number.
+
+For example, let\'s say we want to build a circuit that counts by ones
+like, 1, 2, 3, 4,...
 
 The obvious idea is to feed the output of the adder back into one of its
 inputs. Start with `00000000`, add `00000001`, get `00000001`. Feed that
@@ -694,8 +757,8 @@ That can never settle. As soon as the output changes, the input changes
 too, which means the output has to change again, which means the input
 changes again.
 
-With relays, you might physically see this mess. With transistors, it
-would happen so super insanely quickly.
+With relays, you might physically see this mess play out. With
+transistors, it would happen almost instantly.
 
 There is no boundary between the old value and the new value.
 
@@ -706,3 +769,224 @@ So this is not enough. We need a circuit that can hold a value still,
 then update it only when we tell it to.
 
 That is the next problem: memory.
+
+== Storing a Bit
+<storing-a-bit>
+To store a bit, we need to understand feedback. Feedback is simply
+feeding the output of a circuit into the input. There are two main kinds
+of feedback, unstable and stable. We just witnessed an example of
+unstable feedback, where feeding the output of the adder into its input
+resulted in messy and unpredictable behavior.
+
+The other type of feedback is known as stable, because it can produce
+two stable states. Stable feedback is used to create circuits whose
+outputs aren\'t purely based on their inputs, but also based on what
+happened before. Stable feedback is exactly what we need to create
+memory.
+
+The circuit that does this is called an SR latch, SR stands for
+set-reset. The value `Q` is the output we really care about, if it is
+`1` that means the latch is storing a `1`, if it is `0`, the latch is
+storing a `0`.
+
+The diagram also shows a second output written as a Q with a bar over
+it. That is just how engineers write `NOT Q`, pronounced \"not Q\". It
+always holds the opposite of `Q`. I will write it as `NOT Q` in the
+text.
+
+The two inputs are `SET` and `RESET`, drawn as little buttons in the
+diagram: gray means not pressed, red means pressed. Pressing `SET`
+forces `Q` to `1` and pressing `RESET` forces `Q` to `0`.
+
+For this circuit to be used properly set and reset should never be on at
+the same time.
+
+The cool part is, if both set and reset are `0`, then `Q` is whatever we
+last did to it! The output loops back into the circuit, so the current
+state keeps reinforcing itself. This is the basic concept behind memory.
+
+This diagram should help this make sense:
+
+#box(image("/pdf/.raster/light/sr-latch-4.png", alt: "An SR latch"))
+
+#emph[Diagram 6.1. An SR latch.]
+
+A simple way to think about this is:
+
+If `SET` is on, the bottom NOR gate has to output `0`, because one of
+its inputs is on. That makes `NOT Q` equal to `0`.
+
+Now the top NOR gate sees two `0` inputs: `RESET` is `0`, and `NOT Q` is
+`0`. So the top NOR gate outputs `1`, making `Q` equal to `1`.
+
+Then even if we turn `SET` back off, the latch stays in that state. `Q`
+is still `1`, which keeps forcing `NOT Q` to `0`, and `NOT Q` being `0`
+allows `Q` to stay `1`.
+
+`RESET` works the other way. If `RESET` is on, it forces `Q` to `0`,
+which allows `NOT Q` to become `1`. Then even after `RESET` turns off,
+`NOT Q` keeps forcing `Q` to stay `0`.
+
+The circuit has state. Its output depends not only on the current input,
+but on what happened before.
+
+Now that we have the core mechanism, let\'s refine the interface. All I
+mean by that is, right now `SET` and `RESET` are super clunky. While
+they demonstrate the mechanism, what we would really like to have is two
+inputs.
+
+- `Data` (`D`)
+- `Enable` (`E`)
+
+When the enable wire turns on, `Data` gets stored in `Q`. Or in other
+words, when we turn the `Enable` wire on, `Q` mirrors `D`. Then when we
+turn `E` off, `Q` stays stable with whatever `D` was last.
+
+This is much easier than fiddling with `SET` and `RESET`.
+
+This type of latch is called a D latch, D meaning data. It can be made
+using the SR latch and a few extra logic gates.
+
+It basically checks, if data is true and enable is true, set is true,
+and if data is false and enable is true, reset is true. That\'s it, so
+let\'s not worry about the exact implementation.
+
+If you really want to know how it works have a look at
+#link("https://www.build-electronic-circuits.com/d-latch/")[this site].
+
+#box(image("/pdf/.raster/light/d-latch.png", alt: "D latch"))
+
+#emph[Diagram 6.2. D latch.]
+
+But we have a problem. Let\'s say we now try to use 8 of these D latches
+to hold the result from our adder, which would then feed back into the
+input for our accumulator. It still wouldn\'t work.
+
+This is because let\'s say we have the enable wire hooked up to a
+button. When that button is pressed down, the enable wire is on, so
+`Q=D` for that time. But if `Q` feeds back into the adder, and the
+result of the adder `D` changes quickly enough, `Q` can change again,
+jumping unpredictably based on how long we hold that button for.
+
+If we want the accumulator to work correctly, we need the enable wire to
+turn on for an instant and then turn back off. That is just hard to do.
+
+#box(image("/pdf/.raster/light/d-latch-accumulator-7.png", alt: "D latch accumulator"))
+
+#emph[Diagram 6.3. D latch accumulator.]
+
+As you can see in this diagram, even pressing the button quickly jumps
+the result up by 5. With real transistors, even if you try to physically
+tap the button, it could count up by millions, overflowing these 8 bits
+thousands of times.
+
+How long you hold the button decides the answer. It doesn\'t count in
+ones.
+
+But what if we had a storage circuit that only copied `D` into `Q` at
+the exact instant `E` turns on?
+
+#box(image("/pdf/.raster/light/edge-graph.png", alt: "The rising edge of a signal"))
+
+#emph[Diagram 6.4. The rising edge of a signal.]
+
+This graph shows the state of a wire. When the line is at the top, it is
+on. When it is at the bottom, it is off.
+
+When a switch is flicked or a button is pressed, a transition happens.
+That transition is called an \"edge\", and when the wire turns from off
+to on, it is a rising edge.
+
+Now what if we only set `Q` to `D` on that transition, at the rising
+edge? The edge is an instant of time, not a duration.
+
+The circuit that does this is called a D-type edge-triggered flip-flop.
+This might sound like a mouthful, but D-type just means it takes in a
+data input, edge-triggered means it triggers on the edge of a signal,
+and flip-flop means it is a storage circuit similar to a latch, but
+usually edge-triggered.
+
+#box(image("/pdf/.raster/light/d-type-edge-triggered-flip-flop.png", alt: "A flip-flop"))
+
+#emph[Diagram 6.5. A flip-flop.]
+
+How it works is, when the enable wire is off, the first latch mirrors
+`D`. That is because the NOT gate flips the enable signal, so the first
+latch sees it as on.
+
+Then when enable turns on, the second latch stores the output of the
+first one. And because enable is now on, the first latch is locked, so
+it can\'t change!
+
+So if `D` changes while enable is off, we are all good because the
+second latch is locked. But if `D` changes while enable is on, we are
+fine because the first latch is locked.
+
+That is how this flip-flop works.
+
+Here is one storage cell, which is just the flip-flop we showed above:
+
+#box(image("/pdf/.raster/light/flip-flop-storage-cell.png", alt: "A one-bit storage cell"))
+
+#emph[Diagram 6.6. A one-bit storage cell.]
+
+If we connect 8 of them side by side, we get one byte of storage:
+
+#box(image("/pdf/.raster/light/8-storage-cells.png", alt: "Eight storage cells"))
+
+#emph[Diagram 6.7. Eight storage cells.]
+
+And we can put all that into a box called an 8-bit register:
+
+#box(image("/pdf/.raster/light/8-bit-register.png", alt: "An 8-bit register"))
+
+#emph[Diagram 6.8. An 8-bit register.]
+
+Now with this register, let\'s build a basic accumulator/adder circuit.
+
+#box(image("/pdf/.raster/light/full-accumulator.gif", alt: "Our full accumulator"))
+
+#emph[Diagram 6.9. Our full accumulator.]
+
+As you can see, the circuit kindly waits for us, and is incrementing by
+ones!
+
+How this works is, when the `STEP` button is pressed, the output from
+the adder gets saved into the register on the rising edge of that press.
+This then changes the input to the adder, which changes its output, but
+the register holds its value because it only captures on the edge of the
+press. Holding `STEP` down does nothing special. So each press
+increments the register\'s value by, in this case, 1.
+
+Now, a real computer would need to do these kinds of things millions and
+billions of times per second, and we don\'t have some human clicking a
+step button. What we have is a circuit that automatically goes on, off,
+on, off billions of times per second. This is called a clock. Each
+rising edge of the clock acts like one press of `STEP`.
+
+Here is the basic concept of a clock:
+
+#box(image("/pdf/.raster/light/clock-signal.png", alt: "A clock signal"))
+
+#emph[Diagram 6.10. A clock signal.]
+
+This repeating on-off behavior can be achieved in different ways. A
+rough toy example is feeding the output of a NOT gate back into its
+input, so the signal keeps trying to flip back and forth between on and
+off.
+
+Real clocks are built in more sophisticated and reliable ways, often
+using crystals or other oscillator circuits. But we do not need to build
+the clock itself here. For now, we can treat it as a little box that
+repeatedly produces the same on-off signal.
+
+Just imagine the new accumulator with a clock signal instead of a `STEP`
+button. I am too lazy to draw it for you.
+
+Now we have a circuit version of one of Otto\'s desk drawers: a register
+that can hold a byte and update when we want.
+
+But Otto also had the upstairs filing cabinet, not just three desk
+drawers. So the next problem is organization and scale. How do we
+organize many stored bytes so the machine can choose one slot, read it,
+and write back to it?
