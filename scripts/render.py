@@ -245,7 +245,7 @@ def rasterize_svg(svg_path, mode):
 def recolor_raster(raster_path):
     out_dir = RASTER / "light"
     out_dir.mkdir(parents=True, exist_ok=True)
-    out = out_dir / raster_path.name
+    out = out_dir / (raster_path.stem + ".png")
     if out.exists() and out.stat().st_mtime >= raster_path.stat().st_mtime:
         return out
 

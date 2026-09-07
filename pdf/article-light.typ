@@ -145,7 +145,7 @@ purposes of this article.
 
 Here is a simple circuit:
 
-#box(image("/pdf/.raster/light/basic-circuit.gif", alt: "A basic circuit with a switch and light bulb and drawings not symbols"))
+#box(image("/pdf/.raster/light/basic-circuit.png", alt: "A basic circuit with a switch and light bulb and drawings not symbols"))
 
 #emph[Diagram 2.1. The circuit.]
 
@@ -210,7 +210,7 @@ All this says is, if the dog is muddy or stinky and it\'s been at least
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/pdf/.raster/light/or-gate-logical.gif", alt: "A logical OR circuit"))
+#box(image("/pdf/.raster/light/or-gate-logical.png", alt: "A logical OR circuit"))
 
 #emph[Diagram 3.2. The hand-switch version of OR.]
 
@@ -694,7 +694,7 @@ and the whole adder nicely organized into this chip.
 
 Lets have a look at some example problems:
 
-#box(image("/pdf/.raster/light/8-bit-adder-examples.gif", alt: "Some examples on the adder"))
+#box(image("/pdf/.raster/light/8-bit-adder-examples.png", alt: "Some examples on the adder"))
 
 #emph[Diagram 5.12. Some examples on the adder.]
 
@@ -944,7 +944,7 @@ And we can put all that into a box called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/pdf/.raster/light/full-accumulator.gif", alt: "Our full accumulator"))
+#box(image("/pdf/.raster/light/full-accumulator.png", alt: "Our full accumulator"))
 
 #emph[Diagram 6.9. Our full accumulator.]
 
