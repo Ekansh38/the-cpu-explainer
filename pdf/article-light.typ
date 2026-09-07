@@ -1,15 +1,51 @@
-#set page(paper: "a4", fill: rgb("#ffffff"), margin: (x: 24mm, y: 22mm))
-#set text(fill: rgb("#111111"), size: 11pt)
-#show heading.where(level: 1): it => block(below: 2.5em)[
-  #set text(size: 26pt, weight: "bold")
-  #it
+#set document(title: "The CPU: A very tall pile of simple")
+#set page(
+  paper: "a4",
+  fill: rgb("#ffffff"),
+  margin: (x: 24mm, y: 22mm),
+  numbering: "1",
+  number-align: center,
+  header: context {
+    if counter(page).get().first() > 2 [
+      #set text(size: 9pt, fill: rgb("#888888"), style: "italic")
+      #align(right)[The CPU: A very tall pile of simple]
+    ]
+  },
+)
+#set text(fill: rgb("#111111"), size: 11pt, hyphenate: auto)
+#set par(justify: true, leading: 0.65em)
+#set heading(numbering: (..n) => {
+  let nums = n.pos()
+  if nums.len() <= 1 { none }
+  else { numbering("1.1", ..nums.slice(1)) }
+})
+
+#let caption(body) = block(above: 0.4em, below: 1.6em)[
+  #set text(size: 9.5pt, style: "italic", fill: rgb("#666666"))
+  #body
 ]
+
+#show heading.where(level: 1): it => {
+  block(below: 2.5em)[
+    #set text(size: 30pt, weight: "bold")
+    #it.body
+  ]
+  pagebreak()
+  block(below: 1.4em)[
+    #set text(size: 20pt, weight: "bold")
+    Contents
+  ]
+  outline(title: none, indent: auto, depth: 3)
+  pagebreak()
+}
+
 #show heading.where(level: 2): it => block(above: 2.6em, below: 1em)[
   #set text(size: 18pt, weight: "bold")
   #it
   #v(0.2em)
   #line(length: 100%, stroke: 0.5pt + rgb("#cccccc"))
 ]
+
 #show heading.where(level: 3): it => block(above: 1.8em, below: 0.6em)[
   #set text(size: 13pt, weight: "bold")
   #it
@@ -76,7 +112,7 @@ serious work. On the desk are a few things:
 
 #box(image("/pdf/.raster/light/desk.png", alt: "the desk with 3 drawers, the abacus and decoder chart"))
 
-#emph[Diagram 1.1. The desk setup.]
+#caption[Diagram 1.1. The desk setup.]
 
 Upstairs is the filing cabinet room. The cabinet has slots labeled 0, 1,
 2, 3, all the way up to 99. Each slot holds one piece of paper with a
@@ -88,7 +124,7 @@ mean the numbered compartments in the upstairs filing cabinet.
 
 #box(image("/pdf/.raster/light/cabinet.png", alt: "the filing cabinet"))
 
-#emph[Diagram 1.2. The filing cabinet.]
+#caption[Diagram 1.2. The filing cabinet.]
 
 Most of these slots are boring and filled with paper. But slot 98 is
 special. It\'s a little window to the outside world. When Otto puts a
@@ -104,7 +140,7 @@ but that would be a bit disruptive.
 
 #box(image("/pdf/.raster/light/house.png", alt: "The outside of the house with a display, an input dial, a small ladder, windows, and a door."))
 
-#emph[Diagram 1.3. The outside of the house, with the display and input
+#caption[Diagram 1.3. The outside of the house, with the display and input
 dial.]
 
 The important point for now is simple: the program itself also lives in
@@ -147,7 +183,7 @@ Here is a simple circuit:
 
 #box(image("/pdf/.raster/light/basic-circuit.png", alt: "A basic circuit with a switch and light bulb and drawings not symbols"))
 
-#emph[Diagram 2.1. The circuit.]
+#caption[Diagram 2.1. The circuit.]
 
 We can think of the battery as being able to push charge around the
 loop. Current can only flow when this loop is completed.
@@ -194,7 +230,7 @@ Let\'s see the circuit:
 
 #box(image("/pdf/.raster/light/switches-1-4.png", alt: "A logical AND circuit"))
 
-#emph[Diagram 3.1. The hand-switch version of AND.]
+#caption[Diagram 3.1. The hand-switch version of AND.]
 
 This circuit shows a logical AND operation. A person is flipping the
 switches manually. The output turns on only when both inputs are true.
@@ -212,7 +248,7 @@ Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
 #box(image("/pdf/.raster/light/or-gate-logical.png", alt: "A logical OR circuit"))
 
-#emph[Diagram 3.2. The hand-switch version of OR.]
+#caption[Diagram 3.2. The hand-switch version of OR.]
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
 bulb to turn on.
@@ -232,7 +268,7 @@ can\'t reach over and close that switch by itself.
 
 #box(image("/pdf/.raster/light/combination-problem.png", alt: "The problem we currently face"))
 
-#emph[Diagram 3.3. The problem we currently face.]
+#caption[Diagram 3.3. The problem we currently face.]
 
 So if we want to chain circuits together, we need a way for an
 electrical signal to control a switch automatically. How can we do this?
@@ -253,7 +289,7 @@ power,\" so the diagram doesn\'t turn into spaghetti.
 
 #box(image("/pdf/.raster/light/basic-relay-4.png", alt: "An electromagnetic relay"))
 
-#emph[Diagram 3.4. An electromagnetic relay.]
+#caption[Diagram 3.4. An electromagnetic relay.]
 
 This relay is made from a coil of wire and a movable metal arm. When
 current flows through the coil, the coil becomes a magnet and pulls the
@@ -276,7 +312,7 @@ two input wires and outputs an electrical signal.
 
 #box(image("/pdf/.raster/light/electronic-and-gate-9-t.png", alt: "An AND gate"))
 
-#emph[Diagram 3.5. An AND gate.]
+#caption[Diagram 3.5. An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
 relay. Only when both inputs have signal do both relays close,
@@ -309,20 +345,20 @@ This is how the ground symbol looks:
 
 #box(image("/pdf/.raster/light/ground-symbol.png", alt: "The ground symbol"))
 
-#emph[Diagram 3.6. The ground symbol.]
+#caption[Diagram 3.6. The ground symbol.]
 
 Now here is the OR gate:
 
 #box(image("/pdf/.raster/light/electronic-or-gate-8-t.png", alt: "An electronic OR gate"))
 
-#emph[Diagram 3.7. An electronic OR gate.]
+#caption[Diagram 3.7. An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
 #box(image("/pdf/.raster/light/dog-washer-v1-8-s.png", alt: "The full dog washer circuit built with relays"))
 
-#emph[Diagram 3.8. The full dog washer circuit built with relays.]
+#caption[Diagram 3.8. The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
 a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
@@ -348,7 +384,7 @@ That is what a NOT gate does.
 
 #box(image("/pdf/.raster/light/not-gate-4.png", alt: "A NOT gate"))
 
-#emph[Diagram 3.9. A NOT gate.]
+#caption[Diagram 3.9. A NOT gate.]
 
 Now before we look at the completed circuit, let\'s learn some basic
 logic gate symbols.
@@ -357,7 +393,7 @@ An AND gate is drawn like this:
 
 #box(image("/pdf/.raster/light/and-gate.png", alt: "An AND gate"))
 
-#emph[Diagram 3.10. An AND gate.]
+#caption[Diagram 3.10. An AND gate.]
 
 This symbol represents the AND circuit we made previously.
 
@@ -365,7 +401,7 @@ An OR gate is drawn like this:
 
 #box(image("/pdf/.raster/light/or-gate.png", alt: "An OR gate"))
 
-#emph[Diagram 3.11. An OR gate.]
+#caption[Diagram 3.11. An OR gate.]
 
 This symbol represents the OR circuit we made previously.
 
@@ -378,7 +414,7 @@ Here are three more useful gate symbols:
 
 #box(image("/pdf/.raster/light/not-nand-nor-gates.png", alt: "NOT, NAND, NOR gates"))
 
-#emph[Diagram 3.12. NOT, NAND, NOR gates.]
+#caption[Diagram 3.12. NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 
@@ -389,7 +425,7 @@ With our knowledge about logic gates, let\'s create the
 
 #box(image("/pdf/.raster/light/dog-washer-v2-8.png", alt: "The final dog washer circuit"))
 
-#emph[Diagram 3.13. The final dog washer circuit.]
+#caption[Diagram 3.13. The final dog washer circuit.]
 
 Again this animation doesn\'t cover all possible states.
 
@@ -437,7 +473,7 @@ non-negative numbers, one byte can represent 0 through 255.
 
 #box(image("/pdf/.raster/light/0-s-and-1-s.png", alt: "0's and 1's"))
 
-#emph[Diagram 4.1. 0\'s and 1\'s.]
+#caption[Diagram 4.1. 0\'s and 1\'s.]
 
 If we want to represent numbers using wires, we are going to need more
 than one wire, because one wire can only represent up to two numbers,
@@ -450,7 +486,7 @@ Here are all the possible states we have with 3 wires:
 
 #box(image("/pdf/.raster/light/3-states-8.png", alt: "States with 3 wires"))
 
-#emph[Diagram 4.2. States with 3 wires.]
+#caption[Diagram 4.2. States with 3 wires.]
 
 We can represent 8 numbers just like this. The more wires we add, the
 more numbers we can represent.
@@ -463,7 +499,7 @@ a.k.a. base ten.
 
 #box(image("/pdf/.raster/light/decimal.png", alt: "The decimal system"))
 
-#emph[Diagram 4.3. The decimal system.]
+#caption[Diagram 4.3. The decimal system.]
 
 In our decimal counting system, each place value is a multiple of 10.
 That is because we have ten digits: 0-9.
@@ -473,7 +509,7 @@ have two digits, 0 and 1, so each place is a multiple of 2.
 
 #box(image("/pdf/.raster/light/binary.png", alt: "The binary system"))
 
-#emph[Diagram 4.4. The binary system.]
+#caption[Diagram 4.4. The binary system.]
 
 So all binary is, at the end of the day, is decimal but with only two
 digits instead of ten.
@@ -492,7 +528,7 @@ Let\'s walk through `1101` together.
 
 #box(image("/pdf/.raster/light/binary-example.png", alt: "An example in binary"))
 
-#emph[Diagram 4.5. An example in binary.]
+#caption[Diagram 4.5. An example in binary.]
 
 The binary system works the same way as decimal. The only difference is
 that instead of multiplying the digit by a power of 10, we multiply it
@@ -504,7 +540,7 @@ about.
 
 #box(image("/pdf/.raster/light/add-magic-box.png", alt: "Addition?"))
 
-#emph[Diagram 4.6. Addition?]
+#caption[Diagram 4.6. Addition?]
 
 == Addition
 <addition>
@@ -513,7 +549,7 @@ decimal numbers.
 
 #box(image("/pdf/.raster/light/decimal-addition-3.png", alt: "Standard decimal addition"))
 
-#emph[Diagram 5.1. Standard decimal addition.]
+#caption[Diagram 5.1. Standard decimal addition.]
 
 We start at the rightmost column, do 5+8, get 13, we carry the 1. So we
 write 3 as the sum, and 1 as the carry. We then move left and repeat
@@ -522,7 +558,7 @@ works the same way.
 
 #box(image("/pdf/.raster/light/binary-addition-6.png", alt: "Binary addition"))
 
-#emph[Diagram 5.2. Binary addition.]
+#caption[Diagram 5.2. Binary addition.]
 
 This works the same in binary because if we have:
 
@@ -589,7 +625,7 @@ XOR:
 
 #box(image("/pdf/.raster/light/half-adder-sum-4.png", alt: "Half adder sum / XOR"))
 
-#emph[Diagram 5.3. Half adder sum / XOR.]
+#caption[Diagram 5.3. Half adder sum / XOR.]
 
 OR checks that at least one input is on, and NAND makes sure that both
 inputs are not on.
@@ -598,7 +634,7 @@ Here is how an XOR gate looks:
 
 #box(image("/pdf/.raster/light/xor-gate.png", alt: "An XOR gate"))
 
-#emph[Diagram 5.4. An XOR gate.]
+#caption[Diagram 5.4. An XOR gate.]
 
 Now let\'s do the carry value. The carry is simple! We only want to
 carry if we are doing `1 + 1`, so we just use an AND gate to check if
@@ -608,7 +644,7 @@ Now here is our half adder:
 
 #box(image("/pdf/.raster/light/half-adder-sum-4.png", alt: "A half adder"))
 
-#emph[Diagram 5.5. A half adder.]
+#caption[Diagram 5.5. A half adder.]
 
 As you can see it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
 `1 + 1 = 10`.
@@ -617,7 +653,7 @@ Now let\'s package up our half adder into a little box:
 
 #box(image("/pdf/.raster/light/half-adder-box.png", alt: "A half adder chip"))
 
-#emph[Diagram 5.6. A half adder chip.]
+#caption[Diagram 5.6. A half adder chip.]
 
 Now that we have a half adder, we can add the rightmost column. That
 works because the rightmost column has no carry-in from a previous
@@ -627,7 +663,7 @@ So if we have a number like this:
 
 #box(image("/pdf/.raster/light/carry-in-issue.png", alt: "We can't add 3 numbers yet!"))
 
-#emph[Diagram 5.7. We can\'t add 3 numbers yet!]
+#caption[Diagram 5.7. We can\'t add 3 numbers yet!]
 
 The half adder can handle the first column: `1 + 1`. That gives us a sum
 bit of `0` and a carry-out of `1`.
@@ -643,7 +679,7 @@ To add three binary numbers we use two half adders and a OR gate:
 
 #box(image("/pdf/.raster/light/full-adder-8.png", alt: "A full adder"))
 
-#emph[Diagram 5.8. A full adder.]
+#caption[Diagram 5.8. A full adder.]
 
 This might look confusing at first. What if both half adders output a
 carry-out at the same time?
@@ -659,7 +695,7 @@ Let\'s again package this up into a box:
 
 #box(image("/pdf/.raster/light/full-adder-box.png", alt: "A full adder chip"))
 
-#emph[Diagram 5.9. A full adder chip.]
+#caption[Diagram 5.9. A full adder chip.]
 
 We have made a full adder!
 
@@ -670,7 +706,7 @@ combinations because `2^8` is 256.
 
 #box(image("/pdf/.raster/light/8-bit-adder.png", alt: "An 8-bit adder"))
 
-#emph[Diagram 5.10. An 8-bit adder.]
+#caption[Diagram 5.10. An 8-bit adder.]
 
 Each full adder handles one column. The carry-out from one column
 becomes the carry-in for the next column. That is it! That is all
@@ -687,7 +723,7 @@ Now let\'s package this up into a box once again:
 
 #box(image("/pdf/.raster/light/8-bit-adder-box.png", alt: "An 8-bit adder chip"))
 
-#emph[Diagram 5.11. An 8-bit adder chip.]
+#caption[Diagram 5.11. An 8-bit adder chip.]
 
 Now we have the carry-out and carry-in as separate inputs and outputs
 and the whole adder nicely organized into this chip.
@@ -696,7 +732,7 @@ Lets have a look at some example problems:
 
 #box(image("/pdf/.raster/light/8-bit-adder-examples.png", alt: "Some examples on the adder"))
 
-#emph[Diagram 5.12. Some examples on the adder.]
+#caption[Diagram 5.12. Some examples on the adder.]
 
 As you can see in the third example, adding 1 to 255 turns every sum bit
 to `0` and turns the carry-out on.
@@ -809,7 +845,7 @@ This diagram should help this make sense:
 
 #box(image("/pdf/.raster/light/sr-latch-4.png", alt: "An SR latch"))
 
-#emph[Diagram 6.1. An SR latch.]
+#caption[Diagram 6.1. An SR latch.]
 
 A simple way to think about this is:
 
@@ -856,7 +892,7 @@ If you really want to know how it works have a look at
 
 #box(image("/pdf/.raster/light/d-latch.png", alt: "D latch"))
 
-#emph[Diagram 6.2. D latch.]
+#caption[Diagram 6.2. D latch.]
 
 But we have a problem. Let\'s say we now try to use 8 of these D latches
 to hold the result from our adder, which would then feed back into the
@@ -873,7 +909,7 @@ turn on for an instant and then turn back off. That is just hard to do.
 
 #box(image("/pdf/.raster/light/d-latch-accumulator-7.png", alt: "D latch accumulator"))
 
-#emph[Diagram 6.3. D latch accumulator.]
+#caption[Diagram 6.3. D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
 the result up by 5. With real transistors, even if you try to physically
@@ -888,7 +924,7 @@ the exact instant `E` turns on?
 
 #box(image("/pdf/.raster/light/edge-graph.png", alt: "The rising edge of a signal"))
 
-#emph[Diagram 6.4. The rising edge of a signal.]
+#caption[Diagram 6.4. The rising edge of a signal.]
 
 This graph shows the state of a wire. When the line is at the top, it is
 on. When it is at the bottom, it is off.
@@ -908,7 +944,7 @@ usually edge-triggered.
 
 #box(image("/pdf/.raster/light/d-type-edge-triggered-flip-flop.png", alt: "A flip-flop"))
 
-#emph[Diagram 6.5. A flip-flop.]
+#caption[Diagram 6.5. A flip-flop.]
 
 How it works is, when the enable wire is off, the first latch mirrors
 `D`. That is because the NOT gate flips the enable signal, so the first
@@ -928,25 +964,25 @@ Here is one storage cell, which is just the flip-flop we showed above:
 
 #box(image("/pdf/.raster/light/flip-flop-storage-cell.png", alt: "A one-bit storage cell"))
 
-#emph[Diagram 6.6. A one-bit storage cell.]
+#caption[Diagram 6.6. A one-bit storage cell.]
 
 If we connect 8 of them side by side, we get one byte of storage:
 
 #box(image("/pdf/.raster/light/8-storage-cells.png", alt: "Eight storage cells"))
 
-#emph[Diagram 6.7. Eight storage cells.]
+#caption[Diagram 6.7. Eight storage cells.]
 
 And we can put all that into a box called an 8-bit register:
 
 #box(image("/pdf/.raster/light/8-bit-register.png", alt: "An 8-bit register"))
 
-#emph[Diagram 6.8. An 8-bit register.]
+#caption[Diagram 6.8. An 8-bit register.]
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
 #box(image("/pdf/.raster/light/full-accumulator.png", alt: "Our full accumulator"))
 
-#emph[Diagram 6.9. Our full accumulator.]
+#caption[Diagram 6.9. Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
 ones!
@@ -968,7 +1004,7 @@ Here is the basic concept of a clock:
 
 #box(image("/pdf/.raster/light/clock-signal.png", alt: "A clock signal"))
 
-#emph[Diagram 6.10. A clock signal.]
+#caption[Diagram 6.10. A clock signal.]
 
 This repeating on-off behavior can be achieved in different ways. A
 rough toy example is feeding the output of a NOT gate back into its

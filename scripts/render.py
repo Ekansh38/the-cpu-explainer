@@ -19,19 +19,58 @@ LINE_GRAY = "#555555"
 TEXT_BLACK = "#000000"
 RASTER_GRAY = "#444444"
 
-DARK_PREAMBLE = """\
-#set page(paper: "a4", fill: rgb("#111111"), margin: (x: 24mm, y: 22mm))
-#set text(fill: rgb("#e6e6e6"), size: 11pt)
-#show heading.where(level: 1): it => block(below: 2.5em)[
-  #set text(size: 26pt, weight: "bold")
-  #it
+TITLE = "The CPU: A very tall pile of simple"
+
+def make_preamble(bg, ink, rule, subtle, caption_ink):
+    return f"""\
+#set document(title: "{TITLE}")
+#set page(
+  paper: "a4",
+  fill: rgb("{bg}"),
+  margin: (x: 24mm, y: 22mm),
+  numbering: "1",
+  number-align: center,
+  header: context {{
+    if counter(page).get().first() > 2 [
+      #set text(size: 9pt, fill: rgb("{subtle}"), style: "italic")
+      #align(right)[{TITLE}]
+    ]
+  }},
+)
+#set text(fill: rgb("{ink}"), size: 11pt, hyphenate: auto)
+#set par(justify: true, leading: 0.65em)
+#set heading(numbering: (..n) => {{
+  let nums = n.pos()
+  if nums.len() <= 1 {{ none }}
+  else {{ numbering("1.1", ..nums.slice(1)) }}
+}})
+
+#let caption(body) = block(above: 0.4em, below: 1.6em)[
+  #set text(size: 9.5pt, style: "italic", fill: rgb("{caption_ink}"))
+  #body
 ]
+
+#show heading.where(level: 1): it => {{
+  block(below: 2.5em)[
+    #set text(size: 30pt, weight: "bold")
+    #it.body
+  ]
+  pagebreak()
+  block(below: 1.4em)[
+    #set text(size: 20pt, weight: "bold")
+    Contents
+  ]
+  outline(title: none, indent: auto, depth: 3)
+  pagebreak()
+}}
+
 #show heading.where(level: 2): it => block(above: 2.6em, below: 1em)[
   #set text(size: 18pt, weight: "bold")
   #it
   #v(0.2em)
-  #line(length: 100%, stroke: 0.5pt + rgb("#333333"))
+  #line(length: 100%, stroke: 0.5pt + rgb("{rule}"))
 ]
+
 #show heading.where(level: 3): it => block(above: 1.8em, below: 0.6em)[
   #set text(size: 13pt, weight: "bold")
   #it
@@ -39,25 +78,22 @@ DARK_PREAMBLE = """\
 
 """
 
-LIGHT_PREAMBLE = """\
-#set page(paper: "a4", fill: rgb("#ffffff"), margin: (x: 24mm, y: 22mm))
-#set text(fill: rgb("#111111"), size: 11pt)
-#show heading.where(level: 1): it => block(below: 2.5em)[
-  #set text(size: 26pt, weight: "bold")
-  #it
-]
-#show heading.where(level: 2): it => block(above: 2.6em, below: 1em)[
-  #set text(size: 18pt, weight: "bold")
-  #it
-  #v(0.2em)
-  #line(length: 100%, stroke: 0.5pt + rgb("#cccccc"))
-]
-#show heading.where(level: 3): it => block(above: 1.8em, below: 0.6em)[
-  #set text(size: 13pt, weight: "bold")
-  #it
-]
 
-"""
+DARK_PREAMBLE = make_preamble(
+    bg="#111111",
+    ink="#e6e6e6",
+    rule="#333333",
+    subtle="#666666",
+    caption_ink="#8a8a8a",
+)
+
+LIGHT_PREAMBLE = make_preamble(
+    bg="#ffffff",
+    ink="#111111",
+    rule="#cccccc",
+    subtle="#888888",
+    caption_ink="#666666",
+)
 
 
 def strip_frontmatter(text):
@@ -307,7 +343,13 @@ def to_typst(md_text):
         ["pandoc", "-f", "gfm", "-t", "typst"],
         input=md_text, text=True, capture_output=True, check=True,
     )
-    return result.stdout
+    out = result.stdout
+    out = re.sub(
+        r"#emph\[(Diagram\s+\d+\.\d+\.[^\]]*?)\]",
+        r"#caption[\1]",
+        out,
+    )
+    return out
 
 
 def build(mode):
