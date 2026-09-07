@@ -857,4 +857,18 @@ it, and write back to it?
 
 ## Organizing Data
 
+We want to build a system that organizes data into the structure of [Otto's cabinet slots](#diagram-1-2).
 
+This system is known technically as RAM: Random Access Memory. It is called RAM because when the CPU
+wants to access a slot, it just knows the number and can access any slot at will. It is not like
+flipping through a book looking for the right page. It is more like grabbing a book from a
+bookshelf, where you already know the book.
+
+Now lets think about exactly what we would want this RAM chip to do.
+
+- An address: this is the slot we wish to access.
+- Whether we want to write to or read from this address.
+- Data input if we would like to write.
+- Data output if we would like to read.
+
+Keep in mind, we want to read from a slot, the input data would just be ignored and vice-versa.
