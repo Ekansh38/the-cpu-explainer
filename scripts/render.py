@@ -145,6 +145,32 @@ def swap_near_white(text, target_hex):
     return text
 
 
+def swap_near_black(text, target_hex):
+    target_no_hash = target_hex.lstrip("#")
+    tr = int(target_no_hash[0:2], 16)
+    tg = int(target_no_hash[2:4], 16)
+    tb = int(target_no_hash[4:6], 16)
+
+    def rgb_sub(m):
+        r, g, b = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if r <= 20 and g <= 20 and b <= 20:
+            return f"rgb({tr}, {tg}, {tb})"
+        return m.group(0)
+
+    def hex_sub(m):
+        h = m.group(1)
+        if len(h) == 3:
+            h = h[0] * 2 + h[1] * 2 + h[2] * 2
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        if r <= 20 and g <= 20 and b <= 20:
+            return target_hex
+        return m.group(0)
+
+    text = re.sub(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)", rgb_sub, text)
+    text = re.sub(r"#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})(?![0-9a-fA-F])", hex_sub, text)
+    return text
+
+
 def strip_text_shadow(text):
     return re.sub(r"text-shadow:[^;]*;", "text-shadow: none;", text)
 
@@ -162,6 +188,7 @@ def transform_svg_light(svg_text):
             part = strip_text_shadow(part)
         else:
             part = swap_near_white(part, LINE_GRAY)
+            part = swap_near_black(part, "#ffffff")
         out.append(part)
     return "".join(out)
 
