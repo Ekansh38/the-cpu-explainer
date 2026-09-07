@@ -2,6 +2,7 @@
 import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 import numpy as np
@@ -20,6 +21,8 @@ TEXT_BLACK = "#000000"
 RASTER_GRAY = "#444444"
 
 TITLE = "The CPU: A very tall pile of simple"
+AUTHOR = "Ekansh Goenka"
+BUILD_DATE = date.today().strftime("%B %Y")
 
 def make_preamble(bg, ink, rule, subtle, caption_ink):
     return f"""\
@@ -51,9 +54,20 @@ def make_preamble(bg, ink, rule, subtle, caption_ink):
 ]
 
 #show heading.where(level: 1): it => {{
-  block(below: 2.5em)[
-    #set text(size: 30pt, weight: "bold")
-    #it.body
+  v(6em)
+  align(center)[
+    #block(below: 1.2em)[
+      #set text(size: 32pt, weight: "bold")
+      #it.body
+    ]
+    #block(below: 0.5em)[
+      #set text(size: 14pt, style: "italic")
+      {AUTHOR}
+    ]
+    #block[
+      #set text(size: 10pt, fill: rgb("{subtle}"))
+      {BUILD_DATE}
+    ]
   ]
   pagebreak()
   block(below: 1.4em)[

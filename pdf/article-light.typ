@@ -26,9 +26,20 @@
 ]
 
 #show heading.where(level: 1): it => {
-  block(below: 2.5em)[
-    #set text(size: 30pt, weight: "bold")
-    #it.body
+  v(6em)
+  align(center)[
+    #block(below: 1.2em)[
+      #set text(size: 32pt, weight: "bold")
+      #it.body
+    ]
+    #block(below: 0.5em)[
+      #set text(size: 14pt, style: "italic")
+      Ekansh Goenka
+    ]
+    #block[
+      #set text(size: 10pt, fill: rgb("#888888"))
+      September 2026
+    ]
   ]
   pagebreak()
   block(below: 1.4em)[
