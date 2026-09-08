@@ -33,7 +33,7 @@
       #it.body
     ]
     #block(below: 0.5em)[
-      #set text(size: 14pt, style: "italic")
+      #set text(size: 14pt, style: "italic", weight: "regular")
       Ekansh Goenka
     ]
     #block[

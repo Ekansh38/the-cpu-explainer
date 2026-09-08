@@ -61,7 +61,7 @@ def make_preamble(bg, ink, rule, subtle, caption_ink):
       #it.body
     ]
     #block(below: 0.5em)[
-      #set text(size: 14pt, style: "italic")
+      #set text(size: 14pt, style: "italic", weight: "regular")
       {AUTHOR}
     ]
     #block[
@@ -311,17 +311,20 @@ def recolor_raster(raster_path):
     luminance = (r + g + b) // 3
 
     gray_mask = chroma < 30
-    fill = 0x44
-    gray_alpha = (luminance * a) // 255
+    lum_ratio = luminance.astype(np.float32) / 255.0
+    dark_target = 68
+    light_target = 235
+    gray_fill = (light_target - (light_target - dark_target) * lum_ratio).astype(np.int32)
+    gray_alpha = ((lum_ratio + (1.0 - lum_ratio) * 0.35) * a).clip(0, 255).astype(np.int32)
 
     light_chroma_mask = (~gray_mask) & (luminance > 180)
     dr = (r * 65) // 100
     dg = (g * 65) // 100
     db = (b * 65) // 100
 
-    out_r = np.where(gray_mask, fill, np.where(light_chroma_mask, dr, r))
-    out_g = np.where(gray_mask, fill, np.where(light_chroma_mask, dg, g))
-    out_b = np.where(gray_mask, fill, np.where(light_chroma_mask, db, b))
+    out_r = np.where(gray_mask, gray_fill, np.where(light_chroma_mask, dr, r))
+    out_g = np.where(gray_mask, gray_fill, np.where(light_chroma_mask, dg, g))
+    out_b = np.where(gray_mask, gray_fill, np.where(light_chroma_mask, db, b))
     out_a = np.where(gray_mask, gray_alpha, a)
 
     result = np.stack([out_r, out_g, out_b, out_a], axis=-1).astype(np.uint8)
