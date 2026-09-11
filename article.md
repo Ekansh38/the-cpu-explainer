@@ -864,11 +864,51 @@ wants to access a slot, it just knows the number and can access any slot at will
 flipping through a book looking for the right page. It is more like grabbing a book from a
 bookshelf, where you already know the book.
 
-Now lets think about exactly what we would want this RAM chip to do.
+Now let's think about exactly what we would want this RAM chip to do.
 
-- An address: this is the slot we wish to access.
-- Whether we want to write to or read from this address.
-- Data input if we would like to write.
-- Data output if we would like to read.
+- `address`: the slot we wish to access
+- `WRITE`: whether we want to write a value to this address
+- `data in`: the value we would like to write
+- `data out`: the value we would like to read
 
-Keep in mind, we want to read from a slot, the input data would just be ignored and vice-versa.
+Okay, let's make this more precise. We are going to build a minuscule 16-byte RAM: 16 addresses, with
+each address storing one byte. This design can be scaled up easily.
+
+Our address will be 4 bits long, because `2^4` is 16. Just enough to represent every single address.
+
+Now we ideally don't want a tall stack of 16 registers, we want a nice grid pattern.
+
+Thus, we will use 2 out of the 4 bits for the row, and the other 2 bits for the column.
+
+2 bits can store 4 values, so we will have a 4×4 array of memory, which is 16 total values!
+
+Let's start with building a simple decoder. This decoder will take 2 bits of our address and, based
+on that number, turn on exactly one out of 4 wires.
+
+<diagram that cleanly explains it>
+
+We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for the columns. Where the selected
+row and selected column cross, that is the byte we want to target.
+
+<diagram showing the concept>
+
+How a decoder works is extremely simple. It just uses a bunch of logic gates to ask these simple
+questions.
+
+- If `00` -> turn on wire 1
+- If `01` -> turn on wire 2
+- If `10` -> turn on wire 3
+- If `11` -> turn on wire 4
+
+Here is how it works if you care:
+
+<diagram>
+
+Honestly? That's it. We can use two decoders, sixteen registers, some output wires and some inputs
+wires all mashed together with some extra logic gates and BOOM! We have some RAM. 
+
+<diagram>
+
+<explain here>
+
+Now we have built Otto's abacus, desk drawers and upstairs cabinet, all working and functional!

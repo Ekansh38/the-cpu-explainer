@@ -1,25 +1,29 @@
 title: electronic or gate
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+`input 1` & `input 2` are both open, so neither electromagnet is powered and neither metal arms is
+down causing both switches in the main loop to stay open. That is why the bulb is off.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`input 1` is closed, so its electromagnet starts to pull the first arm. `input 2` is still open, and the first metal arm hasn't been pulled down, so the main loop is still broken. That is why the bulb is off.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`input 1` is closed, and the electromagnet has pulled the first arm down. `input 2` is still open,
+but the main loop is now completed. That is why the bulb is on.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+`input 1` is closed, and the electromagnet has pulled the first arm down. `input 2` is closed and the second electromagnet has started to pull the metal arm down, the main loop is still completed from the first arm. That is why the bulb is on.
+
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+`input 1` is closed, and the electromagnet has pulled the first arm down. `input 2` is closed, and the second electromagnet has pulled the second metal arm down, the main loop is completed from the both arms. That is why the bulb is on.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+`input 1` is open, and the electromagnet has started to release the first metal arm. But the arm is still touching the switch. `input 2` is still closed. The main loop is still completed, so the bulb is still on.
 
 [frame 7]
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+`input 1` is open, and the electromagnet has released the first metal arm. `input 2` is still closed. The main loop is still completed, so the bulb is still on.
 
 [frame 8]
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+`input 1` is open, and the electromagnet has released the first metal arm. `input 2` is now open, and the electromagnet has started to release the second metal arm. But the arm is still touching the switch. The main loop is still completed, so the bulb is still on.
+
