@@ -1,0 +1,13 @@
+title: before after
+
+[frame 1]
+The switch is open, no current is flowing. The relay is open, and there is a break in the circuit.
+
+[frame 2]
+The switch is closed, current is flowing. The relay is now closed, and the light bulb is powered because there is a difference in voltage.
+
+[frame 3]
+The switch is open, no current is flowing. The relay is not pulling, so the arm is touching the `-` side and driving the output wire low.
+
+[frame 4]
+The switch is closed, current is flowing. The relay has pulled the arm, so it is touching the `+` side and driving the output wire high.
