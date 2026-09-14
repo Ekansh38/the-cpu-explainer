@@ -298,21 +298,37 @@ That is what a NOT gate does.
 
 *Diagram 3.9. A NOT gate.*
 
+Now lets clean up some of our understanding of circuits before we move on. We have been showing our
+outputs as a light bulb. For a bulb to be on, it needs be connected to `+` and `-`, one on each
+side, that difference in voltage allows current to flow, turning on the bulb.
+
+But lets say we just want an output wire, not a bulb. We can't just remove the bulb, `+` connected
+directly to `-` would lead to a short-circuit. So what we do, is we either just drive the wire up or
+down, so either it is connected to `+` or `-`. All of our relay gates can be simply adapted to do
+this.
+
+<a id="diagram-3-10"></a> <img src="./assets/final/before-after.gif" alt="Driving an output wire">
+
+*Diagram 3.10. Driving an output wire.*
+
+In this diagram, red wire means current is actively flowing, that's why `OUT = 1` is still white.
+Later when we stop drawing every logic gate, red wire will just mean high, or 1.
+
 Now before we look at the completed circuit, let's learn some basic logic gate symbols.
 
 An AND gate is drawn like this:
 
-<a id="diagram-3-10"></a> <img src="./assets/final/and-gate.svg" alt="An AND gate">
+<a id="diagram-3-11"></a> <img src="./assets/final/and-gate.svg" alt="An AND gate">
 
-*Diagram 3.10. An AND gate.*
+*Diagram 3.11. An AND gate.*
 
 This symbol represents the [AND circuit](#diagram-3-5) we made previously.
 
 An OR gate is drawn like this:
 
-<a id="diagram-3-11"></a> <img src="./assets/final/or-gate.svg" alt="An OR gate">
+<a id="diagram-3-12"></a> <img src="./assets/final/or-gate.svg" alt="An OR gate">
 
-*Diagram 3.11. An OR gate.*
+*Diagram 3.12. An OR gate.*
 
 This symbol represents the [OR circuit](#diagram-3-7) we made previously.
 
@@ -322,9 +338,9 @@ stay hidden for cleanliness sake.
 
 Here are three more useful gate symbols:
 
-<a id="diagram-3-12"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
+<a id="diagram-3-13"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
 
-*Diagram 3.12. NOT, NAND, NOR gates.*
+*Diagram 3.13. NOT, NAND, NOR gates.*
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 
@@ -332,9 +348,9 @@ That little circle at the end of a gate means "flip the output."
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
-<a id="diagram-3-13"></a> <img src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
+<a id="diagram-3-14"></a> <img src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
 
-*Diagram 3.13. The final dog washer circuit.*
+*Diagram 3.14. The final dog washer circuit.*
 
 Again this animation doesn't cover all possible states.
 
@@ -851,11 +867,28 @@ I am too lazy to draw it for you.
 Now we have a circuit version of one of Otto's desk drawers: a register that can hold a byte and
 update when we want.
 
+But registers on their own are not enough. Otto needs to move numbers between his drawers, the
+abacus, and the upstairs cabinet.
+
+So before we build the cabinet, we need one more piece of plumbing: a clean way to move bytes around.
+
+## Buses
+
+Now one simple solution would be to give every component a pair of 8-wires to every other component,
+but that would become a mess very quickly.
+
+A simpler solution is to have one single 8-bit data highway, where components can put and take data
+off. This is collection of 8-wires is called a bus.
+
+<diagram showing the concept>
+
+
+
 But Otto also had the upstairs filing cabinet, not just three desk drawers. So the next problem is
 organization and scale. How do we organize many stored bytes so the machine can choose one slot, read
 it, and write back to it?
 
-## Organizing Data
+## Organizing Data (REDO, cuz i added BUSES)
 
 We want to build a system that organizes data into the structure of [Otto's cabinet slots](#diagram-1-2).
 
@@ -882,15 +915,30 @@ Thus, we will use 2 out of the 4 bits for the row, and the other 2 bits for the 
 
 2 bits can store 4 values, so we will have a 4×4 array of memory, which is 16 total values!
 
+When we select an address, we want RAM to automatically put that register's stored byte onto `data
+out`. If `WRITE` is on, then on the edge of `WRITE` turning on, that register stores `data in`.
+
 Let's start with building a simple decoder. This decoder will take 2 bits of our address and, based
 on that number, turn on exactly one out of 4 wires.
 
-<diagram that cleanly explains it>
+In the diagram, the two input bits are labeled `A1` and `A0`. `A1` is the bigger bit, the 2's place.
+`A0` is the smaller bit, the 1's place.
+
+<a id="diagram-7-1"></a> <img src="./assets/final/2-4-decoder.gif" alt="How a decoder works">
+
+*Diagram 7.1. How a decoder works.*
+
+As you can tell, no matter the inputs, exactly one output wire is on at a time.
 
 We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for the columns. Where the selected
 row and selected column cross, that is the byte we want to target.
 
-<diagram showing the concept>
+This diagram shows a few addresses as examples. Each address gets it's own little intersection.
+Each address from 1-16 has its own spot.
+
+<a id="diagram-7-2"></a> <img src="./assets/final/cross-section.gif" alt="Where the row and column meet">
+
+*Diagram 7.2. Where the row and column meet.*
 
 How a decoder works is extremely simple. It just uses a bunch of logic gates to ask these simple
 questions.
@@ -902,12 +950,72 @@ questions.
 
 Here is how it works if you care:
 
-<diagram>
+<a id="diagram-7-3"></a> <img src="./assets/final/2-4-decoder-gates.gif" alt="2-4 decoder internals">
+
+*Diagram 7.3. 2-4 decoder internals.*
+
+One more thing, moving forward when I want to draw a collection of 8 wires, instead of drawing each
+wire, I will just draw a thick arrow that represents 8 wires. So instead of our [previous register diagram](#diagram-6-8), we would have something like this:
+
+<a id="diagram-7-4"></a> <img src="./assets/final/new-8-bit-register.svg" alt="An 8-bit bus">
+
+*Diagram 7.4. An 8-bit bus.*
+
+To show the state of the wires, I can just write a number in the arrow, in this case the number 0
+means the wires are all of.
+
+Okay two more things we need to cover before I can show you the RAM diagram. First lets add one more
+input to our register:
+
+<a id="diagram-7-5"></a> <img src="./assets/final/read-register.gif" alt="A register with `READ` control">
+
+*Diagram 7.5. A register with `READ` control.*
+
+These are our simple register diagrams that will be used in the RAM diagram later. `R` is `READ` and
+`W` is `WRITE`. It is of course a 8-bit register.
+
+So now the slot has two control inputs: `WRITE` and `READ`. We are already familiar with `WRITE`
+which works like the [previous enable wire](#diagram-6-8), and now `READ` controls whether the slot can output its stored value.
+
+The register's stored byte is sitting on eight output wires, `Q0` through `Q7`. Before that byte
+leaves the slot, each bit is ANDed with `READ`.
+
+Let's say `Q = 01011011`. If `READ` is `0`, every bit gets ANDed with `0`, so the slot outputs
+`00000000`. But if `READ` is `1`, every bit passes through unchanged, so the slot outputs
+`01011011`.
+
+Second thing. In our RAM design only one register will be selected at a time, and we need to combine
+all the outputs onto one bus that will show the output. To do this, we can just OR the values of
+each gate when we need to combine.
+
+This works because all the gates but one will be 0.
+
+```
+register 1: 00000000
+register 2: 00000000
+register 3: 01010111
+register 4: 00000000
+output:     01010111
+```
+
+So if we OR all of these buses together we just get the value of the enabled bus.
+
+In the later diagrams, when two buses merge through a blue connector, that means their bits are
+ORed together, they are not literally connect.
 
 Honestly? That's it. We can use two decoders, sixteen registers, some output wires and some inputs
 wires all mashed together with some extra logic gates and BOOM! We have some RAM. 
 
 <diagram>
+
+You might have noticed a few oddities in this diagram. First, I changed `E` to `W`, because here the
+enable input specifically means "write enable." The register should only copy `data in` when this
+slot is selected and `WRITE` is on.
+
+I also draw an AND gate taking an 8-bit bus and one normal wire. That is just shorthand for eight
+small AND gates in parallel: `Q0 AND selected`, `Q1 AND selected`, `Q2 AND selected`, and so on. In
+other words, the selected slot is allowed to put its stored byte onto `data out`, while the other
+slots output `0`.
 
 <explain here>
 

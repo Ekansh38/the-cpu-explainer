@@ -1,0 +1,13 @@
+title: 2 4 decoder
+
+[frame 1]
+The input into the decoder is `00`, which is the number 0. That is why the output 0 is on, the bottom-most wire.
+
+[frame 2]
+The input into the decoder is `01`, which is the number 1. That is why the output 1 is on, the second wire from the bottom.
+
+[frame 3]
+The input into the decoder is `10`, which is the number 2. That is why the output 2 is on, the third wire from the bottom.
+
+[frame 4]
+The input into the decoder is `11`, which is the number 3. That is why the output 3 is on, the top-most wire.

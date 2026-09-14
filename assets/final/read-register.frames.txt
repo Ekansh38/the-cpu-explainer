@@ -1,0 +1,19 @@
+title: read register
+
+[frame 1]
+Input bus is 0. Output is 0, `READ` and `WRITE` are both off.
+
+[frame 2]
+Input bus is 17. Output is still 0, `READ` and `WRITE` are both off.
+
+[frame 3]
+Input bus is 17. `WRITE` now on, this stores the value 17 into the register. But the output is still 0, because `READ` is off.
+
+[frame 4]
+Input bus is 17. `WRITE` is off, the value 17 is stored inside the register. But the output is still 0, because `READ` is off.
+
+[frame 5]
+Input bus is now 0. `WRITE` is off, the value 17 is stored inside the register. But the output is still 0, because `READ` is off.
+
+[frame 6]
+Input bus is now 0. `WRITE` is off, the value 17 is stored inside the register. Now the output is 17, because `READ` is on.

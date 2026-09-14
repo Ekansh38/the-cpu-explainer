@@ -1,0 +1,13 @@
+title: 2 4 decoder gates
+
+[frame 1]
+Both `A1` and `A0` are off, indicating the value 0. Thus both inverters output 1, and only the bottom AND gate gets two 1s on its inputs. That is why output 0 is on. 
+
+[frame 2]
+`A0` is now on, giving the value 1. Flipping it turns its inverter off, so the bottom gate loses one of its 1s and output 0 turns off. Meanwhile the gate above it gets A0 directly plus the still-on inverted A1. That is why output 1 is now on.
+
+[frame 3]
+Now `A1` is on and `A0` is off, giving the value 2. `A0`'s inverter turns on while `A1`'s inverter switches off, so the bottom two gates both are off. The gate for 2 gets `A1` directly plus that inverted `A0`. That is why output 2 is now on.
+
+[frame 4]
+Now `A1` is on and `A0` is also on, giving the value 3. Both inverters turn off, so the bottom three gates are off. The gate for 3 gets `A1` directly and `A0` directly. That is why output 3 is now on.
