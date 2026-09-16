@@ -40,77 +40,17 @@ tall pile of simple ones.
 We are going to try to understand this simple CPU. It is not a modern CPU with decades of
 optimization, but it has the same core functionality.
 
-## The House
+## How to Read This Article
 
-Let's start with a high-level overview of how the CPU functions, so we have a goal to work towards.
+- If a diagram is hard to understand, click it and step through each frame one by one using the arrow
+  keys, with the provided descriptions. This only works if you are reading on my website.
 
-Imagine your computer is a house.
+- Don't try to "memorize" every layout. Focus on the mental models, concepts, and what part each
+  piece has to play.
 
-Inside this house is one stupid but surprisingly pedantic worker. His name is Otto. Also he never
-leaves his house.
+- If a section feels dense or hard to understand, follow the diagrams first and try to get a feel for
+  what is happening.
 
-Inside this house we have our downstairs desk where Otto does all the serious work. On the desk are
-a few things:
-
-- three small drawers that can each hold one number, labeled `A`, `B`, and `PC`
-- an abacus for basic arithmetic.
-- A decoder chart that does some stuff. We will come back to this later.
-
-<a id="diagram-1-1"></a> <img src="./assets/final/desk.svg" alt="the desk with 3 drawers, the
-abacus and decoder chart">
-
-*Diagram 1.1. The desk setup.*
-
-Upstairs is the filing cabinet room. The cabinet has slots labeled 0, 1, 2, 3, all the way up to 99.
-Each slot holds one piece of paper with a two-digit number written on it, from `00` to `99`.
-
-One quick distinction before we start: when I say "drawer," I mean the desk drawers right next to
-Otto where he works. When I say "slot," I mean the numbered compartments in the upstairs filing
-cabinet.
-
-<a id="diagram-1-2"></a> <img src="./assets/final/cabinet.svg" alt="the filing cabinet">
-
-*Diagram 1.2. The filing cabinet.*
-
-Most of these slots are boring and filled with paper. But slot 98 is special. It's a little window
-to the outside world. When Otto puts a number there, it doesn't get written on paper. It shows up on
-a display. Put `00` there and it glows `00`. Put `07` there and it glows `07`. Otto can read, write, and
-interact with it just as if it were any cabinet slot.
-
-Slot 99 works the opposite way. It's connected to a dial outside the house. Otto
-reads from it like any other slot, but the value comes from whoever is turning the dial. He could
-technically write to slot 99 too, but that would be a bit disruptive. 
-
-<a id="diagram-1-3"></a> <img src="./assets/final/house.svg" alt="The outside of the house with a display, an input dial, a small ladder, windows, and a door.">
-
-*Diagram 1.3. The outside of the house, with the display and input dial.*
-
-The important point for now is simple: the program itself also lives in the upstairs cabinet.
-Instructions are just numbers stored in slots. Otto uses `PC` to know which slot to read next, then
-uses the decoder chart to decide what that number means, and what procedure to follow based on each
-instruction.
-
-<a id="diagram-1-4"></a> <img src="./assets/final/loop.svg" alt="Otto's loop">
-
-Diagram 1.4. Otto's basic loop. He reads the address in `PC`, fetches the number from that cabinet
-slot, uses the decoder chart to choose what to do, does it, updates `PC`, and repeats.
-
-Most instructions just move Otto forward to the next instruction. If `PC` says `10`, Otto reads slot
-10, follows that instruction, and then `PC` moves to the next relevant slot.
-
-But some instructions are jumps. A jump changes `PC` to a different slot instead of moving forward.
-That is how a program can loop, skip work, or do one thing if a value is `0` and another thing if it
-isn't.
-
-That is kinda just how your computer works: instructions live in memory, `PC` points at the next
-one, the decoder chart says what each instruction means, and Otto repeats the same
-fetch-decode-execute loop again and again.
-
-Something like this is happening inside your computer right now.
-
-Except there is no Otto.
-
-Nobody is home.
 
 ## Circuits & Electricity
 
@@ -299,7 +239,7 @@ That is what a NOT gate does.
 *Diagram 3.9. A NOT gate.*
 
 Now lets clean up some of our understanding of circuits before we move on. We have been showing our
-outputs as a light bulb. For a bulb to be on, it needs be connected to `+` and `-`, one on each
+outputs as a light bulb. For a bulb to be on, it needs to be connected to `+` and `-`, one on each
 side, that difference in voltage allows current to flow, turning on the bulb.
 
 But lets say we just want an output wire, not a bulb. We can't just remove the bulb, `+` connected
@@ -322,7 +262,8 @@ An AND gate is drawn like this:
 
 *Diagram 3.11. An AND gate.*
 
-This symbol represents the [AND circuit](#diagram-3-5) we made previously.
+This symbol represents the [AND circuit](#diagram-3-5) we made previously, except instead of turning
+a bulb on and off, it drives an output wire.
 
 An OR gate is drawn like this:
 
@@ -330,11 +271,11 @@ An OR gate is drawn like this:
 
 *Diagram 3.12. An OR gate.*
 
-This symbol represents the [OR circuit](#diagram-3-7) we made previously.
+This symbol represents the [OR circuit](#diagram-3-7) we made previously, with the same idea about
+driving the output wire instead of a bulb.
 
-Whenever I use these symbols moving forward, they can directly translate to the circuits with the
-relays I showed you previously, the inputs and outputs are the same, but the internal components
-stay hidden for cleanliness sake.
+Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
+the relays I showed you previously, but the internal components stay hidden for cleanliness sake.
 
 Here are three more useful gate symbols:
 
@@ -638,15 +579,7 @@ I don't want to go deep into flags yet. Just remember that the adder can output 
 about the sum. That matters later for instructions like "jump if zero." But let's not get ahead of
 ourselves.
 
-Before we move on, this is the first real payoff we have hit.
-
-We have built Otto's abacus! If you remember, Otto used his abacus for adding two numbers, and we
-have built a circuit that does just that!
-
-But Otto also had something else on his desk: drawers.
-
-Those drawers had a very important ability. A drawer could hold a number still while Otto worked,
-then change only when Otto specifically replaced it with a new number.
+We have just built addition! But we also need something else: storage.
 
 For example, let's say we want to build a circuit that counts by ones like, 1, 2, 3, 4,...
 
@@ -864,29 +797,37 @@ that repeatedly produces the same on-off signal.
 Just imagine the new accumulator with a clock signal instead of a `STEP` button. 
 I am too lazy to draw it for you.
 
-Now we have a circuit version of one of Otto's desk drawers: a register that can hold a byte and
-update when we want.
+We now have some storage. A register that can hold a byte, and update exactly when we want.
 
-But registers on their own are not enough. Otto needs to move numbers between his drawers, the
-abacus, and the upstairs cabinet.
+But registers on their own are not enough. We need to be able to move numbers between register, the
+adders, and the main memory, which we will build later.
 
 So before we build the cabinet, we need one more piece of plumbing: a clean way to move bytes around.
 
 ## Buses
 
-Now one simple solution would be to give every component a pair of 8-wires to every other component,
-but that would become a mess very quickly.
+Now one simple solution to move bytes around would be to give every component its own bundle of 8
+wires to every other component, but that would become a mess very quickly.
 
 A simpler solution is to have one single 8-bit data highway, where components can put and take data
-off. This is collection of 8-wires is called a bus.
+off. This collection of 8 wires is called a bus.
 
 <diagram showing the concept>
 
+But we have an issue, this diagram is technically not possible yet. If register `A` is outputting a
+value like `00000000`, and it is connected to the bus, and then register `B` is outputting a value
+like `00000001`, then the last wire will clash and short circuit.
+
+We need a way to connect these registers to the bus, but for them to not bother the bus, and not to
+actively drive a wire to `-` or `+` like we discussed [previously](#diagram-3-10). 
+
+We need a way to make wires "free" when we don't want to output anything. `00000000` is not enough.
+The point I am trying to make is that `00000000` is not silent. It is actively driving the bus.
 
 
-But Otto also had the upstairs filing cabinet, not just three desk drawers. So the next problem is
-organization and scale. How do we organize many stored bytes so the machine can choose one slot, read
-it, and write back to it?
+
+The next problem is organization and scale. How do we organize many stored bytes so the machine can
+choose one slot, read it, and write back to it?
 
 ## Organizing Data (REDO, cuz i added BUSES)
 
