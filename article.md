@@ -163,8 +163,8 @@ back up.
 A relay lets one circuit open or close a switch in another circuit. The two circuits stay separate,
 but the relay arm physically connects them.
 
-Also in this example we end up using a switch in the input circuit anyway, but any kind of
-electrical signal could be used, like the output of another circuit, the switch is just to
+Also, in this example, we end up using a switch in the input circuit anyway, but any kind of
+electrical signal could be used, like the output of another circuit. The switch is just there to
 demonstrate how the relay works.
 
 As you can also tell by the diagram, there is a slight delay between the coil turning on and the
@@ -185,8 +185,8 @@ OR gate:
 
 But before the next diagram, I am going to use one more new symbol: ground. 
 
-For the purposes of this article the ground symbol will simply refer to the common return point of
-the circuit usually connected to the negative side of the battery. 
+For the purposes of this article, the ground symbol will simply refer to the common return point of
+the circuit, usually connected to the negative side of the battery.
 
 Every point marked with the ground symbol is connected together, as if there were hidden wires joining
 them underneath the drawing. It is not a new component. It is just a less messy way to draw the return
@@ -238,13 +238,13 @@ That is what a NOT gate does.
 
 *Diagram 3.9. A NOT gate.*
 
-Now lets clean up some of our understanding of circuits before we move on. We have been showing our
+Now let's clean up some of our understanding of circuits before we move on. We have been showing our
 outputs as a light bulb. For a bulb to be on, it needs to be connected to `+` and `-`, one on each
-side, that difference in voltage allows current to flow, turning on the bulb.
+side. That difference in voltage allows current to flow, turning on the bulb.
 
-But lets say we just want an output wire, not a bulb. We can't just remove the bulb, `+` connected
-directly to `-` would lead to a short-circuit. So what we do, is we either just drive the wire up or
-down, so either it is connected to `+` or `-`. All of our relay gates can be simply adapted to do
+But let's say we just want an output wire, not a bulb. We can't just remove the bulb; `+` connected
+directly to `-` would lead to a short-circuit. So what we do is either drive the wire up or
+down, so it is connected to either `+` or `-`. All of our relay gates can be simply adapted to do
 this.
 
 <a id="diagram-3-10"></a> <img src="./assets/final/before-after.gif" alt="Driving an output wire">
@@ -275,7 +275,7 @@ This symbol represents the [OR circuit](#diagram-3-7) we made previously, with t
 driving the output wire instead of a bulb.
 
 Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
-the relays I showed you previously, but the internal components stay hidden for cleanliness sake.
+the relays I showed you previously, but the internal components stay hidden for cleanliness.
 
 Here are three more useful gate symbols:
 
@@ -320,7 +320,7 @@ That is what the next section is about.
 
 ## Counting With Wires
 
-Okay before we continue with this section, let's define some terms. 
+Okay, before we continue with this section, let's define some terms.
 
 A wire with no signal is `0`, and a wire with signal is `1`. Let's call one wire, one bit. A bit can
 either be `0` or `1`.
@@ -365,7 +365,7 @@ each place is a multiple of 2.
 
 *Diagram 4.4. The binary system.*
 
-So all binary is, at the end of the day, is decimal but with only two digits instead of ten.
+So binary is, at the end of the day, decimal but with only two digits instead of ten.
 
 
 A few examples:
@@ -387,7 +387,7 @@ The binary system works the same way as decimal. The only difference is that ins
 the digit by a power of 10, we multiply it by a power of 2. That's it.
 
 So now that we can represent numbers with wires, how can we add numbers together? How can we compute
-sums. That is what the next section is all about.
+sums? That is what the next section is all about.
 
 <a id="diagram-4-6"></a> <img src="./assets/final/add-magic-box.svg" alt="Addition?">
 
@@ -505,7 +505,7 @@ from the previous column.
 A half adder cannot do that. It only accepts two inputs. To continue adding up the other columns,
 we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`.
 
-To add three binary numbers we use two half adders and a OR gate:
+To add three binary numbers, we use two half adders and an OR gate:
 
 <a id="diagram-5-8"></a> <img src="./assets/final/full-adder.gif" alt="A full adder">
 
@@ -538,10 +538,10 @@ an adder that can add two one-byte numbers. One byte can represent any number fr
 Each full adder handles one column. The carry-out from one column becomes the carry-in for the next
 column. That is it! That is all addition is! 
 
-Keep in mind carry-in for the first adder is set to ground, a.k.a 0.
+Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0.
 
-Also notice how we have 9 outputs, not 8, that is because two 8-bit values can add up to a number
-greater than eight bits. Its like how adding two 2-digit numbers could result in a three digit
+Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can add up to a number
+greater than eight bits. It's like how adding two 2-digit numbers could result in a three-digit
 number for us. Like `50+50=100`.
 
 Now let's package this up into a box once again:
@@ -553,7 +553,7 @@ Now let's package this up into a box once again:
 Now we have the carry-out and carry-in as separate inputs and outputs and the whole adder nicely
 organized into this chip.
 
-Lets have a look at some example problems:
+Let's have a look at some example problems:
 
 <a id="diagram-5-12"></a> <img src="./assets/final/8-bit-adder-examples.gif" alt="Some examples on the adder">
 
@@ -581,7 +581,7 @@ ourselves.
 
 We have just built addition! But we also need something else: storage.
 
-For example, let's say we want to build a circuit that counts by ones like, 1, 2, 3, 4,...
+For example, let's say we want to build a circuit that counts by ones, like 1, 2, 3, 4,...
 
 The obvious idea is to feed the output of the adder back into one of its inputs. Start with
 `00000000`, add `00000001`, get `00000001`. Feed that back in, add `00000001` again, get
@@ -624,8 +624,8 @@ The other type of feedback is known as stable, because it can produce two stable
 feedback is used to create circuits whose outputs aren't purely based on their inputs, but also based
 on what happened before. Stable feedback is exactly what we need to create memory. 
 
-The circuit that does this is called an SR latch, SR stands for set-reset. The value `Q` is the output we really care
-about, if it is `1` that means the latch is storing a `1`, if it is `0`, the latch is storing a `0`.
+The circuit that does this is called an SR latch. SR stands for set-reset. The value `Q` is the output we really care
+about. If it is `1`, that means the latch is storing a `1`; if it is `0`, the latch is storing a `0`.
 
 The diagram also shows a second output written as a Q with a bar over it. That is just how engineers
 write `NOT Q`, pronounced "not Q". It always holds the opposite of `Q`. I will write it as `NOT Q`
@@ -634,7 +634,7 @@ in the text.
 The two inputs are `SET` and `RESET`, drawn as little buttons in the diagram: gray means not
 pressed, red means pressed. Pressing `SET` forces `Q` to `1` and pressing `RESET` forces `Q` to `0`.
 
-For this circuit to be used properly set and reset should never be on at the same time.
+For this circuit to be used properly, set and reset should never be on at the same time.
 
 The cool part is, if both set and reset are `0`, then `Q` is whatever we last did to it! The output
 loops back into the circuit, so the current state keeps reinforcing itself. This is the basic
@@ -678,10 +678,10 @@ This is much easier than fiddling with `SET` and `RESET`.
 This type of latch is called a D latch, D meaning data. It can be made using the SR latch and a few
 extra logic gates.
 
-It basically checks, if data is true and enable is true, set is true, and if data is false and
+It basically checks: if data is true and enable is true, set is true, and if data is false and
 enable is true, reset is true. That's it, so let's not worry about the exact implementation.
 
-If you really want to know how it works have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
+If you really want to know how it works, have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
 
 <a id="diagram-6-2"></a> <img src="./assets/final/d-latch.svg" alt="D latch">
 
@@ -799,7 +799,7 @@ I am too lazy to draw it for you.
 
 We now have some storage. A register that can hold a byte, and update exactly when we want.
 
-But registers on their own are not enough. We need to be able to move numbers between register, the
+But registers on their own are not enough. We need to be able to move numbers between registers, the
 adders, and the main memory, which we will build later.
 
 So before we build the cabinet, we need one more piece of plumbing: a clean way to move bytes around.
@@ -814,9 +814,9 @@ off. This collection of 8 wires is called a bus.
 
 <diagram showing the concept>
 
-But we have an issue, this diagram is technically not possible yet. If register `A` is outputting a
+But we have an issue: this diagram is technically not possible yet. If register `A` is outputting a
 value like `00000000`, and it is connected to the bus, and then register `B` is outputting a value
-like `00000001`, then the last wire will clash and short circuit.
+like `00000001`, then the last wire will clash and short-circuit.
 
 We need a way to connect these registers to the bus, but for them to not bother the bus, and not to
 actively drive a wire to `-` or `+` like we discussed [previously](#diagram-3-10). 
@@ -829,7 +829,7 @@ The point I am trying to make is that `00000000` is not silent. It is actively d
 The next problem is organization and scale. How do we organize many stored bytes so the machine can
 choose one slot, read it, and write back to it?
 
-## Organizing Data (REDO, cuz i added BUSES)
+## Organizing Data (REDO, because I added BUSES)
 
 We want to build a system that organizes data into the structure of [Otto's cabinet slots](#diagram-1-2).
 
@@ -874,7 +874,7 @@ As you can tell, no matter the inputs, exactly one output wire is on at a time.
 We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for the columns. Where the selected
 row and selected column cross, that is the byte we want to target.
 
-This diagram shows a few addresses as examples. Each address gets it's own little intersection.
+This diagram shows a few addresses as examples. Each address gets its own little intersection.
 Each address from 1-16 has its own spot.
 
 <a id="diagram-7-2"></a> <img src="./assets/final/cross-section.gif" alt="Where the row and column meet">
@@ -902,10 +902,10 @@ wire, I will just draw a thick arrow that represents 8 wires. So instead of our 
 
 *Diagram 7.4. An 8-bit bus.*
 
-To show the state of the wires, I can just write a number in the arrow, in this case the number 0
-means the wires are all of.
+To show the state of the wires, I can just write a number in the arrow; in this case, the number 0
+means the wires are all off.
 
-Okay two more things we need to cover before I can show you the RAM diagram. First lets add one more
+Okay, two more things we need to cover before I can show you the RAM diagram. First, let's add one more
 input to our register:
 
 <a id="diagram-7-5"></a> <img src="./assets/final/read-register.gif" alt="A register with `READ` control">
@@ -913,7 +913,7 @@ input to our register:
 *Diagram 7.5. A register with `READ` control.*
 
 These are our simple register diagrams that will be used in the RAM diagram later. `R` is `READ` and
-`W` is `WRITE`. It is of course a 8-bit register.
+`W` is `WRITE`. It is, of course, an 8-bit register.
 
 So now the slot has two control inputs: `WRITE` and `READ`. We are already familiar with `WRITE`
 which works like the [previous enable wire](#diagram-6-8), and now `READ` controls whether the slot can output its stored value.
@@ -942,10 +942,10 @@ output:     01010111
 So if we OR all of these buses together we just get the value of the enabled bus.
 
 In the later diagrams, when two buses merge through a blue connector, that means their bits are
-ORed together, they are not literally connect.
+ORed together; they are not literally connected.
 
-Honestly? That's it. We can use two decoders, sixteen registers, some output wires and some inputs
-wires all mashed together with some extra logic gates and BOOM! We have some RAM. 
+Honestly? That's it. We can use two decoders, sixteen registers, some output wires and some input
+wires all mashed together with some extra logic gates and BOOM! We have some RAM.
 
 <diagram>
 
