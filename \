@@ -54,7 +54,7 @@ optimization, but it has the same core functionality.
 
 ## Circuits & Electricity
 
-First, we need the basics of how electricity and circuits work for the purposes of this article.
+Let's explore the basics of how electricity and circuits work for the purposes of this article.
 
 Here is a simple circuit:
 
@@ -77,13 +77,13 @@ interesting questions.
 
 ## Switches, Relays, & Logic Gates
 
-Say we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
+Let's assume we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
 tell us whether to wash our dog or not.
 
 Our simple circuit is going to use a light bulb being on to mean yes, wash the dog. Light bulb off
 means no, don't wash the dog.
 
-So we start with an extremely simple version with two switches.
+So let's start with an extremely simple version with two switches.
 
 In this first version, the switches are directly inside the bulb circuit. The person using the
 circuit can open or close each switch to answer a yes/no question.
@@ -97,7 +97,7 @@ if `STINKY AND OLD_WASH`, the bulb is on.
 
 Or in other words, if the dog is stinky and its last wash was over 5 days ago, then wash the dog.
 
-Here is the circuit:
+Let's see the circuit:
 
 <a id="diagram-3-1"></a> <img src="./assets/final/switches-1.gif" alt="A logical AND circuit">
 
@@ -106,7 +106,7 @@ Here is the circuit:
 This circuit shows a logical AND operation. A person is flipping the switches manually. The output
 turns on only when both inputs are true.
 
-Now add a new input: `MUDDY`, if the dog is muddy.
+Now let's introduce a new input: `MUDDY`, if the dog is muddy.
 
 Now the rules of the circuit change:
 
@@ -246,9 +246,6 @@ But let's say we just want an output wire, not a bulb. We can't just remove the 
 directly to `-` would lead to a short-circuit. So what we do is either drive the wire up or
 down, so it is connected to either `+` or `-`. All of our relay gates can be simply adapted to do
 this.
-
-This distinction matters later. A `1` output is a wire being driven high. A `0` output is not
-"nothing"; it is a wire being driven low. It will make sense why I am mentioning this early, later.
 
 <a id="diagram-3-10"></a> <img src="./assets/final/before-after.gif" alt="Driving an output wire">
 
@@ -420,7 +417,7 @@ So the sum bit for that column is `0`, and the carry is `1`.
 
 `1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`.
 
-How do we build a circuit using logic gates that performs this standard addition algorithm? 
+How can we build a circuit using logic gates that performs this standard addition algorithm? 
 
 Well, let's start with the rightmost column. If we think about it, all the possible states are:
 
@@ -805,111 +802,42 @@ We now have some storage. A register that can hold a byte, and update exactly wh
 But registers on their own are not enough. We need to be able to move numbers between registers, the
 adders, and the main memory, which we will build later.
 
+One note before we move on: so far, I have used `E` as a generic term to mean enable. Specifically,
+it has meant "enable writing," because it lets the storage cell copy a new value. From now on, I
+will call that signal `WRITE`.
+
+Later, we will also have output enables, which let circuits put values onto a bus. I will call those
+`OUT`. So we have `WRITE` and `OUT` as control signals. We will dive into this more in the next
+section.
+
 ## Buses
 
-One simple solution to move bytes around would be to give every component its own bundle of 8
+Now one simple solution to move bytes around would be to give every component its own bundle of 8
 wires to every other component, but that would become a mess very quickly.
 
-A simpler solution is to have one single 8-bit data highway, where components can put data on and take data
+A simpler solution is to have one single 8-bit data highway, where components can put and take data
 off. This collection of 8 wires is called a bus.
 
-One more thing, moving forward when I want to draw a collection of 8 wires, instead of drawing each
-wire, I will just draw a thick arrow that represents 8 wires. 
-
-To show the state of the wires, I can write a number in the arrow; the number 0 for example means
-the wires are all off, and the number 2 would mean the wires are `00000010` which is 2 in binary.
-
-<a id="diagram-7-1"></a> <img src="./assets/final/common-bus-example.svg" alt="A shared data bus example">
-
-*Diagram 7.1. A shared data bus example.*
+<diagram showing the concept>
 
 But we have an issue: this diagram is technically not possible yet. If register `A` is outputting a
 value like `00000000`, and it is connected to the bus, and then register `B` is outputting a value
 like `00000001`, then the last wire will clash and short-circuit.
 
-We need a way to connect these registers to the bus, but also let them get out of the way when they
-are not supposed to actively drive a wire to `-` or `+`, like we discussed [previously](#diagram-3-10). 
+We need a way to connect these registers to the bus, but for them to not bother the bus, and not to
+actively drive a wire to `-` or `+` like we discussed [previously](#diagram-3-10). 
 
-We need a way to make wires "free" when we don't want to output anything. 
+We need a way to make wires "free" when we don't want to output anything. `00000000` is not enough.
+The point I am trying to make is that `00000000` is not nothing. It is actively driving the bus to `-`.
 
-Just setting the output wires to `00000000` is not enough. The point I am trying to make is that on
-a shared bus `00000000` is not nothing. It is actively driving the bus to `-`.
+<diagram showing issue?
 
-One clean way to solve this problem is by using something called a tri-state buffer. It has two
-inputs, `E` and `D`, which stand for enable and data.
-
-We have seen `E` before, in the context of "enable writing" but now we are using `E` in the context
-of "enable outputting".
-
-If `E` is on, the output will just be whatever `D` is, so either `0` or `1`.
-If `E` is off, no matter the value of `D`, the output will be `Z`. 
-
-`Z` means the buffer's output is disconnected from the bus. It is not driving the bus to `+` or `-`,
-so another component can safely drive the bus without a clash or short-circuit.
-
-Or in other words, this buffer is not touching the wire. `0` is very different: the component is
-actively pulling the wire down. So we have three states:
-
-```
-1: driven high
-0: driven low
-Z: disconnected
-```
-This relay diagram of how a tri-state buffer works should make this concept crystal clear.
-
-Also I have drawn everything the output wire is currently touching in yellow. Yellow is just there
-so you can follow the path with your eyes, it doesn't mean anything.
-
-<a id="diagram-7-2"></a> <img src="./assets/final/tri-state-buffer-internals.gif" alt="A tri-state buffer built with relays">
-
-*Diagram 7.2. A tri-state buffer built with relays.*
-
-This looks complicated, so let me break it down.
-
-First, ignore the two relays on the right and look only at the `D` relay at the top. Its arm is
-attached to the output wire, and it works just like [the output driver from before](#diagram-3-10).
-When `D` is `1`, the arm is pulled down onto the wire that leads toward the battery, `+`. When `D`
-is `0`, the arm goes up onto the wire that leads toward ground. Remember, ground is just the `-`
-side.
-
-The important idea is that neither of those wires is directly connected to `+` or `-`. Each one has a
-relay between it. Both of those relays are controlled by `E`.
-
-When `E` is `1`, both gaps close. The output is now connected to whichever side `D` picked, so it
-is driven to `1` or `0`.
-
-When `E` is `0`, both relays touch a point connected to nothing. Both wires lead to a dead end. The
-output wire is touching nothing. That is `Z`.
-
-So we have three states:
+We can solve this problem, by using something called a "tri-state buffer". It works by taking in, 2
+inputs, enable and data.
 
 
-| `E` | `D` | Output |
-|---:|---:|---:|
-| 1 | 1 | 1 |
-| 1 | 0 | 0 |
-| 0 | 0 | Z |
-| 0 | 1 | Z |
 
 
-Now let's address this enable conundrum. We now have two uses for the word enable, with completely
-different meanings and contexts. One means enabling writing, and the other means enabling output. From
-now on, we will use two separate terms to avoid confusion: `WRITE` and `OUT`.
-
-So we can make a new type of register, one with `WRITE`, `OUT`, `data`, and `Q`, the stored bits
-0-7. By `data`, I simply mean the input data that we can store when `WRITE` is enabled.
-
-<diagram>
-
-<explain>
-
-With that, we can use these new registers with a common bus to move data.
-
-Here is an example where the content of register A gets copied into register B.
-
-<diagram>
-
-<explain>
 
 The next problem is organization and scale. How do we organize many stored bytes so the machine can
 choose one slot, read it, and write back to it?
