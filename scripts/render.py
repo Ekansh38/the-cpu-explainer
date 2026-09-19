@@ -154,7 +154,13 @@ def expand(match):
     if not frames:
         print(f"no frames for {stem}, keeping gif reference", file=sys.stderr)
         return f"![{alt}](./assets/final/{stem}.gif)"
-    return "\n\n".join(f"![{alt}](./assets/frames/{f.name})" for f in frames)
+    if len(frames) == 1:
+        return f"![{alt}](./assets/frames/{frames[0].name})"
+    lines = ["{{FRAME-GRID}}"]
+    for f in frames:
+        lines.append(f"![{alt}](./assets/frames/{f.name})")
+    lines.append("{{/FRAME-GRID}}")
+    return "\n\n".join(lines)
 
 
 def html_img_to_md(match):
@@ -357,7 +363,7 @@ def swap_image_refs(text, mode):
 
 def to_typst(md_text):
     result = subprocess.run(
-        ["pandoc", "-f", "gfm", "-t", "typst"],
+        ["pandoc", "-f", "gfm+raw_attribute", "-t", "typst"],
         input=md_text, text=True, capture_output=True, check=True,
     )
     out = result.stdout
@@ -366,7 +372,27 @@ def to_typst(md_text):
         r"#caption[\1]",
         out,
     )
+    out = wrap_frame_grids(out)
     return out
+
+
+def wrap_frame_grids(typst_text):
+    def wrap(m):
+        inner = m.group(1)
+        images = re.findall(r'#box\(image\("([^"]+)"(?:, alt: "[^"]*")?\)\)', inner)
+        if not images:
+            return ""
+        cols = min(len(images), 4)
+        lines = [f'  image("{path}", width: 100%)' for path in images]
+        return "#grid(columns: {c}, gutter: 6pt,\n{items}\n)".format(
+            c=cols, items=",\n".join(lines)
+        )
+    return re.sub(
+        r'\{\{FRAME-GRID\}\}(.*?)\{\{/FRAME-GRID\}\}',
+        wrap,
+        typst_text,
+        flags=re.DOTALL,
+    )
 
 
 def build(mode):

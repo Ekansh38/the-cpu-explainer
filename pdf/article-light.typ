@@ -103,98 +103,28 @@ We are going to try to understand this simple CPU. It is not a modern
 CPU with decades of optimization, but it has the same core
 functionality.
 
-== The House
-<the-house>
-Let\'s start with a high-level overview of how the CPU functions, so we
-have a goal to work towards.
+== How to Read This Article
+<how-to-read-this-article>
+- If a diagram is hard to understand, click it and step through each
+  frame one by one using the arrow keys, with the provided descriptions.
+  This only works if you are reading on my website.
 
-Imagine your computer is a house.
+- Don\'t try to \"memorize\" every layout. Focus on the mental models,
+  concepts, and what part each piece has to play.
 
-Inside this house is one stupid but surprisingly pedantic worker. His
-name is Otto. Also he never leaves his house.
-
-Inside this house we have our downstairs desk where Otto does all the
-serious work. On the desk are a few things:
-
-- three small drawers that can each hold one number, labeled `A`, `B`,
-  and `PC`
-- an abacus for basic arithmetic.
-- A decoder chart that does some stuff. We will come back to this later.
-
-#box(image("/pdf/.raster/light/desk.png", alt: "the desk with 3 drawers, the abacus and decoder chart"))
-
-#caption[Diagram 1.1. The desk setup.]
-
-Upstairs is the filing cabinet room. The cabinet has slots labeled 0, 1,
-2, 3, all the way up to 99. Each slot holds one piece of paper with a
-two-digit number written on it, from `00` to `99`.
-
-One quick distinction before we start: when I say \"drawer,\" I mean the
-desk drawers right next to Otto where he works. When I say \"slot,\" I
-mean the numbered compartments in the upstairs filing cabinet.
-
-#box(image("/pdf/.raster/light/cabinet.png", alt: "the filing cabinet"))
-
-#caption[Diagram 1.2. The filing cabinet.]
-
-Most of these slots are boring and filled with paper. But slot 98 is
-special. It\'s a little window to the outside world. When Otto puts a
-number there, it doesn\'t get written on paper. It shows up on a
-display. Put `00` there and it glows `00`. Put `07` there and it glows
-`07`. Otto can read, write, and interact with it just as if it were any
-cabinet slot.
-
-Slot 99 works the opposite way. It\'s connected to a dial outside the
-house. Otto reads from it like any other slot, but the value comes from
-whoever is turning the dial. He could technically write to slot 99 too,
-but that would be a bit disruptive.
-
-#box(image("/pdf/.raster/light/house.png", alt: "The outside of the house with a display, an input dial, a small ladder, windows, and a door."))
-
-#caption[Diagram 1.3. The outside of the house, with the display and input
-dial.]
-
-The important point for now is simple: the program itself also lives in
-the upstairs cabinet. Instructions are just numbers stored in slots.
-Otto uses `PC` to know which slot to read next, then uses the decoder
-chart to decide what that number means, and what procedure to follow
-based on each instruction.
-
-#box(image("/pdf/.raster/light/loop.png", alt: "Otto's loop"))
-
-Diagram 1.4. Otto\'s basic loop. He reads the address in `PC`, fetches
-the number from that cabinet slot, uses the decoder chart to choose what
-to do, does it, updates `PC`, and repeats.
-
-Most instructions just move Otto forward to the next instruction. If
-`PC` says `10`, Otto reads slot 10, follows that instruction, and then
-`PC` moves to the next relevant slot.
-
-But some instructions are jumps. A jump changes `PC` to a different slot
-instead of moving forward. That is how a program can loop, skip work, or
-do one thing if a value is `0` and another thing if it isn\'t.
-
-That is kinda just how your computer works: instructions live in memory,
-`PC` points at the next one, the decoder chart says what each
-instruction means, and Otto repeats the same fetch-decode-execute loop
-again and again.
-
-Something like this is happening inside your computer right now.
-
-Except there is no Otto.
-
-Nobody is home.
+- If a section feels dense or hard to understand, follow the diagrams
+  first and try to get a feel for what is happening.
 
 == Circuits & Electricity
 <circuits--electricity>
-Let\'s explore the basics of how electricity and circuits work for the
+First, we need the basics of how electricity and circuits work for the
 purposes of this article.
 
 Here is a simple circuit:
 
-#box(image("/pdf/.raster/light/basic-circuit.png", alt: "A basic circuit with a switch and light bulb and drawings not symbols"))
+#box(image("/pdf/.raster/light/basic-circuit.png", alt: "A basic circuit with a battery, switch, and bulb"))
 
-#caption[Diagram 2.1. The circuit.]
+#caption[Diagram 2.1. A basic circuit with a battery, switch, and bulb.]
 
 We can think of the battery as being able to push charge around the
 loop. Current can only flow when this loop is completed.
@@ -214,13 +144,13 @@ Now let\'s see if we can combine switches and relays so the circuit can
 
 == Switches, Relays, & Logic Gates
 <switches-relays--logic-gates>
-Let\'s assume we want to build a simple dog washer circuit: a circuit
-that, based on some inputs, can tell us whether to wash our dog or not.
+Say we want to build a simple dog washer circuit: a circuit that, based
+on some inputs, can tell us whether to wash our dog or not.
 
 Our simple circuit is going to use a light bulb being on to mean yes,
 wash the dog. Light bulb off means no, don\'t wash the dog.
 
-So let\'s start with an extremely simple version with two switches.
+So we start with an extremely simple version with two switches.
 
 In this first version, the switches are directly inside the bulb
 circuit. The person using the circuit can open or close each switch to
@@ -237,16 +167,21 @@ if `STINKY AND OLD_WASH`, the bulb is on.
 Or in other words, if the dog is stinky and its last wash was over 5
 days ago, then wash the dog.
 
-Let\'s see the circuit:
+Here is the circuit:
 
-#box(image("/pdf/.raster/light/switches-1-4.png", alt: "A logical AND circuit"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/switches-1-1.png", width: 100%),
+  image("/pdf/.raster/light/switches-1-2.png", width: 100%),
+  image("/pdf/.raster/light/switches-1-3.png", width: 100%),
+  image("/pdf/.raster/light/switches-1-4.png", width: 100%)
+)
 
 #caption[Diagram 3.1. The hand-switch version of AND.]
 
 This circuit shows a logical AND operation. A person is flipping the
 switches manually. The output turns on only when both inputs are true.
 
-Now let\'s introduce a new input: `MUDDY`, if the dog is muddy.
+Now add a new input: `MUDDY`, if the dog is muddy.
 
 Now the rules of the circuit change:
 
@@ -257,7 +192,7 @@ All this says is, if the dog is muddy or stinky and it\'s been at least
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/pdf/.raster/light/or-gate-logical.png", alt: "A logical OR circuit"))
+#box(image("/pdf/.raster/light/or-gate-logical.png", alt: "The hand-switch version of OR"))
 
 #caption[Diagram 3.2. The hand-switch version of OR.]
 
@@ -277,9 +212,10 @@ electricity, but the AND circuit we want to combine it with expects an
 input as a metal switch physically being moved. A signal in a wire
 can\'t reach over and close that switch by itself.
 
-#box(image("/pdf/.raster/light/combination-problem.png", alt: "The problem we currently face"))
+#box(image("/pdf/.raster/light/combination-problem.png", alt: "An electrical signal cannot move a metal switch by itself"))
 
-#caption[Diagram 3.3. The problem we currently face.]
+#caption[Diagram 3.3. An electrical signal cannot move a metal switch by
+itself.]
 
 So if we want to chain circuits together, we need a way for an
 electrical signal to control a switch automatically. How can we do this?
@@ -298,7 +234,12 @@ don\'t interpret that as several totally separate power sources. I am
 using the battery drawing as a symbol for \"this point is connected to
 power,\" so the diagram doesn\'t turn into spaghetti.
 
-#box(image("/pdf/.raster/light/basic-relay-4.png", alt: "An electromagnetic relay"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/basic-relay-1.png", width: 100%),
+  image("/pdf/.raster/light/basic-relay-2.png", width: 100%),
+  image("/pdf/.raster/light/basic-relay-3.png", width: 100%),
+  image("/pdf/.raster/light/basic-relay-4.png", width: 100%)
+)
 
 #caption[Diagram 3.4. An electromagnetic relay.]
 
@@ -309,10 +250,10 @@ arm down. When current stops, a spring pulls the arm back up.
 A relay lets one circuit open or close a switch in another circuit. The
 two circuits stay separate, but the relay arm physically connects them.
 
-Also in this example we end up using a switch in the input circuit
+Also, in this example, we end up using a switch in the input circuit
 anyway, but any kind of electrical signal could be used, like the output
-of another circuit, the switch is just to demonstrate how the relay
-works.
+of another circuit. The switch is just there to demonstrate how the
+relay works.
 
 As you can also tell by the diagram, there is a slight delay between the
 coil turning on and the metal arm moving. Relays are mechanical, so they
@@ -321,7 +262,19 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#box(image("/pdf/.raster/light/electronic-and-gate-9-t.png", alt: "An AND gate"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/electronic-and-gate-1-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-10-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-11-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-2-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-3-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-4-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-6-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-7-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-8-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-9-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-and-gate-9-t.png", width: 100%)
+)
 
 #caption[Diagram 3.5. An AND gate.]
 
@@ -335,9 +288,9 @@ fundamental logic gate, such as the OR gate:
 But before the next diagram, I am going to use one more new symbol:
 ground.
 
-For the purposes of this article the ground symbol will simply refer to
-the common return point of the circuit usually connected to the negative
-side of the battery.
+For the purposes of this article, the ground symbol will simply refer to
+the common return point of the circuit, usually connected to the
+negative side of the battery.
 
 Every point marked with the ground symbol is connected together, as if
 there were hidden wires joining them underneath the drawing. It is not a
@@ -360,14 +313,32 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#box(image("/pdf/.raster/light/electronic-or-gate-8-t.png", alt: "An electronic OR gate"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/electronic-or-gate-1-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-2-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-3-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-4-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-5-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-6-t.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-7-s.png", width: 100%),
+  image("/pdf/.raster/light/electronic-or-gate-8-t.png", width: 100%)
+)
 
 #caption[Diagram 3.7. An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
-#box(image("/pdf/.raster/light/dog-washer-v1-8-s.png", alt: "The full dog washer circuit built with relays"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/dog-washer-v1-1-s.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-2-t.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-3-t.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-4-s.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-5-t.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-6-s.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-7-t.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v1-8-s.png", width: 100%)
+)
 
 #caption[Diagram 3.8. The full dog washer circuit built with relays.]
 
@@ -393,9 +364,41 @@ outputs signal.
 
 That is what a NOT gate does.
 
-#box(image("/pdf/.raster/light/not-gate-4.png", alt: "A NOT gate"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/not-gate-1.png", width: 100%),
+  image("/pdf/.raster/light/not-gate-2.png", width: 100%),
+  image("/pdf/.raster/light/not-gate-3.png", width: 100%),
+  image("/pdf/.raster/light/not-gate-4.png", width: 100%)
+)
 
 #caption[Diagram 3.9. A NOT gate.]
+
+Now let\'s clean up some of our understanding of circuits before we move
+on. We have been showing our outputs as a light bulb. For a bulb to be
+on, it needs to be connected to `+` and `-`, one on each side. That
+difference in voltage allows current to flow, turning on the bulb.
+
+But let\'s say we just want an output wire, not a bulb. We can\'t just
+remove the bulb; `+` connected directly to `-` would lead to a
+short-circuit. So what we do is either drive the wire up or down, so it
+is connected to either `+` or `-`. All of our relay gates can be simply
+adapted to do this.
+
+This distinction matters later. A `1` output is a wire being driven
+high. A `0` output is not \"nothing\"; it is a wire being driven low. It
+will make sense why I am mentioning this early, later.
+
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light/before-after-1.png", width: 100%),
+  image("/pdf/.raster/light/before-after-3.png", width: 100%),
+  image("/pdf/.raster/light/before-after-4.png", width: 100%)
+)
+
+#caption[Diagram 3.10. Driving an output wire.]
+
+In this diagram, red wire means current is actively flowing, that\'s why
+`OUT = 1` is still white. Later when we stop drawing every logic gate,
+red wire will just mean high, or 1.
 
 Now before we look at the completed circuit, let\'s learn some basic
 logic gate symbols.
@@ -404,28 +407,29 @@ An AND gate is drawn like this:
 
 #box(image("/pdf/.raster/light/and-gate.png", alt: "An AND gate"))
 
-#caption[Diagram 3.10. An AND gate.]
+#caption[Diagram 3.11. An AND gate.]
 
-This symbol represents the AND circuit we made previously.
+This symbol represents the AND circuit we made previously, except
+instead of turning a bulb on and off, it drives an output wire.
 
 An OR gate is drawn like this:
 
 #box(image("/pdf/.raster/light/or-gate.png", alt: "An OR gate"))
 
-#caption[Diagram 3.11. An OR gate.]
+#caption[Diagram 3.12. An OR gate.]
 
-This symbol represents the OR circuit we made previously.
+This symbol represents the OR circuit we made previously, with the same
+idea about driving the output wire instead of a bulb.
 
-Whenever I use these symbols moving forward, they can directly translate
-to the circuits with the relays I showed you previously, the inputs and
-outputs are the same, but the internal components stay hidden for
-cleanliness sake.
+Whenever I use these symbols moving forward, they can almost directly
+translate to the circuits with the relays I showed you previously, but
+the internal components stay hidden for cleanliness.
 
 Here are three more useful gate symbols:
 
 #box(image("/pdf/.raster/light/not-nand-nor-gates.png", alt: "NOT, NAND, NOR gates"))
 
-#caption[Diagram 3.12. NOT, NAND, NOR gates.]
+#caption[Diagram 3.13. NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 
@@ -434,9 +438,18 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#box(image("/pdf/.raster/light/dog-washer-v2-8.png", alt: "The final dog washer circuit"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/dog-washer-v2-1.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-2.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-3.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-4.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-5.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-6.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-7.png", width: 100%),
+  image("/pdf/.raster/light/dog-washer-v2-8.png", width: 100%)
+)
 
-#caption[Diagram 3.13. The final dog washer circuit.]
+#caption[Diagram 3.14. The final dog washer circuit.]
 
 Again this animation doesn\'t cover all possible states.
 
@@ -471,7 +484,7 @@ That is what the next section is about.
 
 == Counting With Wires
 <counting-with-wires>
-Okay before we continue with this section, let\'s define some terms.
+Okay, before we continue with this section, let\'s define some terms.
 
 A wire with no signal is `0`, and a wire with signal is `1`. Let\'s call
 one wire, one bit. A bit can either be `0` or `1`.
@@ -482,9 +495,9 @@ A group of 8 bits is called a byte. With 8 bits, there are `2^8`, or
 256, possible patterns. So if we use those patterns to represent
 non-negative numbers, one byte can represent 0 through 255.
 
-#box(image("/pdf/.raster/light/0-s-and-1-s.png", alt: "0's and 1's"))
+#box(image("/pdf/.raster/light/0-s-and-1-s.png", alt: "One wire can represent two states: 0 or 1"))
 
-#caption[Diagram 4.1. 0\'s and 1\'s.]
+#caption[Diagram 4.1. One wire can represent two states: `0` or `1`.]
 
 If we want to represent numbers using wires, we are going to need more
 than one wire, because one wire can only represent up to two numbers,
@@ -495,7 +508,16 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#box(image("/pdf/.raster/light/3-states-8.png", alt: "States with 3 wires"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/3-states-1.png", width: 100%),
+  image("/pdf/.raster/light/3-states-2.png", width: 100%),
+  image("/pdf/.raster/light/3-states-3.png", width: 100%),
+  image("/pdf/.raster/light/3-states-4.png", width: 100%),
+  image("/pdf/.raster/light/3-states-5.png", width: 100%),
+  image("/pdf/.raster/light/3-states-6.png", width: 100%),
+  image("/pdf/.raster/light/3-states-7.png", width: 100%),
+  image("/pdf/.raster/light/3-states-8.png", width: 100%)
+)
 
 #caption[Diagram 4.2. States with 3 wires.]
 
@@ -522,8 +544,8 @@ have two digits, 0 and 1, so each place is a multiple of 2.
 
 #caption[Diagram 4.4. The binary system.]
 
-So all binary is, at the end of the day, is decimal but with only two
-digits instead of ten.
+So binary is, at the end of the day, decimal but with only two digits
+instead of ten.
 
 A few examples:
 
@@ -546,7 +568,7 @@ that instead of multiplying the digit by a power of 10, we multiply it
 by a power of 2. That\'s it.
 
 So now that we can represent numbers with wires, how can we add numbers
-together? How can we compute sums. That is what the next section is all
+together? How can we compute sums? That is what the next section is all
 about.
 
 #box(image("/pdf/.raster/light/add-magic-box.png", alt: "Addition?"))
@@ -558,7 +580,11 @@ about.
 Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
-#box(image("/pdf/.raster/light/decimal-addition-3.png", alt: "Standard decimal addition"))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light/decimal-addition-1.png", width: 100%),
+  image("/pdf/.raster/light/decimal-addition-2.png", width: 100%),
+  image("/pdf/.raster/light/decimal-addition-3.png", width: 100%)
+)
 
 #caption[Diagram 5.1. Standard decimal addition.]
 
@@ -567,7 +593,14 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#box(image("/pdf/.raster/light/binary-addition-6.png", alt: "Binary addition"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/binary-addition-1.png", width: 100%),
+  image("/pdf/.raster/light/binary-addition-2.png", width: 100%),
+  image("/pdf/.raster/light/binary-addition-3.png", width: 100%),
+  image("/pdf/.raster/light/binary-addition-4.png", width: 100%),
+  image("/pdf/.raster/light/binary-addition-5.png", width: 100%),
+  image("/pdf/.raster/light/binary-addition-6.png", width: 100%)
+)
 
 #caption[Diagram 5.2. Binary addition.]
 
@@ -580,7 +613,7 @@ So the sum bit for that column is `0`, and the carry is `1`.
 `1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`,
 and the carry is `1`.
 
-How can we build a circuit using logic gates that performs this standard
+How do we build a circuit using logic gates that performs this standard
 addition algorithm?
 
 Well, let\'s start with the rightmost column. If we think about it, all
@@ -634,7 +667,12 @@ This is called XOR short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together we get
 XOR:
 
-#box(image("/pdf/.raster/light/half-adder-sum-4.png", alt: "Half adder sum / XOR"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/half-adder-sum-1.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-2.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-3.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-4.png", width: 100%)
+)
 
 #caption[Diagram 5.3. Half adder sum / XOR.]
 
@@ -653,7 +691,16 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/pdf/.raster/light/half-adder-sum-4.png", alt: "A half adder"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/half-adder-1.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-2.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-3.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-4.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-1.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-2.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-3.png", width: 100%),
+  image("/pdf/.raster/light/half-adder-sum-4.png", width: 100%)
+)
 
 #caption[Diagram 5.5. A half adder.]
 
@@ -672,9 +719,9 @@ column. It only needs to add two bits.
 
 So if we have a number like this:
 
-#box(image("/pdf/.raster/light/carry-in-issue.png", alt: "We can't add 3 numbers yet!"))
+#box(image("/pdf/.raster/light/carry-in-issue.png", alt: "The next column has to add two bits plus a carry-in"))
 
-#caption[Diagram 5.7. We can\'t add 3 numbers yet!]
+#caption[Diagram 5.7. The next column has to add two bits plus a carry-in.]
 
 The half adder can handle the first column: `1 + 1`. That gives us a sum
 bit of `0` and a carry-out of `1`.
@@ -686,9 +733,18 @@ A half adder cannot do that. It only accepts two inputs. To continue
 adding up the other columns, we need a circuit that can take in three
 inputs: `A`, `B`, and `carry-in`.
 
-To add three binary numbers we use two half adders and a OR gate:
+To add three binary numbers, we use two half adders and an OR gate:
 
-#box(image("/pdf/.raster/light/full-adder-8.png", alt: "A full adder"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/full-adder-1.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-2.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-3.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-4.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-5.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-6.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-7.png", width: 100%),
+  image("/pdf/.raster/light/full-adder-8.png", width: 100%)
+)
 
 #caption[Diagram 5.8. A full adder.]
 
@@ -723,11 +779,11 @@ Each full adder handles one column. The carry-out from one column
 becomes the carry-in for the next column. That is it! That is all
 addition is!
 
-Keep in mind carry-in for the first adder is set to ground, a.k.a 0.
+Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0.
 
-Also notice how we have 9 outputs, not 8, that is because two 8-bit
-values can add up to a number greater than eight bits. Its like how
-adding two 2-digit numbers could result in a three digit number for us.
+Also, notice how we have 9 outputs, not 8. That is because two 8-bit
+values can add up to a number greater than eight bits. It\'s like how
+adding two 2-digit numbers could result in a three-digit number for us.
 Like `50+50=100`.
 
 Now let\'s package this up into a box once again:
@@ -739,7 +795,7 @@ Now let\'s package this up into a box once again:
 Now we have the carry-out and carry-in as separate inputs and outputs
 and the whole adder nicely organized into this chip.
 
-Lets have a look at some example problems:
+Let\'s have a look at some example problems:
 
 #box(image("/pdf/.raster/light/8-bit-adder-examples.png", alt: "Some examples on the adder"))
 
@@ -768,19 +824,10 @@ can output little yes/no facts about the sum. That matters later for
 instructions like \"jump if zero.\" But let\'s not get ahead of
 ourselves.
 
-Before we move on, this is the first real payoff we have hit.
+We have just built addition! But we also need something else: storage.
 
-We have built Otto\'s abacus! If you remember, Otto used his abacus for
-adding two numbers, and we have built a circuit that does just that!
-
-But Otto also had something else on his desk: drawers.
-
-Those drawers had a very important ability. A drawer could hold a number
-still while Otto worked, then change only when Otto specifically
-replaced it with a new number.
-
-For example, let\'s say we want to build a circuit that counts by ones
-like, 1, 2, 3, 4,...
+For example, let\'s say we want to build a circuit that counts by ones,
+like 1, 2, 3, 4,...
 
 The obvious idea is to feed the output of the adder back into one of its
 inputs. Start with `00000000`, add `00000001`, get `00000001`. Feed that
@@ -831,9 +878,9 @@ outputs aren\'t purely based on their inputs, but also based on what
 happened before. Stable feedback is exactly what we need to create
 memory.
 
-The circuit that does this is called an SR latch, SR stands for
-set-reset. The value `Q` is the output we really care about, if it is
-`1` that means the latch is storing a `1`, if it is `0`, the latch is
+The circuit that does this is called an SR latch. SR stands for
+set-reset. The value `Q` is the output we really care about. If it is
+`1`, that means the latch is storing a `1`\; if it is `0`, the latch is
 storing a `0`.
 
 The diagram also shows a second output written as a Q with a bar over
@@ -845,8 +892,8 @@ The two inputs are `SET` and `RESET`, drawn as little buttons in the
 diagram: gray means not pressed, red means pressed. Pressing `SET`
 forces `Q` to `1` and pressing `RESET` forces `Q` to `0`.
 
-For this circuit to be used properly set and reset should never be on at
-the same time.
+For this circuit to be used properly, set and reset should never be on
+at the same time.
 
 The cool part is, if both set and reset are `0`, then `Q` is whatever we
 last did to it! The output loops back into the circuit, so the current
@@ -854,7 +901,12 @@ state keeps reinforcing itself. This is the basic concept behind memory.
 
 This diagram should help this make sense:
 
-#box(image("/pdf/.raster/light/sr-latch-4.png", alt: "An SR latch"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/sr-latch-1.png", width: 100%),
+  image("/pdf/.raster/light/sr-latch-2.png", width: 100%),
+  image("/pdf/.raster/light/sr-latch-3.png", width: 100%),
+  image("/pdf/.raster/light/sr-latch-4.png", width: 100%)
+)
 
 #caption[Diagram 6.1. An SR latch.]
 
@@ -894,11 +946,11 @@ This is much easier than fiddling with `SET` and `RESET`.
 This type of latch is called a D latch, D meaning data. It can be made
 using the SR latch and a few extra logic gates.
 
-It basically checks, if data is true and enable is true, set is true,
+It basically checks: if data is true and enable is true, set is true,
 and if data is false and enable is true, reset is true. That\'s it, so
 let\'s not worry about the exact implementation.
 
-If you really want to know how it works have a look at
+If you really want to know how it works, have a look at
 #link("https://www.build-electronic-circuits.com/d-latch/")[this site].
 
 #box(image("/pdf/.raster/light/d-latch.png", alt: "D latch"))
@@ -918,7 +970,15 @@ jumping unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#box(image("/pdf/.raster/light/d-latch-accumulator-7.png", alt: "D latch accumulator"))
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/d-latch-accumulator-1.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-2.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-3.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-4.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-5.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-6.png", width: 100%),
+  image("/pdf/.raster/light/d-latch-accumulator-7.png", width: 100%)
+)
 
 #caption[Diagram 6.3. D latch accumulator.]
 
@@ -1030,10 +1090,339 @@ repeatedly produces the same on-off signal.
 Just imagine the new accumulator with a clock signal instead of a `STEP`
 button. I am too lazy to draw it for you.
 
-Now we have a circuit version of one of Otto\'s desk drawers: a register
-that can hold a byte and update when we want.
+We now have some storage. A register that can hold a byte, and update
+exactly when we want.
 
-But Otto also had the upstairs filing cabinet, not just three desk
-drawers. So the next problem is organization and scale. How do we
-organize many stored bytes so the machine can choose one slot, read it,
-and write back to it?
+But registers on their own are not enough. We need to be able to move
+numbers between registers, the adders, and the main memory, which we
+will build later.
+
+== Buses
+<buses>
+One simple solution to move bytes around would be to give every
+component its own bundle of 8 wires to every other component, but that
+would become a mess very quickly.
+
+A simpler solution is to have one single 8-bit data highway, where
+components can put data on and take data off. This collection of 8 wires
+is called a bus.
+
+One more thing, moving forward when I want to draw a collection of 8
+wires, instead of drawing each wire, I will just draw a thick arrow that
+represents 8 wires.
+
+To show the state of the wires, I can write a number in the arrow; the
+number 0 for example means the wires are all off, and the number 2 would
+mean the wires are `00000010` which is 2 in binary.
+
+#box(image("/pdf/.raster/light/common-bus-example.png", alt: "Two registers sharing a bus"))
+
+#caption[Diagram 7.1. Two registers sharing a bus.]
+
+But we have an issue: this diagram is technically not possible yet. If
+register `A` is outputting a value like `00000000`, and it is connected
+to the bus, and then register `B` is outputting a value like `00000001`,
+then the last wire will clash and short-circuit.
+
+We need a way to connect these registers to the bus, but also let them
+get out of the way when they are not supposed to actively drive a wire
+to `-` or `+`, like we discussed previously.
+
+We need a way to make wires \"free\" when we don\'t want to output
+anything.
+
+Just setting the output wires to `00000000` is not enough. The point I
+am trying to make is that on a shared bus `00000000` is not nothing. It
+is actively driving the bus to `-`.
+
+One clean way to solve this problem is by using something called a
+tri-state buffer. It has two inputs, `E` and `D`, which stand for enable
+and data.
+
+We have seen `E` before, in the context of \"enable writing\" but now we
+are using `E` in the context of \"enable outputting\".
+
+If `E` is on, the output will just be whatever `D` is, so either `0` or
+`1`. If `E` is off, no matter the value of `D`, the output will be `Z`.
+
+`Z` means the buffer\'s output is disconnected from the bus. It is not
+driving the bus to `+` or `-`, so another component can safely drive the
+bus without a clash or short-circuit.
+
+Or in other words, this buffer is not touching the wire. `0` is very
+different: the component is actively pulling the wire down. So we have
+three states:
+
+```
+1: driven high
+0: driven low
+Z: disconnected
+```
+
+This relay diagram of how a tri-state buffer works should make this
+concept crystal clear.
+
+Also I have drawn everything the output wire is currently touching in
+yellow. Yellow is just there so you can follow the path with your eyes,
+it doesn\'t mean anything.
+
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/tri-state-buffer-internals-1.png", width: 100%),
+  image("/pdf/.raster/light/tri-state-buffer-internals-2.png", width: 100%),
+  image("/pdf/.raster/light/tri-state-buffer-internals-3.png", width: 100%),
+  image("/pdf/.raster/light/tri-state-buffer-internals-4.png", width: 100%)
+)
+
+#caption[Diagram 7.2. A tri-state buffer built with relays.]
+
+This looks complicated, so let me break it down.
+
+First, ignore the two relays on the right and look only at the `D` relay
+at the top. Its arm is attached to the output wire, and it works just
+like the output driver from before. When `D` is `1`, the arm is pulled
+down onto the wire that leads toward the battery, `+`. When `D` is `0`,
+the arm goes up onto the wire that leads toward ground. Remember, ground
+is just the `-` side.
+
+The important idea is that neither of those wires is directly connected
+to `+` or `-`. Each one has a relay between it. Both of those relays are
+controlled by `E`.
+
+When `E` is `1`, both gaps close. The output is now connected to
+whichever side `D` picked, so it is driven to `1` or `0`.
+
+When `E` is `0`, both relays touch a point connected to nothing. Both
+wires lead to a dead end. The output wire is touching nothing. That is
+`Z`.
+
+So we have three states:
+
+#figure(
+  align(center)[#table(
+    columns: 3,
+    align: (right,right,right,),
+    table.header([`E`], [`D`], [Output],),
+    table.hline(),
+    [1], [1], [1],
+    [1], [0], [0],
+    [0], [0], [Z],
+    [0], [1], [Z],
+  )]
+  , kind: table
+  )
+
+This is the logic gate diagram for a tri-state buffer:
+
+#box(image("/pdf/.raster/light/tri-state-buffer.png", alt: "A tri-state buffer logic gate"))
+
+#caption[Diagram 7.3. A tri-state buffer logic gate.]
+
+Now let\'s address this enable conundrum. We now have two uses for the
+word enable, with completely different meanings and contexts. One means
+enabling writing, and the other means enabling output. From now on, we
+will use two separate terms to avoid confusion: `WRITE` and `OUT`.
+
+So we can make a new type of register, one with `WRITE`, `OUT`, `data`,
+and `Q`, the stored bits 0-7. By `data`, I simply mean the input data
+that we can store when `WRITE` is enabled.
+
+#box(image("/pdf/.raster/light/new-register-internals.png", alt: "Our register with an OUT input"))
+
+#caption[Diagram 7.4. Our register with an OUT input.]
+
+We are just connecting OUT to all of the enables in the tri-state
+buffers. So if `OUT` is `0` Q will be all Z and if `OUT` is 1, `Q` will
+be whatever is stored in the register.
+
+With that, we can use these new registers with a common bus to move
+data.
+
+Here is an example where the content of register A gets copied into
+register B.
+
+#box(image("/pdf/.raster/light/common-data-bus-demo.png", alt: "Copying register A into register B through the shared bus"))
+
+#caption[Diagram 7.5. Copying register A into register B through the shared
+bus.]
+
+I have some text inside the register that shows what it is storing. We
+of course have `W` and `O` which are `WRITE` and `OUT` as well as `D`
+and `Q` which are the inputs and outputs.
+
+Of course, on the second frame, when `OUT` of register A is enabled the
+`D` wires of both registers are also going to be 53 because they are
+directly connected to the bus.
+
+By the end of this sequence, we have copied the value 53 to register B!
+We can have many more registers sharing a common bus, as long as only
+one is driving the bus at a time.
+
+The next problem is organization and scale. How do we organize many
+stored bytes so the machine can choose one slot, read it, and write back
+to it?
+
+== Organizing Data (REDO, because I added BUSES)
+<organizing-data-redo-because-i-added-buses>
+We want to build a system that organizes data into the structure of
+Otto\'s cabinet slots.
+
+This system is known technically as RAM: Random Access Memory. It is
+called RAM because when the CPU wants to access a slot, it just knows
+the number and can access any slot at will. It is not like flipping
+through a book looking for the right page. It is more like grabbing a
+book from a bookshelf, where you already know the book.
+
+Now let\'s think about exactly what we would want this RAM chip to do.
+
+- `address`: the slot we wish to access
+- `WRITE`: whether we want to write a value to this address
+- `data in`: the value we would like to write
+- `data out`: the value we would like to read
+
+Okay, let\'s make this more precise. We are going to build a minuscule
+16-byte RAM: 16 addresses, with each address storing one byte. This
+design can be scaled up easily.
+
+Our address will be 4 bits long, because `2^4` is 16. Just enough to
+represent every single address.
+
+Now we ideally don\'t want a tall stack of 16 registers, we want a nice
+grid pattern.
+
+Thus, we will use 2 out of the 4 bits for the row, and the other 2 bits
+for the column.
+
+2 bits can store 4 values, so we will have a 4×4 array of memory, which
+is 16 total values!
+
+When we select an address, we want RAM to automatically put that
+register\'s stored byte onto `data out`. If `WRITE` is on, then on the
+edge of `WRITE` turning on, that register stores `data in`.
+
+Let\'s start with building a simple decoder. This decoder will take 2
+bits of our address and, based on that number, turn on exactly one out
+of 4 wires.
+
+In the diagram, the two input bits are labeled `A1` and `A0`. `A1` is
+the bigger bit, the 2\'s place. `A0` is the smaller bit, the 1\'s place.
+
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/2-4-decoder-1.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-2.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-3.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-4.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-1.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-2.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-3.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-4.png", width: 100%)
+)
+
+#caption[Diagram 7.1. How a decoder works.]
+
+As you can tell, no matter the inputs, exactly one output wire is on at
+a time.
+
+We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for
+the columns. Where the selected row and selected column cross, that is
+the byte we want to target.
+
+This diagram shows a few addresses as examples. Each address gets its
+own little intersection. Each address from 1-16 has its own spot.
+
+#box(image("/pdf/.raster/light/cross-section.png", alt: "Where the row and column meet"))
+
+#caption[Diagram 7.2. Where the row and column meet.]
+
+How a decoder works is extremely simple. It just uses a bunch of logic
+gates to ask these simple questions.
+
+- If `00` -\> turn on wire 1
+- If `01` -\> turn on wire 2
+- If `10` -\> turn on wire 3
+- If `11` -\> turn on wire 4
+
+Here is how it works if you care:
+
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/2-4-decoder-gates-1.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-2.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-3.png", width: 100%),
+  image("/pdf/.raster/light/2-4-decoder-gates-4.png", width: 100%)
+)
+
+#caption[Diagram 7.3. 2-4 decoder internals.]
+
+One more thing, moving forward when I want to draw a collection of 8
+wires, instead of drawing each wire, I will just draw a thick arrow that
+represents 8 wires. So instead of our previous register diagram, we
+would have something like this:
+
+#box(image("/pdf/.raster/light/new-8-bit-register.png", alt: "An 8-bit bus"))
+
+#caption[Diagram 7.4. An 8-bit bus.]
+
+To show the state of the wires, I can just write a number in the arrow;
+in this case, the number 0 means the wires are all off.
+
+Okay, two more things we need to cover before I can show you the RAM
+diagram. First, let\'s add one more input to our register:
+
+#box(image("/pdf/.raster/light/read-register.png", alt: "A register with READ control"))
+
+#caption[Diagram 7.5. A register with `READ` control.]
+
+These are our simple register diagrams that will be used in the RAM
+diagram later. `R` is `READ` and `W` is `WRITE`. It is, of course, an
+8-bit register.
+
+So now the slot has two control inputs: `WRITE` and `READ`. We are
+already familiar with `WRITE` which works like the previous enable wire,
+and now `READ` controls whether the slot can output its stored value.
+
+The register\'s stored byte is sitting on eight output wires, `Q0`
+through `Q7`. Before that byte leaves the slot, each bit is ANDed with
+`READ`.
+
+Let\'s say `Q = 01011011`. If `READ` is `0`, every bit gets ANDed with
+`0`, so the slot outputs `00000000`. But if `READ` is `1`, every bit
+passes through unchanged, so the slot outputs `01011011`.
+
+Second thing. In our RAM design only one register will be selected at a
+time, and we need to combine all the outputs onto one bus that will show
+the output. To do this, we can just OR the values of each gate when we
+need to combine.
+
+This works because all the gates but one will be 0.
+
+```
+register 1: 00000000
+register 2: 00000000
+register 3: 01010111
+register 4: 00000000
+output:     01010111
+```
+
+So if we OR all of these buses together we just get the value of the
+enabled bus.
+
+In the later diagrams, when two buses merge through a blue connector,
+that means their bits are ORed together; they are not literally
+connected.
+
+Honestly? That\'s it. We can use two decoders, sixteen registers, some
+output wires and some input wires all mashed together with some extra
+logic gates and BOOM! We have some RAM.
+
+You might have noticed a few oddities in this diagram. First, I changed
+`E` to `W`, because here the enable input specifically means \"write
+enable.\" The register should only copy `data in` when this slot is
+selected and `WRITE` is on.
+
+I also draw an AND gate taking an 8-bit bus and one normal wire. That is
+just shorthand for eight small AND gates in parallel: `Q0 AND selected`,
+`Q1 AND selected`, `Q2 AND selected`, and so on. In other words, the
+selected slot is allowed to put its stored byte onto `data out`, while
+the other slots output `0`.
+
+Now we have built Otto\'s abacus, desk drawers and upstairs cabinet, all
+working and functional!

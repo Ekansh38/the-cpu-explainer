@@ -18,7 +18,7 @@ def annotate(match):
     if "pdf-frames=" in tag:
         return tag
     stem = re.search(r'src="\./assets/final/([^"]+)\.gif"', tag).group(1)
-    default = "last" if has_frames(stem) else "keep"
+    default = "all" if has_frames(stem) else "keep"
     return tag.replace("<img ", f'<img pdf-frames="{default}" ', 1)
 
 
