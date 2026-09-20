@@ -916,7 +916,7 @@ With that, we can use these new registers with a common bus to move data.
 
 Here is an example where the content of register A gets copied into register B.
 
-<a id="diagram-7-5"></a> <img src="./assets/final/common-data-bus-demo.gif" alt="Copying register A into register B through the shared bus">
+<a id="diagram-7-5"></a> <img class="big" src="./assets/final/common-data-bus-demo.gif" alt="Copying register A into register B through the shared bus">
 
 *Diagram 7.5. Copying register A into register B through the shared bus.*
 
@@ -926,15 +926,28 @@ which are `WRITE` and `OUT` as well as `D` and `Q` which are the inputs and outp
 Of course, on the second frame, when `OUT` of register A is enabled the `D` wires of both registers
 are also going to be 53 because they are directly connected to the bus.
 
+Also generally in this diagram, register `B`'s output is sometimes shown as `Z` even when the bus is
+53. That is because `B_OUT` is off, so register `B` is not driving the bus. It may be connected to a
+bus currently at 53, but the 53 is coming from register `A`. So technically, those wires are at 53
+but... it just looks better to keep them at `Z`.
+
 By the end of this sequence, we have copied the value 53 to register B! We can have many more
 registers sharing a common bus, as long as only one is driving the bus at a time.
 
+Now we can store a byte, compute a sum, and move bytes around!
+
 The next problem is organization and scale. How do we organize many stored bytes so the machine can
-choose one slot, read it, and write back to it?
+choose one slot, read it, and write back to it? A handful of registers aren't enough.
 
-## Organizing Data (REDO, because I added BUSES)
+## Organizing Data
 
-We want to build a system that organizes data into the structure of [Otto's cabinet slots](#diagram-1-2).
+We want to build a system that organizes data into a simple structure.
+
+<a class="small" id="diagram-8-1"></a> <img class="big" src="./assets/final/cabinet.svg" alt="Our data structure">
+
+*Diagram 8.1. Our data structure.*
+
+Many slots, each with its own address.
 
 This system is known technically as RAM: Random Access Memory. It is called RAM because when the CPU
 wants to access a slot, it just knows the number and can access any slot at will. It is not like
@@ -945,22 +958,39 @@ Now let's think about exactly what we would want this RAM chip to do.
 
 - `address`: the slot we wish to access
 - `WRITE`: whether we want to write a value to this address
+- `OUT`: whether we want to output the value onto the bus
 - `data in`: the value we would like to write
-- `data out`: the value we would like to read
+- `data out`: the data output line
+
+To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire. 
+
+`address` is 8 input wires, while `data in` and `data out` carry bytes and are both connected
+directly to the common bus. 
+
+This only works if no other part is driving the bus when `OUT` is enabled.
 
 Okay, let's make this more precise. We are going to build a minuscule 16-byte RAM: 16 addresses, with
 each address storing one byte. This design can be scaled up easily.
 
 Our address will be 4 bits long, because `2^4` is 16. Just enough to represent every single address.
 
-Now we ideally don't want a tall stack of 16 registers, we want a nice grid pattern.
+We could do this as a tall stack of 16 registers, but a grid is nicer.
 
-Thus, we will use 2 out of the 4 bits for the row, and the other 2 bits for the column.
+So we will split the 4-bit address in half:
 
-2 bits can store 4 values, so we will have a 4×4 array of memory, which is 16 total values!
+```text
+2 bits = row
+2 bits = column
+```
 
-When we select an address, we want RAM to automatically put that register's stored byte onto `data
-out`. If `WRITE` is on, then on the edge of `WRITE` turning on, that register stores `data in`.
+Two bits can choose 4 values, so this gives us a 4×4 grid of memory slots. That is 16 total bytes!
+
+Once the address selects a slot, two things can happen:
+
+- If `WRITE` turns on, the selected slot stores `data in`.
+- If `OUT` is on, the selected slot drives its stored byte onto `data out`.
+
+You can almost think of RAM as a big regular register with an address input as well as the usual `WRITE`, `OUT`, `D`, and `Q`. Of course `D` and `Q` have been renamed but the they do the same things!
 
 Let's start with building a simple decoder. This decoder will take 2 bits of our address and, based
 on that number, turn on exactly one out of 4 wires.
@@ -998,69 +1028,19 @@ Here is how it works if you care:
 
 *Diagram 7.3. 2-4 decoder internals.*
 
-One more thing, moving forward when I want to draw a collection of 8 wires, instead of drawing each
-wire, I will just draw a thick arrow that represents 8 wires. So instead of our [previous register diagram](#diagram-6-8), we would have something like this:
+Just to refresh, this is how I will draw simple tri-state registers moving forward. I am calling
+them tri-state registers because they use tri-state buffers and have an `OUT` control signals, we
+still might use regular 8-bit registers without the `OUT` signal. They aren't worthless!
 
 <a id="diagram-7-4"></a> <img src="./assets/final/new-8-bit-register.svg" alt="An 8-bit bus">
 
-*Diagram 7.4. An 8-bit bus.*
+*Diagram 7.4. How I will draw a simple register moving forward.*
 
-To show the state of the wires, I can just write a number in the arrow; in this case, the number 0
-means the wires are all off.
+So `D`, `Q`, `O`, and `W`.
 
-Okay, two more things we need to cover before I can show you the RAM diagram. First, let's add one more
-input to our register:
-
-<a id="diagram-7-5"></a> <img src="./assets/final/read-register.gif" alt="A register with `READ` control">
-
-*Diagram 7.5. A register with `READ` control.*
-
-These are our simple register diagrams that will be used in the RAM diagram later. `R` is `READ` and
-`W` is `WRITE`. It is, of course, an 8-bit register.
-
-So now the slot has two control inputs: `WRITE` and `READ`. We are already familiar with `WRITE`
-which works like the [previous enable wire](#diagram-6-8), and now `READ` controls whether the slot can output its stored value.
-
-The register's stored byte is sitting on eight output wires, `Q0` through `Q7`. Before that byte
-leaves the slot, each bit is ANDed with `READ`.
-
-Let's say `Q = 01011011`. If `READ` is `0`, every bit gets ANDed with `0`, so the slot outputs
-`00000000`. But if `READ` is `1`, every bit passes through unchanged, so the slot outputs
-`01011011`.
-
-Second thing. In our RAM design only one register will be selected at a time, and we need to combine
-all the outputs onto one bus that will show the output. To do this, we can just OR the values of
-each gate when we need to combine.
-
-This works because all the gates but one will be 0.
-
-```
-register 1: 00000000
-register 2: 00000000
-register 3: 01010111
-register 4: 00000000
-output:     01010111
-```
-
-So if we OR all of these buses together we just get the value of the enabled bus.
-
-In the later diagrams, when two buses merge through a blue connector, that means their bits are
-ORed together; they are not literally connected.
-
-Honestly? That's it. We can use two decoders, sixteen registers, some output wires and some input
-wires all mashed together with some extra logic gates and BOOM! We have some RAM.
+Honestly? That's it. We can use two decoders, sixteen registers, some wires and buses all mashed
+together with some extra logic gates and BOOM! We have some RAM.
 
 <diagram>
 
-You might have noticed a few oddities in this diagram. First, I changed `E` to `W`, because here the
-enable input specifically means "write enable." The register should only copy `data in` when this
-slot is selected and `WRITE` is on.
-
-I also draw an AND gate taking an 8-bit bus and one normal wire. That is just shorthand for eight
-small AND gates in parallel: `Q0 AND selected`, `Q1 AND selected`, `Q2 AND selected`, and so on. In
-other words, the selected slot is allowed to put its stored byte onto `data out`, while the other
-slots output `0`.
-
 <explain here>
-
-Now we have built Otto's abacus, desk drawers and upstairs cabinet, all working and functional!
