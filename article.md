@@ -1041,6 +1041,37 @@ So `D`, `Q`, `O`, and `W`.
 Honestly? That's it. We can use two decoders, sixteen registers, some wires and buses all mashed
 together with some extra logic gates and BOOM! We have some RAM.
 
-<diagram>
+In this diagram, green lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
+still ordinary wires; the colors are only there to make the diagram easier to follow.
 
-<explain here>
+<a id="diagram-7-5"></a> <img src="./assets/final/zoomed-out-ram.svg" alt="A zoomed out RAM diagram">
+
+*Diagram 7.5. A zoomed out RAM diagram.*
+
+This is kind of a lot to unpack, so let me explain the high level parts before we zoom in and take a
+closer look.
+
+We have a green data in bus that is fed into the bottom of all of the registers, we also have
+another green data out bus that comes out of the top of all the registers and combines into one
+output. Again this works because only one register will ever have `OUT` on at a time. 
+
+Lets look at one cell more closely:
+
+<a id="diagram-7-6"></a> <img src="./assets/final/zoomed-in-ram.svg" alt="A zoomed in RAM cell diagram">
+
+*Diagram 7.6. A zoomed in RAM cell diagram.*
+
+What AND gate 1 checks is, if `Row Select` and `Column Select`, and `OUT` is on, then that means we
+have selected that register to output its value, thus we turn on `OUT` and the register will output
+something on the `Output` bus.
+
+AND gate 2 checks, if `Row Select` and `Column Select`, and `WRITE` is on, then that means we
+have selected that register to write to, thus we turn on `WRITE` for that register, and it will
+write the data on the `Input` bus.
+
+So now that we have built RAM, lets pretend instead of 16 registers, we have a RAM array with 256
+registers, the same logic can be copied, just with 4-16 decoders instead of 2-4 decoders and 8
+address inputs rather than 4.
+
+<ram interface>
+
