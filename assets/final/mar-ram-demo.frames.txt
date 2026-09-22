@@ -1,0 +1,22 @@
+title: mar ram demo
+
+[frame 1]
+The `MAR` has 0 stored in it. The common bus is empty, and all of the control signals are off.
+
+[frame 2]
+The `MAR` still has 0 stored in it. We have put the value 28 onto the common bus, this is the address we want to access in RAM.
+
+[frame 3]
+We enable `MAR_WRITE` so now the `MAR` has 28 stored in it. The common bus still has the value 28 on it.
+
+[frame 4]
+`MAR_WRITE` is now off, but the `MAR` still has 28 stored in it. The common bus still has the value 28 on it.
+
+[frame 5]
+The common bus is now empty so it can accept output from the RAM and `MAR` has the value 28 stored in it.
+
+[frame 6]
+`RAM_OUT` is enabled so the value stored in address 28 is outputted onto the common bus in this case 6.
+
+[frame 7]
+`RAM_OUT` is now back off so the common bus is back to being empty.

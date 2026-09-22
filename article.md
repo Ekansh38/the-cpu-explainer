@@ -1067,8 +1067,52 @@ gates changed together.
 *Diagram 8.7. A three input AND gate.*
 
 So now that we have built RAM, lets pretend instead of 16 registers, we have a RAM array with 256
-registers, the same logic can be copied, just with 4-16 decoders instead of 2-4 decoders and 8
-address inputs rather than 4.
+registers, the same logic can be copied, just with two 4-16 decoders instead of two 2-4 decoders and
+8 address inputs rather than 4.
 
-<ram interface>
+<a id="diagram-8-8"></a> <img src="./assets/final/ram-interface.svg" alt="Our RAM chip">
 
+*Diagram 8.8. Our RAM chip.*
+
+Technically, there are still two buses inside the RAM: a data-in path and a data-out path. That is
+basically what we saw with the [register in the bus section](#diagram-7-5).
+
+But drawing two separate data buses every time is cumbersome. From the outside, we can abstract this
+as one shared data bus with a double-headed arrow.
+
+The double-headed arrow does not mean data flows both ways at the same time. It means the direction
+depends on the control signals.
+
+If `W` is on, RAM copies the value from the data bus into the selected address.
+
+If `O` is on, RAM drives the selected address's value onto the data bus.
+
+So the same 8 data wires are used for both reading and writing. The rule is just that `W` and `O`
+should not both be on at the same time.
+
+Moving on.
+
+If you pay close attention to [the diagram](#diagram-8-8), you will notice that the address input is
+not directly connected to the common data bus.
+
+That is intentional. The data bus is for moving values around the CPU. During a RAM operation, it
+needs to carry the value being written to RAM or the value being read from RAM. So it cannot also keep
+holding the address at the same time.
+
+We need something to hold the address while the data bus is being used for the actual I/O.
+
+This is called the Memory Address Register, or MAR.
+
+The MAR is just a regular 8-bit register with no `OUT` control signal as it is always outputting
+directly into RAM. The MAR stores the address for RAM.
+
+The CPU first puts an address on the data bus and turns on `MAR_WRITE`. The MAR stores that address.
+Then the MAR keeps sending that address to RAM, leaving the data bus free to carry the value being
+read or written.
+
+<a id="diagram-8-9"></a> <img src="./assets/final/mar-ram-demo.gif" alt="How the MAR works">
+
+*Diagram 8.9. How the MAR works.*
+
+So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store that into the MAR. We then
+remove 28 from the common bus, and enable `RAM_OUT`, we get 6 as the value stored in slot 28. Cool.
