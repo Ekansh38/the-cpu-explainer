@@ -146,11 +146,11 @@ talk about other solutions a little more later on.
 
 This probably sounds quite complicated, but it is just a magnet powered by electricity.
 
-Here is how it works:
+One thing to mention before the next diagram: if you see several little batteries in a circuit,
+don't interpret that as several totally separate power sources. I am using the battery drawing as a
+symbol for "this point is connected to power," so the diagram doesn't turn into spaghetti.
 
-One thing to mention: if you see several little batteries in a circuit, don't interpret that as
-several totally separate power sources. I am using the battery drawing as a symbol for "this point
-is connected to power," so the diagram doesn't turn into spaghetti.
+Here is how it works:
 
 <a id="diagram-3-4"></a> <img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
@@ -456,7 +456,7 @@ This is what we want our circuit to do:
 
 The sum is `1` only when exactly one input is `1`.
 
-This is called XOR short for exclusive OR.
+This is called XOR, short for exclusive OR.
 
 If we combine an OR gate and a NAND gate, and AND them together we get XOR:
 
@@ -483,7 +483,8 @@ Now here is our half adder:
 
 As you can see it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and `1 + 1 = 10`.
 
-Now let's package up our half adder into a little box:
+Now let's package up our half adder into a little box. From now on, I will call these packaged-up
+circuits chips:
 
 <a id="diagram-5-6"></a> <img src="./assets/final/half-adder-box.svg" alt="A half adder chip">
 
@@ -508,7 +509,7 @@ from the previous column.
 A half adder cannot do that. It only accepts two inputs. To continue adding up the other columns,
 we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`.
 
-To add three binary numbers, we use two half adders and an OR gate:
+To add three bits, we use two half adders and an OR gate:
 
 <a id="diagram-5-8"></a> <img src="./assets/final/full-adder.gif" alt="A full adder">
 
@@ -522,7 +523,7 @@ not able to output carries. Take a moment to think about this if you are confuse
 So we can confidently OR the two carry outputs together. If either one is `1`, the full adder's
 carry-out is `1`.
 
-Let's again package this up into a box:
+Let's again package this up into a chip:
 
 <a id="diagram-5-9"></a> <img src="./assets/final/full-adder-box.svg" alt="A full adder chip">
 
@@ -531,8 +532,7 @@ Let's again package this up into a box:
 We have made a full adder!
 
 Now we can chain full adders together to add two 8-bit numbers. Since 8 bits make one byte, this is
-an adder that can add two one-byte numbers. One byte can represent any number from 0 to 255. That is
-256 total combinations because `2^8` is 256.
+an adder that can add two one-byte numbers: anything from 0 to 255.
 
 <a id="diagram-5-10"></a> <img src="./assets/final/8-bit-adder.svg" alt="An 8-bit adder">
 
@@ -547,7 +547,7 @@ Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can 
 greater than eight bits. It's like how adding two 2-digit numbers could result in a three-digit
 number for us. Like `50+50=100`.
 
-Now let's package this up into a box once again:
+Now let's package this up into a chip once again:
 
 <a id="diagram-5-11"></a> <img src="./assets/final/8-bit-adder-box.svg" alt="An 8-bit adder chip">
 
@@ -693,7 +693,7 @@ If you really want to know how it works, have a look at [this site](https://www.
 But we have a problem. Let's say we now try to use 8 of these D latches to hold the result from our
 adder, which would then feed back into the input for our accumulator. It still wouldn't work.
 
-This is because let's say we have the enable wire hooked up to a button. When that button is pressed
+Here is the problem: say we have the enable wire hooked up to a button. When that button is pressed
 down, the enable wire is on, so `Q=D` for that time. But if `Q` feeds back into the adder, and the
 result of the adder `D` changes quickly enough, `Q` can change again, jumping unpredictably based on
 how long we hold that button for.
@@ -758,7 +758,7 @@ If we connect 8 of them side by side, we get one byte of storage:
 
 *Diagram 6.7. Eight storage cells.*
 
-And we can put all that into a box called an 8-bit register:
+And we can put all that into a chip called an 8-bit register:
 
 <a id="diagram-6-8"></a> <img src="./assets/final/8-bit-register.svg" alt="An 8-bit register">
 
@@ -794,7 +794,7 @@ output of a NOT gate back into its input, so the signal keeps trying to flip bac
 on and off.
 
 Real clocks are built in more sophisticated and reliable ways, often using crystals or other oscillator
-circuits. But we do not need to build the clock itself here. For now, we can treat it as a little box
+circuits. But we do not need to build the clock itself here. For now, we can treat it as a little chip
 that repeatedly produces the same on-off signal.
 
 Just imagine the new accumulator with a clock signal instead of a `STEP` button. 
@@ -927,7 +927,7 @@ Of course, on the second frame, when `OUT` of register A is enabled the `D` wire
 are also going to be 53 because they are directly connected to the bus.
 
 Also generally in this diagram, register `B`'s output is sometimes shown as `Z` even when the bus is
-53. That is because `B_OUT` is off, so register `B` is not driving the bus. It may be connected to a
+53. That is because register `B`'s `OUT` is off, so register `B` is not driving the bus. It may be connected to a
 bus currently at 53, but the 53 is coming from register `A`. So technically, those wires are at 53
 but... it just looks better to keep them at `Z`.
 
@@ -943,7 +943,7 @@ choose one slot, read it, and write back to it? A handful of registers aren't en
 
 We want to build a system that organizes data into a simple structure.
 
-<a class="small" id="diagram-8-1"></a> <img src="./assets/final/cabinet.svg" alt="Our data structure">
+<a id="diagram-8-1"></a> <img src="./assets/final/cabinet.svg" alt="Our data structure">
 
 *Diagram 8.1. Our data structure.*
 
@@ -952,7 +952,7 @@ Many slots, each with its own address.
 This system is known technically as RAM: Random Access Memory. It is called RAM because when the CPU
 wants to access a slot, it just knows the number and can access any slot at will. It is not like
 flipping through a book looking for the right page. It is more like grabbing a book from a
-bookshelf, where you already know the book.
+bookshelf, where you already know exactly where the book sits.
 
 Now let's think about exactly what we would want this RAM chip to do.
 
@@ -976,11 +976,12 @@ Our address will be 4 bits long, because `2^4` is 16. Just enough to represent e
 
 We could do this as a tall stack of 16 registers, but a grid is nicer.
 
-So we will split the 4-bit address in half:
+So we will split the 4-bit address in half. The bottom two bits pick the row, and the top two bits
+pick the column:
 
 ```text
-2 bits = row
-2 bits = column
+top 2 bits    = column
+bottom 2 bits = row
 ```
 
 Two bits can choose 4 values, so this gives us a 4×4 grid of memory slots. That is 16 total bytes!
@@ -1045,7 +1046,7 @@ output. Every slot is connected to both buses, but only the selected slot is all
 the slot's row and column are selected, it can either read from `data in` when `WRITE` is on, or
 drive `data out` when `OUT` is on.
 
-Lets look at one cell more closely:
+Let's look at one cell more closely:
 
 <a id="diagram-8-6"></a> <img src="./assets/final/zoomed-in-ram.svg" alt="A zoomed in RAM cell diagram">
 
@@ -1060,15 +1061,15 @@ have selected that register to write to, thus we turn on `WRITE` for that regist
 write the data on the `Input` bus.
 
 So yea, both AND gates take in 3 inputs, if you are wondering how that works, just think of two AND
-gates changed together.
+gates chained together.
 
 <a id="diagram-8-7"></a> <img src="./assets/final/three-input-and.svg" alt="A three input AND gate">
 
 *Diagram 8.7. A three input AND gate.*
 
-So now that we have built RAM, lets pretend instead of 16 registers, we have a RAM array with 256
-registers, the same logic can be copied, just with two 4-16 decoders instead of two 2-4 decoders and
-8 address inputs rather than 4.
+So now that we have built RAM, let's pretend that instead of 16 registers, we have a RAM array with
+256 registers. The same logic can be copied, just with two 4-16 decoders instead of two 2-4 decoders
+and 8 address inputs rather than 4.
 
 <a id="diagram-8-8"></a> <img src="./assets/final/ram-interface.svg" alt="Our RAM chip">
 
@@ -1116,3 +1117,42 @@ read or written.
 
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store that into the MAR. We then
 remove 28 from the common bus, and enable `RAM_OUT`, we get 6 as the value stored in slot 28. Cool.
+
+## The ALU
+
+If we have a handful of registers and RAM, we can now move bytes around using this common data bus.
+But what we really need is a component that can "process" numbers, a component that can do
+arithmetic and logic. Thus we have, "The Arithmetic and Logic Unit" or ALU for short.
+
+Imagine a chip where, we could input two numbers, an operation, and output a result, along with some
+other information.
+
+<diagram showing the interface: A, B, operation select, result, and flags>
+
+For this CPU, I am keeping the ALU simple. It will have two operation-select bits, which gives us
+four possible operations:
+
+
+| `OP` | Operation | Meaning |
+|---:|---|---|
+| `00` | ADD | output `A + B` |
+| `01` | AND | output `A AND B` |
+| `10` | OR | output `A OR B` |
+| `11` | XOR | output `A XOR B` |
+
+
+The ALU will also output a few flags, which are just extra yes/no facts about the result or the inputs:
+
+
+| Flag | Turns on when |
+|---|---|
+| `ZERO` | the result is `00000000` |
+| `CARRY` | addition spills past 8 bits |
+| `EQUAL` | `A` and `B` are the same |
+| `A_GREATER` | `A` is greater than `B` |
+
+
+<diagram showing internals>
+
+<explain the diagram>
+

@@ -4,7 +4,7 @@ title: or gate logical
 `STINKY` & `MUDDY` are both open, thus no current can flow. That is why the bulb is off.
 
 [frame 2]
-`MUDDY` is closed and `STINKY` is open, thus current still flows through the circuit, so the bulb stays on.
+`MUDDY` is closed and `STINKY` is open, thus current can now flow through the circuit, so the bulb turns on.
 
 [frame 3]
 `STINKY` & `MUDDY` are both open, thus no current can flow. That is why the bulb is off.

@@ -1,13 +1,13 @@
 title: basic relay
 
 [frame 1]
-The switch is open, so no current is flowing throw the coil. The metal arm stays open, breaking the second circuit, so the bulb stays off.
+The switch is open, so no current is flowing through the coil. The metal arm stays open, breaking the second circuit, so the bulb stays off.
 
 [frame 2]
-The switch is closed, so current is flowing throw the coil. The relay is pulling the metal arm. The arm is still open, so the bulb is off.
+The switch is closed, so current is flowing through the coil. The relay is pulling the metal arm. The arm is still open, so the bulb is off.
 
 [frame 3]
-The switch is closed, so current is flowing throw the coil. The relay has pulled the metal arm down. Now current can flow through the second circuit, so the bulb is off.
+The switch is closed, so current is flowing through the coil. The relay has pulled the metal arm down. Now current can flow through the second circuit, so the bulb is on.
 
 [frame 4]
-The switch is open, so no current is flowing throw the coil. The relay has stopped pulling the metal arm. The arm is still closed because it is going up, so the bulb is on.
+The switch is open, so no current is flowing through the coil. The relay has stopped pulling the metal arm. The arm is on its way up but still touching, so the bulb is briefly still on.

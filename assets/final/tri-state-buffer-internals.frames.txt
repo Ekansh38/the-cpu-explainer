@@ -17,5 +17,5 @@ path runs from the output to a dead end, so the output is not driven at all, tha
 
 [frame 4]
 `E` is off, so both relay arms on the right are up, resting on contacts connected to nothing.
-`D` is on, so the top arm is up, onto the `+` path. But that path now leads nowhere. The yellow
-path runs from the output to a dead end, so the output is not driven at all, that is called `Z`.
+`D` is on, so the top arm is pulled down, onto the `+` path. But that path now leads nowhere. The
+yellow path runs from the output to a dead end, so the output is not driven at all, that is called `Z`.
