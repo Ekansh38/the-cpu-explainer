@@ -19,18 +19,16 @@ How does that become memory?
 How does that become a program sitting in RAM, one instruction after another, telling a machine what
 to do?
 
-This article is going to walk you through how a CPU is built, starting with the simplest
-possible components.
-
-We start with a simple circuit turning a light bulb on and off, then work our way through logic
-gates, memory, and the basic circuits underneath them.
-
 Some resources stay extremely high-level, so you never really understand how a CPU actually works.
 
 The deeper resources are amazing, but they are long, dense, and intimidating. And frankly, for
-someone who doesn't want that level of detail, a lot of it can often feel like too much. This
-article will hopefully help you understand what is going on under the hood, without exploding your
-brain or eating weeks of time.
+someone who doesn't want that level of detail, a lot of it can often feel like too much. 
+
+My goal is to help you understand what is going on under the hood, without exploding your brain or
+eating weeks of time.
+
+We start with a simple circuit turning a light bulb on and off, then work our way through logic
+gates, memory, and the basic circuits underneath them.
 
 The key point is that nothing here is smart in isolation. A CPU is not one hard idea. It is a very
 tall pile of simple ones.
@@ -54,7 +52,7 @@ optimization, but it has the same core functionality.
 
 ## Circuits & Electricity
 
-First, we need the basics of how electricity and circuits work for the purposes of this article.
+First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
@@ -127,10 +125,7 @@ Now let's combine the two to form the complete circuit.
 
 But now we have a problem. 
 
-The `MUDDY OR STINKY` circuit outputs its result with an electrical signal: on or off.
-Our previous AND circuit relies on a human flipping a switch in order to compute a result.
-
-Or in other words, the OR circuit we built outputs a result as electricity, but the AND circuit we
+The OR circuit we built outputs a result as electricity, but the AND circuit we
 want to combine it with expects an input as a metal switch physically being moved. A signal in a wire
 can't reach over and close that switch by itself.
 
@@ -224,15 +219,13 @@ The rules of the circuit change once again:
 
 `((MUDDY OR STINKY) AND OLD_WASH) AND NOT RAIN_SOON`
 
-The parentheses indicate order of operations. This should be pretty familiar. So in plain English:
+The parentheses indicate order of operations. So in plain English:
 
 If the dog is muddy or stinky and it's been at least 5 days since the dog's last wash and it's not going to
 rain soon, then wash the dog.
 
 Let's focus on this NOT for a second. NOT just inverts a signal: if it receives signal, it
 outputs no signal; if it receives no signal, it outputs signal.
-
-That is what a NOT gate does.
 
 <a id="diagram-3-9"></a> <img src="./assets/final/not-gate.gif" alt="A NOT gate">
 
@@ -274,8 +267,7 @@ An OR gate is drawn like this:
 
 *Diagram 3.12. An OR gate.*
 
-This symbol represents the [OR circuit](#diagram-3-7) we made previously, with the same idea about
-driving the output wire instead of a bulb.
+This symbol represents the [OR circuit](#diagram-3-7) we made previously.
 
 Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
 the relays I showed you previously, but the internal components stay hidden for cleanliness.
@@ -348,7 +340,7 @@ Here are all the possible states we have with 3 wires:
 
 *Diagram 4.2. States with 3 wires.*
 
-We can represent 8 numbers just like this. The more wires we add, the more numbers we can represent.
+We can represent 8 numbers just like this.
 
 But, why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned? 
 
@@ -386,11 +378,8 @@ Let's walk through `1101` together.
 
 *Diagram 4.5. An example in binary.*
 
-The binary system works the same way as decimal. The only difference is that instead of multiplying
-the digit by a power of 10, we multiply it by a power of 2. That's it.
-
-So now that we can represent numbers with wires, how can we add numbers together? How can we compute
-sums? That is what the next section is all about.
+So now that we can represent numbers with wires, how can we add numbers together? That is what the
+next section is all about.
 
 <a id="diagram-4-6"></a> <img src="./assets/final/add-magic-box.svg" alt="Addition?">
 
@@ -433,7 +422,7 @@ Well, let's start with the rightmost column. If we think about it, all the possi
 | 1 | 1 | 0 | 1 |
 
 
-So just `0 + 0`, `1 + 0`, `1 + 1`, or `0 + 1`. That's it! If we can make a tiny circuit that takes two inputs,
+So just `0 + 0`, `1 + 0`, `1 + 1`, or `0 + 1`. If we can make a tiny circuit that takes two inputs,
 and produces two outputs that match these combinations, we have added the first column. 
 
 This is called a half adder. A half adder adds two bits, but it does not handle a carry-in value.
@@ -609,7 +598,7 @@ instantly.
 
 There is no boundary between the old value and the new value.
 
-There is no clean "step 1, step 2, step 3."  No controlled flow or process.
+There is no clean "step 1, step 2, step 3."
 
 So this is not enough. We need a circuit that can hold a value still, then update it only when we
 tell it to.
@@ -665,7 +654,7 @@ forcing `NOT Q` to `0`, and `NOT Q` being `0` allows `Q` to stay `1`.
 
 The circuit has state. Its output depends not only on the current input, but on what happened before.
 
-Now that we have the core mechanism, let's refine the interface. All I mean by that is, right now
+Now that we have the core mechanism, let's refine the interface. Right now
 `SET` and `RESET` are super clunky. While they demonstrate the mechanism, what we would really like
 to have is two inputs.
 
@@ -675,8 +664,6 @@ to have is two inputs.
 When the enable wire turns on, `Data` gets stored in `Q`. Or in other words, when we turn the
 `Enable` wire on, `Q` mirrors `D`. Then when we turn `E` off, `Q` stays stable with whatever `D` was
 last. 
-
-This is much easier than fiddling with `SET` and `RESET`.
 
 This type of latch is called a D latch, D meaning data. It can be made using the SR latch and a few
 extra logic gates.
@@ -743,8 +730,6 @@ is now on, the first latch is locked, so it can't change!
 
 So if `D` changes while enable is off, we are all good because the second latch is locked. But if
 `D` changes while enable is on, we are fine because the first latch is locked.
-
-That is how this flip-flop works.
 
 Here is one storage cell, which is just the flip-flop we showed above:
 
@@ -830,10 +815,8 @@ like `00000001`, then the last wire will clash and short-circuit.
 We need a way to connect these registers to the bus, but also let them get out of the way when they
 are not supposed to actively drive a wire to `-` or `+`, like we discussed [previously](#diagram-3-10). 
 
-We need a way to make wires "free" when we don't want to output anything. 
-
-Just setting the output wires to `00000000` is not enough. The point I am trying to make is that on
-a shared bus `00000000` is not nothing. It is actively driving the bus to `-`.
+Just setting the output wires to `00000000` is not enough. On a shared bus `00000000` is not
+nothing. It is actively driving the bus to `-`.
 
 One clean way to solve this problem is by using something called a tri-state buffer. It has two
 inputs, `E` and `D`, which stand for enable and data.
@@ -972,7 +955,7 @@ This only works if no other part is driving the bus when `OUT` is enabled.
 So we are going to build a minuscule 16-byte RAM: 16 addresses, with each address storing one byte.
 This design can be scaled up easily.
 
-Our address will be 4 bits long, because `2^4` is 16. Just enough to represent every single address.
+Our address will be 4 bits long, because `2^4` is 16.
 
 We could do this as a tall stack of 16 registers, but a grid is nicer.
 
@@ -1007,7 +990,6 @@ We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for the column
 row and selected column cross, that is the byte we want to target.
 
 This diagram shows a few addresses as examples. Each address gets its own little intersection.
-Each address from 0-15 has its own spot.
 
 <a id="diagram-8-3"></a> <img src="./assets/final/cross-section.gif" alt="Where the row and column meet">
 
@@ -1091,8 +1073,6 @@ If `O` is on, RAM drives the selected address's value onto the data bus.
 So the same 8 data wires are used for both reading and writing. The rule is just that `W` and `O`
 should not both be on at the same time.
 
-Moving on.
-
 If you pay close attention to [the diagram](#diagram-8-8), you will notice that the address input is
 not directly connected to the common data bus.
 
@@ -1105,7 +1085,7 @@ We need something to hold the address while the data bus is being used for the a
 This is called the Memory Address Register, or MAR.
 
 The MAR is just a regular 8-bit register with no `OUT` control signal as it is always outputting
-directly into RAM. The MAR stores the address for RAM.
+directly into RAM.
 
 The CPU first puts an address on the data bus and turns on `MAR_WRITE`. The MAR stores that address.
 Then the MAR keeps sending that address to RAM, leaving the data bus free to carry the value being
@@ -1127,7 +1107,9 @@ arithmetic and logic. Thus we have, "The Arithmetic and Logic Unit" or ALU for s
 Imagine a chip where, we could input two numbers, an operation, and output a result, along with some
 other information.
 
-<diagram showing the interface: A, B, operation select, result, and flags>
+<a id="diagram-9-1"></a> <img src="./assets/final/alu-interface.svg" alt="The ALU chip">
+
+*Diagram 9.1. The ALU chip.*
 
 For this CPU, I am keeping the ALU simple. It will have two operation-select bits, which gives us
 four possible operations:
@@ -1149,10 +1131,61 @@ The ALU will also output a few flags, which are just extra yes/no facts about th
 | `ZERO` | the result is `00000000` |
 | `CARRY` | addition spills past 8 bits |
 | `EQUAL` | `A` and `B` are the same |
-| `A_GREATER` | `A` is greater than `B` |
 
+
+So, in the [previous diagram](#diagram-9-1), we did 0+0 which is 0, so the `ZERO` flag is on, and the `EQUAL` flag too
+because both inputs are equal.
+
+This next diagram uses a new component. It is a mix of two registers we have already seen.
+
+Remember the [D latch](#diagram-6-2), the first storage circuit we built? While its enable was on,
+`Q` simply equaled `D`. No edges wedges whatever involved. This new register is a D latch with the
+enable permanently on: it is always storing whatever value is on its input.
+
+But like our newer registers, its output goes through tri-state buffers with an `OUT` control
+signal, so we still decide when it outputs.
+
+So in total: a data input that is always being stored, an `OUT` control signal, and an output.
+
+Also, you'll see me feeding two buses into a single logic gate. "How does that work?", you might
+think. Well, there are really just eight gates, one per bit. One gate takes `A0` and `B0`, the next
+takes `A1` and `B1`, and so on. Eight output wires, which is just another bus.
 
 <diagram showing internals>
 
-<explain the diagram>
+At its crux, the ALU works by routing A and B both into 4 operations, in this case XOR, OR, AND, and
+ADD. We store each of the results in a corresponding result register. Then based on the op-code that
+is entered, we output that result. Simple!
 
+Now for the flags.
+
+First, the `ZERO` circuitry. It consists of:
+
+`NOT` -> `AND`
+
+The NOT gate on the right, labeled 4, is just like before: there are
+actually eight NOT gates, each flipping one wire of the bus. So it takes in a bus, and outputs a
+bus.
+
+But the AND gate next to it, labeled 5, takes in a bus and outputs just one wire. Like the
+[three-input AND](#diagram-8-7) from the RAM section, this AND gate takes in 8 inputs and produces
+1 output. It just checks if all of its inputs are on.
+
+So if we flip each bit, and then check if all of them are on, we get the `ZERO` flag. This makes
+sense because all the bits going into the AND gate can only be on if they were originally
+`00000000`, a.k.a. zero!
+
+Next, let's cover the `EQUAL` circuitry. It consists of:
+
+`XOR` -> `NOT` -> `AND`
+
+The XOR gate, labeled 6, is basically like last time: we XOR each pair of bits from `A` and `B`,
+and create an eight-bit bus. Remember, XOR outputs `0` when its two inputs are the same. So if `A`
+and `B` are equal, we get `00000000` as the output.
+
+Then we flip the bits with gate 7, getting `11111111`, and if we AND them all together with gate 8,
+we can check if they are all true. If even one pair of bits differs, that wire ends up `0` after
+the flip, and the AND outputs `0`. Simple.
+
+The `CARRY` flag is simple: we just connect the adder's Carry Out, `CO`, straight out. Of course,
+it only means anything when we are actually adding.
