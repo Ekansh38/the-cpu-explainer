@@ -1063,15 +1063,23 @@ basically what we saw with the [register in the bus section](#diagram-7-5).
 But drawing two separate data buses every time is cumbersome. From the outside, we can abstract this
 as one shared data bus with a double-headed arrow.
 
-The double-headed arrow does not mean data flows both ways at the same time. It means the direction
-depends on the control signals.
+It is practically just like having two buses, one for input one for output.
 
 If `W` is on, RAM copies the value from the data bus into the selected address.
 
 If `O` is on, RAM drives the selected address's value onto the data bus.
 
-So the same 8 data wires are used for both reading and writing. The rule is just that `W` and `O`
-should not both be on at the same time.
+So from now on, instead of drawing registers connected to a common bus [like this](#diagram-7-5),
+where we have a separate D and Q. We can just draw them like this:
+
+<a id="diagram-8-9"></a> <img src="./assets/final/io-registers.svg" alt="I/O Registers">
+
+*Diagram 8.9. I/O Registers.*
+
+They both are the same technically, just this is easier to draw, so moving forward, instead of
+drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus.
+
+Now back to the `RAM` chip.
 
 If you pay close attention to [the diagram](#diagram-8-8), you will notice that the address input is
 not directly connected to the common data bus.
@@ -1193,3 +1201,9 @@ the flip, and the AND outputs `0`. Simple.
 
 The `CARRY` flag is simple: we just connect the adder's Carry Out, `CO`, straight out. Of course,
 it only means anything when we are actually adding.
+
+## The Big Picture
+
+1. Mention the change in the ALU
+1. mention MAR interface change.
+2. Explain the tri-state intercept in register A.
