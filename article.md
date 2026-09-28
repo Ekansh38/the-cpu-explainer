@@ -1061,23 +1061,23 @@ Technically, there are still two buses inside the RAM: a data-in path and a data
 basically what we saw with the [register in the bus section](#diagram-7-5).
 
 But drawing two separate data buses every time is cumbersome. From the outside, we can abstract this
-as one shared data bus with a double-headed arrow.
+as one shared data bus with a double-headed arrow called `I/O`, which stands for input/output.
 
-It is practically just like having two buses, one for input one for output.
+It is practically just like having two buses, one for input, one for output.
 
 If `W` is on, RAM copies the value from the data bus into the selected address.
 
 If `O` is on, RAM drives the selected address's value onto the data bus.
 
 So from now on, instead of drawing registers connected to a common bus [like this](#diagram-7-5),
-where we have a separate D and Q. We can just draw them like this:
+where we have a separate `D` and `Q`, we can just draw them like this:
 
 <a id="diagram-8-9"></a> <img src="./assets/final/io-registers.svg" alt="I/O Registers">
 
 *Diagram 8.9. I/O Registers.*
 
 They both are the same technically, just this is easier to draw, so moving forward, instead of
-drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus.
+drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus. 
 
 Now back to the `RAM` chip.
 
@@ -1099,9 +1099,9 @@ The CPU first puts an address on the data bus and turns on `MAR_WRITE`. The MAR 
 Then the MAR keeps sending that address to RAM, leaving the data bus free to carry the value being
 read or written.
 
-<a id="diagram-8-9"></a> <img src="./assets/final/mar-ram-demo.gif" alt="How the MAR works">
+<a id="diagram-8-10"></a> <img src="./assets/final/mar-ram-demo.gif" alt="How the MAR works">
 
-*Diagram 8.9. How the MAR works.*
+*Diagram 8.10. How the MAR works.*
 
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store that into the MAR. We then
 remove 28 from the common bus, and enable `RAM_OUT`, we get 6 as the value stored in slot 28. Cool.
