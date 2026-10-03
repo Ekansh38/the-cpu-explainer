@@ -1204,6 +1204,108 @@ it only means anything when we are actually adding.
 
 ## The Big Picture
 
-1. Mention the change in the ALU
-1. mention MAR interface change.
-2. Explain the tri-state intercept in register A.
+ 3. Tour: every box, "you built this in section X", except the CU
+ 4. What the CU does + the full fetch/decode/execute flow, in detail,
+    with the CU as a black box ("the control unit then..."). Do NOT
+    show how the CU works inside. Frame it as the automated panel.
+ 5. Cliffhanger: it flips the wires, but how does it KNOW which? -> next
+
+Here is a big picture diagram of the whole CPU.
+
+<a id="diagram-10-1"></a> <img class="big" src="./assets/final/big-picture-cpu.svg" alt="The big picture">
+
+*Diagram 10.1. The big picture.*
+
+Some quick notes on the diagram before we dig in.
+
+The 8-bit data buses are blue when not being driven, or in other words, in the state `Z`.
+Just like always, if a control wire is red, it means its on, if a bus is red, it means its being
+driven. But we have something new here that we haven seen before.
+
+Purple and `G` mean garbage in the context of wires and buses. This is not the same as `Z`. A `Z`
+wire is one that nothing is driving, a `G` wire is being driven, with an actual value on it. That
+value is just nonsense, hence the name garbage. So where does that garbage value come from in this
+diagram?
+
+Remember, the ALU never stops computing. It always takes its inputs and has a result instantly. One
+input comes from register A (we will talk more about how register A works later) but the other input
+comes from the bus, and when nothing is driving the bus, the input is sitting at `Z`. The thing is,
+in this CPU a input at `Z` would just behave like 0. Our gates are built from relays, and a relay
+coil with nothing driving it is simply off, exactly as if you fed it 0. So really, the ALU would be
+computing `A + 0` if the second input was `Z`.
+
+But we mark it as garbage anyway, because in a real CPU made from transistors instead of relays, a
+`Z` value does not settle to clean 0, it drifts and can get really funky. So that is why, we treat
+those values as garbage, we just ignore them. If the bus is being driven then we can of course use
+those values.
+
+Now back to the diagram.
+
+Almost every single chip here, we have already built. The `RAM` and `MAR` combination, we have seen
+how that works [previously](#diagram-8-10). `A`, `B`, `ACC`, `IR`, `FLAGS`, and `DISPLAY` are all
+just slight variations of registers. `PC` is an accumulator style circuit, and we know how `ALU` in
+the bottom left [works](#diagram-9-2).
+
+Let's examine each element of the CPU closely and see what details changed and why.
+
+First register `B`. Register `B` is a normal tri-state 8-bit register with `W` and `O` control
+wires. We will talk about its use in more detail later.
+
+We then have register `A` which is just like register `B` but it also has a `Q` output in addition
+to `I/O`. This `Q` output is simply the value stored inside the `A` register bypassing the tri-state
+buffers feeding directly into the first input of the ALU. So even though the output (`O`) control signal is
+off, that `Q` is still driving the ALU's first input, in this case to 0.
+
+Next we have the ALU. Its second input comes straight from the common bus, so the other number it
+works on is just whatever is on the bus at the time. Other than that it is as normal, but the flags
+are all going into a register called `FLAGS`. This
+register is just a 3-bit register, it only stores 3 bits. These three bits are just the values for
+each flag. This 3-bit register has no `O` control signal, thus no tri-state buffers, it is always
+outputting.
+
+Then we can see the result of the ALU operation is being fed into another regular 8-bit register
+called `ACC`. It is slightly different to register `B` because its input doesn't come from the common
+bus, but from the ALU, so it has two separate `Q` and `D` instead of just one `I/O`. It still has
+the regular `W` and `O` control signals though.
+
+Register `IR` is a simple register without an `O` control signal. It just takes input from the bus,
+and outputs it into the `CU`. We will talk about what exactly the `CU` is and the jobs of these
+different parts a little later on.
+
+Next we have `PC`. `PC` is a combination of an adder and a register, something like what we have
+seen [previously](#diagram-6-9). The register part of `PC` has its regular control signals `W` and
+`O` and the accumulator has replaced the `STEP` button from before with a `I` control signal which
+stands for increment. We also have the `R` signal which just resets the register back to 0 with some
+more logic gates and wires. Nothing too fancy.
+
+Our `MAR` and `RAM` are the same as [before](#diagram-8-10), but if all of the bits stored in `MAR`
+are 1, aka the value stored is 255, then the result of that first AND gate will be true. So if we
+are selecting address 255 and `RAM_WRITE` is enabled, then we need to write to the `DISPLAY` register
+too.
+
+What ends up happening is that `DISPLAY` stores whatever is stored in `RAM` address 255, and
+displays that value on 8 bulbs for us to see. You can think of this as our simple output for any
+programs we might write.
+
+Lastly, we have the `Control Panel`. Its job is to load a program into `RAM` in the first place. It
+can read and write to any `RAM` address it wants.
+
+How it works is, first you flip the `TAKEOVER` switch, which inside the `CU` basically freezes the
+computer and resets `PC`. Then, while `TAKEOVER` is on and the `RAM_OUT` button is off, the value on
+the panel's input switches is put onto the common bus. If `RAM_OUT` was on, then `RAM` would try to
+drive the bus at the same time as the control panel. That's why we need to make sure it's off before
+we can safely drive the bus.
+
+From there you can hit `MAR_WRITE`, which stores that as the address you want to work with in `RAM`.
+To write, you then flip the switches to the value you want and press `RAM_WRITE`. To read, you
+instead press `RAM_OUT`, which makes the `Control Panel` stop driving the bus, because `RAM` will
+then drive the bus, and the output bulbs will turn on to that value.
+
+Also, the panel's buttons only actually drive their control wires if `TAKEOVER` is on, using
+tri-state buffers. This is to ensure that while the CPU is running like normal, the `CU` and the
+panel don't drive the wires at the same time. This works the other way too: when `TAKEOVER` is on,
+the `CU` makes sure not to drive those `RAM` control wires, again using tri-state buffers.
+
+
+NEXT (explain the basic fetch-execute decode cycle of the CPU simply, in around 250 words)
+
