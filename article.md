@@ -242,8 +242,11 @@ directly to `-` would lead to a short-circuit. So what we do is either drive the
 down, so it is connected to either `+` or `-`. All of our relay gates can be simply adapted to do
 this.
 
-This distinction matters later. A `1` output is a wire being driven high. A `0` output is not
-"nothing"; it is a wire being driven low. It will make sense why I am mentioning this early, later.
+A `1` output is a wire being driven high. A `0` output is not
+"nothing"; it is a wire being driven low. Remember this information; it will come in handy later on.
+
+As you can see in the after example, even when the relay is not pulling the arm, even when the
+output is 0, it is still touching the negative end of that battery, it is being driven to `-`.
 
 <a id="diagram-4-10"></a> <img src="./assets/final/before-after.gif" alt="Driving an output wire">
 
@@ -1014,7 +1017,7 @@ Here is how it works if you care:
 Honestly? That's it. We can use two decoders, sixteen registers, some wires and buses all mashed
 together with some extra logic gates and BOOM! We have some RAM.
 
-In this diagram, green lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
+In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
 still ordinary wires; the colors are only there to make the diagram easier to follow.
 
 <a id="diagram-9-5"></a> <img class="big" src="./assets/final/zoomed-out-ram.svg" alt="A zoomed out RAM diagram">
@@ -1024,8 +1027,8 @@ still ordinary wires; the colors are only there to make the diagram easier to fo
 This is kind of a lot to unpack, so let me explain the high level parts before we zoom in and take a
 closer look.
 
-We have a green data in bus that is fed into the bottom of all of the registers, we also have
-another green data out bus that comes out of the top of all the registers and combines into one
+We have a blue data in bus that is fed into the bottom of all of the registers, we also have
+another blue data out bus that comes out of the top of all the registers and combines into one
 output. Every slot is connected to both buses, but only the selected slot is allowed to use them. If
 the slot's row and column are selected, it can either read from `data in` when `WRITE` is on, or
 drive `data out` when `OUT` is on.
@@ -1218,11 +1221,11 @@ build, but wow. Just wow.
 
 Some quick notes on the diagram before we dig in.
 
-The 8-bit data buses are blue when not being driven, or in other words, in the state `Z`.
-Just like always, if a control wire is red, it means it's on. If a bus is red, it means it's being
-driven. But we have something new here that we haven't seen before.
+The 8-bit data buses are blue when not being driven, just like before. If a control wire is red, it
+means it's on. If a bus is red, it means it's being driven like normal. But we have something new
+here that we haven't seen before.
 
-Purple and `G` mean garbage in the context of wires and buses. This is not the same as `Z`. A `Z`
+Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving, a `G` wire is being driven, with an actual value on it. That
 value is just nonsense, hence the name garbage. So where does that garbage value come from in this
 diagram?
@@ -1328,3 +1331,8 @@ the instruction, decoding figures out what it means, and executing actually flip
 wires on and off to accomplish that instruction!
 
 But, how does the `CU` know what wires to flip and when?
+
+
+## Instructions Are Numbers
+
+
