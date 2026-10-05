@@ -123,20 +123,10 @@ Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the bulb to turn on.
 
-Now let's combine the two to form the complete circuit.
+Before we combine these, let's tackle a bigger problem
 
-But now we have a problem. 
-
-The OR circuit we built outputs a result as electricity, but the AND circuit we
-want to combine it with expects an input as a metal switch physically being moved. A signal in a wire
-can't reach over and close that switch by itself.
-
-<a id="diagram-4-3"></a> <img src="./assets/final/combination-problem.svg" alt="An electrical signal cannot move a metal switch by itself">
-
-*Diagram 4.3. An electrical signal cannot move a metal switch by itself.*
-
-So if we want to chain circuits together, we need a way for an electrical signal to control a switch
-automatically. How can we do this?
+So far, every switch is flipped by a human. If we ever want to build a computer, it needs to run by
+itself: electricity has to be able to flip a switch by itself! But how?
 
 Electromagnetic relays, that's how. Or at least, that is one early solution to this problem. We will
 talk about other solutions a little more later on.
@@ -149,9 +139,9 @@ symbol for "this point is connected to power," so the diagram doesn't turn into 
 
 Here is how it works:
 
-<a id="diagram-4-4"></a> <img pdf-frames="all" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
+<a id="diagram-4-3"></a> <img pdf-frames="all" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
-*Diagram 4.4. An electromagnetic relay.*
+*Diagram 4.3. An electromagnetic relay.*
 
 This relay is made from a coil of wire and a movable metal arm. When current flows through the
 coil, the coil becomes a magnet and pulls the arm down. When current stops, a spring pulls the arm
@@ -170,15 +160,15 @@ metal arm moving. Relays are mechanical, so they do not switch instantly.
 Now let's see how we can build an actual electrical AND gate that takes two input wires and outputs
 an electrical signal.
 
-<a id="diagram-4-5"></a> <img pdf-frames="all" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
+<a id="diagram-4-4"></a> <img pdf-frames="all" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
-*Diagram 4.5. An AND gate.*
+*Diagram 4.4. An AND gate.*
 
 The output circuit has two breaks in it, one controlled by each input relay. Only when both inputs
 have signal do both relays close, completing the output loop.
 
 Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
-OR gate:
+OR gate.
 
 But before the next diagram, I am going to use one more new symbol: ground. 
 
@@ -197,21 +187,21 @@ makes the current path easier to follow visually.
 
 This is how the ground symbol looks:
 
-<a id="diagram-4-6"></a> <img src="./assets/final/ground-symbol.svg" class="small" alt="The ground symbol">
+<a id="diagram-4-5"></a> <img src="./assets/final/ground-symbol.svg" class="small" alt="The ground symbol">
 
-*Diagram 4.6. The ground symbol.*
+*Diagram 4.5. The ground symbol.*
 
 Now here is the OR gate:
 
-<a id="diagram-4-7"></a> <img pdf-frames="all" src="./assets/final/electronic-or-gate.gif" alt="An electronic OR gate">
+<a id="diagram-4-6"></a> <img pdf-frames="all" src="./assets/final/electronic-or-gate.gif" alt="An electronic OR gate">
 
-*Diagram 4.7. An electronic OR gate.*
+*Diagram 4.6. An electronic OR gate.*
 
 That is an OR gate using relays. Now here is the full dog washer circuit up to this point:
 
-<a id="diagram-4-8"></a> <img pdf-frames="all" src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
+<a id="diagram-4-7"></a> <img pdf-frames="all" src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
 
-*Diagram 4.8. The full dog washer circuit built with relays.*
+*Diagram 4.7. The full dog washer circuit built with relays.*
 
 The animation does not show every possible combination of switches, only a handful. But in a
 nutshell, if `MUDDY` or `STINKY` is on, and `OLD_WASH` is also on, the bulb turns on.
@@ -229,56 +219,60 @@ rain soon, then wash the dog.
 Let's focus on this NOT for a second. NOT just inverts a signal: if it receives signal, it
 outputs no signal; if it receives no signal, it outputs signal.
 
-<a id="diagram-4-9"></a> <img pdf-frames="all" src="./assets/final/not-gate.gif" alt="A NOT gate">
+<a id="diagram-4-8"></a> <img pdf-frames="all" src="./assets/final/not-gate.gif" alt="A NOT gate">
 
-*Diagram 4.9. A NOT gate.*
+*Diagram 4.8. A NOT gate.*
 
 Now let's clean up some of our understanding of circuits before we move on. We have been showing our
 outputs as a light bulb. For a bulb to be on, it needs to be connected to `+` and `-`, one on each
 side. That difference in voltage allows current to flow, turning on the bulb.
 
-But let's say we just want an output wire, not a bulb. We can't just remove the bulb; `+` connected
-directly to `-` would lead to a short-circuit. So what we do is either drive the wire up or
+But a bulb is not always what we want. From now on, our gates' outputs will mostly feed other
+gates' inputs, so the output needs to be a wire, not a bulb. We can't just remove the bulb though;
+`+` connected directly to `-` would lead to a short-circuit. So what we do is either drive the wire up or
 down, so it is connected to either `+` or `-`. All of our relay gates can be simply adapted to do
 this.
 
-This distinction matters later. A `1` output is a wire being driven high. A `0` output is not
-"nothing"; it is a wire being driven low. It will make sense why I am mentioning this early, later.
+A `1` output is a wire being driven high. A `0` output is not
+"nothing"; it is a wire being driven low. Remember this information; it will come in handy later on.
 
-<a id="diagram-4-10"></a> <img pdf-frames="all" src="./assets/final/before-after.gif" alt="Driving an output wire">
+As you can see in the after example below, even when the relay is not pulling the arm, even when the
+output is 0, it is still touching the negative end of that battery, so it is being driven to `-`.
 
-*Diagram 4.10. Driving an output wire.*
+<a id="diagram-4-9"></a> <img pdf-frames="all" src="./assets/final/before-after.gif" alt="Driving an output wire">
 
-In this diagram, red wire means current is actively flowing, that's why `OUT = 1` is still white.
+*Diagram 4.9. Driving an output wire.*
+
+In this diagram, red wire means current is actively flowing. That's why `OUT = 1` is still white.
 Later when we stop drawing every logic gate, red wire will just mean high, or 1.
 
 Now before we look at the completed circuit, let's learn some basic logic gate symbols.
 
 An AND gate is drawn like this:
 
-<a id="diagram-4-11"></a> <img src="./assets/final/and-gate.svg" alt="An AND gate">
+<a id="diagram-4-10"></a> <img src="./assets/final/and-gate.svg" alt="An AND gate">
 
-*Diagram 4.11. An AND gate.*
+*Diagram 4.10. An AND gate.*
 
-This symbol represents the [AND circuit](#diagram-4-5) we made previously, except instead of turning
+This symbol represents the [AND circuit](#diagram-4-4) we made previously, except instead of turning
 a bulb on and off, it drives an output wire.
 
 An OR gate is drawn like this:
 
-<a id="diagram-4-12"></a> <img src="./assets/final/or-gate.svg" alt="An OR gate">
+<a id="diagram-4-11"></a> <img src="./assets/final/or-gate.svg" alt="An OR gate">
 
-*Diagram 4.12. An OR gate.*
+*Diagram 4.11. An OR gate.*
 
-This symbol represents the [OR circuit](#diagram-4-7) we made previously.
+This symbol represents the [OR circuit](#diagram-4-6) we made previously.
 
 Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
 the relays I showed you previously, but the internal components stay hidden for cleanliness.
 
 Here are three more useful gate symbols:
 
-<a id="diagram-4-13"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
+<a id="diagram-4-12"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
 
-*Diagram 4.13. NOT, NAND, NOR gates.*
+*Diagram 4.12. NOT, NAND, NOR gates.*
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 
@@ -286,13 +280,13 @@ That little circle at the end of a gate means "flip the output."
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
-<a id="diagram-4-14"></a> <img pdf-frames="all" src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
+<a id="diagram-4-13"></a> <img pdf-frames="all" src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
 
-*Diagram 4.14. The final dog washer circuit.*
+*Diagram 4.13. The final dog washer circuit.*
 
 Again this animation doesn't cover all possible states.
 
-Keep in mind these [electromagnetic relays](#diagram-4-4) we used in the examples are quite big and slow. 
+Keep in mind these [electromagnetic relays](#diagram-4-3) we used in the examples are quite big and slow. 
 
 Relays aren't the only solution. They are simply one of the early and intuitive methods to
 understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) 
@@ -319,7 +313,7 @@ That is what the next section is about.
 
 Okay, before we continue with this section, let's define some terms.
 
-A wire with no signal is `0`, and a wire with signal is `1`. Let's call one wire, one bit. A bit can
+A wire driven low is `0`, and a wire driven high is `1`. Let's call one wire, one bit. A bit can
 either be `0` or `1`.
 
 These are just labels that represent the state of a wire.
@@ -403,7 +397,7 @@ addition works the same way.
 
 *Diagram 6.2. Binary addition.*
 
-This works the same in binary because if we have:
+This works the same in binary.
 
 `1 + 1` gives `10`, which is binary for 2.
 
@@ -508,8 +502,8 @@ To add three bits, we use two half adders and an OR gate:
 
 This might look confusing at first. What if both half adders output a carry-out at the same time?
 
-That actually never happens. If a half adder outputs a carry, the sum bit is always 0. So both are
-not able to output carries. Take a moment to think about this if you are confused.
+That actually never happens. If a half adder outputs a carry, the sum bit is always 0. So both can
+never output carries at the same time. Take a moment to think about this if you are confused.
 
 So we can confidently OR the two carry outputs together. If either one is `1`, the full adder's
 carry-out is `1`.
@@ -535,7 +529,7 @@ column. That is it! That is all addition is!
 Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0.
 
 Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can add up to a number
-greater than eight bits. It's like how adding two 2-digit numbers could result in a three-digit
+too big to fit in eight bits. It's like how adding two 2-digit numbers could result in a three-digit
 number for us. Like `50+50=100`.
 
 Now let's package this up into a chip once again:
@@ -815,7 +809,7 @@ value like `00000000`, and it is connected to the bus, and then register `B` is 
 like `00000001`, then the last wire will clash and short-circuit.
 
 We need a way to connect these registers to the bus, but also let them get out of the way when they
-are not supposed to actively drive a wire to `-` or `+`, like we discussed [previously](#diagram-4-10). 
+are not supposed to actively drive a wire to `-` or `+`, like we discussed [previously](#diagram-4-9). 
 
 Just setting the output wires to `00000000` is not enough. On a shared bus `00000000` is not
 nothing. It is actively driving the bus to `-`.
@@ -852,7 +846,7 @@ so you can follow the path with your eyes, it doesn't mean anything.
 This looks complicated, so let me break it down.
 
 First, ignore the two relays on the right and look only at the `D` relay at the top. Its arm is
-attached to the output wire, and it works just like [the output driver from before](#diagram-4-10).
+attached to the output wire, and it works just like [the output driver from before](#diagram-4-9).
 When `D` is `1`, the arm is pulled down onto the wire that leads toward the battery, `+`. When `D`
 is `0`, the arm goes up onto the wire that leads toward ground. Remember, ground is just the `-`
 side.
@@ -887,15 +881,15 @@ Now let's address this enable conundrum. We now have two uses for the word enabl
 different meanings and contexts. One means enabling writing, and the other means enabling output. From
 now on, we will use two separate terms to avoid confusion: `WRITE` and `OUT`.
 
-So we can make a new type of register, one with `WRITE`, `OUT`, `data`, and `Q`, the stored bits
-0-7. By `data`, I simply mean the input data that we can store when `WRITE` is enabled.
+So we can make a new type of register, one with `WRITE`, `OUT`, `data`, and a `Q` output that shows
+the stored bits 0-7. By `data`, I simply mean the input data that we can store when `WRITE` is enabled.
 
 <a id="diagram-8-4"></a> <img src="./assets/final/new-register-internals.svg" alt="Our register with an OUT input">
 
 *Diagram 8.4. Our register with an OUT input.*
 
-We are just connecting OUT to all of the enables in the tri-state buffers. So if `OUT` is `0` Q will
-be all Z and if `OUT` is 1, `Q` will be whatever is stored in the register.
+We are just connecting OUT to all of the enables in the tri-state buffers. So if `OUT` is `0`, `Q` will
+be all `Z`, and if `OUT` is `1`, `Q` will be whatever is stored in the register.
 
 With that, we can use these new registers with a common bus to move data.
 
@@ -1014,7 +1008,7 @@ Here is how it works if you care:
 Honestly? That's it. We can use two decoders, sixteen registers, some wires and buses all mashed
 together with some extra logic gates and BOOM! We have some RAM.
 
-In this diagram, green lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
+In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
 still ordinary wires; the colors are only there to make the diagram easier to follow.
 
 <a id="diagram-9-5"></a> <img class="big" src="./assets/final/zoomed-out-ram.svg" alt="A zoomed out RAM diagram">
@@ -1024,8 +1018,8 @@ still ordinary wires; the colors are only there to make the diagram easier to fo
 This is kind of a lot to unpack, so let me explain the high level parts before we zoom in and take a
 closer look.
 
-We have a green data in bus that is fed into the bottom of all of the registers, we also have
-another green data out bus that comes out of the top of all the registers and combines into one
+We have a blue data in bus that is fed into the bottom of all of the registers, we also have
+another blue data out bus that comes out of the top of all the registers and combines into one
 output. Every slot is connected to both buses, but only the selected slot is allowed to use them. If
 the slot's row and column are selected, it can either read from `data in` when `WRITE` is on, or
 drive `data out` when `OUT` is on.
@@ -1097,7 +1091,7 @@ This is called the Memory Address Register, or MAR.
 The MAR is just a regular 8-bit register with no `OUT` control signal as it is always outputting
 directly into RAM.
 
-The CPU first puts an address on the data bus and turns on `MAR_WRITE`. The MAR stores that address.
+We first put an address on the data bus and turn on `MAR_WRITE`. The MAR stores that address.
 Then the MAR keeps sending that address to RAM, leaving the data bus free to carry the value being
 read or written.
 
@@ -1218,11 +1212,11 @@ build, but wow. Just wow.
 
 Some quick notes on the diagram before we dig in.
 
-The 8-bit data buses are blue when not being driven, or in other words, in the state `Z`.
-Just like always, if a control wire is red, it means it's on. If a bus is red, it means it's being
-driven. But we have something new here that we haven't seen before.
+The 8-bit data buses are blue when not being driven, just like before. If a control wire is red, it
+means it's on. If a bus is red, it means it's being driven like normal. But we have something new
+here that we haven't seen before.
 
-Purple and `G` mean garbage in the context of wires and buses. This is not the same as `Z`. A `Z`
+Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving, a `G` wire is being driven, with an actual value on it. That
 value is just nonsense, hence the name garbage. So where does that garbage value come from in this
 diagram?
@@ -1328,3 +1322,8 @@ the instruction, decoding figures out what it means, and executing actually flip
 wires on and off to accomplish that instruction!
 
 But, how does the `CU` know what wires to flip and when?
+
+
+## Instructions Are Numbers
+
+
