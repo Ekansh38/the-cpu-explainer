@@ -1422,13 +1422,20 @@ For example:
 ```
 
 This jumping back to the start of the loop is done with a jump instruction, so for example whenever
-`PC` reaches 6, it jumps back to 2 and repeats all over again.
+`PC` reaches 6, it jumps back to 2 and repeats all over again. Each loop, this program displays `A`,
+copies `A` into `B`, and then adds. Both ALU inputs are the same number, so `A` doubles every loop,
+and the output shows 1, 2, 4, 8, 16, all the way up to 128. On the 8 output bulbs, that looks like
+a single lit bulb going across the display. Pretty neat.
 
-The number before each instruction is just the address in RAM where it would be stored, that is why
+But then 128 + 128 [overflows](#diagram-6-12): `A` wraps around to 0. And from that point on, the
+program is doubling 0 forever, so the display goes dark and stays dark. The CPU gets stuck in a
+weird spot.
+
+One note: the number before each instruction is just the address in RAM where it would be stored, that is why
 you can see it jump in twos for two byte instructions.
 
-We can also make decisions based on the flags, jumping to different parts of our program depending
-on what the last ALU instruction found.
+To solve the overflow program, and in general we can make decisions based on the flags, jumping to
+different parts of our program depending on what the last ALU instruction found.
 
 ```
 0: LOAD A, 1
@@ -1439,8 +1446,13 @@ on what the last ALU instruction found.
 8: JMP 2
 ```
 
-Because this computer is built from relays, and thus pretty slow, we can probably see this adding
-program count. If we want to slow it down some, we can pad the program with some `NOP`s that waste
+Now, when the addition overflows, the `CARRY` flag turns on, and `JC` catches it: we jump back to
+the start of the program, address 0, which loads 1 and starts the counting all over again. Forever.
+On every normal loop, `JC` checks the flag, finds it off, and the program just carries on to the
+`JMP`.
+
+Because this computer is built from relays, and thus pretty slow, we can probably watch the light
+walk across the display with our own eyes. If we want to slow it down some, we can pad the program with some `NOP`s that waste
 clock cycles.
 
 Real computers are insanely fast and usually have specialized timer hardware and such, but
@@ -1464,6 +1476,9 @@ But we don't really need these for our slow computer. Just know real computers u
 timer hardware, little counter circuits that tick along with the clock, and loops like these to
 wait for the right amount of time. Some CPUs even have a sleep instruction that shuts them down
 completely until something wakes them up.
+
+So basically, these jump instructions can help us branch on certain conditions letting our program
+decide stuff, and also run in loops.
 
 
 (then a bit about microsteps, saying like for this instruction what control wires and micro steps do
