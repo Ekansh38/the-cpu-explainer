@@ -469,7 +469,7 @@ That is what the next section is about.
 
 == Counting With Wires
 <counting-with-wires>
-Okay, before we continue with this section, let\'s define some terms.
+Before we continue with this section, let\'s define some terms.
 
 A wire driven low is `0`, and a wire driven high is `1`. Let\'s call one
 wire, one bit. A bit can either be `0` or `1`.
@@ -1092,14 +1092,17 @@ mean the wires are `00000010` which is 2 in binary.
 
 #caption[Diagram 8.1. Two registers sharing a bus.]
 
-But we have an issue: this diagram is technically not possible yet. If
-register `A` is outputting a value like `00000000`, and it is connected
-to the bus, and then register `B` is outputting a value like `00000001`,
-then the last wire will clash and short-circuit.
+But we have an issue: this diagram is technically not possible yet. Say
+register `A` is outputting `00000000` and register `B` is outputting
+`00000001`, both onto the same 8 wires. Look at the last wire. `A` is
+driving it low, so that wire is connected to `-`. `B` is driving the
+same wire high, so it is also connected to `+`. What happens?
+
+Yep. A short-circuit.
 
 We need a way to connect these registers to the bus, but also let them
 get out of the way when they are not supposed to actively drive a wire
-to `-` or `+`, like we discussed previously.
+to `-` or `+`, like I discussed previously.
 
 Just setting the output wires to `00000000` is not enough. On a shared
 bus `00000000` is not nothing. It is actively driving the bus to `-`.
@@ -1256,7 +1259,7 @@ through a book looking for the right page. It is more like grabbing a
 book from a bookshelf, where you already know exactly where the book
 sits.
 
-Now let\'s think about exactly what we would want this RAM chip to do.
+Now let\'s think about exactly what we would want this `RAM` chip to do.
 
 - `address`: the slot we wish to access
 - `WRITE`: whether we want to write a value to this address
@@ -1267,14 +1270,14 @@ Now let\'s think about exactly what we would want this RAM chip to do.
 To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire
 each.
 
-For this demo RAM, `address` is only 4 input wires. `data in` and
+For this demo `RAM`, `address` is only 4 input wires. `data in` and
 `data out` carry bytes and are both connected directly to the common
 bus.
 
 This only works if no other part is driving the bus when `OUT` is
 enabled.
 
-So we are going to build a minuscule 16-byte RAM: 16 addresses, with
+So we are going to build a minuscule 16-byte `RAM`: 16 addresses, with
 each address storing one byte. This design can be scaled up easily.
 
 Our address will be 4 bits long, because `2^4` is 16.
@@ -1353,7 +1356,7 @@ Here is how it works if you care:
 
 Honestly? That\'s it. We can use two decoders, sixteen registers, some
 wires and buses all mashed together with some extra logic gates and
-BOOM! We have some RAM.
+BOOM! We have some `RAM`.
 
 In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and
 `WRITE` is orange. They are still ordinary wires; the colors are only
@@ -1396,16 +1399,16 @@ works, just think of two AND gates chained together.
 
 #caption[Diagram 9.7. A three input AND gate.]
 
-So now that we have built RAM, let\'s pretend that instead of 16
-registers, we have a RAM array with 256 registers. The same logic can be
-copied, just with two 4-16 decoders instead of two 2-4 decoders and 8
+So now that we have built `RAM`, let\'s pretend that instead of 16
+registers, we have a `RAM` array with 256 registers. The same logic can
+be copied, just with two 4-16 decoders instead of two 2-4 decoders and 8
 address inputs rather than 4.
 
 #box(image("/pdf/.raster/light/ram-interface.png", alt: "Our RAM chip"))
 
 #caption[Diagram 9.8. Our RAM chip.]
 
-Technically, there are still two buses inside the RAM: a data-in path
+Technically, there are still two buses inside the `RAM`: a data-in path
 and a data-out path. That is basically what we saw with the register in
 the bus section.
 
@@ -1416,10 +1419,10 @@ double-headed arrow called `I/O`, which stands for input/output.
 It is practically just like having two buses, one for input, one for
 output.
 
-If `W` is on, RAM copies the value from the data bus into the selected
+If `W` is on, `RAM` copies the value from the data bus into the selected
 address.
 
-If `O` is on, RAM drives the selected address\'s value onto the data
+If `O` is on, `RAM` drives the selected address\'s value onto the data
 bus.
 
 So from now on, instead of drawing registers connected to a common bus
@@ -1440,9 +1443,9 @@ If you pay close attention to the diagram, you will notice that the
 address input is not directly connected to the common data bus.
 
 That is intentional. The data bus is for moving values around the CPU.
-During a RAM operation, it needs to carry the value being written to RAM
-or the value being read from RAM. So it cannot also keep holding the
-address at the same time.
+During a `RAM` operation, it needs to carry the value being written to
+`RAM` or the value being read from `RAM`. So it cannot also keep holding
+the address at the same time.
 
 We need something to hold the address while the data bus is being used
 for the actual I/O.
@@ -1450,10 +1453,10 @@ for the actual I/O.
 This is called the Memory Address Register, or MAR.
 
 The MAR is just a regular 8-bit register with no `OUT` control signal as
-it is always outputting directly into RAM.
+it is always outputting directly into `RAM`.
 
 We first put an address on the data bus and turn on `MAR_WRITE`. The MAR
-stores that address. Then the MAR keeps sending that address to RAM,
+stores that address. Then the MAR keeps sending that address to `RAM`,
 leaving the data bus free to carry the value being read or written.
 
 #grid(columns: 4, gutter: 6pt,
@@ -1474,10 +1477,11 @@ that into the MAR. We then remove 28 from the common bus, and enable
 
 == The ALU
 <the-alu>
-If we have a handful of registers and RAM, we can now move bytes around
-using this common data bus. But what we really need is a component that
-can \"process\" numbers, a component that can do arithmetic and logic.
-Thus we have \"The Arithmetic and Logic Unit,\" or ALU for short.
+If we have a handful of registers and `RAM`, we can now move bytes
+around using this common data bus. But what we really need is a
+component that can \"process\" numbers, a component that can do
+arithmetic and logic. Thus we have \"The Arithmetic and Logic Unit,\" or
+ALU for short.
 
 Imagine a chip where we could input two numbers, an operation, and
 output a result, along with some other information.
@@ -1745,3 +1749,159 @@ But, how does the `CU` know what wires to flip and when?
 
 == Instructions Are Numbers
 <instructions-are-numbers>
+Instructions tell the CPU what to do, and a list of instructions is a
+program. There are game programs, calculator programs, email programs,
+everything on your computer is a program. Just a long, long list of
+instructions telling the CPU do do simple things like, add these two
+numbers, move this value here, etc.
+
+All programs are just a list of instructions stored in `RAM`, each
+instruction coded as a number.
+
+So here is what number each instruction in our CPU translates too:
+
+#figure(
+  align(center)[#table(
+    columns: 5,
+    align: (right,auto,auto,right,auto,),
+    table.header([\#], [Binary], [Mnemonic], [Bytes], [Action],),
+    table.hline(),
+    [0], [`0000`], [`NOP`], [1], [do nothing],
+    [1], [`0001`], [`LOAD A, n`], [2], [next byte -\> A],
+    [2], [`0010`], [`LOAD A, [addr]`], [2], [RAM slot -\> A],
+    [3], [`0011`], [`STORE A, [addr]`], [2], [A -\> RAM slot],
+    [4], [`0100`], [`MOV B, A`], [1], [copy A into B],
+    [5], [`0101`], [`MOV A, B`], [1], [copy B into A],
+    [6], [`0110`], [`JMP addr`], [2], [addr -\> PC],
+    [7], [`0111`], [`JE addr`], [2], [if EQUAL flag: addr -\> PC],
+    [8], [`1000`], [`ADD`], [1], [A = A + B],
+    [9], [`1001`], [`AND`], [1], [A = A AND B],
+    [10], [`1010`], [`OR`], [1], [A = A OR B],
+    [11], [`1011`], [`XOR`], [1], [A = A XOR B],
+    [12], [`1100`], [`JC addr`], [2], [if CARRY flag: addr -\> PC],
+    [13], [`1101`], [`JZ addr`], [2], [if ZERO flag: addr -\> PC],
+    [14], [`1110`], [`HALT`], [1], [stop the clock],
+  )]
+  , kind: table
+  )
+
+#emph[Table 12.1. The full instruction set.]
+
+So if we store `00000001` in address 0 of RAM. Then store `00000101` in
+address 1 of RAM. Then store `00000011` in address 2, and then
+`11111111` in address 3.
+
+Our RAM looks like this:
+
+```
+0: 00000001
+1: 00000101
+2: 00000011
+3: 11111111
+```
+
+If PC starts at 0, which it does. Then tell me what you think this
+program would do?
+
+The first instruction loads a number into `register A`, that number is
+5, we know that because the value stored in address 1 of RAM is binary
+for 5, so those two bytes make up the instruction:
+
+`LOAD A, 5`
+
+The first byte tells us what the instruction is, the second tells us
+what value to load. The next instruction is `3` which is
+`STORE A, [addr]` which basically puts the content of A, into the
+address of RAM that we specify. Again the first byte tells us the
+instruction and the second byte tells us the address in this case
+`11111111` which is address 255.
+
+Hey? Isn\'t address 255 special from the rest? Yep, if we write to
+address 255 we also write to the OUTPUT register where we can see that
+value on some light bulbs. Have a look at this diagram for a recap.
+
+So this program just puts 5 on the output. Pretty simple.
+
+As you can tell, some instructions take two bytes, and some only need
+one. A two-byte instruction is one where the first byte alone is not
+enough. `LOAD A, n` needs to know what value to load, so the next byte
+in `RAM` is that value.
+
+One more thing: the order things are written in. For `MOV`, the
+destination comes first. `MOV B, A` copies A into B, not the other way
+around. `LOAD` and `STORE` are different, `LOAD A` means a value going
+into A, and `STORE A` means A going out into memory.
+
+Now, about the jump instructions: `JMP`, `JE`, `JC`, and `JZ`. All of
+these instructions set `PC` to the address stored in the second byte.
+
+`JE`, `JC`, and `JZ` each check one flag. The flags from the last ALU
+instruction sit in the `FLAGS` register until the next ALU instruction
+overwrites them. So to make a decision, you run an ALU instruction, then
+jump based on what it found. If the flag is on, the jump sets `PC` to
+that address. If not, the program just carries on to the next
+instruction. This is the core element used in creating programs that can
+decide stuff and loop. A fundamental part of what a computer can do
+relates to being able to run in a loop.
+
+For example:
+
+```
+0: LOAD A, 1
+2: STORE A, [255]
+4: MOV B, A
+5: ADD
+6: JMP 2
+```
+
+This jumping back to the start of the loop is done with a jump
+instruction, so for example whenever `PC` reaches 6, it jumps back to 2
+and repeats all over again.
+
+The number before each instruction is just the address in RAM where it
+would be stored, that is why you can see it jump in twos for two byte
+instructions.
+
+We can also make decisions based on the flags, jumping to different
+parts of our program depending on what the last ALU instruction found.
+
+```
+0: LOAD A, 1
+2: STORE A, [255]
+4: MOV B, A
+5: ADD
+6: JC 0
+8: JMP 2
+```
+
+Because this computer is built from relays, and thus pretty slow, we can
+probably see this adding program count. If we want to slow it down some,
+we can pad the program with some `NOP`s that waste clock cycles.
+
+Real computers are insanely fast and usually have specialized timer
+hardware and such, but sometimes just run \"do-nothing loops\" that just
+waste clock cycles for a set time. Here is an example of a simple
+do-nothing delay loop:
+
+```
+0:  LOAD A, 1
+2:  MOV B, A
+3:  LOAD A, 0
+5:  ADD
+6:  JC 10
+8:  JMP 5
+10: (rest of the program)
+```
+
+All this loop does is add 1 to `A` over and over, 256 times, until the
+addition overflows and the `CARRY` flag lets it escape. It computes
+nothing useful, it just eats up time.
+
+But we don\'t really need these for our slow computer. Just know real
+computers use a combination of timer hardware, little counter circuits
+that tick along with the clock, and loops like these to wait for the
+right amount of time. Some CPUs even have a sleep instruction that shuts
+them down completely until something wakes them up.
+
+\(then a bit about microsteps, saying like for this instruction what
+control wires and micro steps do you think the CPU would have to make?)
