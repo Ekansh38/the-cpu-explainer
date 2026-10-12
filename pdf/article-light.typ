@@ -844,22 +844,14 @@ That is the next problem: memory.
 
 == Storing a Bit
 <storing-a-bit>
-To store a bit, we need to understand feedback. Feedback is simply
-feeding the output of a circuit into the input. There are two main kinds
-of feedback, unstable and stable. We just witnessed an example of
-unstable feedback, where feeding the output of the adder into its input
-resulted in messy and unpredictable behavior.
+In the last section, wiring the output of a circuit back into its input
+led to chaos. But if we use a smarter configuration, we can use this
+trick to store a bit.
 
-The other type of feedback is known as stable, because it can produce
-two stable states. Stable feedback is used to create circuits whose
-outputs aren\'t purely based on their inputs, but also based on what
-happened before. Stable feedback is exactly what we need to create
-memory.
-
-The circuit that does this is called an SR latch. SR stands for
-set-reset. The value `Q` is the output we really care about. If it is
-`1`, that means the latch is storing a `1`\; if it is `0`, the latch is
-storing a `0`.
+The circuit that stores a single bit is called an SR latch. SR stands
+for set-reset. The value `Q` is the output we really care about. If it
+is `1`, that means the latch is storing a `1`\; if it is `0`, the latch
+is storing a `0`.
 
 The diagram also shows a second output written as a Q with a bar over
 it. That is just how engineers write `NOT Q`, pronounced \"not Q\". It
@@ -887,6 +879,9 @@ This diagram should help this make sense:
 )
 
 #caption[Diagram 7.1. An SR latch.]
+
+One quick reminder before we trace through this: a NOR gate only turns
+on when both of its inputs are off.
 
 A simple way to think about this is:
 
@@ -1752,13 +1747,13 @@ But, how does the `CU` know what wires to flip and when?
 Instructions tell the CPU what to do, and a list of instructions is a
 program. There are game programs, calculator programs, email programs,
 everything on your computer is a program. Just a long, long list of
-instructions telling the CPU do do simple things like, add these two
+instructions telling the CPU to do simple things like, add these two
 numbers, move this value here, etc.
 
 All programs are just a list of instructions stored in `RAM`, each
 instruction coded as a number.
 
-So here is what number each instruction in our CPU translates too:
+So here is what number each instruction in our CPU translates to:
 
 #figure(
   align(center)[#table(
@@ -1788,8 +1783,8 @@ So here is what number each instruction in our CPU translates too:
 #emph[Table 12.1. The full instruction set.]
 
 So if we store `00000001` in address 0 of RAM. Then store `00000101` in
-address 1 of RAM. Then store `00000011` in address 2, and then
-`11111111` in address 3.
+address 1 of RAM. Then store `00000011` in address 2, then `11111111` in
+address 3, and finally `00001110` in address 4.
 
 Our RAM looks like this:
 
@@ -1798,12 +1793,13 @@ Our RAM looks like this:
 1: 00000101
 2: 00000011
 3: 11111111
+4: 00001110
 ```
 
-If PC starts at 0, which it does. Then tell me what you think this
-program would do?
+If `PC` starts at 0, which it does, then what do you think this program
+would do?
 
-The first instruction loads a number into `register A`, that number is
+The first instruction loads a number into register `A`, that number is
 5, we know that because the value stored in address 1 of RAM is binary
 for 5, so those two bytes make up the instruction:
 
@@ -1817,10 +1813,18 @@ instruction and the second byte tells us the address in this case
 `11111111` which is address 255.
 
 Hey? Isn\'t address 255 special from the rest? Yep, if we write to
-address 255 we also write to the OUTPUT register where we can see that
-value on some light bulbs. Have a look at this diagram for a recap.
+address 255 we also write to the `DISPLAY` register where we can see
+that value on some light bulbs. Have a look at this diagram for a recap.
 
-So this program just puts 5 on the output. Pretty simple.
+The last byte is `14`, which the table says is `HALT`. It stops the
+clock, the whole machine freezes, and the program is over.
+
+But, why do we even need to stop the CPU? Well, if we don\'t, the
+program would just continue, going through RAM, and RAM by default is
+all 0s, so just `NOP`s. So the computer would just do nothing, until
+`PC` wraps around to 0, and repeats our program. We need a way to stop.
+
+So this program just puts 5 on the output and stops. Pretty simple.
 
 As you can tell, some instructions take two bytes, and some only need
 one. A two-byte instruction is one where the first byte alone is not
@@ -1870,9 +1874,9 @@ One note: the number before each instruction is just the address in RAM
 where it would be stored, that is why you can see it jump in twos for
 two byte instructions.
 
-To solve the overflow program, and in general we can make decisions
-based on the flags, jumping to different parts of our program depending
-on what the last ALU instruction found.
+To solve this overflow problem, and in general to make decisions, we can
+use the flags to jump to different parts of our program depending on
+what the last ALU instruction found.
 
 ```
 0: LOAD A, 1
@@ -1885,7 +1889,7 @@ on what the last ALU instruction found.
 
 Now, when the addition overflows, the `CARRY` flag turns on, and `JC`
 catches it: we jump back to the start of the program, address 0, which
-loads 1 and starts the counting all over again. Forever. On every normal
+loads 1, and the program starts all over again. Forever. On every normal
 loop, `JC` checks the flag, finds it off, and the program just carries
 on to the `JMP`.
 
@@ -1922,5 +1926,16 @@ them down completely until something wakes them up.
 So basically, these jump instructions can help us branch on certain
 conditions letting our program decide stuff, and also run in loops.
 
-\(then a bit about microsteps, saying like for this instruction what
-control wires and micro steps do you think the CPU would have to make?)
+But how would the CPU actually execute an instruction? What control
+wires would it flip and in what order. Let\'s take the `MOV B, A`
+instruction as an example.
+
+First the `CU` would flip the `O` signal on the `A` register, driving
+the bus to whatever is stored in `A`. Then the `CU` would flip the `W`
+signal on register `B`, writing the value on the bus, into the register.
+Then it would turn off the `O` signal on register `A`, and boom, we are
+done. The `CU` had to take a few tiny micro-steps to execute that
+instruction. We will talk about micro-steps in more detail later on.
+
+How does the `CU` know which wires to flip and when? That is what the
+next section is all about.
