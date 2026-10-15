@@ -1592,7 +1592,7 @@ actually adding.
 <the-big-picture>
 Here is a big picture diagram of the whole CPU.
 
-#box(image("/pdf/.raster/dark/big-picture-cpu.png", alt: "The whole CPU."))
+#box(image("/pdf/.raster/dark/big-picture-cpu.png", alt: "The whole CPU"))
 
 #caption[Diagram 11.1. The whole CPU.]
 
@@ -1819,10 +1819,12 @@ that value on some light bulbs. Have a look at this diagram for a recap.
 The last byte is `14`, which the table says is `HALT`. It stops the
 clock, the whole machine freezes, and the program is over.
 
-But, why do we even need to stop the CPU? Well, if we don\'t, the
-program would just continue, going through RAM, and RAM by default is
-all 0s, so just `NOP`s. So the computer would just do nothing, until
-`PC` wraps around to 0, and repeats our program. We need a way to stop.
+But, why do we even need to stop the CPU? Well, if we don\'t, `PC` would
+just keep counting up and the CPU would keep fetching. It doesn\'t know
+our program ended at address 4. It would march straight into the rest of
+RAM and run whatever is sitting there as if it were instructions,
+leftovers from the last program, or whatever junk the memory happened to
+wake up holding. We need a way to stop.
 
 So this program just puts 5 on the output and stops. Pretty simple.
 
@@ -1939,3 +1941,66 @@ instruction. We will talk about micro-steps in more detail later on.
 
 How does the `CU` know which wires to flip and when? That is what the
 next section is all about.
+
+=== The Not-So-Clever Control Unit
+<the-not-so-clever-control-unit>
+The first thing the control unit needs is a step counter. Something that
+counts, step 0, then step 1, then step 2, and so on, back to step 0.
+That is the core flow of the control unit.
+
+We can combine a simple accumulator and a 3-8 decoder. This will give us
+8 steps, and because the accumulator overflows and naturally wraps back
+around to 0, the steps will loop correctly.
+
+\<diagram showing a 3-bit accumulator, and a 3-8 decoder, and then the
+step of the accumulator wired into the clock, animated\>
+
+The accumulator part of the step counter is connected to the clock. The
+clock is the heartbeat of the computer, and it lives right here in the
+control unit.
+
+One thing: remember the TAKEOVER switch? Well when it is on it basically
+resets this step counter accumulator to 0, and on 0 nothing happens. So
+every instruction starts at step 1, and step 0 is just unused. This also
+means `TAKEOVER` is a reset switch. Flick it on and off, and both `PC`
+and the stepper get reset to 0.
+
+So basically each of these wires turning on is 1 micro-step. So if we
+want to execute an instruction like `MOV B, A` we need to enable the
+output of `A` onto the bus, and then enable `W` on `B` to store that
+value.
+
+If we tried to just turn `O` and `W` on at the same time, the register
+might capture the value on the bus before the other register has started
+driving the bus. The bus hasn\'t had time to settle. So this won\'t
+work. What we want is to turn `O` on, wait for the bus to settle, and
+then turn `W` on, right in the middle of `O` being on.
+
+We could try spreading this across two steps: turn `O` on for step 1,
+then keep `O` on for step 2 and turn on `W` too. The problem is that
+when the counter switches from one step to the next, the decoder briefly
+flickers through the wrong output, so `O` can drop at the exact moment
+`W` fires. And every transfer would now cost two steps instead of one.
+So yea, its just not a good way to do it.
+
+The best approach to this is just taking our clock signal and flipping
+it:
+
+#box(image("/pdf/.raster/dark/timing-diagram.png", alt: "Micro-step timing diagram"))
+
+#caption[Diagram 13.1. Micro-step timing diagram.]
+
+Purple marks when `W` turns on, and blue is when `O` is on.
+
+Each step changes on a clock edge, and each step is a signal, 1 full
+clock cycle long, until the next edge.
+
+`O` is directly connected to that step line. If we enable `O` on step 1,
+the bus is driven for that full cycle.
+
+`W` is the same, but with `NOT CLOCK` ANDed in, like
+`step 1 AND NOT CLOCK`. The thing is, they don\'t come on at the same
+time. The step line is already on, and then halfway through the cycle
+`NOT CLOCK` goes up, and that is when the AND gate\'s output goes up.
+That is the edge `W` needs, right in the middle, after `O` has had some
+time to settle.
