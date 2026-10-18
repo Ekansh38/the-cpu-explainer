@@ -2186,22 +2186,22 @@ first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
 #grid(columns: 4, gutter: 6pt,
-  image("./assets/frames/cu-internals-two-demo-1.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-10.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-11.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-12.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-13.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-14.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-15.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-16.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-2.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-3.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-4.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-5.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-6.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-7.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-8.png", width: 100%),
-  image("./assets/frames/cu-internals-two-demo-9.png", width: 100%)
+  image("/assets/frames/cu-internals-two-demo-1.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-10.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-11.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-12.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-13.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-14.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-15.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-16.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-2.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-3.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-4.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-5.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-6.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-7.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-8.png", width: 100%),
+  image("/assets/frames/cu-internals-two-demo-9.png", width: 100%)
 )
 
 #caption[Diagram 13.5. `LOAD A, [adder]` animation.]

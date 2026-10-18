@@ -158,7 +158,7 @@ def expand(match):
         return f"![{alt}](./assets/frames/{frames[0].name})"
     lines = ["{{FRAME-GRID}}"]
     for f in frames:
-        lines.append(f"![{alt}](./assets/frames/{f.name})")
+        lines.append(f"![](./assets/frames/{f.name})")
     lines.append("{{/FRAME-GRID}}")
     return "\n\n".join(lines)
 
