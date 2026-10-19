@@ -16,9 +16,9 @@ RASTER = ROOT / "pdf" / ".raster"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 RASTER_WIDTH = 1800
 
-LINE_GRAY = "#555555"
+LINE_GRAY = "#777777"
 TEXT_BLACK = "#000000"
-RASTER_GRAY = "#444444"
+RASTER_GRAY = "#666666"
 
 TITLE = "The CPU: A very tall pile of simple"
 AUTHOR = "Ekansh Goenka"
@@ -89,6 +89,9 @@ def make_preamble(bg, ink, rule, subtle, caption_ink):
   #set text(size: 13pt, weight: "bold")
   #it
 ]
+
+#set table(stroke: 0.5pt + rgb("{rule}"))
+#show table.cell: set text(fill: rgb("{ink}"))
 
 """
 
@@ -171,7 +174,12 @@ def html_img_to_md(match):
     src = src_match.group(1)
     alt_match = re.search(r'alt="([^"]*)"', tag)
     alt = alt_match.group(1) if alt_match else ""
-    return f"![{alt}]({src})"
+    class_match = re.search(r'class="([^"]*)"', tag)
+    classes = class_match.group(1).split() if class_match else []
+    md = f"![{alt}]({src})"
+    if "small" in classes:
+        return f"{{{{SMALL}}}}{md}{{{{/SMALL}}}}"
+    return md
 
 
 def swap_near_white(text, target_hex):
@@ -318,7 +326,7 @@ def recolor_raster(raster_path):
 
     gray_mask = chroma < 30
     lum_ratio = luminance.astype(np.float32) / 255.0
-    dark_target = 68
+    dark_target = 102
     light_target = 235
     gray_fill = (light_target - (light_target - dark_target) * lum_ratio).astype(np.int32)
     gray_alpha = ((lum_ratio + (1.0 - lum_ratio) * 0.35) * a).clip(0, 255).astype(np.int32)
@@ -373,7 +381,27 @@ def to_typst(md_text):
         out,
     )
     out = wrap_frame_grids(out)
+    out = wrap_sized_images(out)
     return out
+
+
+def wrap_sized_images(typst_text):
+    def wrap(m):
+        inner = m.group(1)
+        img_match = re.search(
+            r'#box\(image\("([^"]+)"(?:, alt: "([^"]*)")?\)\)',
+            inner,
+        )
+        if not img_match:
+            return ""
+        path = img_match.group(1)
+        return f'#align(center, image("{path}", width: 35%))'
+    return re.sub(
+        r'\{\{SMALL\}\}(.*?)\{\{/SMALL\}\}',
+        wrap,
+        typst_text,
+        flags=re.DOTALL,
+    )
 
 
 def wrap_frame_grids(typst_text):

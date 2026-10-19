@@ -62,6 +62,9 @@
   #it
 ]
 
+#set table(stroke: 0.5pt + rgb("#333333"))
+#show table.cell: set text(fill: rgb("#e6e6e6"))
+
 = The CPU: A very tall pile of simple
 <the-cpu-a-very-tall-pile-of-simple>
 You can hear the phrase
@@ -291,7 +294,7 @@ path easier to follow visually.
 
 This is how the ground symbol looks:
 
-#box(image("/pdf/.raster/dark/ground-symbol.png", alt: "The ground symbol"))
+#align(center, image("/pdf/.raster/dark/ground-symbol.png", width: 35%))
 
 #caption[Diagram 4.5. The ground symbol.]
 
@@ -480,7 +483,7 @@ A group of 8 bits is called a byte. With 8 bits, there are `2^8`, or
 256, possible patterns. So if we use those patterns to represent
 non-negative numbers, one byte can represent 0 through 255.
 
-#box(image("/pdf/.raster/dark/0-s-and-1-s.png", alt: "One wire can represent two states: 0 or 1"))
+#align(center, image("/pdf/.raster/dark/0-s-and-1-s.png", width: 35%))
 
 #caption[Diagram 5.1. One wire can represent two states: `0` or `1`.]
 
