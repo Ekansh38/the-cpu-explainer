@@ -2362,11 +2362,45 @@ program.
 
 == Finally, The Fun Part
 <finally-the-fun-part>
-That\'s it huh? A whole computer. To test it, let\'s try to run a simple
-program.
+That\'s it huh? A whole computer. To test it, let\'s watch it run.
 
-Put one number in slot 100, the other in slot 101, and the product ends
-up on the `DISPLAY` lamps. It\'s basically a multiplication program.
+Let\'s start with the simplest program imaginable, just putting a number
+on the `DISPLAY` lamps:
+
+```
+0: LOAD A, 42
+2: STORE A, [255]
+4: HALT
+```
+
+Here is our `CPU` executing it:
+
+#grid(columns: 4, gutter: 6pt,
+  image("/pdf/.raster/light/program-demo-1.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-10.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-11.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-12.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-13.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-2.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-3.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-4.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-5.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-6.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-7.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-8.png", width: 100%),
+  image("/pdf/.raster/light/program-demo-9.png", width: 100%)
+)
+
+#caption[Diagram 14.1. The `CPU` running a simple program.]
+
+For this animation, I am not animating the idle steps where nothing
+happens, and I am not animating 2 frames per micro-step. That\'s why you
+might see an `OUT` and a `WRITE` turn on at the same time, but you and
+me both know what is really happening.
+
+And there it is, `42` sitting on the lamps. Now let\'s try something
+real, a multiplication program. Put one number in slot 100, the other in
+slot 101, and the product ends up on the `DISPLAY` lamps.
 
 ```
 0:  LOAD A, 0
@@ -2396,8 +2430,6 @@ up on the `DISPLAY` lamps. It\'s basically a multiplication program.
 32: STORE A, [255]
 34: HALT
 ```
-
-Here is our `CPU` executing this program:
 
 The running total lives in slot `102`. The program adds the value in
 slot `100` into slot `102`, and then slot `101` counts down. You might

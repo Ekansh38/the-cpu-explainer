@@ -1804,10 +1804,28 @@ In the next short section, let's see how our computer can run a simple program.
 
 ## Finally, The Fun Part
 
-That's it huh? A whole computer. To test it, let's try to run a simple program.
+That's it huh? A whole computer. To test it, let's watch it run.
 
+Let's start with the simplest program imaginable, just putting a number on the `DISPLAY` lamps:
+
+```
+0: LOAD A, 42
+2: STORE A, [255]
+4: HALT
+```
+
+Here is our `CPU` executing it:
+
+<a id="diagram-14-1"></a> <img pdf-frames="all" class="big" src="./assets/final/program-demo.gif" alt="The CPU running a simple program">
+
+*Diagram 14.1. The `CPU` running a simple program.*
+
+For this animation, I am not animating the idle steps where nothing happens, and I am not animating
+2 frames per micro-step. That's why you might see an `OUT` and a `WRITE` turn on at the same time,
+but you and me both know what is [really happening](#diagram-13-2).
+
+And there it is, `42` sitting on the lamps. Now let's try something real, a multiplication program.
 Put one number in slot 100, the other in slot 101, and the product ends up on the `DISPLAY` lamps.
-It's basically a multiplication program.
 
 ```
 0:  LOAD A, 0
@@ -1837,10 +1855,6 @@ It's basically a multiplication program.
 32: STORE A, [255]
 34: HALT
 ```
-
-Here is our `CPU` executing this program:
-
-<diagram gif>
 
 The running total lives in slot `102`. The program adds the value in slot `100` into slot `102`, and
 then slot `101` counts down. You might notice something weird:
