@@ -1,22 +1,22 @@
 title: d latch accumulator
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+The latch is currently storing 0 as its default. The adder is already outputting 0 + 1, which is 1, but `STEP` is off, so the latch is not storing it.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+Now that `STEP` is on, the latch is storing the 1 and outputting it back into the adder.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+But `STEP` is still held down, so the latch is still copying whatever is on its input. The adder now sees 1 + 1, so the latch immediately stores 2.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+And it keeps going. 2 + 1 is 3, and the latch stores that too, all while we are still holding down that one button.
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+3 + 1 is 4. The value is running away from us.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+4 + 1 is 5, and we still have not let go.
 
 [frame 7]
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+Finally we let go of `STEP`, and the latch locks in at 5. We pressed the button once and the circuit counted five times. How long we hold the button decides the answer.

@@ -1,0 +1,49 @@
+title: cu counter
+
+[frame 1]
+The counter is sitting at 0, so the decoder has output 0 on, which is connected to nothing. `CLK` is currently off.
+
+[frame 2]
+`CLK` turns on, and on that rising edge the accumulator counts up to 1. `Q0` turns on, and the decoder switches to output 1. This is step 1.
+
+[frame 3]
+`CLK` turns back off. Nothing happens, the counter only captures on the rising edge, so it just keeps holding 1.
+
+[frame 4]
+`CLK` on again, the counter captures 2. `Q1` is on, `Q0` is off, binary for 2. The decoder moves to output 2.
+
+[frame 5]
+`CLK` off, holding 2.
+
+[frame 6]
+Rising edge, count up to 3. `Q1` and `Q0` on.
+
+[frame 7]
+Holding 3.
+
+[frame 8]
+Rising edge, count up to 4. Only `Q2` on now, binary for 4.
+
+[frame 9]
+Holding 4.
+
+[frame 10]
+Rising edge, count up to 5.
+
+[frame 11]
+Holding 5.
+
+[frame 12]
+Rising edge, count up to 6. We are in the unused steps now, these output wires still turn on, they just aren't connected to anything yet.
+
+[frame 13]
+Holding 6.
+
+[frame 14]
+Rising edge, count up to 7. All three `Q` wires on, the counter is full.
+
+[frame 15]
+Holding 7.
+
+[frame 16]
+Rising edge, and 7 + 1 overflows! The counter wraps right back around to 0, no reset wire needed. The whole loop just starts over, forever.

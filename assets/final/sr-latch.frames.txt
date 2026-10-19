@@ -1,13 +1,13 @@
 title: sr latch
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+Both inputs to the bottom `NOR` gate are off, so its output, `NOT Q`, is on. Since the output of the bottom `NOR` gate is on, the top `NOR` gate's output, `Q`, has to be off. The latch is holding a `0`.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+Pressing `SET` forces `NOT Q` to be off, allowing the top `NOR` gate to output true, because its two inputs are off. The latch is now holding a `1`.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now `SET` is off, but the bottom `NOR` gate's output stays off, because the top `NOR` gate's output is an input into the bottom one, forcing it off. The loop holds itself up with nothing pressed. That is the bit being remembered.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+`RESET` forces `Q` off, allowing `NOT Q` to be on, just like `SET` but in reverse. Let go of `RESET` and we are back to frame 1, holding a `0`.

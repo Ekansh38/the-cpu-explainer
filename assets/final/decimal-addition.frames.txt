@@ -1,10 +1,10 @@
 title: decimal addition
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+First we start with the right-most column, so `5 + 8`.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`5 + 8 = 13` so write the 3 and carry the 1. We then move on to the next column, `6 + 2 + 1`, the 1 is from the carry.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`6 + 2 + 1 = 9`, so that is what we write down, and our final answer is 93. `65 + 28` is in fact, 93.
