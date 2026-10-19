@@ -77,7 +77,7 @@ low. Sure, a light can be on or off. But how does that become addition?
 
 How does that become memory?
 
-How does that become a program sitting in RAM, one instruction after
+How does that become a program sitting in `RAM`, one instruction after
 another, telling a machine what to do?
 
 Some resources stay extremely high-level, so you never really understand
@@ -188,7 +188,7 @@ Now the rules of the circuit change:
 
 if `(MUDDY OR STINKY) AND OLD_WASH`
 
-All this says is, if the dog is muddy or stinky and it\'s been at least
+All this says is, if the dog is muddy or stinky and it\'s been more than
 5 days since the dog\'s last wash, you should wash the dog.
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
@@ -235,7 +235,8 @@ current flows through the coil, the coil becomes a magnet and pulls the
 arm down. When current stops, a spring pulls the arm back up.
 
 A relay lets one circuit open or close a switch in another circuit. The
-two circuits stay separate, but the relay arm physically connects them.
+two circuits stay electrically separate; the coil just magnetically
+pulls the arm, there is no electrical connection between them.
 
 Also, in this example, we end up using a switch in the input circuit
 anyway, but any kind of electrical signal could be used, like the output
@@ -341,7 +342,7 @@ once again:
 
 The parentheses indicate order of operations. So in plain English:
 
-If the dog is muddy or stinky and it\'s been at least 5 days since the
+If the dog is muddy or stinky and it\'s been more than 5 days since the
 dog\'s last wash and it\'s not going to rain soon, then wash the dog.
 
 Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
@@ -521,11 +522,11 @@ a.k.a. base ten.
 
 #caption[Diagram 5.3. The decimal system.]
 
-In our decimal counting system, each place value is a multiple of 10.
-That is because we have ten digits: 0-9.
+In our decimal counting system, each place value is a power of 10. That
+is because we have ten digits: 0-9.
 
 This exact same place value logic can apply to the binary system too. We
-have two digits, 0 and 1, so each place is a multiple of 2.
+have two digits, 0 and 1, so each place is a power of 2.
 
 #box(image("/pdf/.raster/light/binary.png", alt: "The binary system"))
 
@@ -585,8 +586,6 @@ works the same way.
 )
 
 #caption[Diagram 6.2. Binary addition.]
-
-This works the same in binary.
 
 `1 + 1` gives `10`, which is binary for 2.
 
@@ -797,8 +796,8 @@ byte, so the extra information spilled out into the carry-out bit.
 
 The adder can also produce little status wires, called flags.
 
-For example, if the answer is `00000000`, a ZERO flag can turn on. If
-addition spills past one byte, a CARRY flag can turn on. So
+For example, if the answer is `00000000`, a `ZERO` flag can turn on. If
+addition spills past one byte, a `CARRY` flag can turn on. So
 `11111111 + 00000001` gives `00000000` with carry-out `1`.
 
 I don\'t want to go deep into flags yet. Just remember that the adder
@@ -848,8 +847,8 @@ That is the next problem: memory.
 == Storing a Bit
 <storing-a-bit>
 In the last section, wiring the output of a circuit back into its input
-led to chaos. But if we use a smarter configuration, we can use this
-trick to store a bit.
+led to chaos. But with a smarter configuration, we can use this trick to
+store a bit.
 
 The circuit that stores a single bit is called an SR latch. SR stands
 for set-reset. The value `Q` is the output we really care about. If it
@@ -914,7 +913,7 @@ mechanism, what we would really like to have is two inputs.
 - `Enable` (`E`)
 
 When the enable wire turns on, `Data` gets stored in `Q`. Or in other
-words, when we turn the `Enable` wire on, `Q` mirrors `D`. Then when we
+words, when we turn the enable wire on, `Q` mirrors `D`. Then when we
 turn `E` off, `Q` stays stable with whatever `D` was last.
 
 This type of latch is called a D latch, D meaning data. It can be made
@@ -1323,9 +1322,9 @@ is the smaller bit, the 1\'s place.
 As you can tell, no matter the inputs, exactly one output wire is on at
 a time.
 
-We use one 2-to-4 decoder for the rows and another 2-to-4 decoder for
-the columns. Where the selected row and selected column cross, that is
-the byte we want to target.
+We use one `2-4` decoder for the rows and another `2-4` decoder for the
+columns. Where the selected row and selected column cross, that is the
+byte we want to target.
 
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
@@ -1400,8 +1399,8 @@ works, just think of two AND gates chained together.
 
 So now that we have built `RAM`, let\'s pretend that instead of 16
 registers, we have a `RAM` array with 256 registers. The same logic can
-be copied, just with two 4-16 decoders instead of two 2-4 decoders and 8
-address inputs rather than 4.
+be copied, just with two `4-16` decoders instead of two `2-4` decoders
+and 8 address inputs rather than 4.
 
 #box(image("/pdf/.raster/light/ram-interface.png", alt: "Our RAM chip"))
 
@@ -1553,8 +1552,8 @@ At its crux, the `ALU` works by routing `A` and `B` into all 4
 operations at once, in this case XOR, OR, AND, and ADD. We store each of
 the results in a corresponding result register.
 
-To decide which one to output, the `OP` bits go into a 2-4 decoder that
-enables exactly 1 of the result registers onto the `R` bus.
+To decide which one to output, the `OP` bits go into a `2-4` decoder
+that enables exactly 1 of the result registers onto the `R` bus.
 
 Now for the flags.
 
@@ -1567,7 +1566,7 @@ actually eight NOT gates, each flipping one wire of the bus. So it takes
 in a bus, and outputs a bus.
 
 But the AND gate next to it, labeled 5, takes in a bus and outputs just
-one wire. Like the three-input AND from the RAM section, this AND gate
+one wire. Like the three-input AND from the `RAM` section, this AND gate
 takes in 8 inputs and produces 1 output. It just checks if all of its
 inputs are on.
 
@@ -1589,7 +1588,7 @@ them all together with gate 8, we can check if they are all true. If
 even one pair of bits differs, that wire ends up `0` after the flip, and
 the AND outputs `0`. Simple.
 
-The `CARRY` flag is simple: we just connect the adder\'s Carry Out,
+The `CARRY` flag is simple: we just connect the adder\'s carry-out,
 `CO`, straight out. Of course, it only means anything when we are
 actually adding.
 
@@ -1682,10 +1681,10 @@ increment. We also have the `R` signal which just resets the register
 back to 0 with some more logic gates and wires. Nothing too fancy.
 
 Our `MAR` and `RAM` are the same as before, but if all of the bits
-stored in `MAR` are 1, meaning the value stored is 255, then the output
-of that first AND gate in the diagram, labeled 1, would be on. So if we
-are selecting address 255 and `RAM_WRITE` is enabled, then we need to
-write to the `DISPLAY` register too.
+stored in `MAR` are 1, meaning the address is 255, then that first AND
+gate in the diagram, labeled 1, turns on. We then AND that with
+`RAM_WRITE`: if we are writing to address 255, we also write into the
+`DISPLAY` register.
 
 What ends up happening is that `DISPLAY` stores whatever is stored in
 `RAM` address 255, and displays that value on 8 bulbs for us to see. You
@@ -1752,7 +1751,7 @@ But, how does the `CU` know what wires to flip and when?
 Instructions tell the CPU what to do, and a list of instructions is a
 program. There are game programs, calculator programs, email programs.
 Everything on your computer is a program. Just a long, long list of
-instructions telling the CPU to do simple things like, add these two
+instructions telling the CPU to do simple things like add these two
 numbers, move this value here, etc.
 
 All programs are just a list of instructions stored in `RAM`, each
@@ -1773,13 +1772,13 @@ So here is what number each instruction in our CPU translates to:
     [4], [`0100`], [`MOV B, A`], [1], [copy A into B],
     [5], [`0101`], [`MOV A, B`], [1], [copy B into A],
     [6], [`0110`], [`JMP addr`], [2], [addr -\> PC],
-    [7], [`0111`], [`JE addr`], [2], [if EQUAL flag: addr -\> PC],
+    [7], [`0111`], [`JE addr`], [2], [if `EQUAL` flag: addr -\> PC],
     [8], [`1000`], [`ADD`], [1], [A = A + B],
     [9], [`1001`], [`AND`], [1], [A = A AND B],
     [10], [`1010`], [`OR`], [1], [A = A OR B],
     [11], [`1011`], [`XOR`], [1], [A = A XOR B],
-    [12], [`1100`], [`JC addr`], [2], [if CARRY flag: addr -\> PC],
-    [13], [`1101`], [`JZ addr`], [2], [if ZERO flag: addr -\> PC],
+    [12], [`1100`], [`JC addr`], [2], [if `CARRY` flag: addr -\> PC],
+    [13], [`1101`], [`JZ addr`], [2], [if `ZERO` flag: addr -\> PC],
     [14], [`1110`], [`HALT`], [1], [stop the clock],
   )]
   , kind: table
@@ -1787,9 +1786,9 @@ So here is what number each instruction in our CPU translates to:
 
 #emph[Table 12.1. The full instruction set.]
 
-So if we store `00000001` in address 0 of RAM. Then store `00000101` in
-address 1 of RAM. Then store `00000011` in address 2, then `11111111` in
-address 3, and finally `00001110` in address 4.
+So we store `00000001` in address 0 of `RAM`. Then store `00000101` in
+address 1 of `RAM`. Then store `00000011` in address 2, then `11111111`
+in address 3, and finally `00001110` in address 4.
 
 Our `RAM` looks like this:
 
@@ -1827,7 +1826,7 @@ clock, the whole machine freezes, and the program is over.
 But, why do we even need to stop the CPU? Well, if we don\'t, `PC` would
 just keep counting up and the CPU would keep fetching. It doesn\'t know
 our program ended at address 4. It would march straight into the rest of
-RAM and run whatever is sitting there as if it were instructions,
+`RAM` and run whatever is sitting there as if it were instructions,
 leftovers from the last program, or whatever junk the memory happened to
 wake up holding. We need a way to stop.
 
@@ -1882,9 +1881,9 @@ But then 128 + 128 overflows: `A` wraps around to 0. And from that point
 on, the program is doubling 0 forever, so the display goes dark and
 stays dark. The CPU gets stuck in a weird spot.
 
-One note: the number before each instruction is just the address in RAM
-where it would be stored, that is why you can see it jump in twos for
-2-byte instructions.
+One note: the number before each instruction is just the address in
+`RAM` where it would be stored, that is why you can see it jump in twos
+for 2-byte instructions.
 
 To solve this overflow problem, and in general to make decisions, we can
 use the flags to jump to different parts of our program depending on
@@ -1944,7 +1943,7 @@ instruction as an example.
 
 First the `CU` would flip the `O` signal on the `A` register, driving
 the bus to whatever is stored in `A`. Then the `CU` would flip the `W`
-signal on register `B`, writing the value on the bus, into the register.
+signal on register `B`, writing the value on the bus into the register.
 Then it would turn off the `O` signal on register `A`, and boom, we are
 done. The `CU` had to take a few tiny micro-steps to execute that
 instruction. We will talk about micro-steps in more detail later on.
@@ -2119,11 +2118,11 @@ few logic gates can\'t solve.
     [3], [`STORE A, [addr]`], [`RAM_OUT`, `MAR_WRITE`,
     `PC_INC`], [`A_OUT`, `RAM_WRITE`],
     [6], [`JMP addr`], [`RAM_OUT`, `PC_WRITE`], [Nothing],
-    [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if EQUAL else
+    [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if `EQUAL` else
     `PC_INC`], [Nothing],
-    [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if CARRY else
+    [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if `CARRY` else
     `PC_INC`], [Nothing],
-    [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if ZERO else
+    [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if `ZERO` else
     `PC_INC`], [Nothing],
   )]
   , kind: table
@@ -2150,10 +2149,10 @@ the OR gate basically just checks if we have a 2-byte instruction or
 not.
 
 So back to step 3, if we have a 2-byte instruction and it is step three,
-then it enables `PC_OUT` and `MAR_WRITE` which will actually fire on
-`NOT CLOCK`. Step three is the same for all 2-byte instructions since we
-always need to fetch that second byte, but what we do with that second
-byte changes.
+then it enables `PC_OUT` and `MAR_WRITE`, and the `MAR_WRITE` store
+actually fires on `NOT CLOCK`. Step three is the same for all 2-byte
+instructions since we always need to fetch that second byte, but what we
+do with that second byte changes.
 
 On step 4, every 2-byte instruction needs to use that second value, so
 we always call `RAM_OUT` if it is a 2-byte instruction. That is what
@@ -2298,7 +2297,7 @@ Yep, the last 2 bits of each instruction directly match the `ALU` bits
 for that specific operation. Must be a coincidence...
 
 Anyway, because of this, we can just directly wire those 2 last bits
-into the `ALU` op bits. Since we only actually store the result of the
+into the `ALU` op-bits. Since we only actually store the result of the
 `ALU` on these instructions, sure a `STORE A, [addr]` instruction might
 make the `ALU` XOR, but it doesn\'t matter because we don\'t store the
 result, it\'s garbage.
@@ -2313,9 +2312,9 @@ Again I am leaving out all the instructions apart from these 4, and
 again this wiring is a mess.
 
 All you need to know is that, the bottom 2 bits from the instruction
-op-code are tapped out, and connected directly to the ALU ops 0 and 1.
-And the rest of the logic just checks if it is an ALU instruction and if
-so, on the appropriate steps, it enables the correct control wires
+op-code are tapped out, and connected directly to the `ALU` ops 0 and 1.
+And the rest of the logic just checks if it is an `ALU` instruction and
+if so, on the appropriate steps, it enables the correct control wires
 according to the table above.
 
 One last thing. The `HALT` instruction, this instruction just stops the
@@ -2326,7 +2325,7 @@ computer.
 
 #box(image("/pdf/.raster/light/cu-internals-halt.png", alt: "The HALT instruction"))
 
-#caption[Diagram 13.8. The HALT instruction freezing the computer.]
+#caption[Diagram 13.8. The `HALT` instruction freezing the computer.]
 
 Even though the clock is on, the computer stays frozen.
 
@@ -2376,7 +2375,7 @@ on the `DISPLAY` lamps:
 4: HALT
 ```
 
-Here is our `CPU` executing it:
+Here is our CPU executing it:
 
 #grid(columns: 4, gutter: 6pt,
   image("/pdf/.raster/light/program-demo-1.png", width: 100%),
@@ -2394,7 +2393,7 @@ Here is our `CPU` executing it:
   image("/pdf/.raster/light/program-demo-9.png", width: 100%)
 )
 
-#caption[Diagram 14.1. The `CPU` running a simple program.]
+#caption[Diagram 14.1. The CPU running a simple program.]
 
 For this animation, I am not animating the idle steps where nothing
 happens, and I am not animating 2 frames per micro-step. That\'s why you
@@ -2447,7 +2446,7 @@ notice something weird:
 ```
 
 This little sequence adds 255 to slot `101`. It loads the right values
-into the `CPU`\'s registers, adds 255, and stores that back into slot
+into the CPU\'s registers, adds 255, and stores that back into slot
 `101`. But why?
 
 Well on this computer adding 255 is just like subtracting 1! This is
@@ -2467,9 +2466,9 @@ One more oddity:
 
 Our goal with this chunk of code is to just check if slot `101` is zero,
 if so we are done and can jump to some other part of the program.
-Because this CPU is slightly more primitive compared to real CPUs the
+Because this CPU is slightly more primitive compared to real CPUs, the
 programmer (me) had to use some weird trickery to check if it is zero.
-In this case I just added 0 to the value to set the ZERO flag.
+In this case I just added 0 to the value to set the `ZERO` flag.
 
 This is basically all the program is:
 
@@ -2493,9 +2492,10 @@ Our funky little CPU can already do all of it, just slower, with tricks
 like the ones above.
 
 Modern CPUs are also just bigger in general. Instead of 8 wires in a
-bus, 64. Instead of 256 bytes of RAM, billions. Instead of 2 registers,
-dozens. Instead of a few ticks per second, billions of those too. But it
-is the same core loop, fetch, decode, execute, just bigger, and faster.
+bus, 64. Instead of 256 bytes of `RAM`, billions. Instead of 2
+registers, dozens. Instead of a few ticks per second, billions of those
+too. But it is the same core loop, fetch, decode, execute, just bigger,
+and faster.
 
 Our program could also be seen as just a bunch of numbers:
 
@@ -2524,8 +2524,7 @@ And in `RAM`, it is actually just this:
 Some user would have to manually sit there at the control panel flipping
 these values into addresses of `RAM` one at a time. In the next closing
 section, we will touch a little bit on modern things like keyboards and
-monitors, all that other stuff that really turns a `CPU` into a
-computer.
+monitors, all that other stuff that really turns a CPU into a computer.
 
 == The End
 <the-end>
@@ -2539,11 +2538,11 @@ genuinely bolt both of those onto our CPU today.
 
 Real computers are a lot fancier about it. They have dedicated I/O
 buses, whole controller chips that talk to the devices so the CPU
-doesn\'t have to, and devices that can even write into RAM directly on
+doesn\'t have to, and devices that can even write into `RAM` directly on
 their own. A modern keyboard is a full back-and-forth conversation over
 a protocol, not one little slot.
 
-So to recap, a program is just a list of numbers sitting in RAM. The
+So to recap, a program is just a list of numbers sitting in `RAM`. The
 control unit fetches those numbers one at a time, decodes them, and
 executes each one as a few micro-steps, flipping control wires that move
 bytes between registers. Every one of those components is made up of
