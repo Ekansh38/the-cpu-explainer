@@ -2189,6 +2189,12 @@ and `STORE A, [addr]`. Gates 16 and 18 check if it is step 5 and either
 one of those instructions, then the appropriate control wires get turned
 on. Pretty simple.
 
+Also, you might notice, control signals that get activated for different
+reasons have a \"collector\" OR gate instead of everything being wired
+together. This is just to prevent a short circuit, one wire driving low
+and another driving high. A simple OR gate solves this. Gates 1, 2, 3,
+and 4 are these collectors, feel free to check them yourself.
+
 Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
@@ -2234,7 +2240,9 @@ Next we do the `MOV` instructions.
 
 Quite simple:
 
-\<diagram with just the MOV\'s\>
+#box(image("/pdf/.raster/dark/cu-internals-movs.png", alt: "The MOV instructions"))
+
+#caption[Diagram 13.6. The MOV instructions.]
 
 I have left out all of the 2-byte instructions from this diagram, just
 so it\'s easier to read.
@@ -2242,13 +2250,13 @@ so it\'s easier to read.
 Next we need to decode all of our `ALU` instructions, now this is where
 things get a bit weird, and I have some explaining to do.
 
-In our CPU, if you remember, `A` has a special `Q` that bypasses the
-tri-state buffers, and feeds directly into the `ALU`. So to use our
-`ALU`, the programmer would first put their first number into register
-`A` using some instructions of their choice, and put their second number
-into register `B`. Then any `ALU` instruction would automatically use
-registers `A` and `B` as the two numbers, and the `ALU` stores the
-result back into register `A`.
+In our CPU, if you remember, register `A` has a special `Q` that
+bypasses the tri-state buffers, and feeds directly into the `ALU`. So to
+use our `ALU`, the programmer would first put their first number into
+register `A` using some instructions of their choice, and put their
+second number into register `B`. Then any `ALU` instruction would
+automatically use registers `A` and `B` as the two numbers, and the
+`ALU` stores the result back into register `A`.
 
 #figure(
   align(center)[#table(
@@ -2268,7 +2276,7 @@ directly connected to the `ALU` already.
 But what is `ACC` you might be asking? Well `ACC` is kind of like a
 temporary register that the `ALU` uses to store its result, the `ALU`
 can\'t directly put the result onto the bus, since register `B` is
-driving the bus, and the bus is the second input to the `ALU`.
+driving the bus.
 
 So on step 3, the `ALU` lets `B` drive the bus, and computes its result
 storing the flags in the register, and also storing the result. Then in
@@ -2283,8 +2291,8 @@ have a look at the ALU\'s operation table.
 Also just for future reference, these numbers that represent
 instructions are called op-codes, just like the `ALU` op-bits.
 
-Yep, the last 2 bits of each instruction directly match the `ALU` bits.
-Must have been a coincidence...
+Yep, the last 2 bits of each instruction directly match the `ALU` bits
+for that specific operation. Must be a coincidence...
 
 Anyway, because of this, we can just directly wire those 2 last bits
 into the `ALU` op bits. Since we only actually store the result of the
@@ -2294,9 +2302,18 @@ result, it\'s garbage.
 
 So here we are:
 
-\<diagram, just `ALU`\>
+#box(image("/pdf/.raster/dark/cu-internals-alu.png", alt: "The ALU instructions"))
 
-Again I am leaving out all the instructions apart from these 4.
+#caption[Diagram 13.7. The ALU instructions.]
+
+Again I am leaving out all the instructions apart from these 4, and
+again this wiring is a mess.
+
+All you need to know is that, the bottom 2 bits from the instruction
+op-code are tapped out, and connected directly to the ALU ops 0 and 1.
+And the rest of the logic just checks if it is an ALU instruction and if
+so, on the appropriate steps, it enables the correct control wires
+according to the table above.
 
 One last thing. The `HALT` instruction, this instruction just stops the
 clock. The way we do this is by using an SR latch, whose `Q` is inverted
@@ -2304,7 +2321,11 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and boom! We froze the
 computer.
 
-\<diagram gif, showing this\>
+#box(image("/pdf/.raster/dark/cu-internals-halt.png", alt: "The HALT instruction"))
+
+#caption[Diagram 13.8. The HALT instruction freezing the computer.]
+
+Even though the clock is on, the computer stays frozen.
 
 But how do we restart the computer? Well, remember the `TAKEOVER` switch
 I was telling you about. When we flick it on, it resets that latch. But
@@ -2326,11 +2347,15 @@ so the panel can control those signals.
 
 Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
+#box(image("/pdf/.raster/dark/cu-internals-halt-takeover.png", alt: "The HALT and TAKEOVER wiring"))
+
+#caption[Diagram 13.9. The `HALT` and `TAKEOVER` wiring.]
+
 Wait, is that the whole `CU`?
 
-\<full cu diagram, can look messy idc\>
-
-Um, yes. That\'s the whole computer. That\'s it.
+Umm, yes, that\'s it. Just combine all of those diagrams together, add
+in some extra OR gates and boom. That is the whole `CU`. You understand
+it, every wire of it.
 
 In the next short section, let\'s see how our computer can run a simple
 program.
