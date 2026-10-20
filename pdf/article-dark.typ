@@ -12,7 +12,7 @@
     ]
   },
 )
-#set text(fill: rgb("#e6e6e6"), size: 11pt, hyphenate: auto)
+#set text(font: "New Computer Modern", fill: rgb("#e6e6e6"), size: 11.5pt, hyphenate: auto)
 #set par(justify: true, leading: 0.7em, spacing: 1.1em)
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
