@@ -64,7 +64,7 @@
   outline(
     title: none,
     indent: auto,
-    depth: 3,
+    depth: 4,
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
   pagebreak()
