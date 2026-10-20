@@ -17,7 +17,8 @@
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
   let nums = n.pos()
-  if nums.len() <= 1 { none }
+  if nums.len() <= 2 { none }
+  else if nums.at(1) == 0 { none }
   else { numbering("1.1.", ..nums.slice(1)) }
 })
 #show link: it => text(fill: rgb("#2a5a8a"))[#it]
@@ -60,21 +61,43 @@
     #set text(size: 20pt, weight: "bold")
     Contents
   ]
-  outline(title: none, indent: auto, depth: 3)
+  outline(
+    title: none,
+    indent: auto,
+    depth: 3,
+    target: heading.where(level: 2).or(heading.where(level: 3)),
+  )
   pagebreak()
 }
 
-#show heading.where(level: 2): it => block(above: 2.6em, below: 1em)[
+#show heading.where(level: 2): it => {
+  pagebreak(weak: true)
+  v(5em)
+  align(center)[
+    #block[
+      #set text(size: 32pt, weight: "bold")
+      #it.body
+    ]
+  ]
+  v(2em)
+}
+
+#show heading.where(level: 3): it => block(above: 2.6em, below: 1em)[
   #set text(size: 18pt, weight: "bold")
   #it
   #v(0.2em)
   #line(length: 100%, stroke: 0.5pt + rgb("#cccccc"))
 ]
 
-#show heading.where(level: 3): it => block(above: 1.8em, below: 0.6em)[
+#show heading.where(level: 4): it => block(above: 1.8em, below: 0.6em)[
   #set text(size: 13pt, weight: "bold")
   #it
 ]
+
+#show outline.entry.where(level: 2): it => {
+  v(1em, weak: true)
+  strong(it)
+}
 
 #set table(stroke: 0.5pt + rgb("#cccccc"))
 #show table.cell: set text(fill: rgb("#111111"))
