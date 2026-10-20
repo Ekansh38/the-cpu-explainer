@@ -130,7 +130,7 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#box(image("/assets/final/basic-circuit.gif", alt: "A basic circuit with a battery, switch, and bulb"))
+#box(image("/assets/final/basic-circuit.gif"))
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -200,7 +200,7 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/assets/final/or-gate-logical.gif", alt: "The hand-switch version of OR"))
+#box(image("/assets/final/or-gate-logical.gif"))
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -257,7 +257,7 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#box(image("/assets/frames/electronic-and-gate-1-s.png", alt: "An AND gate"))
+#box(image("/assets/frames/electronic-and-gate-1-s.png"))
 
 #emph[\(animation of 11 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1"))]
@@ -299,7 +299,7 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#box(image("/assets/frames/electronic-or-gate-1-s.png", alt: "An electronic OR gate"))
+#box(image("/assets/frames/electronic-or-gate-1-s.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1"))]
@@ -309,7 +309,7 @@ Now here is the OR gate:
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
-#box(image("/assets/frames/dog-washer-v1-1-s.png", alt: "The full dog washer circuit built with relays"))
+#box(image("/assets/frames/dog-washer-v1-1-s.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1"))]
@@ -413,7 +413,7 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#box(image("/assets/frames/dog-washer-v2-1.png", alt: "The final dog washer circuit"))
+#box(image("/assets/frames/dog-washer-v2-1.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1"))]
@@ -477,7 +477,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#box(image("/assets/frames/3-states-1.png", alt: "States with 3 wires"))
+#box(image("/assets/frames/3-states-1.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1"))]
@@ -550,7 +550,7 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#box(image("/assets/frames/binary-addition-1.png", alt: "Binary addition"))
+#box(image("/assets/frames/binary-addition-1.png"))
 
 #emph[\(animation of 6 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1"))]
@@ -642,7 +642,7 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/assets/frames/half-adder-1.png", alt: "A half adder"))
+#box(image("/assets/frames/half-adder-1.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1"))]
@@ -681,7 +681,7 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#box(image("/assets/frames/full-adder-1.png", alt: "A full adder"))
+#box(image("/assets/frames/full-adder-1.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1"))]
@@ -736,7 +736,7 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#box(image("/assets/final/8-bit-adder-examples.gif", alt: "Some examples on the adder"))
+#box(image("/assets/final/8-bit-adder-examples.gif"))
 
 #caption("6.12")[Some examples on the adder.]
 
@@ -901,7 +901,7 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#box(image("/assets/frames/d-latch-accumulator-1.png", alt: "D latch accumulator"))
+#box(image("/assets/frames/d-latch-accumulator-1.png"))
 
 #emph[\(animation of 7 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1"))]
@@ -975,7 +975,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/assets/final/full-accumulator.gif", alt: "Our full accumulator"))
+#box(image("/assets/final/full-accumulator.gif"))
 
 #caption("7.9")[Our full accumulator.]
 
@@ -1163,7 +1163,7 @@ data.
 Here is an example where the content of register `A` gets copied into
 register `B`.
 
-#box(image("/assets/final/common-data-bus-demo.gif", alt: "Copying register A into register B through the shared bus"))
+#box(image("/assets/final/common-data-bus-demo.gif"))
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -1259,7 +1259,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/assets/frames/2-4-decoder-1.png", alt: "How a decoder works"))
+#box(image("/assets/frames/2-4-decoder-1.png"))
 
 #emph[\(animation of 8 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1"))]
@@ -1276,7 +1276,7 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/assets/final/cross-section.gif", alt: "Where the row and column meet"))
+#box(image("/assets/final/cross-section.gif"))
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -1405,7 +1405,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#box(image("/assets/frames/mar-ram-demo-1.png", alt: "How the MAR works"))
+#box(image("/assets/frames/mar-ram-demo-1.png"))
 
 #emph[\(animation of 7 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1"))]
@@ -1903,7 +1903,7 @@ We can combine a simple accumulator and a `3-8` decoder. This will give
 us 8 steps, and because the accumulator overflows and naturally wraps
 back around to 0, the steps will loop correctly.
 
-#box(image("/assets/frames/cu-counter-1.png", alt: "The step counter"))
+#box(image("/assets/frames/cu-counter-1.png"))
 
 #emph[\(animation of 16 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1"))]
@@ -2129,7 +2129,7 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#box(image("./assets/frames/cu-internals-two-demo-1.png", alt: "LOAD A, [addr] animation"))
+#box(image("/assets/frames/cu-internals-two-demo-1.png"))
 
 #emph[\(animation of 16 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1"))]
@@ -2291,7 +2291,7 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#box(image("/assets/frames/program-demo-1.png", alt: "The CPU running a simple program"))
+#box(image("/assets/frames/program-demo-1.png"))
 
 #emph[\(animation of 13 frames not shown ---
 #link("https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1"))]
