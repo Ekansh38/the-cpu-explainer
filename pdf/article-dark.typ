@@ -29,7 +29,7 @@
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
   #set text(size: 9.5pt, fill: rgb("#8a8a8a"))
-  Full #count-frame animation at #link(url)[#label].
+  Full #(count)-frame animation at #link(url)[#label].
 ]
 
 #show raw.where(block: true): block.with(
