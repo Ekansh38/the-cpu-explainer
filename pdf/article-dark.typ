@@ -95,8 +95,8 @@
 ]
 
 #show outline.entry.where(level: 2): it => {
-  v(1.5em, weak: true)
-  text(size: 14pt, weight: "bold")[#it]
+  v(1.8em, weak: true)
+  text(size: 16pt, weight: "bold")[#it]
 }
 
 #set table(stroke: 0.5pt + rgb("#333333"))
