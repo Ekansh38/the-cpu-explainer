@@ -94,10 +94,12 @@
   #it
 ]
 
+#show outline.entry.where(level: 2): set outline.entry(fill: none)
 #show outline.entry.where(level: 2): it => {
   v(1.8em, weak: true)
-  text(size: 16pt, weight: "bold")[#it]
+  text(size: 15pt, weight: "bold", it)
 }
+#show outline.entry.where(level: 3): set text(weight: "regular")
 
 #set table(stroke: 0.5pt + rgb("#cccccc"))
 #show table.cell: set text(fill: rgb("#111111"))
