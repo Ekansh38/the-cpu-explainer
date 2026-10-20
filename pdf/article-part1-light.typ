@@ -142,8 +142,8 @@ We are going to try to understand this simple CPU. It is not a modern
 CPU with decades of optimization, but it has the same core
 functionality.
 
-=== How to Read This Article
-<how-to-read-this-article>
+=== How to Read This
+<how-to-read-this>
 - If a diagram is hard to understand, click it and step through each
   frame one by one using the arrow keys, with the provided descriptions.
   This only works if you are reading on my website.
@@ -302,9 +302,9 @@ fundamental logic gate, such as the OR gate.
 But before the next diagram, I am going to use one more new symbol:
 ground.
 
-For the purposes of this article, the ground symbol will simply refer to
-the common return point of the circuit, usually connected to the
-negative side of the battery.
+For our purposes here, the ground symbol will simply refer to the common
+return point of the circuit, usually connected to the negative side of
+the battery.
 
 Every point marked with the ground symbol is connected together, as if
 there were hidden wires joining them underneath the drawing. It is not a
@@ -499,7 +499,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#box(image("/pdf/.raster/light-final/3-states-1.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/3-states-1.png", width: 35%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
@@ -570,7 +570,7 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#box(image("/pdf/.raster/light-final/binary-addition-1.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/binary-addition-1.png", width: 35%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1", "bytecolony.computer/writing/the-cpu/#f=binary-addition:1")
 #caption("6.2")[Binary addition.]

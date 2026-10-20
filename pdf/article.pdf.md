@@ -42,7 +42,7 @@ tall pile of simple ones.
 We are going to try to understand this simple CPU. It is not a modern CPU with decades of
 optimization, but it has the same core functionality.
 
-### How to Read This Article
+### How to Read This
 
 - If a diagram is hard to understand, click it and step through each frame one by one using the arrow
   keys, with the provided descriptions. This only works if you are reading on my website.
@@ -176,7 +176,7 @@ OR gate.
 
 But before the next diagram, I am going to use one more new symbol: ground. 
 
-For the purposes of this article, the ground symbol will simply refer to the common return point of
+For our purposes here, the ground symbol will simply refer to the common return point of
 the circuit, usually connected to the negative side of the battery.
 
 Every point marked with the ground symbol is connected together, as if there were hidden wires joining
