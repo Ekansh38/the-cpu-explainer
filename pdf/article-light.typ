@@ -1,7 +1,7 @@
 #set document(title: "The CPU: A very tall pile of simple")
 #set page(
   paper: "a4",
-  fill: rgb("#ffffff"),
+  fill: rgb("#faf7f2"),
   margin: (x: 24mm, y: 22mm),
   numbering: "1",
   number-align: center,
