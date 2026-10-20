@@ -22,19 +22,8 @@
 
 #let caption(num, body) = block(above: 0.4em, below: 1.6em)[
   #set text(size: 9.5pt, fill: rgb("#8a8a8a"))
-  #text(weight: "bold")[Diagram #num] #sym.dash.en #emph[#body]
+  #text(weight: "bold")[Diagram #num.] #body
 ]
-
-#let colophon = {
-  v(3em)
-  align(center)[
-    #line(length: 2em, stroke: 0.6pt + rgb("#666666"))
-    #v(0.6em)
-    #text(size: 9.5pt, style: "italic", fill: rgb("#666666"))[
-      Ekansh Goenka · October 2026
-    ]
-  ]
-}
 
 #show raw.where(block: true): block.with(
   fill: rgb("#1a1a1a"),
@@ -268,19 +257,10 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/electronic-and-gate-1-s.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-10-s.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-11-t.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-2-t.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-3-s.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-4-t.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-6-t.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-7-s.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-8-t.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-9-s.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-9-t.png", width: 100%)
-)
+#box(image("/assets/frames/electronic-and-gate-1-s.png", alt: "An AND gate"))
+
+#emph[\(animation of 11 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1"))]
 
 #caption("4.4")[An AND gate.]
 
@@ -319,32 +299,20 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/electronic-or-gate-1-s.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-2-t.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-3-s.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-4-t.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-5-s.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-6-t.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-7-s.png", width: 100%),
-  image("/assets/frames/electronic-or-gate-8-t.png", width: 100%)
-)
+#box(image("/assets/frames/electronic-or-gate-1-s.png", alt: "An electronic OR gate"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1"))]
 
 #caption("4.6")[An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/dog-washer-v1-1-s.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-2-t.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-3-t.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-4-s.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-5-t.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-6-s.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-7-t.png", width: 100%),
-  image("/assets/frames/dog-washer-v1-8-s.png", width: 100%)
-)
+#box(image("/assets/frames/dog-washer-v1-1-s.png", alt: "The full dog washer circuit built with relays"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1"))]
 
 #caption("4.7")[The full dog washer circuit built with relays.]
 
@@ -445,16 +413,10 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/dog-washer-v2-1.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-2.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-3.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-4.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-5.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-6.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-7.png", width: 100%),
-  image("/assets/frames/dog-washer-v2-8.png", width: 100%)
-)
+#box(image("/assets/frames/dog-washer-v2-1.png", alt: "The final dog washer circuit"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1"))]
 
 #caption("4.13")[The final dog washer circuit.]
 
@@ -515,16 +477,10 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/3-states-1.png", width: 100%),
-  image("/assets/frames/3-states-2.png", width: 100%),
-  image("/assets/frames/3-states-3.png", width: 100%),
-  image("/assets/frames/3-states-4.png", width: 100%),
-  image("/assets/frames/3-states-5.png", width: 100%),
-  image("/assets/frames/3-states-6.png", width: 100%),
-  image("/assets/frames/3-states-7.png", width: 100%),
-  image("/assets/frames/3-states-8.png", width: 100%)
-)
+#box(image("/assets/frames/3-states-1.png", alt: "States with 3 wires"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1"))]
 
 #caption("5.2")[States with 3 wires.]
 
@@ -594,14 +550,10 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/binary-addition-1.png", width: 100%),
-  image("/assets/frames/binary-addition-2.png", width: 100%),
-  image("/assets/frames/binary-addition-3.png", width: 100%),
-  image("/assets/frames/binary-addition-4.png", width: 100%),
-  image("/assets/frames/binary-addition-5.png", width: 100%),
-  image("/assets/frames/binary-addition-6.png", width: 100%)
-)
+#box(image("/assets/frames/binary-addition-1.png", alt: "Binary addition"))
+
+#emph[\(animation of 6 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1"))]
 
 #caption("6.2")[Binary addition.]
 
@@ -690,16 +642,10 @@ both inputs are on.
 
 Now here is our half adder:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/half-adder-1.png", width: 100%),
-  image("/assets/frames/half-adder-2.png", width: 100%),
-  image("/assets/frames/half-adder-3.png", width: 100%),
-  image("/assets/frames/half-adder-4.png", width: 100%),
-  image("/assets/frames/half-adder-sum-1.png", width: 100%),
-  image("/assets/frames/half-adder-sum-2.png", width: 100%),
-  image("/assets/frames/half-adder-sum-3.png", width: 100%),
-  image("/assets/frames/half-adder-sum-4.png", width: 100%)
-)
+#box(image("/assets/frames/half-adder-1.png", alt: "A half adder"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1"))]
 
 #caption("6.5")[A half adder.]
 
@@ -735,16 +681,10 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/full-adder-1.png", width: 100%),
-  image("/assets/frames/full-adder-2.png", width: 100%),
-  image("/assets/frames/full-adder-3.png", width: 100%),
-  image("/assets/frames/full-adder-4.png", width: 100%),
-  image("/assets/frames/full-adder-5.png", width: 100%),
-  image("/assets/frames/full-adder-6.png", width: 100%),
-  image("/assets/frames/full-adder-7.png", width: 100%),
-  image("/assets/frames/full-adder-8.png", width: 100%)
-)
+#box(image("/assets/frames/full-adder-1.png", alt: "A full adder"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1"))]
 
 #caption("6.8")[A full adder.]
 
@@ -961,15 +901,10 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/d-latch-accumulator-1.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-2.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-3.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-4.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-5.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-6.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-7.png", width: 100%)
-)
+#box(image("/assets/frames/d-latch-accumulator-1.png", alt: "D latch accumulator"))
+
+#emph[\(animation of 7 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1"))]
 
 #caption("7.3")[D latch accumulator.]
 
@@ -1324,16 +1259,10 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/2-4-decoder-1.png", width: 100%),
-  image("/assets/frames/2-4-decoder-2.png", width: 100%),
-  image("/assets/frames/2-4-decoder-3.png", width: 100%),
-  image("/assets/frames/2-4-decoder-4.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-1.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-2.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-3.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-4.png", width: 100%)
-)
+#box(image("/assets/frames/2-4-decoder-1.png", alt: "How a decoder works"))
+
+#emph[\(animation of 8 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1"))]
 
 #caption("9.2")[How a decoder works.]
 
@@ -1476,15 +1405,10 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/mar-ram-demo-1.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-2.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-3.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-4.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-5.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-6.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-7.png", width: 100%)
-)
+#box(image("/assets/frames/mar-ram-demo-1.png", alt: "How the MAR works"))
+
+#emph[\(animation of 7 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1"))]
 
 #caption("9.10")[How the MAR works.]
 
@@ -1979,24 +1903,10 @@ We can combine a simple accumulator and a `3-8` decoder. This will give
 us 8 steps, and because the accumulator overflows and naturally wraps
 back around to 0, the steps will loop correctly.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/cu-counter-1.png", width: 100%),
-  image("/assets/frames/cu-counter-10.png", width: 100%),
-  image("/assets/frames/cu-counter-11.png", width: 100%),
-  image("/assets/frames/cu-counter-12.png", width: 100%),
-  image("/assets/frames/cu-counter-13.png", width: 100%),
-  image("/assets/frames/cu-counter-14.png", width: 100%),
-  image("/assets/frames/cu-counter-15.png", width: 100%),
-  image("/assets/frames/cu-counter-16.png", width: 100%),
-  image("/assets/frames/cu-counter-2.png", width: 100%),
-  image("/assets/frames/cu-counter-3.png", width: 100%),
-  image("/assets/frames/cu-counter-4.png", width: 100%),
-  image("/assets/frames/cu-counter-5.png", width: 100%),
-  image("/assets/frames/cu-counter-6.png", width: 100%),
-  image("/assets/frames/cu-counter-7.png", width: 100%),
-  image("/assets/frames/cu-counter-8.png", width: 100%),
-  image("/assets/frames/cu-counter-9.png", width: 100%)
-)
+#box(image("/assets/frames/cu-counter-1.png", alt: "The step counter"))
+
+#emph[\(animation of 16 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1"))]
 
 #caption("13.1")[The step counter.]
 
@@ -2219,24 +2129,10 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/cu-internals-two-demo-1.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-10.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-11.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-12.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-13.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-14.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-15.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-16.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-2.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-3.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-4.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-5.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-6.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-7.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-8.png", width: 100%),
-  image("/assets/frames/cu-internals-two-demo-9.png", width: 100%)
-)
+#box(image("./assets/frames/cu-internals-two-demo-1.png", alt: "LOAD A, [addr] animation"))
+
+#emph[\(animation of 16 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1"))]
 
 #caption("13.5")[`LOAD A, [addr]` animation.]
 
@@ -2395,21 +2291,10 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/program-demo-1.png", width: 100%),
-  image("/assets/frames/program-demo-10.png", width: 100%),
-  image("/assets/frames/program-demo-11.png", width: 100%),
-  image("/assets/frames/program-demo-12.png", width: 100%),
-  image("/assets/frames/program-demo-13.png", width: 100%),
-  image("/assets/frames/program-demo-2.png", width: 100%),
-  image("/assets/frames/program-demo-3.png", width: 100%),
-  image("/assets/frames/program-demo-4.png", width: 100%),
-  image("/assets/frames/program-demo-5.png", width: 100%),
-  image("/assets/frames/program-demo-6.png", width: 100%),
-  image("/assets/frames/program-demo-7.png", width: 100%),
-  image("/assets/frames/program-demo-8.png", width: 100%),
-  image("/assets/frames/program-demo-9.png", width: 100%)
-)
+#box(image("/assets/frames/program-demo-1.png", alt: "The CPU running a simple program"))
+
+#emph[\(animation of 13 frames not shown ---
+#link("https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1"))]
 
 #caption("14.1")[The CPU running a simple program.]
 
@@ -2571,5 +2456,3 @@ All the way down, there is no step where something smart happens.
 
 I hope you now understand why computers aren\'t \"just\" 1s and 0s, but
 a very tall pile of simple.
-
-#colophon
