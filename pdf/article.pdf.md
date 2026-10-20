@@ -1,10 +1,12 @@
 ---
 title: "The CPU: A very tall pile of simple"
-date: 2026-07-31
+date: 2026-10-20
 draft: true
 ---
 
 # The CPU: A very tall pile of simple
+
+## Part 1: Foundations
 
 You can hear the phrase
 
@@ -40,7 +42,7 @@ tall pile of simple ones.
 We are going to try to understand this simple CPU. It is not a modern CPU with decades of
 optimization, but it has the same core functionality.
 
-## How to Read This Article
+### How to Read This Article
 
 - If a diagram is hard to understand, click it and step through each frame one by one using the arrow
   keys, with the provided descriptions. This only works if you are reading on my website.
@@ -52,7 +54,8 @@ optimization, but it has the same core functionality.
   what is happening.
 
 
-## Circuits & Electricity
+
+### Circuits & Electricity
 
 First, we need the basics of how electricity and circuits work.
 
@@ -75,7 +78,7 @@ Now we have a circuit that can do one yes/no thing. Current flows or it doesn't.
 Now let's see if we can combine switches and relays so the circuit can "answer" slightly more
 interesting questions.
 
-## Switches, Relays, & Logic Gates
+### Switches, Relays, & Logic Gates
 
 Say we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
 tell us whether to wash our dog or not.
@@ -310,7 +313,7 @@ circuit that adds, we need a way to represent numbers using only on and off.
 
 That is what the next section is about.
 
-## Counting With Wires
+### Counting With Wires
 
 Before we continue with this section, let's define some terms.
 
@@ -382,7 +385,7 @@ next section is all about.
 
 *Diagram 5.6. Addition?*
 
-## Addition
+### Addition
 
 Let's start with a brief reminder of how we algorithmically add two decimal numbers.
 
@@ -600,7 +603,9 @@ tell it to.
 
 That is the next problem: memory.
 
-## Storing a Bit
+## Part 2: Machinery
+
+### Storing a Bit
 
 In the last section, wiring the output of a circuit back into its input led to chaos. But with a
 smarter configuration, we can use this trick to store a bit.
@@ -783,7 +788,7 @@ We now have some storage. A register that can hold a byte, and update exactly wh
 But registers on their own are not enough. We need to be able to move numbers between registers, the
 adders, and the main memory, which we will build later.
 
-## Buses
+### Buses
 
 One simple solution to move bytes around would be to give every component its own bundle of 8
 wires to every other component, but that would become a mess very quickly.
@@ -918,7 +923,7 @@ Now we can store a byte, compute a sum, and move bytes around!
 The next problem is organization and scale. How do we organize many stored bytes so the machine can
 choose one slot, read it, and write back to it? A handful of registers aren't enough.
 
-## Organizing Data
+### Organizing Data
 
 We want to build a system that organizes data into a simple structure.
 
@@ -1102,7 +1107,7 @@ read or written.
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store that into the `MAR`. We then
 remove 28 from the common bus and enable `RAM_OUT`, and we get 6 as the value stored in slot 28. Cool.
 
-## The ALU
+### The ALU
 
 If we have a handful of registers and `RAM`, we can now move bytes around using this common data bus.
 But what we really need is a component that can "process" numbers, a component that can do
@@ -1199,7 +1204,7 @@ the flip, and the AND outputs `0`. Simple.
 The `CARRY` flag is simple: we just connect the adder's carry-out, `CO`, straight out. Of course,
 it only means anything when we are actually adding.
 
-## The Big Picture
+### The Big Picture
 
 Here is a big picture diagram of the whole CPU.
 
@@ -1325,7 +1330,9 @@ wires on and off to accomplish that instruction!
 But, how does the `CU` know what wires to flip and when?
 
 
-## Instructions Are Numbers
+## Part 3: Execution
+
+### Instructions Are Numbers
 
 Instructions tell the CPU what to do, and a list of instructions is a program. There are game
 programs, calculator programs, email programs. Everything on your computer is a program. Just a long,
@@ -1504,7 +1511,7 @@ later on.
 How does the `CU` know which wires to flip and when? That is what the next section is all about.
 
 
-## The Not-So-Clever Control Unit
+### The Not-So-Clever Control Unit
 
 The first thing the control unit needs is a step counter. Something that counts, step 0, then step 1,
 then step 2, and so on, back to step 0. That is the core flow of the control unit.
@@ -1801,7 +1808,7 @@ boom. That is the whole `CU`. You understand it, every wire of it.
 In the next short section, let's see how our computer can run a simple program.
 
 
-## Finally, The Fun Part
+### Finally, The Fun Part
 
 That's it huh? A whole computer. To test it, let's watch it run.
 
@@ -1940,25 +1947,22 @@ addresses of `RAM` one at a time. In the next closing section, we will touch a l
 things like keyboards and monitors, all that other stuff that really turns a CPU into a computer.
 
 
-## The End
+### The End
 
 So what about keyboards, monitors? All the things that turn a CPU into a computer. Well, you have
 already seen the core idea. Imagine the `DISPLAY` register, just much bigger: thousands of memory
 slots instead of one, where each number sets the color of one tiny pixel on a screen. A keyboard is
-the same trick in reverse, a slot you read instead of write, where the value is a code for the last
-key pressed. We could genuinely bolt both of those onto our CPU today.
+the same thing but in reverse, a slot you read instead of write, where the value is a code for the
+last key pressed.
 
 Real computers are a lot fancier about it. They have dedicated I/O buses, whole controller chips
 that talk to the devices so the CPU doesn't have to, and devices that can even write into `RAM`
-directly on their own. A modern keyboard is a full back-and-forth conversation over a protocol, not
-one little slot. 
+directly on their own. 
 
 So to recap, a program is just a list of numbers sitting in `RAM`. The control unit fetches those
 numbers one at a time, decodes them, and executes each one as a few micro-steps, flipping control
 wires that move bytes between registers. Every one of those components is made up of simple logic
 gates, and every gate is made up of relays, or more commonly these days, transistors. 
-
-All the way down, there is no step where something smart happens.
 
 I hope you now understand why computers aren't "just" 1s and 0s, but a very tall pile of simple.
 
