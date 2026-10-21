@@ -164,7 +164,7 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#box(image("/assets/final/basic-circuit.gif", width: 100%))
+#box(image("/pdf/.raster/trace/basic-circuit.png", width: 100%))
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -212,10 +212,10 @@ days ago, then wash the dog.
 Here is the circuit:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/switches-1-1.png", width: 100%),
-  image("/assets/frames/switches-1-2.png", width: 100%),
-  image("/assets/frames/switches-1-3.png", width: 100%),
-  image("/assets/frames/switches-1-4.png", width: 100%)
+  image("/pdf/.raster/trace/switches-1-1.png", width: 100%),
+  image("/pdf/.raster/trace/switches-1-2.png", width: 100%),
+  image("/pdf/.raster/trace/switches-1-3.png", width: 100%),
+  image("/pdf/.raster/trace/switches-1-4.png", width: 100%)
 )
 
 #caption("4.1")[The hand-switch version of AND.]
@@ -234,7 +234,7 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/assets/final/or-gate-logical.gif", width: 100%))
+#box(image("/pdf/.raster/trace/or-gate-logical.png", width: 100%))
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -263,10 +263,10 @@ spaghetti.
 Here is how it works:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/basic-relay-1.png", width: 100%),
-  image("/assets/frames/basic-relay-2.png", width: 100%),
-  image("/assets/frames/basic-relay-3.png", width: 100%),
-  image("/assets/frames/basic-relay-4.png", width: 100%)
+  image("/pdf/.raster/trace/basic-relay-1.png", width: 100%),
+  image("/pdf/.raster/trace/basic-relay-2.png", width: 100%),
+  image("/pdf/.raster/trace/basic-relay-3.png", width: 100%),
+  image("/pdf/.raster/trace/basic-relay-4.png", width: 100%)
 )
 
 #caption("4.3")[An electromagnetic relay.]
@@ -331,7 +331,7 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#box(image("/assets/frames/electronic-or-gate-1-s.png", width: 100%))
+#box(image("/pdf/.raster/trace/electronic-or-gate-1-s.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1")
 #caption("4.6")[An electronic OR gate.]
@@ -364,10 +364,10 @@ receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/not-gate-1.png", width: 100%),
-  image("/assets/frames/not-gate-2.png", width: 100%),
-  image("/assets/frames/not-gate-3.png", width: 100%),
-  image("/assets/frames/not-gate-4.png", width: 100%)
+  image("/pdf/.raster/trace/not-gate-1.png", width: 100%),
+  image("/pdf/.raster/trace/not-gate-2.png", width: 100%),
+  image("/pdf/.raster/trace/not-gate-3.png", width: 100%),
+  image("/pdf/.raster/trace/not-gate-4.png", width: 100%)
 )
 
 #caption("4.8")[A NOT gate.]
@@ -393,9 +393,9 @@ pulling the arm, even when the output is 0, it is still touching the
 negative end of that battery, so it is being driven to `-`.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/before-after-1.png", width: 100%),
-  image("/assets/frames/before-after-3.png", width: 100%),
-  image("/assets/frames/before-after-4.png", width: 100%)
+  image("/pdf/.raster/trace/before-after-1.png", width: 100%),
+  image("/pdf/.raster/trace/before-after-3.png", width: 100%),
+  image("/pdf/.raster/trace/before-after-4.png", width: 100%)
 )
 
 #caption("4.9")[Driving an output wire.]
@@ -503,7 +503,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#align(center, image("/assets/frames/3-states-1.png", width: 35%))
+#align(center, image("/pdf/.raster/trace/3-states-1.png", width: 35%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
@@ -562,9 +562,9 @@ Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/decimal-addition-1.png", width: 100%),
-  image("/assets/frames/decimal-addition-2.png", width: 100%),
-  image("/assets/frames/decimal-addition-3.png", width: 100%)
+  image("/pdf/.raster/trace/decimal-addition-1.png", width: 100%),
+  image("/pdf/.raster/trace/decimal-addition-2.png", width: 100%),
+  image("/pdf/.raster/trace/decimal-addition-3.png", width: 100%)
 )
 
 #caption("6.1")[Standard decimal addition.]
@@ -574,7 +574,7 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#align(center, image("/assets/frames/binary-addition-1.png", width: 35%))
+#align(center, image("/pdf/.raster/trace/binary-addition-1.png", width: 35%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1", "bytecolony.computer/writing/the-cpu/#f=binary-addition:1")
 #caption("6.2")[Binary addition.]
@@ -641,10 +641,10 @@ If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/half-adder-sum-1.png", width: 100%),
-  image("/assets/frames/half-adder-sum-2.png", width: 100%),
-  image("/assets/frames/half-adder-sum-3.png", width: 100%),
-  image("/assets/frames/half-adder-sum-4.png", width: 100%)
+  image("/pdf/.raster/trace/half-adder-sum-1.png", width: 100%),
+  image("/pdf/.raster/trace/half-adder-sum-2.png", width: 100%),
+  image("/pdf/.raster/trace/half-adder-sum-3.png", width: 100%),
+  image("/pdf/.raster/trace/half-adder-sum-4.png", width: 100%)
 )
 
 #caption("6.3")[Half adder sum / XOR.]
@@ -664,7 +664,7 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/assets/frames/half-adder-1.png", width: 100%))
+#box(image("/pdf/.raster/trace/half-adder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1", "bytecolony.computer/writing/the-cpu/#f=half-adder:1")
 #caption("6.5")[A half adder.]
@@ -701,7 +701,7 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#box(image("/assets/frames/full-adder-1.png", width: 100%))
+#box(image("/pdf/.raster/trace/full-adder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1", "bytecolony.computer/writing/the-cpu/#f=full-adder:1")
 #caption("6.8")[A full adder.]
@@ -754,7 +754,7 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#box(image("/assets/final/8-bit-adder-examples.gif", width: 100%))
+#box(image("/pdf/.raster/trace/8-bit-adder-examples.png", width: 100%))
 
 #caption("6.12")[Some examples on the adder.]
 
@@ -853,10 +853,10 @@ behind memory.
 This diagram should help this make sense:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/sr-latch-1.png", width: 100%),
-  image("/assets/frames/sr-latch-2.png", width: 100%),
-  image("/assets/frames/sr-latch-3.png", width: 100%),
-  image("/assets/frames/sr-latch-4.png", width: 100%)
+  image("/pdf/.raster/trace/sr-latch-1.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-2.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-3.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-4.png", width: 100%)
 )
 
 #caption("7.1")[An SR latch.]
@@ -993,7 +993,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/assets/final/full-accumulator.gif", width: 100%))
+#box(image("/pdf/.raster/trace/full-accumulator.png", width: 100%))
 
 #caption("7.9")[Our full accumulator.]
 
@@ -1108,10 +1108,10 @@ yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/tri-state-buffer-internals-1.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-2.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-3.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-4.png", width: 100%)
+  image("/pdf/.raster/trace/tri-state-buffer-internals-1.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-2.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-3.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-4.png", width: 100%)
 )
 
 #caption("8.2")[A tri-state buffer built with relays.]
@@ -1277,7 +1277,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/assets/frames/2-4-decoder-1.png", width: 100%))
+#box(image("/pdf/.raster/trace/2-4-decoder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]
@@ -1292,7 +1292,7 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/assets/final/cross-section.gif", width: 100%))
+#box(image("/pdf/.raster/trace/cross-section.png", width: 100%))
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -1307,10 +1307,10 @@ gates to ask these simple questions.
 Here is how it works if you care:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/2-4-decoder-gates-1.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-2.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-3.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-4.png", width: 100%)
+  image("/pdf/.raster/trace/2-4-decoder-gates-1.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-2.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-3.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-4.png", width: 100%)
 )
 
 #caption("9.4")[2-4 decoder internals.]

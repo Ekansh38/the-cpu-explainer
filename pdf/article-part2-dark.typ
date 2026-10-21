@@ -135,10 +135,10 @@ behind memory.
 This diagram should help this make sense:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/sr-latch-1.png", width: 100%),
-  image("/assets/frames/sr-latch-2.png", width: 100%),
-  image("/assets/frames/sr-latch-3.png", width: 100%),
-  image("/assets/frames/sr-latch-4.png", width: 100%)
+  image("/pdf/.raster/trace/sr-latch-1.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-2.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-3.png", width: 100%),
+  image("/pdf/.raster/trace/sr-latch-4.png", width: 100%)
 )
 
 #caption("7.1")[An SR latch.]
@@ -275,7 +275,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/assets/final/full-accumulator.gif", width: 100%))
+#box(image("/pdf/.raster/trace/full-accumulator.png", width: 100%))
 
 #caption("7.9")[Our full accumulator.]
 
@@ -390,10 +390,10 @@ yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/tri-state-buffer-internals-1.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-2.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-3.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-4.png", width: 100%)
+  image("/pdf/.raster/trace/tri-state-buffer-internals-1.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-2.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-3.png", width: 100%),
+  image("/pdf/.raster/trace/tri-state-buffer-internals-4.png", width: 100%)
 )
 
 #caption("8.2")[A tri-state buffer built with relays.]
@@ -559,7 +559,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/assets/frames/2-4-decoder-1.png", width: 100%))
+#box(image("/pdf/.raster/trace/2-4-decoder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]
@@ -574,7 +574,7 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/assets/final/cross-section.gif", width: 100%))
+#box(image("/pdf/.raster/trace/cross-section.png", width: 100%))
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -589,10 +589,10 @@ gates to ask these simple questions.
 Here is how it works if you care:
 
 #grid(columns: 4, gutter: 6pt,
-  image("/assets/frames/2-4-decoder-gates-1.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-2.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-3.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-4.png", width: 100%)
+  image("/pdf/.raster/trace/2-4-decoder-gates-1.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-2.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-3.png", width: 100%),
+  image("/pdf/.raster/trace/2-4-decoder-gates-4.png", width: 100%)
 )
 
 #caption("9.4")[2-4 decoder internals.]
