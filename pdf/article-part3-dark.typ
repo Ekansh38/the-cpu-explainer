@@ -28,7 +28,8 @@
 ]
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
-  #set text(size: 9.5pt, fill: rgb("#8a8a8a"))
+  #set text(size: 9.5pt, fill: rgb("#8a8a8a"), hyphenate: false)
+  #set par(justify: false)
   Full #(count)-frame animation at #link(url)[#label].
 ]
 

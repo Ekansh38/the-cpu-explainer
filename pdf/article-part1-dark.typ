@@ -28,7 +28,8 @@
 ]
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
-  #set text(size: 9.5pt, fill: rgb("#8a8a8a"))
+  #set text(size: 9.5pt, fill: rgb("#8a8a8a"), hyphenate: false)
+  #set par(justify: false)
   Full #(count)-frame animation at #link(url)[#label].
 ]
 
@@ -458,7 +459,7 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#align(center, image("/assets/frames/dog-washer-v2-1.png", width: 100%))
+#pad(x: -10mm, image("/assets/frames/dog-washer-v2-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("4.13")[The final dog washer circuit.]
@@ -586,11 +587,11 @@ together? That is what the next section is all about.
 Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
-#grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 72%)[#grid(columns: 3, gutter: 8pt,
   image("/pdf/.raster/dark/decimal-addition-1.png", width: 100%),
   image("/pdf/.raster/dark/decimal-addition-2.png", width: 100%),
   image("/pdf/.raster/dark/decimal-addition-3.png", width: 100%)
-)
+)])
 
 #caption("6.1")[Standard decimal addition.]
 

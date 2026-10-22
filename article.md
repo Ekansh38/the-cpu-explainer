@@ -285,7 +285,7 @@ That little circle at the end of a gate means "flip the output."
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
-<a id="diagram-4-13"></a> <img src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
+<a id="diagram-4-13"></a> <img class="big" src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
 
 *Diagram 4.13. The final dog washer circuit.*
 
