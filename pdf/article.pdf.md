@@ -39,8 +39,9 @@ tall pile of simple ones.
 
 *Diagram 1.1. The whole CPU.*
 
-We are going to try to understand this simple CPU. It is not a modern CPU with decades of
-optimization, but it has the same core functionality.
+This probably looks like an overwhelming mess, but don't worry, that's normal. We are going to try
+to understand this simple CPU. It is not a modern CPU with decades of optimization, but it has the
+same core functionality.
 
 ### How to Read This
 
@@ -61,7 +62,7 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-<a id="diagram-3-1"></a> <img pdf-frames="keep" src="./assets/final/basic-circuit.gif" alt="A basic circuit with a battery, switch, and bulb">
+<a id="diagram-3-1"></a> <img pdf-frames="all" src="./assets/final/basic-circuit.gif" alt="A basic circuit with a battery, switch, and bulb">
 
 *Diagram 3.1. A basic circuit with a battery, switch, and bulb.*
 
@@ -120,7 +121,7 @@ wash, you should wash the dog.
 
 Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-<a id="diagram-4-2"></a> <img pdf-frames="keep" src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
+<a id="diagram-4-2"></a> <img pdf-frames="all" src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
 
 *Diagram 4.2. The hand-switch version of OR.*
 
@@ -545,7 +546,7 @@ organized into this chip.
 
 Let's have a look at some example problems:
 
-<a id="diagram-6-12"></a> <img pdf-frames="keep" src="./assets/final/8-bit-adder-examples.gif" alt="Some examples on the adder">
+<a id="diagram-6-12"></a> <img pdf-frames="all" src="./assets/final/8-bit-adder-example.gif" alt="Some examples on the adder">
 
 *Diagram 6.12. Some examples on the adder.*
 
@@ -749,7 +750,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
-<a id="diagram-7-9"></a> <img pdf-frames="keep" src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
+<a id="diagram-7-9"></a> <img pdf-frames="all" src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
 
 *Diagram 7.9. Our full accumulator.*
 
@@ -900,7 +901,7 @@ With that, we can use these new registers with a common bus to move data.
 
 Here is an example where the content of register `A` gets copied into register `B`.
 
-<a id="diagram-8-5"></a> <img pdf-frames="keep" class="big" src="./assets/final/common-data-bus-demo.gif" alt="Copying register A into register B through the shared bus">
+<a id="diagram-8-5"></a> <img pdf-frames="all" class="big" src="./assets/final/common-data-bus-demo.gif" alt="Copying register A into register B through the shared bus">
 
 *Diagram 8.5. Copying register A into register B through the shared bus.*
 
@@ -992,7 +993,7 @@ row and selected column cross, that is the byte we want to target.
 
 This diagram shows a few addresses as examples. Each address gets its own little intersection.
 
-<a id="diagram-9-3"></a> <img pdf-frames="keep" src="./assets/final/cross-section.gif" alt="Where the row and column meet">
+<a id="diagram-9-3"></a> <img pdf-frames="all" src="./assets/final/cross-section.gif" alt="Where the row and column meet">
 
 *Diagram 9.3. Where the row and column meet.*
 

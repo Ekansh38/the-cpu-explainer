@@ -1,19 +1,19 @@
 title: binary addition
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+We want to add 7 and 3 in binary, that's `0111` plus `0011`. We go column by column, right to left, just like normal addition.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+First column: 1 plus 1 is 2, which is `10` in binary. We write down 0 and carry the 1.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next column: 1 plus 1 plus the carried 1 is 3, which is `11`. We write down 1 and carry the 1 again.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+Next column: 1 plus 0 plus the carried 1 is 2, so we write down 0 and carry the 1.
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+Last column: 0 plus 0 plus the carried 1 is 1, so we just write down 1.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+The result is `1010`, which is 10. And sure enough, 7 plus 3 is 10.

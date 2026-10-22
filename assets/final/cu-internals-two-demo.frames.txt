@@ -1,0 +1,49 @@
+title: load a [addr] demo
+
+[frame 1]
+The control unit is sitting idle. The step counter is at 0, which is wired to nothing, and `CLK` is off. Let's step through a `LOAD A, [addr]` instruction.
+
+[frame 2]
+`CLK` turns on and the counter increments to 1. This is step 1, the start of every fetch. `PC_OUT` turns on, so the `PC` drives the address of the first instruction.
+
+[frame 3]
+`CLK` turns off. Then `MAR_WRITE` fires on `NOT CLOCK`, and the `MAR` captures that address. Now the `MAR` points at our instruction.
+
+[frame 4]
+`CLK` on, the counter increments to 2. Step 2. `RAM_OUT` turns on, so the `RAM` puts the instruction byte onto the bus.
+
+[frame 5]
+`CLK` off. `IR_WRITE` fires and the `IR` captures the opcode, a 2. `PC_INC` also fires, bumping the `PC` forward. The `4-16` decoder lights up line 2, so the `CPU` now knows this is a `LOAD A, [addr]`.
+
+[frame 6]
+`CLK` on, counter increments to 3. Step 3. This is a 2-byte instruction, so gate 6 turns `PC_OUT` back on to fetch the second byte. The `PC` puts the new address on the bus.
+
+[frame 7]
+`CLK` off. `MAR_WRITE` fires again, and the `MAR` captures that address.
+
+[frame 8]
+`CLK` on, counter increments to 4. Step 4. `RAM_OUT` turns on and the `RAM` puts the second byte onto the bus. For a `LOAD A, [addr]`, that byte is itself an address.
+
+[frame 9]
+`CLK` off. This time `MAR_WRITE` fires, so the `MAR` captures that byte as the new address. `PC_INC` bumps the `PC` again.
+
+[frame 10]
+`CLK` on, counter increments to 5. Step 5. `RAM_OUT` turns on once more, and the `RAM` puts the value stored at that address onto the bus.
+
+[frame 11]
+`CLK` off. `A_WRITE` fires and register `A` captures the value. The `LOAD` is done, `A` now holds whatever was sitting at `[addr]`.
+
+[frame 12]
+`CLK` on, counter increments to 6. This step isn't used by this instruction, so nothing turns on.
+
+[frame 13]
+`CLK` off. Still nothing, the counter just holds.
+
+[frame 14]
+`CLK` on, counter increments to 7. Also unused.
+
+[frame 15]
+`CLK` off. Nothing happening.
+
+[frame 16]
+`CLK` on, and the counter wraps back around to 0. The instruction is complete, and the `CPU` is ready to fetch the next one.

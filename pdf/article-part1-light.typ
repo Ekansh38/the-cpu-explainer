@@ -138,8 +138,9 @@ one hard idea. It is a very tall pile of simple ones.
 
 #caption("1.1")[The whole CPU.]
 
-We are going to try to understand this simple CPU. It is not a modern
-CPU with decades of optimization, but it has the same core
+This probably looks like an overwhelming mess, but don\'t worry, that\'s
+normal. We are going to try to understand this simple CPU. It is not a
+modern CPU with decades of optimization, but it has the same core
 functionality.
 
 === How to Read This
@@ -160,7 +161,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#box(image("/pdf/.raster/light-final/basic-circuit.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
+  image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
+)
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -230,8 +234,9 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/pdf/.raster/light-final/or-gate-logical.png", width: 100%))
+#box(image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%))
 
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
@@ -390,6 +395,7 @@ negative end of that battery, so it is being driven to `-`.
 
 #grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
+  image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-4.png", width: 100%)
 )
@@ -750,7 +756,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#box(image("/pdf/.raster/light-final/8-bit-adder-examples.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
+  image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
+  image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
+)
 
 #caption("6.12")[Some examples on the adder.]
 

@@ -1,13 +1,13 @@
 title: not gate
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+The input is off, so no current flows through the coil. The `metal arm` rests against the top contact, completing the output circuit, so the bulb is on. Input off, output on.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+We turn the input on. Current flows through the coil and it becomes an electromagnet, pulling the `metal arm` down.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+The arm is pulled away from the contact, breaking the output circuit, so the bulb turns off. Input on, output off.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+We turn the input back off. The coil loses its pull and the arm springs back up toward the contact, about to light the bulb again.

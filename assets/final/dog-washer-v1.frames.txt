@@ -1,25 +1,25 @@
 title: dog washer v1
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+`MUDDY`, `STINKY`, and `OLD_WASH` are all off. With nothing switched on, no current reaches the bulb, so `WASH` is off.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`MUDDY` is switched on, so its coil powers up and starts pulling its relay.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`MUDDY`'s relay has been pulled, which satisfies the `MUDDY OR STINKY` part and powers the next relay down the chain. But `OLD_WASH` is still off, so `WASH` stays off.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+The signal keeps propagating down the chain toward the final `AND`. Still, `OLD_WASH` is off, so `WASH` is off.
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+Now `OLD_WASH` is switched on too. Both inputs to the final `AND` are on, so its relay powers up and starts pulling.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+That last relay closes, completing the circuit. `(MUDDY OR STINKY) AND OLD_WASH` is now true, so `WASH` turns on.
 
 [frame 7]
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+`STINKY` is switched on as well. It doesn't change anything, `MUDDY` already satisfied the OR, so `WASH` stays on.
 
 [frame 8]
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+`STINKY`'s relay pulls too, so now both `MUDDY` and `STINKY` feed the OR. `WASH` is still on.

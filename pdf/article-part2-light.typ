@@ -275,8 +275,9 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/pdf/.raster/light-final/full-accumulator.png", width: 100%))
+#box(image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%))
 
+#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
@@ -463,7 +464,13 @@ data.
 Here is an example where the content of register `A` gets copied into
 register `B`.
 
-#box(image("/pdf/.raster/light-final/common-data-bus-demo.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 100%),
+  image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 100%),
+  image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 100%),
+  image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 100%),
+  image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 100%)
+)
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -574,8 +581,9 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/pdf/.raster/light-final/cross-section.png", width: 100%))
+#box(image("/pdf/.raster/light-final/cross-section-1.png", width: 100%))
 
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=cross-section:1", "bytecolony.computer/writing/the-cpu/#f=cross-section:1")
 #caption("9.3")[Where the row and column meet.]
 
 How a decoder works is extremely simple. It just uses a bunch of logic

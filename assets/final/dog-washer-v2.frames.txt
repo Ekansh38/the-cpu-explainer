@@ -1,25 +1,25 @@
 title: dog washer v2
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+All four inputs are off. `MUDDY OR STINKY` is 0, so the first `AND` is 0, and the final output is 0. Don't wash.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`MUDDY` turns on, so `MUDDY OR STINKY` is now 1. But `OLD_WASH` is off, so the `AND` with it is 0, and the output stays 0.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`OLD_WASH` turns on too. Now `(MUDDY OR STINKY) AND OLD_WASH` is 1, and since `RAIN_SOON` is off the `NOT` gives a 1, so the final `AND` is 1. Wash the dog.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+`RAIN_SOON` turns on. The `NOT` flips it to 0, so the final `AND` drops to 0. Don't wash, it's about to rain.
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+`MUDDY` turns off and `STINKY` turns on. The `OR` is still 1, but `RAIN_SOON` is still on, so the output stays 0.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+`RAIN_SOON` turns off. The `NOT` gives a 1 again, and with `STINKY` and `OLD_WASH` on, the output is 1. Wash the dog.
 
 [frame 7]
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+`MUDDY` turns back on, so both `OR` inputs are on. Nothing else changes, the output stays 1.
 
 [frame 8]
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+`RAIN_SOON` turns on one more time. The `NOT` makes it 0, so no matter how muddy and stinky the dog is, the output is 0. Don't wash before the rain.

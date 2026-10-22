@@ -142,8 +142,9 @@ one hard idea. It is a very tall pile of simple ones.
 
 #caption("1.1")[The whole CPU.]
 
-We are going to try to understand this simple CPU. It is not a modern
-CPU with decades of optimization, but it has the same core
+This probably looks like an overwhelming mess, but don\'t worry, that\'s
+normal. We are going to try to understand this simple CPU. It is not a
+modern CPU with decades of optimization, but it has the same core
 functionality.
 
 === How to Read This
@@ -164,7 +165,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#box(image("/assets/final/basic-circuit.gif", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/assets/frames/basic-circuit-1.png", width: 100%),
+  image("/assets/frames/basic-circuit-2.png", width: 100%)
+)
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -234,8 +238,9 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/assets/final/or-gate-logical.gif", width: 100%))
+#box(image("/assets/frames/or-gate-logical-1.png", width: 100%))
 
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
@@ -394,6 +399,7 @@ negative end of that battery, so it is being driven to `-`.
 
 #grid(columns: 3, gutter: 6pt,
   image("/assets/frames/before-after-1.png", width: 100%),
+  image("/assets/frames/before-after-2.png", width: 100%),
   image("/assets/frames/before-after-3.png", width: 100%),
   image("/assets/frames/before-after-4.png", width: 100%)
 )
@@ -754,7 +760,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#box(image("/assets/final/8-bit-adder-examples.gif", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/dark/8-bit-adder-example-1.png", width: 100%),
+  image("/pdf/.raster/dark/8-bit-adder-example-2.png", width: 100%),
+  image("/pdf/.raster/dark/8-bit-adder-example-3.png", width: 100%)
+)
 
 #caption("6.12")[Some examples on the adder.]
 
@@ -993,8 +1003,9 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/assets/final/full-accumulator.gif", width: 100%))
+#box(image("/assets/frames/full-accumulator-1.png", width: 100%))
 
+#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
@@ -1181,7 +1192,13 @@ data.
 Here is an example where the content of register `A` gets copied into
 register `B`.
 
-#box(image("/assets/final/common-data-bus-demo.gif", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/assets/frames/common-data-bus-demo-1.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-2.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-3.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-4.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-5.png", width: 100%)
+)
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -1292,8 +1309,9 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/assets/final/cross-section.gif", width: 100%))
+#box(image("/pdf/.raster/dark/cross-section-1.png", width: 100%))
 
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=cross-section:1", "bytecolony.computer/writing/the-cpu/#f=cross-section:1")
 #caption("9.3")[Where the row and column meet.]
 
 How a decoder works is extremely simple. It just uses a bunch of logic

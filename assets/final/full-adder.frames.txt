@@ -1,25 +1,25 @@
 title: full adder
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+`Carry In`, `A`, and `B` are all 0. 0 plus 0 plus 0 is 0, so the `Sum` is 0 and the `Carry Out` is 0.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`A` is 1, the rest are 0. 1 plus 0 plus 0 is 1, so the `Sum` is 1 and the `Carry Out` is 0.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`B` is 1, the rest are 0. Same thing, that's 1, so the `Sum` is 1 and the `Carry Out` is 0.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+`A` and `B` are both 1, `Carry In` is 0. 1 plus 1 is 2, which is `10` in binary, so the `Sum` is 0 and the `Carry Out` is 1.
 
 [frame 5]
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+All three inputs are 1. 1 plus 1 plus 1 is 3, which is `11`, so the `Sum` is 1 and the `Carry Out` is 1.
 
 [frame 6]
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.
+`Carry In` and `A` are 1, `B` is 0. 1 plus 1 plus 0 is 2, so the `Sum` is 0 and the `Carry Out` is 1.
 
 [frame 7]
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+`Carry In` and `B` are 1, `A` is 0. Same thing, that's 2, so the `Sum` is 0 and the `Carry Out` is 1.
 
 [frame 8]
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+Only `Carry In` is 1. 1 plus 0 plus 0 is 1, so the `Sum` is 1 and the `Carry Out` is 0.

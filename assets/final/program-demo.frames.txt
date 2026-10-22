@@ -1,0 +1,40 @@
+title: program demo
+
+[frame 1]
+The program is loaded into `RAM` and `TAKEOVER` is off, so the `CPU` is in control. `PC` is sitting at 0, the bus is quiet at `Z`, nothing is happening yet. Let's run it.
+
+[frame 2]
+Step 1, the fetch begins. `PC` drives its value, 0, onto the bus, and `MAR` captures it. Now `MAR` points at address 0, our first instruction.
+
+[frame 3]
+Step 2. `RAM` puts the value at address 0 onto the bus, a `1`. `IR` captures it, so the `CPU` now knows this is a `LOAD A, n`. `PC` increments to 1.
+
+[frame 4]
+Step 3. This is a 2-byte instruction, so we need the second byte. `PC` (now 1) drives the bus and `MAR` captures it, pointing at address 1 where our number lives.
+
+[frame 5]
+Step 4. `RAM` puts the value at address 1 onto the bus, `42`. `A` captures it, so register `A` now holds 42. `PC` increments to 2. The `LOAD` is done.
+
+[frame 6]
+Step 1 again, fetching the next instruction. `PC` (2) drives the bus, `MAR` captures it. Notice `A` still holds 42, the fetch doesn't touch it.
+
+[frame 7]
+Step 2. `RAM` puts the value at address 2 onto the bus, a `3`. `IR` captures it, so now the `CPU` knows this is a `STORE A, [addr]`. `PC` increments to 3.
+
+[frame 8]
+Step 3, fetching the second byte. `PC` (3) drives the bus, `MAR` captures it, pointing at address 3.
+
+[frame 9]
+Step 4. `RAM` puts the value at address 3 onto the bus, `255`. But this time it lands in `MAR`, not a register, because for a `STORE` that byte is the address we want to write to. `PC` increments to 4.
+
+[frame 10]
+Step 5, the payoff. `A` drives its value, 42, onto the bus, and `RAM_WRITE` fires, storing it at address 255. And since address 255 is wired to the `DISPLAY`, the lamps light up 42.
+
+[frame 11]
+Step 1, one more fetch. `PC` (4) drives the bus, `MAR` captures it. The lamps keep holding 42.
+
+[frame 12]
+Step 2. `RAM` puts the value at address 4 onto the bus, `14`. `IR` captures it. 14 is `HALT`. `PC` increments to 5.
+
+[frame 13]
+Step 3. `HALT` sets a latch inside the `CU` that freezes the clock. Everything stops, the bus goes quiet, and 42 stays frozen on the lamps. The program is done.

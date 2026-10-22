@@ -1,13 +1,13 @@
 title: half adder
 
 [frame 1]
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+`A` and `B` are both 0, so the `XOR` outputs a `sum` of 0 and the `AND` outputs a `carry-out` of 0. 0 plus 0 is 0.
 
 [frame 2]
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+`A` is 1 and `B` is 0. The `XOR` has two different inputs, so the `sum` is 1. The `AND` doesn't have both inputs on, so the `carry-out` is 0. 1 plus 0 is 1.
 
 [frame 3]
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+`A` is 0 and `B` is 1. Same thing, the `XOR` gives a `sum` of 1 and the `AND` gives a `carry-out` of 0. 0 plus 1 is 1.
 
 [frame 4]
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est.
+`A` and `B` are both 1. The `XOR` has two matching inputs, so the `sum` is 0. But now the `AND` has both inputs on, so the `carry-out` is 1. 1 plus 1 is `10` in binary, a `sum` of 0 and a `carry-out` of 1.
