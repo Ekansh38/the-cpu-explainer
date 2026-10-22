@@ -487,7 +487,7 @@ step to these logic gates. But not so fast.
 
 This is how circuits make yes/no decisions. Not by understanding what
 `MUDDY` means, but by wiring simple gates so the output turns on only
-for the input pattern we care about.
+for the exact input we want.
 
 A wire is just a wire. We gave these wires meaning. We decided that one
 wire means `STINKY`, another wire means `MUDDY`, and another means
