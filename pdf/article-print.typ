@@ -2,9 +2,10 @@
 #let hf-off = state("hf-off", true)
 #let pstyle = state("pstyle", "i")
 #set page(
-  paper: "a4",
+  width: 6in,
+  height: 9in,
   fill: rgb("#ffffff"),
-  margin: (inside: 20mm, outside: 15mm, y: 22mm),
+  margin: (inside: 20mm, outside: 15mm, y: 20mm),
   header: context {
     if hf-off.get() { return }
     if pstyle.get() != "1" { return }
@@ -164,7 +165,7 @@ underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not
 one hard idea. It is a very tall pile of simple ones.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("1.1")[The whole CPU.]
 
@@ -1424,7 +1425,7 @@ In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and
 `WRITE` is orange. They are still ordinary wires; the colors are only
 there to make the diagram easier to follow.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
 
 #caption("9.5")[A zoomed out RAM diagram.]
 
@@ -1608,7 +1609,7 @@ does that work?\", you might think. Well, there are really just eight
 gates, one per bit. One gate takes `A0` and `B0`, the next takes `A1`
 and `B1`, and so on. Eight output wires, which is just another bus.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
 
 #caption("10.2")[`ALU` internals.]
 
@@ -1660,7 +1661,7 @@ actually adding.
 <the-big-picture>
 Here is a big picture diagram of the whole CPU.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("11.1")[The whole CPU.]
 
@@ -2027,7 +2028,7 @@ We can combine a simple accumulator and a `3-8` decoder. This will give
 us 8 steps, and because the accumulator overflows and naturally wraps
 back around to 0, the steps will loop correctly.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
 #caption("13.1")[The step counter.]
@@ -2062,7 +2063,7 @@ yea, it\'s just not a good way to do it.
 The best approach to this is just taking our clock signal and flipping
 it:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
 
 #caption("13.2")[Micro-step timing diagram.]
 
@@ -2114,7 +2115,7 @@ so we just can!
 And notice, these 2 micro-steps are exactly the same for every single
 instruction.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
 
 #caption("13.3")[The first few micro-steps.]
 
@@ -2187,7 +2188,7 @@ do that jump, we just increment `PC` and move on with our lives.
 Feel free to try and step through this diagram, or don\'t, it\'s a giant
 mess:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
 
 #caption("13.4")[All of the 2-byte instructions.]
 
@@ -2251,7 +2252,7 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.5")[`LOAD A, [addr]` animation.]
@@ -2276,7 +2277,7 @@ Next we do the `MOV` instructions.
 
 Quite simple:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
 
 #caption("13.6")[The MOV instructions.]
 
@@ -2338,7 +2339,7 @@ result, it\'s garbage.
 
 So here we are:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
 
 #caption("13.7")[The ALU instructions.]
 
@@ -2357,7 +2358,7 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and boom! We froze the
 computer.
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
 
 #caption("13.8")[The `HALT` instruction freezing the computer.]
 
@@ -2383,7 +2384,7 @@ so the panel can control those signals.
 
 Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
 
 #caption("13.9")[The `HALT` and `TAKEOVER` wiring.]
 
@@ -2411,7 +2412,7 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#pad(x: -10mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
+#pad(x: -5mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1")[The CPU running a simple program.]
