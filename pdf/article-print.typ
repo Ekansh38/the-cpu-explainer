@@ -25,7 +25,7 @@
   },
 )
 #set text(font: "TeX Gyre Pagella", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
-#set par(justify: true, leading: 0.68em, spacing: 0.8em)
+#set par(justify: true, leading: 0.68em, spacing: 1.0em)
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
   let nums = n.pos()
@@ -141,18 +141,16 @@
 
 #set table(stroke: 0.5pt + rgb("#cccccc"))
 #show table.cell: set text(fill: rgb("#111111"))
+#show table.cell: set par(justify: false)
 
 = The CPU: A very tall pile of simple
 <the-cpu-a-very-tall-pile-of-simple>
 == Part 1: Foundations
 <part-1-foundations>
-You can hear the phrase
-
-\"computers think in 1s and 0s\"
-
-a hundred times and still not understand how a computer actually works.
-By itself, this explains basically nothing. Sure, a wire can be high or
-low. Sure, a light can be on or off. But how does that become addition?
+You can hear the phrase \"computers think in 1s and 0s\" a hundred times
+and still not understand how a computer actually works. By itself, this
+explains basically nothing. Sure, a wire can be high or low. Sure, a
+light can be on or off. But how does that become addition?
 
 How does that become memory?
 
@@ -246,7 +244,7 @@ the last wash.
 
 So the rules for our first circuit are:
 
-if `STINKY AND OLD_WASH`, the bulb is on.
+If `STINKY AND OLD_WASH`, the bulb is on.
 
 Or in other words, if the dog is stinky and its last wash was over 5
 days ago, then wash the dog.
@@ -269,7 +267,7 @@ Now add a new input: `MUDDY`, if the dog is muddy.
 
 Now the rules of the circuit change:
 
-if `(MUDDY OR STINKY) AND OLD_WASH`
+If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
 All this says is, if the dog is muddy or stinky and it\'s been more than
 5 days since the dog\'s last wash, you should wash the dog.

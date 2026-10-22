@@ -102,6 +102,7 @@
 
 #set table(stroke: 0.5pt + rgb("#333333"))
 #show table.cell: set text(fill: rgb("#e6e6e6"))
+#show table.cell: set par(justify: false)
 
 = The CPU: A very tall pile of simple
 <the-cpu-a-very-tall-pile-of-simple>
