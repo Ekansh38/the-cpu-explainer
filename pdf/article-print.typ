@@ -24,8 +24,8 @@
     align(center, text(size: 10pt, numbering(pstyle.get(), p)))
   },
 )
-#set text(font: "New Computer Modern", fill: rgb("#111111"), size: 11.5pt, hyphenate: auto)
-#set par(justify: true, leading: 0.7em, spacing: 1.1em)
+#set text(font: "Palatino", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
+#set par(justify: true, leading: 0.68em, spacing: 0.68em, first-line-indent: (amount: 1.2em, all: false))
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
   let nums = n.pos()
@@ -36,12 +36,12 @@
 #show link: it => it
 
 #let caption(num, body) = block(above: 1.0em, below: 1.8em)[
-  #set text(size: 9.5pt, fill: rgb("#555555"))
+  #set text(size: 9pt, fill: rgb("#555555"))
   #text(weight: "bold")[Diagram #num.] #body
 ]
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
-  #set text(size: 9.5pt, fill: rgb("#555555"))
+  #set text(size: 9pt, fill: rgb("#555555"))
   Full #(count)-frame animation at #link(url)[#label].
 ]
 
@@ -53,34 +53,44 @@
 )
 
 #show heading.where(level: 1): it => {
-  v(6em)
+  v(2fr)
   align(center)[
-    #block(below: 1.2em)[
-      #set text(size: 32pt, weight: "bold")
-      #it.body
+    #block(below: 0.9em)[
+      #set text(size: 30pt, weight: "bold")
+      The CPU
     ]
-    #block(below: 0.5em)[
-      #set text(size: 14pt, style: "italic", weight: "regular")
-      Ekansh Goenka
+    #block[
+      #set text(size: 15pt, style: "italic", weight: "regular")
+      A very tall pile of simple
     ]
+  ]
+  v(1.2fr)
+  align(center)[
+    #set text(size: 13pt)
+    Ekansh Goenka
+  ]
+  v(2fr)
+  align(center)[
+    #set text(size: 9pt, fill: rgb("#777777"))
+    bytecolony.computer
   ]
   pagebreak()
   hf-off.update(false)
   v(1fr)
   block[
-    #set text(size: 9.5pt, fill: rgb("#777777"))
-    #set par(leading: 0.8em)
+    #set text(size: 9pt, fill: rgb("#777777"))
+    #set par(leading: 0.8em, first-line-indent: 0em)
     Copyright © 2026 Ekansh Goenka. All rights reserved. \
     First edition. \
     \
     The web edition of this book, including animated versions of the
     diagrams, is available at bytecolony.computer. \
     \
-    Typeset in New Computer Modern using Typst.
+    Typeset in Palatino.
   ]
   pagebreak()
   block(below: 1.4em)[
-    #set text(size: 20pt, weight: "bold")
+    #set text(size: 18pt, weight: "bold")
     Contents
   ]
   outline(
@@ -101,7 +111,7 @@
   v(5em)
   align(center)[
     #block[
-      #set text(size: 32pt, weight: "bold")
+      #set text(size: 26pt, weight: "bold")
       #it.body
     ]
   ]
@@ -110,7 +120,7 @@
 }
 
 #show heading.where(level: 3): it => block(above: 2.6em, below: 1em)[
-  #set text(size: 18pt, weight: "bold")
+  #set text(size: 16pt, weight: "bold")
   #it
   #v(0.2em)
   #line(length: 100%, stroke: 0.5pt + rgb("#cccccc"))
@@ -192,7 +202,7 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
 )
@@ -242,7 +252,7 @@ days ago, then wash the dog.
 
 Here is the circuit:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
@@ -300,7 +310,7 @@ spaghetti.
 
 Here is how it works:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
@@ -374,7 +384,7 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
@@ -410,7 +420,7 @@ Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
 receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-2.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%),
@@ -439,7 +449,7 @@ As you can see in the after example below, even when the relay is not
 pulling the arm, even when the output is 0, it is still touching the
 negative end of that battery, so it is being driven to `-`.
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
@@ -617,7 +627,7 @@ together? That is what the next section is all about.
 Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/decimal-addition-1.png", width: 100%),
   image("/pdf/.raster/light-final/decimal-addition-2.png", width: 100%),
   image("/pdf/.raster/light-final/decimal-addition-3.png", width: 100%)
@@ -702,7 +712,7 @@ This is called XOR, short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
@@ -824,7 +834,7 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
@@ -926,7 +936,7 @@ behind memory.
 
 This diagram should help this make sense:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-3.png", width: 100%),
@@ -1196,7 +1206,7 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-3.png", width: 100%),
@@ -1408,7 +1418,7 @@ gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#grid(columns: 2, gutter: 6pt,
+#grid(columns: 1, gutter: 6pt,
   image("/pdf/.raster/light-final/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-3.png", width: 100%),
