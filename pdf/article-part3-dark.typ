@@ -319,7 +319,7 @@ We can combine a simple accumulator and a `3-8` decoder. This will give
 us 8 steps, and because the accumulator overflows and naturally wraps
 back around to 0, the steps will loop correctly.
 
-#box(image("/assets/frames/cu-counter-1.png", width: 100%))
+#pad(x: -10mm, image("/assets/frames/cu-counter-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
 #caption("13.1")[The step counter.]
@@ -354,7 +354,7 @@ yea, it\'s just not a good way to do it.
 The best approach to this is just taking our clock signal and flipping
 it:
 
-#box(image("/pdf/.raster/dark/timing-diagram.png", alt: "Micro-step timing diagram", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/timing-diagram.png", width: 100%))
 
 #caption("13.2")[Micro-step timing diagram.]
 
@@ -406,7 +406,7 @@ so we just can!
 And notice, these 2 micro-steps are exactly the same for every single
 instruction.
 
-#box(image("/pdf/.raster/dark/cu-internals-one.png", alt: "The first few micro-steps", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-one.png", width: 100%))
 
 #caption("13.3")[The first few micro-steps.]
 
@@ -479,7 +479,7 @@ do that jump, we just increment `PC` and move on with our lives.
 Feel free to try and step through this diagram, or don\'t, it\'s a giant
 mess:
 
-#box(image("/pdf/.raster/dark/cu-internals-two.png", alt: "All of the 2-byte instructions", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-two.png", width: 100%))
 
 #caption("13.4")[All of the 2-byte instructions.]
 
@@ -543,7 +543,7 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#box(image("/assets/frames/cu-internals-two-demo-1.png", width: 100%))
+#pad(x: -10mm, image("/assets/frames/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.5")[`LOAD A, [addr]` animation.]
@@ -568,7 +568,7 @@ Next we do the `MOV` instructions.
 
 Quite simple:
 
-#box(image("/pdf/.raster/dark/cu-internals-movs.png", alt: "The MOV instructions", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-movs.png", width: 100%))
 
 #caption("13.6")[The MOV instructions.]
 
@@ -630,7 +630,7 @@ result, it\'s garbage.
 
 So here we are:
 
-#box(image("/pdf/.raster/dark/cu-internals-alu.png", alt: "The ALU instructions", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-alu.png", width: 100%))
 
 #caption("13.7")[The ALU instructions.]
 
@@ -649,7 +649,7 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and boom! We froze the
 computer.
 
-#box(image("/pdf/.raster/dark/cu-internals-halt.png", alt: "The HALT instruction", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-halt.png", width: 100%))
 
 #caption("13.8")[The `HALT` instruction freezing the computer.]
 
@@ -675,7 +675,7 @@ so the panel can control those signals.
 
 Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
-#box(image("/pdf/.raster/dark/cu-internals-halt-takeover.png", alt: "The HALT and TAKEOVER wiring", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-halt-takeover.png", width: 100%))
 
 #caption("13.9")[The `HALT` and `TAKEOVER` wiring.]
 
@@ -703,7 +703,7 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#box(image("/assets/frames/program-demo-1.png", width: 100%))
+#pad(x: -10mm, image("/assets/frames/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1")[The CPU running a simple program.]

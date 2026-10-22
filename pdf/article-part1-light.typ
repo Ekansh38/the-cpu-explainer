@@ -134,7 +134,7 @@ underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not
 one hard idea. It is a very tall pile of simple ones.
 
-#box(image("/pdf/.raster/light-final/big-picture-cpu.png", alt: "The whole CPU", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("1.1")[The whole CPU.]
 
@@ -211,7 +211,7 @@ days ago, then wash the dog.
 
 Here is the circuit:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
@@ -234,7 +234,7 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 47%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
@@ -263,7 +263,7 @@ spaghetti.
 
 Here is how it works:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
@@ -292,7 +292,7 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
@@ -337,7 +337,7 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
@@ -349,7 +349,7 @@ Now here is the OR gate:
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
-#box(image("/pdf/.raster/light-final/dog-washer-v1-1-s.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/dog-washer-v1-1-s.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1")
 #caption("4.7")[The full dog washer circuit built with relays.]
@@ -373,7 +373,7 @@ Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
 receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-2.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%),
@@ -402,7 +402,7 @@ As you can see in the after example below, even when the relay is not
 pulling the arm, even when the output is 0, it is still touching the
 negative end of that battery, so it is being driven to `-`.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
@@ -420,7 +420,7 @@ logic gate symbols.
 
 An AND gate is drawn like this:
 
-#box(image("/pdf/.raster/light-final/and-gate.png", alt: "An AND gate", width: 100%))
+#align(center, image("/pdf/.raster/light-final/and-gate.png", width: 70%))
 
 #caption("4.10")[An AND gate.]
 
@@ -429,7 +429,7 @@ instead of turning a bulb on and off, it drives an output wire.
 
 An OR gate is drawn like this:
 
-#box(image("/pdf/.raster/light-final/or-gate.png", alt: "An OR gate", width: 100%))
+#align(center, image("/pdf/.raster/light-final/or-gate.png", width: 65%))
 
 #caption("4.11")[An OR gate.]
 
@@ -441,7 +441,7 @@ the internal components stay hidden for cleanliness.
 
 Here are three more useful gate symbols:
 
-#box(image("/pdf/.raster/light-final/not-nand-nor-gates.png", alt: "NOT, NAND, NOR gates", width: 100%))
+#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 100%))
 
 #caption("4.12")[NOT, NAND, NOR gates.]
 
@@ -452,7 +452,7 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#box(image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 70%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("4.13")[The final dog washer circuit.]
@@ -527,7 +527,7 @@ assigned?
 Not exactly. To understand this, let\'s take a quick detour to decimal,
 a.k.a. base ten.
 
-#box(image("/pdf/.raster/light-final/decimal.png", alt: "The decimal system", width: 100%))
+#align(center, image("/pdf/.raster/light-final/decimal.png", width: 100%))
 
 #caption("5.3")[The decimal system.]
 
@@ -537,7 +537,7 @@ is because we have ten digits: 0-9.
 This exact same place value logic can apply to the binary system too. We
 have two digits, 0 and 1, so each place is a power of 2.
 
-#box(image("/pdf/.raster/light-final/binary.png", alt: "The binary system", width: 100%))
+#align(center, image("/pdf/.raster/light-final/binary.png", width: 100%))
 
 #caption("5.4")[The binary system.]
 
@@ -556,14 +556,14 @@ of how binary works makes sense.
 
 Let\'s walk through `1101` together.
 
-#box(image("/pdf/.raster/light-final/binary-example.png", alt: "An example in binary", width: 100%))
+#align(center, image("/pdf/.raster/light-final/binary-example.png", width: 100%))
 
 #caption("5.5")[An example in binary.]
 
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
-#box(image("/pdf/.raster/light-final/add-magic-box.png", alt: "Addition?", width: 100%))
+#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 70%))
 
 #caption("5.6")[Addition?]
 
@@ -572,7 +572,7 @@ together? That is what the next section is all about.
 Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/decimal-addition-1.png", width: 100%),
   image("/pdf/.raster/light-final/decimal-addition-2.png", width: 100%),
   image("/pdf/.raster/light-final/decimal-addition-3.png", width: 100%)
@@ -651,7 +651,7 @@ This is called XOR, short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
@@ -665,7 +665,7 @@ inputs are not on.
 
 Here is how an XOR gate looks:
 
-#box(image("/pdf/.raster/light-final/xor-gate.png", alt: "An XOR gate", width: 100%))
+#align(center, image("/pdf/.raster/light-final/xor-gate.png", width: 65%))
 
 #caption("6.4")[An XOR gate.]
 
@@ -675,7 +675,7 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1", "bytecolony.computer/writing/the-cpu/#f=half-adder:1")
 #caption("6.5")[A half adder.]
@@ -686,7 +686,7 @@ As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
 Now let\'s package up our half adder into a little box. From now on, I
 will call these packaged-up circuits chips:
 
-#box(image("/pdf/.raster/light-final/half-adder-box.png", alt: "A half adder chip", width: 100%))
+#align(center, image("/pdf/.raster/light-final/half-adder-box.png", width: 70%))
 
 #caption("6.6")[A half adder chip.]
 
@@ -696,7 +696,7 @@ column. It only needs to add two bits.
 
 So if we have a number like this:
 
-#box(image("/pdf/.raster/light-final/carry-in-issue.png", alt: "The next column has to add two bits plus a carry-in", width: 100%))
+#align(center, image("/pdf/.raster/light-final/carry-in-issue.png", width: 66%))
 
 #caption("6.7")[The next column has to add two bits plus a carry-in.]
 
@@ -712,7 +712,7 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#box(image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1", "bytecolony.computer/writing/the-cpu/#f=full-adder:1")
 #caption("6.8")[A full adder.]
@@ -729,7 +729,7 @@ is `1`, the full adder\'s carry-out is `1`.
 
 Let\'s again package this up into a chip:
 
-#box(image("/pdf/.raster/light-final/full-adder-box.png", alt: "A full adder chip", width: 100%))
+#align(center, image("/pdf/.raster/light-final/full-adder-box.png", width: 70%))
 
 #caption("6.9")[A full adder chip.]
 
@@ -739,7 +739,7 @@ Now we can chain full adders together to add two 8-bit numbers. Since 8
 bits make one byte, this is an adder that can add two one-byte numbers:
 anything from 0 to 255.
 
-#box(image("/pdf/.raster/light-final/8-bit-adder.png", alt: "An 8-bit adder", width: 100%))
+#align(center, image("/pdf/.raster/light-final/8-bit-adder.png", width: 100%))
 
 #caption("6.10")[An 8-bit adder.]
 
@@ -756,7 +756,7 @@ us. Like `50+50=100`.
 
 Now let\'s package this up into a chip once again:
 
-#box(image("/pdf/.raster/light-final/8-bit-adder-box.png", alt: "An 8-bit adder chip", width: 100%))
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-box.png", width: 100%))
 
 #caption("6.11")[An 8-bit adder chip.]
 
@@ -765,7 +765,7 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)

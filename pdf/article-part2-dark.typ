@@ -134,7 +134,7 @@ behind memory.
 
 This diagram should help this make sense:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/dark/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/dark/sr-latch-3.png", width: 100%),
@@ -186,7 +186,7 @@ not worry about the exact implementation.
 If you really want to know how it works, have a look at
 #link("https://www.build-electronic-circuits.com/d-latch/")[this site].
 
-#box(image("/pdf/.raster/dark/d-latch.png", alt: "D latch", width: 100%))
+#align(center, image("/pdf/.raster/dark/d-latch.png", width: 70%))
 
 #caption("7.2")[D latch.]
 
@@ -203,7 +203,7 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#box(image("/assets/frames/d-latch-accumulator-1.png", width: 100%))
+#align(center, image("/assets/frames/d-latch-accumulator-1.png", width: 100%))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
 #caption("7.3")[D latch accumulator.]
@@ -219,7 +219,7 @@ ones.
 But what if we had a storage circuit that only copied `D` into `Q` at
 the exact instant `E` turns on?
 
-#box(image("/pdf/.raster/dark/edge-graph.png", alt: "The rising edge of a signal", width: 100%))
+#align(center, image("/pdf/.raster/dark/edge-graph.png", width: 70%))
 
 #caption("7.4")[The rising edge of a signal.]
 
@@ -239,7 +239,7 @@ data input, edge-triggered means it triggers on the edge of a signal,
 and flip-flop means it is a storage circuit similar to a latch, but
 usually edge-triggered.
 
-#box(image("/pdf/.raster/dark/d-type-edge-triggered-flip-flop.png", alt: "A flip-flop", width: 100%))
+#align(center, image("/pdf/.raster/dark/d-type-edge-triggered-flip-flop.png", width: 100%))
 
 #caption("7.5")[A flip-flop.]
 
@@ -257,25 +257,25 @@ fine because the first latch is locked.
 
 Here is one storage cell, which is just the flip-flop we showed above:
 
-#box(image("/pdf/.raster/dark/flip-flop-storage-cell.png", alt: "A one-bit storage cell", width: 100%))
+#align(center, image("/pdf/.raster/dark/flip-flop-storage-cell.png", width: 70%))
 
 #caption("7.6")[A one-bit storage cell.]
 
 If we connect 8 of them side by side, we get one byte of storage:
 
-#box(image("/pdf/.raster/dark/8-storage-cells.png", alt: "Eight storage cells", width: 100%))
+#align(center, image("/pdf/.raster/dark/8-storage-cells.png", width: 100%))
 
 #caption("7.7")[Eight storage cells.]
 
 And we can put all that into a chip called an 8-bit register:
 
-#box(image("/pdf/.raster/dark/8-bit-register.png", alt: "An 8-bit register", width: 100%))
+#align(center, image("/pdf/.raster/dark/8-bit-register.png", width: 91%))
 
 #caption("7.8")[An 8-bit register.]
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#box(image("/assets/frames/full-accumulator-1.png", width: 100%))
+#align(center, image("/assets/frames/full-accumulator-1.png", width: 100%))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
@@ -298,7 +298,7 @@ rising edge of the clock acts like one press of `STEP`.
 
 Here is the basic concept of a clock:
 
-#box(image("/pdf/.raster/dark/clock-signal.png", alt: "A clock signal", width: 100%))
+#align(center, image("/pdf/.raster/dark/clock-signal.png", width: 70%))
 
 #caption("7.10")[A clock signal.]
 
@@ -340,7 +340,7 @@ To show the state of the wires, I can write a number in the arrow; the
 number 0 for example means the wires are all off, and the number 2 would
 mean the wires are `00000010` which is 2 in binary.
 
-#box(image("/pdf/.raster/dark/common-bus-example.png", alt: "Two registers sharing a bus", width: 100%))
+#align(center, image("/pdf/.raster/dark/common-bus-example.png", width: 70%))
 
 #caption("8.1")[Two registers sharing a bus.]
 
@@ -390,7 +390,7 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/dark/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/dark/tri-state-buffer-internals-3.png", width: 100%),
@@ -437,7 +437,7 @@ So we have three states:
 
 This is the logic gate diagram for a tri-state buffer:
 
-#box(image("/pdf/.raster/dark/tri-state-buffer.png", alt: "A tri-state buffer logic gate", width: 100%))
+#align(center, image("/pdf/.raster/dark/tri-state-buffer.png", width: 60%))
 
 #caption("8.3")[A tri-state buffer logic gate.]
 
@@ -450,7 +450,7 @@ So we can make a new type of register, one with `WRITE`, `OUT`, `data`,
 and a `Q` output that shows the stored bits 0-7. By `data`, I simply
 mean the input data that we can store when `WRITE` is enabled.
 
-#box(image("/pdf/.raster/dark/new-register-internals.png", alt: "Our register with an OUT input", width: 100%))
+#align(center, image("/pdf/.raster/dark/new-register-internals.png", width: 100%))
 
 #caption("8.4")[Our register with an OUT input.]
 
@@ -464,7 +464,7 @@ data.
 Here is an example where the content of register `A` gets copied into
 register `B`.
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/assets/frames/common-data-bus-demo-1.png", width: 100%),
   image("/assets/frames/common-data-bus-demo-2.png", width: 100%),
   image("/assets/frames/common-data-bus-demo-3.png", width: 100%),
@@ -504,7 +504,7 @@ to it? A handful of registers aren\'t enough.
 <organizing-data>
 We want to build a system that organizes data into a simple structure.
 
-#box(image("/pdf/.raster/dark/cabinet.png", alt: "Our data structure", width: 100%))
+#align(center, image("/pdf/.raster/dark/cabinet.png", width: 100%))
 
 #caption("9.1")[Our data structure.]
 
@@ -566,7 +566,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/pdf/.raster/dark/2-4-decoder-gates-4.png", width: 100%))
+#align(center, image("/pdf/.raster/dark/2-4-decoder-gates-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]
@@ -581,7 +581,7 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#box(image("/pdf/.raster/dark/cross-section-1.png", width: 100%))
+#align(center, image("/pdf/.raster/dark/cross-section-1.png", width: 100%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=cross-section:1", "bytecolony.computer/writing/the-cpu/#f=cross-section:1")
 #caption("9.3")[Where the row and column meet.]
@@ -596,7 +596,7 @@ gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#grid(columns: 3, gutter: 6pt,
+#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/dark/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/dark/2-4-decoder-gates-3.png", width: 100%),
@@ -613,7 +613,7 @@ In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and
 `WRITE` is orange. They are still ordinary wires; the colors are only
 there to make the diagram easier to follow.
 
-#box(image("/pdf/.raster/dark/zoomed-out-ram.png", alt: "A zoomed out RAM diagram", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/zoomed-out-ram.png", width: 100%))
 
 #caption("9.5")[A zoomed out RAM diagram.]
 
@@ -629,7 +629,7 @@ from `data in` when `WRITE` is on, or drive `data out` when `OUT` is on.
 
 Let\'s look at one cell more closely:
 
-#box(image("/pdf/.raster/dark/zoomed-in-ram.png", alt: "A zoomed in RAM cell diagram", width: 100%))
+#align(center, image("/pdf/.raster/dark/zoomed-in-ram.png", width: 100%))
 
 #caption("9.6")[A zoomed in RAM cell diagram.]
 
@@ -646,7 +646,7 @@ turn on `WRITE` for that register, and it will write the data on the
 So yea, both AND gates take in 3 inputs, if you are wondering how that
 works, just think of two AND gates chained together.
 
-#box(image("/pdf/.raster/dark/three-input-and.png", alt: "A three input AND gate", width: 100%))
+#align(center, image("/pdf/.raster/dark/three-input-and.png", width: 70%))
 
 #caption("9.7")[A three input AND gate.]
 
@@ -655,7 +655,7 @@ registers, we have a `RAM` array with 256 registers. The same logic can
 be copied, just with two `4-16` decoders instead of two `2-4` decoders
 and 8 address inputs rather than 4.
 
-#box(image("/pdf/.raster/dark/ram-interface.png", alt: "Our RAM chip", width: 100%))
+#align(center, image("/pdf/.raster/dark/ram-interface.png", width: 100%))
 
 #caption("9.8")[Our RAM chip.]
 
@@ -680,7 +680,7 @@ So from now on, instead of drawing registers connected to a common bus
 like this, where we have a separate `D` and `Q`, we can just draw them
 like this:
 
-#box(image("/pdf/.raster/dark/io-registers.png", alt: "I/O Registers", width: 100%))
+#align(center, image("/pdf/.raster/dark/io-registers.png", width: 82%))
 
 #caption("9.9")[I/O Registers.]
 
@@ -711,7 +711,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#box(image("/assets/frames/mar-ram-demo-1.png", width: 100%))
+#align(center, image("/assets/frames/mar-ram-demo-1.png", width: 100%))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1", "bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1")
 #caption("9.10")[How the MAR works.]
@@ -731,7 +731,7 @@ arithmetic and logic. Thus we have \"The Arithmetic and Logic Unit,\" or
 Imagine a chip where we could input two numbers, an operation, and
 output a result, along with some other information.
 
-#box(image("/pdf/.raster/dark/alu-interface.png", alt: "The ALU chip", width: 100%))
+#align(center, image("/pdf/.raster/dark/alu-interface.png", width: 61%))
 
 #caption("10.1")[The `ALU` chip.]
 
@@ -790,7 +790,7 @@ does that work?\", you might think. Well, there are really just eight
 gates, one per bit. One gate takes `A0` and `B0`, the next takes `A1`
 and `B1`, and so on. Eight output wires, which is just another bus.
 
-#box(image("/pdf/.raster/dark/alu-internals.png", alt: "ALU internals", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/alu-internals.png", width: 100%))
 
 #caption("10.2")[`ALU` internals.]
 
@@ -842,7 +842,7 @@ actually adding.
 <the-big-picture>
 Here is a big picture diagram of the whole CPU.
 
-#box(image("/pdf/.raster/dark/big-picture-cpu.png", alt: "The whole CPU", width: 100%))
+#pad(x: -10mm, image("/pdf/.raster/dark/big-picture-cpu.png", width: 100%))
 
 #caption("11.1")[The whole CPU.]
 
