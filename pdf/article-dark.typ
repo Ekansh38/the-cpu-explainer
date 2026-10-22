@@ -166,8 +166,8 @@ First, we need the basics of how electricity and circuits work.
 Here is a simple circuit:
 
 #grid(columns: 2, gutter: 6pt,
-  image("/assets/frames/basic-circuit-1.png", width: 100%),
-  image("/assets/frames/basic-circuit-2.png", width: 100%)
+  image("/pdf/.raster/dark/basic-circuit-1.png", width: 100%),
+  image("/pdf/.raster/dark/basic-circuit-2.png", width: 100%)
 )
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
@@ -216,10 +216,10 @@ days ago, then wash the dog.
 Here is the circuit:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/switches-1-1.png", width: 100%),
-  image("/assets/frames/switches-1-2.png", width: 100%),
-  image("/assets/frames/switches-1-3.png", width: 100%),
-  image("/assets/frames/switches-1-4.png", width: 100%)
+  image("/pdf/.raster/dark/switches-1-1.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-2.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-3.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-4.png", width: 100%)
 )
 
 #caption("4.1")[The hand-switch version of AND.]
@@ -238,7 +238,7 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/assets/frames/or-gate-logical-1.png", width: 100%))
+#box(image("/pdf/.raster/dark/or-gate-logical-1.png", width: 100%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
@@ -518,7 +518,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#align(center, image("/assets/frames/3-states-1.png", width: 35%))
+#align(center, image("/pdf/.raster/dark/3-states-1.png", width: 35%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
@@ -872,10 +872,10 @@ behind memory.
 This diagram should help this make sense:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/sr-latch-1.png", width: 100%),
-  image("/assets/frames/sr-latch-2.png", width: 100%),
-  image("/assets/frames/sr-latch-3.png", width: 100%),
-  image("/assets/frames/sr-latch-4.png", width: 100%)
+  image("/pdf/.raster/dark/sr-latch-1.png", width: 100%),
+  image("/pdf/.raster/dark/sr-latch-2.png", width: 100%),
+  image("/pdf/.raster/dark/sr-latch-3.png", width: 100%),
+  image("/pdf/.raster/dark/sr-latch-4.png", width: 100%)
 )
 
 #caption("7.1")[An SR latch.]
@@ -1303,7 +1303,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/assets/frames/2-4-decoder-gates-4.png", width: 100%))
+#box(image("/pdf/.raster/dark/2-4-decoder-gates-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]
@@ -1334,10 +1334,10 @@ gates to ask these simple questions.
 Here is how it works if you care:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/2-4-decoder-gates-1.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-2.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-3.png", width: 100%),
-  image("/assets/frames/2-4-decoder-gates-4.png", width: 100%)
+  image("/pdf/.raster/dark/2-4-decoder-gates-1.png", width: 100%),
+  image("/pdf/.raster/dark/2-4-decoder-gates-2.png", width: 100%),
+  image("/pdf/.raster/dark/2-4-decoder-gates-3.png", width: 100%),
+  image("/pdf/.raster/dark/2-4-decoder-gates-4.png", width: 100%)
 )
 
 #caption("9.4")[2-4 decoder internals.]

@@ -162,8 +162,8 @@ First, we need the basics of how electricity and circuits work.
 Here is a simple circuit:
 
 #grid(columns: 2, gutter: 6pt,
-  image("/assets/frames/basic-circuit-1.png", width: 100%),
-  image("/assets/frames/basic-circuit-2.png", width: 100%)
+  image("/pdf/.raster/dark/basic-circuit-1.png", width: 100%),
+  image("/pdf/.raster/dark/basic-circuit-2.png", width: 100%)
 )
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
@@ -212,10 +212,10 @@ days ago, then wash the dog.
 Here is the circuit:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/switches-1-1.png", width: 100%),
-  image("/assets/frames/switches-1-2.png", width: 100%),
-  image("/assets/frames/switches-1-3.png", width: 100%),
-  image("/assets/frames/switches-1-4.png", width: 100%)
+  image("/pdf/.raster/dark/switches-1-1.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-2.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-3.png", width: 100%),
+  image("/pdf/.raster/dark/switches-1-4.png", width: 100%)
 )
 
 #caption("4.1")[The hand-switch version of AND.]
@@ -234,7 +234,7 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#box(image("/assets/frames/or-gate-logical-1.png", width: 100%))
+#box(image("/pdf/.raster/dark/or-gate-logical-1.png", width: 100%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
@@ -514,7 +514,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#align(center, image("/assets/frames/3-states-1.png", width: 35%))
+#align(center, image("/pdf/.raster/dark/3-states-1.png", width: 35%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
