@@ -25,7 +25,7 @@
   },
 )
 #set text(font: "TeX Gyre Pagella", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
-#set par(justify: true, leading: 0.68em, spacing: 1.0em)
+#set par(justify: true, leading: 0.68em, spacing: 0.68em, first-line-indent: (amount: 1.2em, all: false))
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
   let nums = n.pos()
