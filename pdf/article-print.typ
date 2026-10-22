@@ -24,7 +24,7 @@
     align(center, text(size: 10pt, numbering(pstyle.get(), p)))
   },
 )
-#set text(font: "Palatino", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
+#set text(font: "TeX Gyre Pagella", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
 #set par(justify: true, leading: 0.68em, spacing: 0.68em, first-line-indent: (amount: 1.2em, all: false))
 #set block(spacing: 1.1em)
 #set heading(numbering: (..n) => {
@@ -86,7 +86,7 @@
     The web edition of this book, including animated versions of the
     diagrams, is available at bytecolony.computer. \
     \
-    Typeset in Palatino.
+    Typeset in TeX Gyre Pagella.
   ]
   pagebreak()
   block(below: 1.4em)[
@@ -2584,4 +2584,25 @@ a very tall pile of simple.
 
 
 #hf-off.update(true)
+#pagebreak(to: "odd", weak: true)
+#v(4em)
+#align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
+#v(2em)
+#align(center)[
+  #rect(width: 42mm, height: 52mm, stroke: 0.5pt + rgb("#aaaaaa"))[
+    #align(center + horizon)[#text(size: 8pt, fill: rgb("#aaaaaa"))[photo]]
+  ]
+]
+#v(2em)
+Ekansh Goenka wrote this book at 13, over about six months alongside school.
+He wrote all of it and drew all 71 diagrams by hand. He designed his own
+8-bit CPU for it, and it really works.
+
+He wrote it because once he understood how a CPU works in detail, it turned
+out to be simpler than most people think. The resources he found either
+skipped the juicy details, so you never really got it, or were so long and
+intimidating that most people never started.
+
+The web version is free at bytecolony.computer, with the animated diagrams.
+
 #pagebreak(to: "even")
