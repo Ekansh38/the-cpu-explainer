@@ -203,9 +203,16 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#align(center, image("/assets/frames/d-latch-accumulator-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/assets/frames/d-latch-accumulator-1.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-2.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-3.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-4.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-5.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-6.png", width: 100%),
+  image("/assets/frames/d-latch-accumulator-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
 #caption("7.3")[D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
@@ -275,9 +282,16 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#align(center, image("/assets/frames/full-accumulator-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/assets/frames/full-accumulator-1.png", width: 100%),
+  image("/assets/frames/full-accumulator-2.png", width: 100%),
+  image("/assets/frames/full-accumulator-3.png", width: 100%),
+  image("/assets/frames/full-accumulator-4.png", width: 100%),
+  image("/assets/frames/full-accumulator-5.png", width: 100%),
+  image("/assets/frames/full-accumulator-6.png", width: 100%),
+  image("/assets/frames/full-accumulator-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
@@ -581,9 +595,15 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#align(center, image("/pdf/.raster/dark/cross-section-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/dark/cross-section-1.png", width: 100%),
+  image("/assets/frames/cross-section-2.png", width: 100%),
+  image("/assets/frames/cross-section-3.png", width: 100%),
+  image("/assets/frames/cross-section-4.png", width: 100%),
+  image("/assets/frames/cross-section-5.png", width: 100%),
+  image("/assets/frames/cross-section-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=cross-section:1", "bytecolony.computer/writing/the-cpu/#f=cross-section:1")
 #caption("9.3")[Where the row and column meet.]
 
 How a decoder works is extremely simple. It just uses a bunch of logic
@@ -711,9 +731,16 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#align(center, image("/assets/frames/mar-ram-demo-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/assets/frames/mar-ram-demo-1.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-2.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-3.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-4.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-5.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-6.png", width: 100%),
+  image("/assets/frames/mar-ram-demo-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1", "bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1")
 #caption("9.10")[How the MAR works.]
 
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store

@@ -234,9 +234,15 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#align(center, image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 47%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
@@ -514,9 +520,17 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#align(center, image("/pdf/.raster/light-final/3-states-1.png", width: 35%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/3-states-1.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-2.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-3.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-4.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-5.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-6.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-7.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-8.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
 
 We can represent 8 numbers just like this.
@@ -585,9 +599,15 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#align(center, image("/pdf/.raster/light-final/binary-addition-1.png", width: 35%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/binary-addition-1.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-2.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-3.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-4.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-5.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1", "bytecolony.computer/writing/the-cpu/#f=binary-addition:1")
 #caption("6.2")[Binary addition.]
 
 `1 + 1` gives `10`, which is binary for 2.
@@ -712,9 +732,17 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#align(center, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-4.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-5.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1", "bytecolony.computer/writing/the-cpu/#f=full-adder:1")
 #caption("6.8")[A full adder.]
 
 This might look confusing at first. What if both half adders output a

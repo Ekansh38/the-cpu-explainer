@@ -1,15 +1,26 @@
 #set document(title: "The CPU: A very tall pile of simple")
+#let hf-off = state("hf-off", true)
+#let pstyle = state("pstyle", "i")
 #set page(
   paper: "a4",
   fill: rgb("#ffffff"),
   margin: (inside: 20mm, outside: 15mm, y: 22mm),
-  numbering: "1",
-  number-align: center,
   header: context {
-    if counter(page).get().first() > 2 [
-      #set text(size: 9pt, fill: rgb("#777777"), style: "italic")
-      #align(right)[The CPU: A very tall pile of simple]
-    ]
+    if hf-off.get() { return }
+    if pstyle.get() != "1" { return }
+    set text(size: 9pt, fill: rgb("#777777"), style: "italic")
+    let p = counter(page).get().first()
+    if calc.even(p) {
+      align(left)[The CPU: A very tall pile of simple]
+    } else {
+      let secs = query(selector(heading.where(level: 3)).before(here()))
+      if secs.len() > 0 { align(right)[#secs.last().body] }
+    }
+  },
+  footer: context {
+    if hf-off.get() { return }
+    let p = counter(page).get().first()
+    align(center, text(size: 10pt, numbering(pstyle.get(), p)))
   },
 )
 #set text(font: "New Computer Modern", fill: rgb("#111111"), size: 11.5pt, hyphenate: auto)
@@ -21,7 +32,7 @@
   else if nums.at(1) == 0 { none }
   else { numbering("1.1.", ..nums.slice(1)) }
 })
-#show link: it => text(fill: rgb("#1a4a73"))[#it]
+#show link: it => it
 
 #let caption(num, body) = block(above: 1.0em, below: 1.8em)[
   #set text(size: 9.5pt, fill: rgb("#555555"))
@@ -51,10 +62,20 @@
       #set text(size: 14pt, style: "italic", weight: "regular")
       Ekansh Goenka
     ]
-    #block[
-      #set text(size: 10pt, fill: rgb("#777777"))
-      October 2026
-    ]
+  ]
+  pagebreak()
+  hf-off.update(false)
+  v(1fr)
+  block[
+    #set text(size: 9.5pt, fill: rgb("#777777"))
+    #set par(leading: 0.8em)
+    Copyright © 2026 Ekansh Goenka. All rights reserved. \
+    First edition. \
+    \
+    The web edition of this book, including animated versions of the
+    diagrams, is available at bytecolony.computer. \
+    \
+    Typeset in New Computer Modern using Typst.
   ]
   pagebreak()
   block(below: 1.4em)[
@@ -67,11 +88,15 @@
     depth: 4,
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
-  pagebreak()
 }
 
 #show heading.where(level: 2): it => {
-  pagebreak(weak: true)
+  hf-off.update(true)
+  pagebreak(to: "odd", weak: true)
+  context if pstyle.get() == "i" {
+    counter(page).update(1)
+    pstyle.update("1")
+  }
   v(5em)
   align(center)[
     #block[
@@ -80,6 +105,7 @@
     ]
   ]
   v(2em)
+  hf-off.update(false)
 }
 
 #show heading.where(level: 3): it => block(above: 2.6em, below: 1em)[
@@ -238,9 +264,15 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#align(center, image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 47%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
+  image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("4.2")[The hand-switch version of OR.]
 
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
@@ -518,9 +550,17 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#align(center, image("/pdf/.raster/light-final/3-states-1.png", width: 35%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/3-states-1.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-2.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-3.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-4.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-5.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-6.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-7.png", width: 100%),
+  image("/pdf/.raster/light-final/3-states-8.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=3-states:1", "bytecolony.computer/writing/the-cpu/#f=3-states:1")
 #caption("5.2")[States with 3 wires.]
 
 We can represent 8 numbers just like this.
@@ -589,9 +629,15 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#align(center, image("/pdf/.raster/light-final/binary-addition-1.png", width: 35%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/binary-addition-1.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-2.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-3.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-4.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-5.png", width: 100%),
+  image("/pdf/.raster/light-final/binary-addition-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1", "bytecolony.computer/writing/the-cpu/#f=binary-addition:1")
 #caption("6.2")[Binary addition.]
 
 `1 + 1` gives `10`, which is binary for 2.
@@ -716,9 +762,17 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#align(center, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-4.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-5.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
+  image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1", "bytecolony.computer/writing/the-cpu/#f=full-adder:1")
 #caption("6.8")[A full adder.]
 
 This might look confusing at first. What if both half adders output a
@@ -940,9 +994,16 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#align(center, image("/pdf/.raster/light-final/d-latch-accumulator-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/d-latch-accumulator-1.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-2.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-3.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-4.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-5.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-6.png", width: 100%),
+  image("/pdf/.raster/light-final/d-latch-accumulator-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
 #caption("7.3")[D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
@@ -1012,9 +1073,16 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#align(center, image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-2.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-3.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-4.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-5.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-6.png", width: 100%),
+  image("/pdf/.raster/light-final/full-accumulator-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
@@ -1318,9 +1386,15 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#align(center, image("/pdf/.raster/light-final/cross-section-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/cross-section-1.png", width: 100%),
+  image("/pdf/.raster/light-final/cross-section-2.png", width: 100%),
+  image("/pdf/.raster/light-final/cross-section-3.png", width: 100%),
+  image("/pdf/.raster/light-final/cross-section-4.png", width: 100%),
+  image("/pdf/.raster/light-final/cross-section-5.png", width: 100%),
+  image("/pdf/.raster/light-final/cross-section-6.png", width: 100%)
+)
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=cross-section:1", "bytecolony.computer/writing/the-cpu/#f=cross-section:1")
 #caption("9.3")[Where the row and column meet.]
 
 How a decoder works is extremely simple. It just uses a bunch of logic
@@ -1448,9 +1522,16 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%))
+#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
+)
 
-#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1", "bytecolony.computer/writing/the-cpu/#f=mar-ram-demo:1")
 #caption("9.10")[How the MAR works.]
 
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store
@@ -2491,4 +2572,5 @@ I hope you now understand why computers aren\'t \"just\" 1s and 0s, but
 a very tall pile of simple.
 
 
+#hf-off.update(true)
 #pagebreak(to: "even")
