@@ -124,10 +124,9 @@ text.
 
 The two inputs are `SET` and `RESET`, drawn as little buttons in the
 diagram: gray means not pressed, red means pressed. Pressing `SET`
-forces `Q` to `1` and pressing `RESET` forces `Q` to `0`.
-
-For this circuit to be used properly, `SET` and `RESET` should never be
-on at the same time.
+forces `Q` to `1` and pressing `RESET` forces `Q` to `0`. For this
+circuit to be used properly, `SET` and `RESET` should never be on at the
+same time.
 
 The cool part is, if both `SET` and `RESET` are `0`, then `Q` is
 whatever we last did to it! The output loops back into the circuit, so
@@ -220,10 +219,8 @@ turn on for an instant and then turn back off. That is just hard to do.
 As you can see in this diagram, even pressing the button quickly jumps
 the result up by 5. With real transistors, even if you try to physically
 tap the button, it could count up by millions, overflowing these 8 bits
-thousands of times.
-
-How long you hold the button decides the answer. It doesn\'t count in
-ones.
+thousands of times. How long you hold the button decides the answer. It
+doesn\'t count in ones.
 
 But what if we had a storage circuit that only copied `D` into `Q` at
 the exact instant `E` turns on?
@@ -332,11 +329,9 @@ Just imagine the new accumulator with a clock signal instead of a `STEP`
 button. I am too lazy to draw it for you.
 
 We now have some storage. A register that can hold a byte, and update
-exactly when we want.
-
-But registers on their own are not enough. We need to be able to move
-numbers between registers, the adders, and the main memory, which we
-will build later.
+exactly when we want. But registers on their own are not enough. We need
+to be able to move numbers between registers, the adders, and the main
+memory, which we will build later.
 
 === Buses
 <buses>
@@ -475,10 +470,8 @@ buffers. So if `OUT` is `0`, `Q` will be all `Z`, and if `OUT` is `1`,
 `Q` will be whatever is stored in the register.
 
 With that, we can use these new registers with a common bus to move
-data.
-
-Here is an example where the content of register `A` gets copied into
-register `B`.
+data. Here is an example where the content of register `A` gets copied
+into register `B`.
 
 #grid(columns: 2, gutter: 6pt,
   image("/assets/frames/common-data-bus-demo-1.png", width: 100%),
@@ -510,11 +503,10 @@ By the end of this sequence, we have copied the value 53 to register
 `B`! We can have many more registers sharing a common bus, as long as
 only one is driving the bus at a time.
 
-Now we can store a byte, compute a sum, and move bytes around!
-
-The next problem is organization and scale. How do we organize many
-stored bytes so the machine can choose one slot, read it, and write back
-to it? A handful of registers aren\'t enough.
+Now we can store a byte, compute a sum, and move bytes around! The next
+problem is organization and scale. How do we organize many stored bytes
+so the machine can choose one slot, read it, and write back to it? A
+handful of registers aren\'t enough.
 
 === Organizing Data
 <organizing-data>
@@ -546,18 +538,14 @@ each.
 
 For this demo `RAM`, `address` is only 4 input wires. `data in` and
 `data out` carry bytes and are both connected directly to the common
-bus.
-
-This only works if no other part is driving the bus when `OUT` is
+bus. This only works if no other part is driving the bus when `OUT` is
 enabled.
 
 So we are going to build a minuscule 16-byte `RAM`: 16 addresses, with
-each address storing one byte. This design can be scaled up easily.
-
-Our address will be 4 bits long, because `2^4` is 16.
+each address storing one byte. This design can be scaled up easily. Our
+address will be 4 bits long, because `2^4` is 16.
 
 We could do this as a tall stack of 16 registers, but a grid is nicer.
-
 So we will split the 4-bit address in half. The bottom two bits pick the
 row, and the top two bits pick the column:
 
@@ -687,16 +675,12 @@ the bus section.
 
 But drawing two separate data buses every time is cumbersome. From the
 outside, we can abstract this as one shared data bus with a
-double-headed arrow called `I/O`, which stands for input/output.
-
-It is practically just like having two buses, one for input, one for
-output.
+double-headed arrow called `I/O`, which stands for input/output. It is
+practically just like having two buses, one for input, one for output.
 
 If `W` is on, `RAM` copies the value from the data bus into the selected
-address.
-
-If `O` is on, `RAM` drives the selected address\'s value onto the data
-bus.
+address. If `O` is on, `RAM` drives the selected address\'s value onto
+the data bus.
 
 So from now on, instead of drawing registers connected to a common bus
 like this, where we have a separate `D` and `Q`, we can just draw them
@@ -721,12 +705,9 @@ During a `RAM` operation, it needs to carry the value being written to
 the address at the same time.
 
 We need something to hold the address while the data bus is being used
-for the actual I/O.
-
-This is called the Memory Address Register, or `MAR`.
-
-The `MAR` is just a regular 8-bit register with no `OUT` control signal
-as it is always outputting directly into `RAM`.
+for the actual I/O. This is called the Memory Address Register, or
+`MAR`. The `MAR` is just a regular 8-bit register with no `OUT` control
+signal as it is always outputting directly into `RAM`.
 
 We first put an address on the data bus and turn on `MAR_WRITE`. The
 `MAR` stores that address. Then the `MAR` keeps sending that address to
@@ -801,17 +782,15 @@ So, in the previous diagram, we did 0+0 which is 0, so the `ZERO` flag
 is on, and the `EQUAL` flag too because both inputs are equal.
 
 This next diagram uses a new component. It is a mix of two registers we
-have already seen.
-
-Remember the D latch, the first storage circuit we built? While its
-enable was on, `Q` simply equaled `D`. No edge-triggering or anything
-like that. This new register is a D latch with the enable permanently
-on: it is always storing whatever value is on its input.
+have already seen. Remember the D latch, the first storage circuit we
+built? While its enable was on, `Q` simply equaled `D`. No
+edge-triggering or anything like that. This new register is a D latch
+with the enable permanently on: it is always storing whatever value is
+on its input.
 
 But like our newer registers, its output goes through tri-state buffers
-with an `OUT` control signal, so we still decide when it outputs.
-
-So in total: a data input that is always being stored, an `OUT` control
+with an `OUT` control signal, so we still decide when it outputs. So in
+total: a data input that is always being stored, an `OUT` control
 signal, and an output.
 
 Also, you\'ll see me feeding two buses into a single logic gate. \"How
@@ -880,12 +859,11 @@ circle from the intro, except this time the CPU isn\'t something
 completely foreign. Of course we still have a lot to learn and build,
 but wow. Just wow.
 
-Some quick notes on the diagram before we dig in.
-
-The 8-bit data buses are blue when not being driven, just like before.
-If a control wire is red, it means it\'s on. If a bus is red, it means
-it\'s being driven like normal. But we have something new here that we
-haven\'t seen before.
+Some quick notes on the diagram before we dig in. The 8-bit data buses
+are blue when not being driven, just like before. If a control wire is
+red, it means it\'s on. If a bus is red, it means it\'s being driven
+like normal. But we have something new here that we haven\'t seen
+before.
 
 Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving. A `G` wire is being driven, with an
@@ -916,11 +894,9 @@ registers. `PC` is an accumulator style circuit, and we know how `ALU`
 in the bottom left works.
 
 Let\'s examine each element of the CPU closely and see what details
-changed and why.
-
-First, register `B`. Register `B` is a normal tri-state 8-bit register
-with `W` and `O` control wires. We will talk about its use in more
-detail later.
+changed and why. First, register `B`. Register `B` is a normal tri-state
+8-bit register with `W` and `O` control wires. We will talk about its
+use in more detail later.
 
 We then have register `A`, which is just like register `B`, but it also
 has a `Q` output in addition to `I/O`. This `Q` output is simply the

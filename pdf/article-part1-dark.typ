@@ -117,11 +117,9 @@ How does that become a program sitting in `RAM`, one instruction after
 another, telling a machine what to do?
 
 Some resources stay extremely high-level, so you never really understand
-how a CPU actually works.
-
-The deeper resources are amazing, but they are long, dense, and
-intimidating. And frankly, for someone who doesn\'t want that level of
-detail, a lot of it can often feel like too much.
+how a CPU actually works. The deeper resources are amazing, but they are
+long, dense, and intimidating. And frankly, for someone who doesn\'t
+want that level of detail, a lot of it can often feel like too much.
 
 My goal is to help you understand what is going on under the hood,
 without exploding your brain or eating weeks of time.
@@ -172,10 +170,8 @@ loop. Current can only flow when this loop is completed.
 
 If the loop is broken, nothing flows. A switch is simply a controlled
 break in the loop, allowing us to break and complete the loop whenever
-we want.
-
-And a light bulb is just a simple light bulb. It glows when current
-flows through the filament.
+we want. And a light bulb is just a simple light bulb. It glows when
+current flows through the filament.
 
 Now we have a circuit that can do one yes/no thing. Current flows or it
 doesn\'t.
@@ -186,16 +182,12 @@ Now let\'s see if we can combine switches and relays so the circuit can
 === Switches, Relays, & Logic Gates
 <switches-relays--logic-gates>
 Say we want to build a simple dog washer circuit: a circuit that, based
-on some inputs, can tell us whether to wash our dog or not.
-
-Our simple circuit is going to use a light bulb being on to mean yes,
-wash the dog. Light bulb off means no, don\'t wash the dog.
-
-So we start with an extremely simple version with two switches.
-
-In this first version, the switches are directly inside the bulb
-circuit. The person using the circuit can open or close each switch to
-answer a yes/no question.
+on some inputs, can tell us whether to wash our dog or not. Our simple
+circuit is going to use a light bulb being on to mean yes, wash the dog.
+Light bulb off means no, don\'t wash the dog. So we start with an
+extremely simple version with two switches. In this first version, the
+switches are directly inside the bulb circuit. The person using the
+circuit can open or close each switch to answer a yes/no question.
 
 Let\'s say switch 1 represents `STINKY`: whether the dog is stinky or
 not. Switch 2 represents `OLD_WASH`: has it been more than 5 days since
@@ -203,10 +195,8 @@ the last wash.
 
 So the rules for our first circuit are:
 
-If `STINKY AND OLD_WASH`, the bulb is on.
-
-Or in other words, if the dog is stinky and its last wash was over 5
-days ago, then wash the dog.
+If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog
+is stinky and its last wash was over 5 days ago, then wash the dog.
 
 Here is the circuit:
 
@@ -247,18 +237,15 @@ Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
 bulb to turn on.
 
-Before we combine these, let\'s tackle a bigger problem.
-
-So far, every switch is flipped by a human. If we ever want to build a
-computer, it needs to run by itself: electricity has to be able to flip
-a switch by itself! But how?
+Before we combine these, let\'s tackle a bigger problem. So far, every
+switch is flipped by a human. If we ever want to build a computer, it
+needs to run by itself: electricity has to be able to flip a switch by
+itself! But how?
 
 Electromagnetic relays, that\'s how. Or at least, that is one early
 solution to this problem. We will talk about other solutions a little
-more later on.
-
-This probably sounds quite complicated, but it is just a magnet powered
-by electricity.
+more later on. This probably sounds quite complicated, but it is just a
+magnet powered by electricity.
 
 One thing to mention before the next diagram: if you see several little
 batteries in a circuit, don\'t interpret that as several totally
@@ -309,25 +296,19 @@ two input wires and outputs an electrical signal.
 
 The output circuit has two breaks in it, one controlled by each input
 relay. Only when both inputs have signal do both relays close,
-completing the output loop.
-
-Using these relays chained in clever ways, you can create every
-fundamental logic gate, such as the OR gate.
+completing the output loop. Using these relays chained in clever ways,
+you can create every fundamental logic gate, such as the OR gate.
 
 But before the next diagram, I am going to use one more new symbol:
-ground.
-
-For our purposes here, the ground symbol will simply refer to the common
-return point of the circuit, usually connected to the negative side of
-the battery.
+ground. For our purposes here, the ground symbol will simply refer to
+the common return point of the circuit, usually connected to the
+negative side of the battery.
 
 Every point marked with the ground symbol is connected together, as if
 there were hidden wires joining them underneath the drawing. It is not a
 new component. It is just a less messy way to draw the return path of
-the circuit.
-
-The circuits are still loops. I am just not explicitly drawing the
-return wire anymore.
+the circuit. The circuits are still loops. I am just not explicitly
+drawing the return wire anymore.
 
 In a real schematic, the ground symbol itself would usually stay white.
 In these diagrams, I sometimes color it red when that return point is
@@ -421,9 +402,7 @@ In this diagram, red wire means current is actively flowing. That\'s why
 red wire will just mean high, or 1.
 
 Now before we look at the completed circuit, let\'s learn some basic
-logic gate symbols.
-
-An AND gate is drawn like this:
+logic gate symbols. An AND gate is drawn like this:
 
 #align(center, image("/pdf/.raster/dark/and-gate.png", width: 70%))
 
@@ -451,7 +430,6 @@ Here are three more useful gate symbols:
 #caption("4.12")[NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
-
 That little circle at the end of a gate means \"flip the output.\"
 
 With our knowledge about logic gates, let\'s create the
@@ -465,10 +443,9 @@ With our knowledge about logic gates, let\'s create the
 Again this animation doesn\'t cover all possible states.
 
 Keep in mind these electromagnetic relays we used in the examples are
-quite big and slow.
-
-Relays aren\'t the only solution. They are simply one of the early and
-intuitive methods to understand, and many real computers like the
+quite big and slow. Relays aren\'t the only solution. They are simply
+one of the early and intuitive methods to understand, and many real
+computers like the
 #link("https://en.wikipedia.org/wiki/Harvard_Mark_I")[Harvard Mark I]
 actually used these types of relays.
 
@@ -498,9 +475,8 @@ That is what the next section is about.
 Before we continue with this section, let\'s define some terms.
 
 A wire driven low is `0`, and a wire driven high is `1`. Let\'s call one
-wire one bit. A bit can either be `0` or `1`.
-
-These are just labels that represent the state of a wire.
+wire one bit. A bit can either be `0` or `1`. These are just labels that
+represent the state of a wire.
 
 A group of 8 bits is called a byte. With 8 bits, there are `2^8`, or
 256, possible patterns. So if we use those patterns to represent
@@ -643,9 +619,8 @@ combinations, we have added the first column.
 This is called a half adder. A half adder adds two bits, but it does not
 handle a carry-in value. That is the job of a full adder.
 
-Let\'s first build this half adder.
-
-Let\'s start by computing the sum, not the carry-out.
+Let\'s first build this half adder. Let\'s start by computing the sum,
+not the carry-out.
 
 This is what we want our circuit to do:
 
@@ -663,9 +638,8 @@ This is what we want our circuit to do:
   , kind: table
   )
 
-The sum is `1` only when exactly one input is `1`.
-
-This is called XOR, short for exclusive OR.
+The sum is `1` only when exactly one input is `1`. This is called XOR,
+short for exclusive OR.
 
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
@@ -749,10 +723,9 @@ carry-out at the same time?
 
 That actually never happens. If a half adder outputs a carry, the sum
 bit is always 0. So both can never output carries at the same time. Take
-a moment to think about this if you are confused.
-
-So we can confidently OR the two carry outputs together. If either one
-is `1`, the full adder\'s carry-out is `1`.
+a moment to think about this if you are confused. So we can confidently
+OR the two carry outputs together. If either one is `1`, the full
+adder\'s carry-out is `1`.
 
 Let\'s again package this up into a chip:
 
@@ -775,7 +748,6 @@ becomes the carry-in for the next column. That is it! That is all
 addition is!
 
 Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0.
-
 Also, notice how we have 9 outputs, not 8. That is because two 8-bit
 values can add up to a number too big to fit in eight bits. It\'s like
 how adding two 2-digit numbers could result in a three-digit number for
@@ -812,9 +784,8 @@ see that the real answer was 256.
 That is called an overflow: the result was too large to fit inside one
 byte, so the extra information spilled out into the carry-out bit.
 
-The adder can also produce little status wires, called flags.
-
-For example, if the answer is `00000000`, a `ZERO` flag can turn on. If
+The adder can also produce little status wires, called flags. For
+example, if the answer is `00000000`, a `ZERO` flag can turn on. If
 addition spills past one byte, a `CARRY` flag can turn on. So
 `11111111 + 00000001` gives `00000000` with carry-out `1`.
 
@@ -824,7 +795,6 @@ instructions like \"jump if zero.\" But let\'s not get ahead of
 ourselves.
 
 We have just built addition! But we also need something else: storage.
-
 For example, let\'s say we want to build a circuit that counts by ones,
 like 1, 2, 3, 4,...
 
@@ -833,10 +803,8 @@ inputs. Start with `00000000`, add `00000001`, get `00000001`. Feed that
 back in, add `00000001` again, get `00000010`. Then `00000011`, then
 `00000100`, and so on.
 
-That seems correct at first glance.
-
-But there is a big problem. An adder just looks at its current inputs
-and computes an output.
+That seems correct at first glance. But there is a big problem. An adder
+just looks at its current inputs and computes an output.
 
 So if we wire the output straight back into the input, there is no
 stable value anymore. The adder is basically being asked to make a
@@ -848,14 +816,11 @@ input = input + 1
 
 That can never settle. As soon as the output changes, the input changes
 too, which means the output has to change again, which means the input
-changes again.
+changes again. With relays, you might physically see this mess play out.
+With transistors, it would happen almost instantly.
 
-With relays, you might physically see this mess play out. With
-transistors, it would happen almost instantly.
-
-There is no boundary between the old value and the new value.
-
-There is no clean \"step 1, step 2, step 3.\"
+There is no boundary between the old value and the new value. There is
+no clean \"step 1, step 2, step 3.\"
 
 So this is not enough. We need a circuit that can hold a value still,
 then update it only when we tell it to.

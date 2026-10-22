@@ -112,10 +112,8 @@ Instructions tell the CPU what to do, and a list of instructions is a
 program. There are game programs, calculator programs, email programs.
 Everything on your computer is a program. Just a long, long list of
 instructions telling the CPU to do simple things like add these two
-numbers, move this value here, etc.
-
-All programs are just a list of instructions stored in `RAM`, each
-instruction coded as a number.
+numbers, move this value here, etc. All programs are just a list of
+instructions stored in `RAM`, each instruction coded as a number.
 
 So here is what number each instruction in our CPU translates to:
 
@@ -190,12 +188,11 @@ our program ended at address 4. It would march straight into the rest of
 leftovers from the last program, or whatever junk the memory happened to
 wake up holding. We need a way to stop.
 
-So this program just puts 5 on the output and stops. Pretty simple.
-
-As you can tell, some instructions take two bytes, and some only need
-one. A 2-byte instruction is one where the first byte alone is not
-enough. `LOAD A, n` needs to know what value to load, so the next byte
-in `RAM` is that value.
+So this program just puts 5 on the output and stops. Pretty simple. As
+you can tell, some instructions take two bytes, and some only need one.
+A 2-byte instruction is one where the first byte alone is not enough.
+`LOAD A, n` needs to know what value to load, so the next byte in `RAM`
+is that value.
 
 One more thing: the order things are written in. For `MOV`, the
 destination comes first. `MOV B, A` copies `A` into `B`, not the other
@@ -292,10 +289,9 @@ But we don\'t really need these for our slow computer. Just know real
 computers use a combination of timer hardware, little counter circuits
 that tick along with the clock, and loops like these to wait for the
 right amount of time. Some CPUs even have a sleep instruction that shuts
-them down completely until something wakes them up.
-
-So basically, these jump instructions can help us branch on certain
-conditions letting our program decide stuff, and also run in loops.
+them down completely until something wakes them up. So basically, these
+jump instructions can help us branch on certain conditions letting our
+program decide stuff, and also run in loops.
 
 But how would the CPU actually execute an instruction? What control
 wires would it flip, and in what order? Let\'s take the `MOV B, A`
@@ -619,10 +615,9 @@ the number for each of these instructions in the instruction table. Then
 have a look at the ALU\'s operation table.
 
 Also just for future reference, these numbers that represent
-instructions are called op-codes, just like the `ALU` op-bits.
-
-Yep, the last 2 bits of each instruction directly match the `ALU` bits
-for that specific operation. Must be a coincidence...
+instructions are called op-codes, just like the `ALU` op-bits. Yep, the
+last 2 bits of each instruction directly match the `ALU` bits for that
+specific operation. Must be a coincidence...
 
 Anyway, because of this, we can just directly wire those 2 last bits
 into the `ALU` op-bits. Since we only actually store the result of the
