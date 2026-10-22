@@ -121,7 +121,7 @@ wash, you should wash the dog.
 
 Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-<a id="diagram-4-2"></a> <img src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
+<a id="diagram-4-2"></a> <img pdf-frames="1,2,3,4,5,6" src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
 
 *Diagram 4.2. The hand-switch version of OR.*
 
@@ -165,7 +165,7 @@ metal arm moving. Relays are mechanical, so they do not switch instantly.
 Now let's see how we can build an actual electrical AND gate that takes two input wires and outputs
 an electrical signal.
 
-<a id="diagram-4-4"></a> <img src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
+<a id="diagram-4-4"></a> <img pdf-frames="1,3,6,8,10" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
 *Diagram 4.4. An AND gate.*
 
@@ -198,7 +198,7 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-<a id="diagram-4-6"></a> <img src="./assets/final/electronic-or-gate.gif" alt="An electronic OR gate">
+<a id="diagram-4-6"></a> <img pdf-frames="1,3,5,7" src="./assets/final/electronic-or-gate.gif" alt="An electronic OR gate">
 
 *Diagram 4.6. An electronic OR gate.*
 
@@ -337,7 +337,7 @@ represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-<a id="diagram-5-2"></a> <img src="./assets/final/3-states.gif" class="small" alt="States with 3 wires">
+<a id="diagram-5-2"></a> <img pdf-frames="1,2,3,4,5,6,7,8" src="./assets/final/3-states.gif" class="small" alt="States with 3 wires">
 
 *Diagram 5.2. States with 3 wires.*
 
@@ -398,7 +398,7 @@ We start at the rightmost column, do 5+8, get 13, and carry the 1. So we write 3
 the carry. We then move left and repeat over and over remembering to add any carry-in values. Binary
 addition works the same way.
 
-<a id="diagram-6-2"></a> <img src="./assets/final/binary-addition.gif" class="small" alt="Binary addition">
+<a id="diagram-6-2"></a> <img pdf-frames="1,2,3,4,5,6" src="./assets/final/binary-addition.gif" class="small" alt="Binary addition">
 
 *Diagram 6.2. Binary addition.*
 
@@ -499,7 +499,7 @@ we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-<a id="diagram-6-8"></a> <img src="./assets/final/full-adder.gif" alt="A full adder">
+<a id="diagram-6-8"></a> <img pdf-frames="1,2,3,4,5,6,7,8" src="./assets/final/full-adder.gif" alt="A full adder">
 
 *Diagram 6.8. A full adder.*
 
@@ -687,7 +687,7 @@ how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to turn on for an instant and
 then turn back off. That is just hard to do.
 
-<a id="diagram-7-3"></a> <img src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
+<a id="diagram-7-3"></a> <img pdf-frames="1,2,3,4,5,6,7" src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
 
 *Diagram 7.3. D latch accumulator.*
 
@@ -750,7 +750,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
-<a id="diagram-7-9"></a> <img src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
+<a id="diagram-7-9"></a> <img pdf-frames="1,2,3,4,5,6,7" src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
 
 *Diagram 7.9. Our full accumulator.*
 
@@ -993,7 +993,7 @@ row and selected column cross, that is the byte we want to target.
 
 This diagram shows a few addresses as examples. Each address gets its own little intersection.
 
-<a id="diagram-9-3"></a> <img src="./assets/final/cross-section.gif" alt="Where the row and column meet">
+<a id="diagram-9-3"></a> <img pdf-frames="1,2,3,4,5,6" src="./assets/final/cross-section.gif" alt="Where the row and column meet">
 
 *Diagram 9.3. Where the row and column meet.*
 
@@ -1101,7 +1101,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The `MAR` store
 Then the `MAR` keeps sending that address to `RAM`, leaving the data bus free to carry the value being
 read or written.
 
-<a id="diagram-9-10"></a> <img src="./assets/final/mar-ram-demo.gif" alt="How the MAR works">
+<a id="diagram-9-10"></a> <img pdf-frames="1,2,3,4,5,6,7" src="./assets/final/mar-ram-demo.gif" alt="How the MAR works">
 
 *Diagram 9.10. How the MAR works.*
 

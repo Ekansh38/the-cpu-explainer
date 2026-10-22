@@ -391,10 +391,10 @@ yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/tri-state-buffer-internals-1.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-2.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-3.png", width: 100%),
-  image("/assets/frames/tri-state-buffer-internals-4.png", width: 100%)
+  image("/pdf/.raster/dark/tri-state-buffer-internals-1.png", width: 100%),
+  image("/pdf/.raster/dark/tri-state-buffer-internals-2.png", width: 100%),
+  image("/pdf/.raster/dark/tri-state-buffer-internals-3.png", width: 100%),
+  image("/pdf/.raster/dark/tri-state-buffer-internals-4.png", width: 100%)
 )
 
 #caption("8.2")[A tri-state buffer built with relays.]
@@ -566,7 +566,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/assets/frames/2-4-decoder-1.png", width: 100%))
+#box(image("/assets/frames/2-4-decoder-gates-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]

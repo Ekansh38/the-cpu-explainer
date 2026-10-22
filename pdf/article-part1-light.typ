@@ -292,9 +292,14 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#box(image("/pdf/.raster/light-final/electronic-and-gate-1-s.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
+)
 
-#anim-note(11, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1")
 #caption("4.4")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
@@ -332,9 +337,13 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#box(image("/pdf/.raster/light-final/electronic-or-gate-1-s.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
+  image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1")
 #caption("4.6")[An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
@@ -666,7 +675,7 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/pdf/.raster/light-final/half-adder-1.png", width: 100%))
+#box(image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1", "bytecolony.computer/writing/the-cpu/#f=half-adder:1")
 #caption("6.5")[A half adder.]

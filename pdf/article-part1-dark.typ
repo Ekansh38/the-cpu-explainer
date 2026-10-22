@@ -264,10 +264,10 @@ spaghetti.
 Here is how it works:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/basic-relay-1.png", width: 100%),
-  image("/assets/frames/basic-relay-2.png", width: 100%),
-  image("/assets/frames/basic-relay-3.png", width: 100%),
-  image("/assets/frames/basic-relay-4.png", width: 100%)
+  image("/pdf/.raster/dark/basic-relay-1.png", width: 100%),
+  image("/pdf/.raster/dark/basic-relay-2.png", width: 100%),
+  image("/pdf/.raster/dark/basic-relay-3.png", width: 100%),
+  image("/pdf/.raster/dark/basic-relay-4.png", width: 100%)
 )
 
 #caption("4.3")[An electromagnetic relay.]
@@ -292,9 +292,14 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#box(image("/assets/frames/electronic-and-gate-1-s.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/assets/frames/electronic-and-gate-1.png", width: 100%),
+  image("/assets/frames/electronic-and-gate-3.png", width: 100%),
+  image("/assets/frames/electronic-and-gate-6.png", width: 100%),
+  image("/assets/frames/electronic-and-gate-8.png", width: 100%),
+  image("/assets/frames/electronic-and-gate-10.png", width: 100%)
+)
 
-#anim-note(11, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1")
 #caption("4.4")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
@@ -332,9 +337,13 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#box(image("/assets/frames/electronic-or-gate-1-s.png", width: 100%))
+#grid(columns: 3, gutter: 6pt,
+  image("/pdf/.raster/dark/electronic-or-gate-1.png", width: 100%),
+  image("/pdf/.raster/dark/electronic-or-gate-3.png", width: 100%),
+  image("/pdf/.raster/dark/electronic-or-gate-5.png", width: 100%),
+  image("/pdf/.raster/dark/electronic-or-gate-7.png", width: 100%)
+)
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1")
 #caption("4.6")[An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
@@ -365,10 +374,10 @@ receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/not-gate-1.png", width: 100%),
-  image("/assets/frames/not-gate-2.png", width: 100%),
-  image("/assets/frames/not-gate-3.png", width: 100%),
-  image("/assets/frames/not-gate-4.png", width: 100%)
+  image("/pdf/.raster/dark/not-gate-1.png", width: 100%),
+  image("/pdf/.raster/dark/not-gate-2.png", width: 100%),
+  image("/pdf/.raster/dark/not-gate-3.png", width: 100%),
+  image("/pdf/.raster/dark/not-gate-4.png", width: 100%)
 )
 
 #caption("4.8")[A NOT gate.]
@@ -394,10 +403,10 @@ pulling the arm, even when the output is 0, it is still touching the
 negative end of that battery, so it is being driven to `-`.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/before-after-1.png", width: 100%),
-  image("/assets/frames/before-after-2.png", width: 100%),
-  image("/assets/frames/before-after-3.png", width: 100%),
-  image("/assets/frames/before-after-4.png", width: 100%)
+  image("/pdf/.raster/dark/before-after-1.png", width: 100%),
+  image("/pdf/.raster/dark/before-after-2.png", width: 100%),
+  image("/pdf/.raster/dark/before-after-3.png", width: 100%),
+  image("/pdf/.raster/dark/before-after-4.png", width: 100%)
 )
 
 #caption("4.9")[Driving an output wire.]
@@ -564,9 +573,9 @@ Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/decimal-addition-1.png", width: 100%),
-  image("/assets/frames/decimal-addition-2.png", width: 100%),
-  image("/assets/frames/decimal-addition-3.png", width: 100%)
+  image("/pdf/.raster/dark/decimal-addition-1.png", width: 100%),
+  image("/pdf/.raster/dark/decimal-addition-2.png", width: 100%),
+  image("/pdf/.raster/dark/decimal-addition-3.png", width: 100%)
 )
 
 #caption("6.1")[Standard decimal addition.]
@@ -576,7 +585,7 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#align(center, image("/assets/frames/binary-addition-1.png", width: 35%))
+#align(center, image("/pdf/.raster/dark/binary-addition-1.png", width: 35%))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=binary-addition:1", "bytecolony.computer/writing/the-cpu/#f=binary-addition:1")
 #caption("6.2")[Binary addition.]
@@ -643,10 +652,10 @@ If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
 #grid(columns: 3, gutter: 6pt,
-  image("/assets/frames/half-adder-sum-1.png", width: 100%),
-  image("/assets/frames/half-adder-sum-2.png", width: 100%),
-  image("/assets/frames/half-adder-sum-3.png", width: 100%),
-  image("/assets/frames/half-adder-sum-4.png", width: 100%)
+  image("/pdf/.raster/dark/half-adder-sum-1.png", width: 100%),
+  image("/pdf/.raster/dark/half-adder-sum-2.png", width: 100%),
+  image("/pdf/.raster/dark/half-adder-sum-3.png", width: 100%),
+  image("/pdf/.raster/dark/half-adder-sum-4.png", width: 100%)
 )
 
 #caption("6.3")[Half adder sum / XOR.]
@@ -666,7 +675,7 @@ both inputs are on.
 
 Now here is our half adder:
 
-#box(image("/assets/frames/half-adder-1.png", width: 100%))
+#box(image("/pdf/.raster/dark/half-adder-sum-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1", "bytecolony.computer/writing/the-cpu/#f=half-adder:1")
 #caption("6.5")[A half adder.]
@@ -703,7 +712,7 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#box(image("/assets/frames/full-adder-1.png", width: 100%))
+#box(image("/pdf/.raster/dark/full-adder-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=full-adder:1", "bytecolony.computer/writing/the-cpu/#f=full-adder:1")
 #caption("6.8")[A full adder.]

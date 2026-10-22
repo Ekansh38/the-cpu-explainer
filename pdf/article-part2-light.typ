@@ -566,7 +566,7 @@ of 4 wires.
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
 
-#box(image("/pdf/.raster/light-final/2-4-decoder-1.png", width: 100%))
+#box(image("/pdf/.raster/light-final/2-4-decoder-gates-4.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("9.2")[How a decoder works.]
