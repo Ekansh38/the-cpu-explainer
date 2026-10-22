@@ -207,7 +207,7 @@ days ago, then wash the dog.
 
 Here is the circuit:
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
@@ -258,7 +258,7 @@ spaghetti.
 
 Here is how it works:
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
@@ -359,7 +359,7 @@ Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
 receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-2.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%),
@@ -636,7 +636,7 @@ This is called XOR, short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),

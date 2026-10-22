@@ -134,7 +134,7 @@ behind memory.
 
 This diagram should help this make sense:
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-3.png", width: 100%),
@@ -389,7 +389,7 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-3.png", width: 100%),
@@ -588,7 +588,7 @@ gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#grid(columns: 4, gutter: 6pt,
+#grid(columns: 3, gutter: 6pt,
   image("/pdf/.raster/light-final/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-3.png", width: 100%),
