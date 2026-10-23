@@ -100,15 +100,15 @@
     depth: 4,
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
+  hf-off.update(true)
+  pagebreak(to: "odd", weak: true)
+  counter(page).update(1)
+  pstyle.update("1")
 }
 
 #show heading.where(level: 2): it => {
   hf-off.update(true)
   pagebreak(to: "odd", weak: true)
-  context if pstyle.get() == "i" {
-    counter(page).update(1)
-    pstyle.update("1")
-  }
   v(5em)
   align(center)[
     #block[
