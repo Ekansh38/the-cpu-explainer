@@ -374,7 +374,7 @@ addition works the same way.
 
 So the sum bit for that column is `0`, and the carry is `1`.
 
-`1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`.
+`1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`, and so on.
 
 How do we build a circuit using logic gates that performs this standard addition algorithm? 
 
@@ -549,8 +549,8 @@ instantly.
 
 There is no boundary between the old value and the new value. There is no clean "step 1, step 2, step 3."
 
-So this is not enough. We need a circuit that can hold a value still, then update it only when we
-tell it to.
+So this is not enough. We need a circuit that can hold a value, then update it only when we tell it
+to.
 
 That is the next problem: memory.
 
@@ -559,7 +559,7 @@ That is the next problem: memory.
 ### Storing a Bit
 
 In the last section, wiring the output of a circuit back into its input led to chaos. But with a
-smarter configuration, we can use this trick to store a bit.
+smarter configuration, we can use this idea to store a bit.
 
 The circuit that stores a single bit is called an SR latch. SR stands for set-reset. The value `Q` is the
 output we really care about. If it is `1`, that means the latch is storing a `1`; if it is `0`, the
@@ -635,7 +635,7 @@ how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to turn on for an instant and
 then turn back off. That is just hard to do.
 
-<a id="diagram-7-3"></a> <img pdf-frames="1,2,3,4,5,6,7" src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
+<a id="diagram-7-3"></a> <img pdf-frames="link" src="./assets/final/d-latch-accumulator.gif" alt="D latch accumulator">
 
 *Diagram 7.3. D latch accumulator.*
 

@@ -601,7 +601,7 @@ works the same way.
 So the sum bit for that column is `0`, and the carry is `1`.
 
 `1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`,
-and the carry is `1`.
+and the carry is `1`, and so on.
 
 How do we build a circuit using logic gates that performs this standard
 addition algorithm?
@@ -833,8 +833,8 @@ With transistors, it would happen almost instantly.
 There is no boundary between the old value and the new value. There is
 no clean \"step 1, step 2, step 3.\"
 
-So this is not enough. We need a circuit that can hold a value still,
-then update it only when we tell it to.
+So this is not enough. We need a circuit that can hold a value, then
+update it only when we tell it to.
 
 That is the next problem: memory.
 
@@ -843,7 +843,7 @@ That is the next problem: memory.
 === Storing a Bit
 <storing-a-bit>
 In the last section, wiring the output of a circuit back into its input
-led to chaos. But with a smarter configuration, we can use this trick to
+led to chaos. But with a smarter configuration, we can use this idea to
 store a bit.
 
 The circuit that stores a single bit is called an SR latch. SR stands
@@ -938,16 +938,9 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#grid(columns: 2, gutter: 6pt,
-  image("/assets/frames/d-latch-accumulator-1.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-2.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-3.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-4.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-5.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-6.png", width: 100%),
-  image("/assets/frames/d-latch-accumulator-7.png", width: 100%)
-)
+#align(center, image("/assets/frames/d-latch-accumulator-1.png", width: 100%))
 
+#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
 #caption("7.3")[D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
