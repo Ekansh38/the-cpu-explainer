@@ -185,6 +185,8 @@ That is an OR gate using relays. Now here is the full dog washer circuit up to t
 The animation does not show every possible combination of switches, only a handful. But in a
 nutshell, if `MUDDY` or `STINKY` is on, and `OLD_WASH` is also on, the bulb turns on.
 
+Notice the OR gate's bulb is gone. Its output wire feeds the next relay's coil directly. I'll show exactly how a gate drives a wire like that in a bit.
+
 Okay, now let's introduce one last input, or "sensor": `RAIN_SOON`, whether it is predicted to rain soon.
 The rules of the circuit change once again:
 
@@ -202,7 +204,7 @@ outputs no signal; if it receives no signal, it outputs signal.
 
 *Diagram 4.8. A NOT gate.*
 
-Now let's clean up some of our understanding of circuits before we move on. We have been showing our
+Remember the OR output feeding that relay in the dog washer? Here is what is actually going on there. We have been showing our
 outputs as a light bulb. For a bulb to be on, it needs to be connected to `+` and `-`, one on each
 side. That difference in voltage allows current to flow, turning on the bulb.
 
