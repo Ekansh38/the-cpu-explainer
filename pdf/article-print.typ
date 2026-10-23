@@ -172,7 +172,7 @@ underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not
 one hard idea. It is a very tall pile of simple ones.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("1.1")[The whole CPU.]
 
@@ -199,10 +199,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
-))
+)])
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -241,12 +241,12 @@ is stinky and its last wash was over 5 days ago, then wash the dog.
 
 Here is the circuit:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
-))
+)])
 
 #caption("4.1")[The hand-switch version of AND.]
 
@@ -264,14 +264,14 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
-))
+)])
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -295,7 +295,7 @@ connected to power,\" so the diagram so diagrams stay clear.
 
 Here is how it works:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
@@ -324,13 +324,13 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
-))
+)])
 
 #caption("4.4")[An AND gate.]
 
@@ -363,12 +363,12 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
-))
+)])
 
 #caption("4.6")[An electronic OR gate.]
 
@@ -402,7 +402,7 @@ dog\'s last wash and it\'s not going to rain soon, then wash the dog.
 Let\'s focus on this NOT for a second. NOT just flips its input: if the
 input is 1, the output is 0; if the input is 0, the output is 1.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-2.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%),
@@ -439,7 +439,7 @@ transistors, need to be driven low for the 0 logic to work correctly,
 and we are using relays to replace them. So, we just treat 0 as driven
 low so as to not mess up your brain.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
@@ -476,7 +476,7 @@ instead of turning on a light bulb, they drive a wire.
 
 Here are three more useful gate symbols:
 
-#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 85%))
+#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 95%))
 
 #caption("4.12")[NOT, NAND, NOR gates.]
 
@@ -486,7 +486,7 @@ That little circle at the end of a gate means \"flip the output.\"
 With our knowledge about logic gates, let\'s create the
 \"should-I-wash-my-dog 5000\" machine!
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("4.13")[The final dog washer circuit.]
@@ -544,7 +544,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/3-states-1.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-2.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-3.png", width: 100%),
@@ -597,7 +597,7 @@ Let\'s walk through `1101` together.
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
-#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 60%))
+#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 95%))
 
 #caption("5.6")[Addition?]
 
@@ -619,7 +619,7 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/binary-addition-1.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-2.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-3.png", width: 100%),
@@ -689,12 +689,13 @@ short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 76%))
 
 #caption("6.3")[Half adder sum / XOR.]
 
@@ -750,16 +751,21 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-4.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-5.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
-))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-2.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-3.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-4.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-5.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-6.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-7.png", width: 100%))
+
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
 
 #caption("6.8")[A full adder.]
 
@@ -812,11 +818,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 76%))
 
 #caption("6.12")[Some examples on the adder.]
 
@@ -907,12 +913,12 @@ behind memory.
 
 This diagram should help this make sense:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-3.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-4.png", width: 100%)
-))
+)])
 
 #caption("7.1")[An SR latch.]
 
@@ -956,7 +962,7 @@ It basically checks: if `D` is true and `E` is true, `SET` is true, and
 if `D` is false and `E` is true, `RESET` is true. That\'s it, so let\'s
 not worry about the exact implementation.
 
-#align(center, image("/pdf/.raster/light-final/d-latch.png", width: 60%))
+#align(center, image("/pdf/.raster/light-final/d-latch.png", width: 95%))
 
 #caption("7.2")[D latch.]
 
@@ -1043,7 +1049,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-2.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-3.png", width: 100%),
@@ -1051,7 +1057,7 @@ Now with this register, let\'s build a basic accumulator/adder circuit.
   image("/pdf/.raster/light-final/full-accumulator-5.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-6.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-7.png", width: 100%)
-))
+)])
 
 #caption("7.9")[Our full accumulator.]
 
@@ -1113,7 +1119,7 @@ To show the state of the wires, I can write a number in the arrow; the
 number 0 for example means the wires are all off, and the number 2 would
 mean the wires are `00000010` which is 2 in binary.
 
-#align(center, image("/pdf/.raster/light-final/common-bus-example.png", width: 60%))
+#align(center, image("/pdf/.raster/light-final/common-bus-example.png", width: 95%))
 
 #caption("8.1")[Two registers sharing a bus.]
 
@@ -1167,12 +1173,12 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-3.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-4.png", width: 100%)
-))
+)])
 
 #caption("8.2")[A tri-state buffer built with relays.]
 
@@ -1239,13 +1245,15 @@ With that, we can use these new registers with a common bus to move
 data. Here is an example where the content of register `A` gets copied
 into register `B`.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 76%))
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -1351,14 +1359,14 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/cross-section-1.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-2.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-3.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-4.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-5.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-6.png", width: 100%)
-))
+)])
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -1372,7 +1380,7 @@ gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-3.png", width: 100%),
@@ -1389,7 +1397,7 @@ In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and
 `WRITE` is orange. They are still ordinary wires; the colors are only
 there to make the diagram easier to follow.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
 
 #caption("9.5")[A zoomed out RAM diagram.]
 
@@ -1423,7 +1431,7 @@ turn on `WRITE` for that register, and it will write the data on the
 So yea, both AND gates take in 3 inputs, if you are wondering how that
 works, just think of two AND gates chained together.
 
-#align(center, image("/pdf/.raster/light-final/three-input-and.png", width: 60%))
+#align(center, image("/pdf/.raster/light-final/three-input-and.png", width: 95%))
 
 #caption("9.7")[A three input AND gate.]
 
@@ -1432,7 +1440,7 @@ registers, we have a `RAM` array with 256 registers. The same logic can
 be copied, just with two `4-16` decoders instead of two `2-4` decoders
 and 8 address inputs rather than 4.
 
-#align(center, image("/pdf/.raster/light-final/ram-interface.png", width: 85%))
+#align(center, image("/pdf/.raster/light-final/ram-interface.png", width: 95%))
 
 #caption("9.8")[Our RAM chip.]
 
@@ -1481,15 +1489,19 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#pad(x: -5mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 76%))
 
 #caption("9.10")[How the MAR works.]
 
@@ -1565,7 +1577,7 @@ does that work?\", you might think. Well, there are really just eight
 gates, one per bit. One gate takes `A0` and `B0`, the next takes `A1`
 and `B1`, and so on. Eight output wires, which is just another bus.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
 
 #caption("10.2")[`ALU` internals.]
 
@@ -1617,7 +1629,7 @@ actually adding.
 <the-big-picture>
 Here is a big picture diagram of the whole CPU.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("11.1")[The whole CPU.]
 
@@ -1981,7 +1993,7 @@ We can combine a tiny 3-bit accumulator and a `3-8` decoder. This will
 give us 8 steps, and because the accumulator overflows and naturally
 wraps back around to 0, the steps will loop correctly.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
 #caption("13.1")[The step counter.]
@@ -2018,7 +2030,7 @@ yea, it\'s just not a good way to do it.
 The best approach to this is just taking our clock signal and flipping
 it:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
 
 #caption("13.2")[Micro-step timing diagram.]
 
@@ -2070,7 +2082,7 @@ so we just can!
 And notice, these 2 micro-steps are exactly the same for every single
 instruction.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
 
 #caption("13.3")[The first few micro-steps.]
 
@@ -2146,7 +2158,7 @@ lives.
 Feel free to try and step through this diagram, or don\'t, it\'s a giant
 mess:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
 
 #caption("13.4")[All of the 2-byte instructions.]
 
@@ -2212,7 +2224,7 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.5")[`LOAD A, [addr]` animation.]
@@ -2237,7 +2249,7 @@ Next we do the `MOV` instructions.
 
 Quite simple:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
 
 #caption("13.6")[The MOV instructions.]
 
@@ -2298,7 +2310,7 @@ result, it\'s garbage.
 
 So here we are:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
 
 #caption("13.7")[The ALU instructions.]
 
@@ -2317,7 +2329,7 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and boom! We froze the
 computer.
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
 
 #caption("13.8")[The `HALT` instruction freezing the computer.]
 
@@ -2343,7 +2355,7 @@ so the panel can control those signals.
 
 Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
 
 #caption("13.9")[The `HALT` and `TAKEOVER` wiring.]
 
@@ -2371,7 +2383,7 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#pad(x: -5mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1")[The CPU running a simple program.]

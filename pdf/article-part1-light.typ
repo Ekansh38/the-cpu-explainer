@@ -158,10 +158,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
-))
+)])
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -200,12 +200,12 @@ is stinky and its last wash was over 5 days ago, then wash the dog.
 
 Here is the circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
-))
+)])
 
 #caption("4.1")[The hand-switch version of AND.]
 
@@ -223,14 +223,14 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
-))
+)])
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -283,13 +283,13 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
-))
+)])
 
 #caption("4.4")[An AND gate.]
 
@@ -322,12 +322,12 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
-))
+)])
 
 #caption("4.6")[An electronic OR gate.]
 
@@ -435,7 +435,7 @@ instead of turning on a light bulb, they drive a wire.
 
 Here are three more useful gate symbols:
 
-#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 95%))
 
 #caption("4.12")[NOT, NAND, NOR gates.]
 
@@ -556,7 +556,7 @@ Let\'s walk through `1101` together.
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
-#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 70%))
+#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 95%))
 
 #caption("5.6")[Addition?]
 
@@ -648,12 +648,13 @@ short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 76%))
 
 #caption("6.3")[Half adder sum / XOR.]
 
@@ -709,16 +710,21 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-4.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-5.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
-))
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-2.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-3.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-4.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-5.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-6.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-7.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
 
 #caption("6.8")[A full adder.]
 
@@ -771,11 +777,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 76%))
 
 #caption("6.12")[Some examples on the adder.]
 
