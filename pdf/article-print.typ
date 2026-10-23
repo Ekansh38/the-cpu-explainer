@@ -2629,22 +2629,19 @@ One-byte instructions finish in one or two steps:
 #set par(first-line-indent: 0em, spacing: 1.1em)
 
 #emph[Code: The Hidden Language of Computer Hardware and Software] by Charles
-Petzold. The classic. Builds up a computer from flashlights and telegraph
-relays, slower and deeper than this book. Read it if you want the full story,
-including the history.
-
-#emph[But How Do It Know?] by J. Clark Scott. Covers similar ground to this
-book with a different 8-bit CPU design. A good second pass: seeing the same
-ideas in someone else's architecture makes them stick.
+Petzold. The classic. This book is what got me excited about CPU architecture
+and was my introduction to the field. Much deeper than this book, with some
+history too if that interests you. Highly recommended.
 
 #emph[The Elements of Computing Systems] (Nand2Tetris) by Noam Nisan and
 Shimon Schocken. A project course where you build a computer, an assembler,
-and an operating system yourself, starting from NAND gates. For when you want
-to build, not read. Free materials at nand2tetris.org.
+and an operating system yourself, starting from NAND gates. Quite demanding;
+consider it if you want to go deep into computer science. Free materials at
+nand2tetris.org.
 
 #emph[What Every Programmer Should Know About Memory] by Ulrich Drepper. A
-famous paper on how memory really behaves in modern computers: RAM chips,
-caches, and why access patterns decide speed. Much deeper than this book.
+great paper on how memory really works. It expands on the RAM ideas in this
+book, covering DRAM, caches, and a lot more. Much deeper than this book.
 Free online.
 
 The logic-gates section of electronics-tutorials.ws. Shows how real gates are
