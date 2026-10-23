@@ -135,12 +135,12 @@ behind memory.
 
 This diagram should help this make sense:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/dark/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/dark/sr-latch-3.png", width: 100%),
   image("/pdf/.raster/dark/sr-latch-4.png", width: 100%)
-))
+)])
 
 #caption("7.1")[An SR latch.]
 
@@ -184,7 +184,7 @@ It basically checks: if `D` is true and `E` is true, `SET` is true, and
 if `D` is false and `E` is true, `RESET` is true. That\'s it, so let\'s
 not worry about the exact implementation.
 
-#align(center, image("/pdf/.raster/dark/d-latch.png", width: 70%))
+#align(center, image("/pdf/.raster/dark/d-latch.png", width: 95%))
 
 #caption("7.2")[D latch.]
 
@@ -271,7 +271,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/assets/frames/full-accumulator-1.png", width: 100%),
   image("/assets/frames/full-accumulator-2.png", width: 100%),
   image("/assets/frames/full-accumulator-3.png", width: 100%),
@@ -279,7 +279,7 @@ Now with this register, let\'s build a basic accumulator/adder circuit.
   image("/assets/frames/full-accumulator-5.png", width: 100%),
   image("/assets/frames/full-accumulator-6.png", width: 100%),
   image("/assets/frames/full-accumulator-7.png", width: 100%)
-))
+)])
 
 #caption("7.9")[Our full accumulator.]
 
@@ -341,7 +341,7 @@ To show the state of the wires, I can write a number in the arrow; the
 number 0 for example means the wires are all off, and the number 2 would
 mean the wires are `00000010` which is 2 in binary.
 
-#align(center, image("/pdf/.raster/dark/common-bus-example.png", width: 70%))
+#align(center, image("/pdf/.raster/dark/common-bus-example.png", width: 95%))
 
 #caption("8.1")[Two registers sharing a bus.]
 
@@ -395,12 +395,12 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/dark/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/dark/tri-state-buffer-internals-3.png", width: 100%),
   image("/pdf/.raster/dark/tri-state-buffer-internals-4.png", width: 100%)
-))
+)])
 
 #caption("8.2")[A tri-state buffer built with relays.]
 
@@ -467,13 +467,15 @@ With that, we can use these new registers with a common bus to move
 data. Here is an example where the content of register `A` gets copied
 into register `B`.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/assets/frames/common-data-bus-demo-1.png", width: 100%),
-  image("/assets/frames/common-data-bus-demo-2.png", width: 100%),
-  image("/assets/frames/common-data-bus-demo-3.png", width: 100%),
-  image("/assets/frames/common-data-bus-demo-4.png", width: 100%),
-  image("/assets/frames/common-data-bus-demo-5.png", width: 100%)
-))
+#align(center, image("/assets/frames/common-data-bus-demo-1.png", width: 76%))
+
+#align(center, image("/assets/frames/common-data-bus-demo-2.png", width: 76%))
+
+#align(center, image("/assets/frames/common-data-bus-demo-3.png", width: 76%))
+
+#align(center, image("/assets/frames/common-data-bus-demo-4.png", width: 76%))
+
+#align(center, image("/assets/frames/common-data-bus-demo-5.png", width: 76%))
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -579,14 +581,14 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/cross-section-1.png", width: 100%),
   image("/assets/frames/cross-section-2.png", width: 100%),
   image("/assets/frames/cross-section-3.png", width: 100%),
   image("/assets/frames/cross-section-4.png", width: 100%),
   image("/assets/frames/cross-section-5.png", width: 100%),
   image("/assets/frames/cross-section-6.png", width: 100%)
-))
+)])
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -651,7 +653,7 @@ turn on `WRITE` for that register, and it will write the data on the
 So yea, both AND gates take in 3 inputs, if you are wondering how that
 works, just think of two AND gates chained together.
 
-#align(center, image("/pdf/.raster/dark/three-input-and.png", width: 70%))
+#align(center, image("/pdf/.raster/dark/three-input-and.png", width: 95%))
 
 #caption("9.7")[A three input AND gate.]
 
@@ -660,7 +662,7 @@ registers, we have a `RAM` array with 256 registers. The same logic can
 be copied, just with two `4-16` decoders instead of two `2-4` decoders
 and 8 address inputs rather than 4.
 
-#align(center, image("/pdf/.raster/dark/ram-interface.png", width: 100%))
+#align(center, image("/pdf/.raster/dark/ram-interface.png", width: 95%))
 
 #caption("9.8")[Our RAM chip.]
 
@@ -709,15 +711,19 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/assets/frames/mar-ram-demo-1.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-2.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-3.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-4.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-5.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-6.png", width: 100%),
-  image("/assets/frames/mar-ram-demo-7.png", width: 100%)
-))
+#align(center, image("/assets/frames/mar-ram-demo-1.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-2.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-3.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-4.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-5.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-6.png", width: 76%))
+
+#align(center, image("/assets/frames/mar-ram-demo-7.png", width: 76%))
 
 #caption("9.10")[How the MAR works.]
 

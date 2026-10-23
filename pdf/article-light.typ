@@ -162,10 +162,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
-))
+)])
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -204,12 +204,12 @@ is stinky and its last wash was over 5 days ago, then wash the dog.
 
 Here is the circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
-))
+)])
 
 #caption("4.1")[The hand-switch version of AND.]
 
@@ -227,14 +227,14 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
-))
+)])
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -287,13 +287,13 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
-))
+)])
 
 #caption("4.4")[An AND gate.]
 
@@ -326,12 +326,12 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
-))
+)])
 
 #caption("4.6")[An electronic OR gate.]
 
@@ -439,7 +439,7 @@ instead of turning on a light bulb, they drive a wire.
 
 Here are three more useful gate symbols:
 
-#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 95%))
 
 #caption("4.12")[NOT, NAND, NOR gates.]
 
@@ -560,7 +560,7 @@ Let\'s walk through `1101` together.
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
-#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 70%))
+#align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 95%))
 
 #caption("5.6")[Addition?]
 
@@ -652,12 +652,13 @@ short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
-  image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 76%))
 
 #caption("6.3")[Half adder sum / XOR.]
 
@@ -713,16 +714,21 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-4.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-5.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
-  image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
-))
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-2.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-3.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-4.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-5.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-6.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-7.png", width: 100%))
+
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
 
 #caption("6.8")[A full adder.]
 
@@ -775,11 +781,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
-  image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 76%))
 
 #caption("6.12")[Some examples on the adder.]
 
@@ -870,12 +876,12 @@ behind memory.
 
 This diagram should help this make sense:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-3.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-4.png", width: 100%)
-))
+)])
 
 #caption("7.1")[An SR latch.]
 
@@ -919,7 +925,7 @@ It basically checks: if `D` is true and `E` is true, `SET` is true, and
 if `D` is false and `E` is true, `RESET` is true. That\'s it, so let\'s
 not worry about the exact implementation.
 
-#align(center, image("/pdf/.raster/light-final/d-latch.png", width: 70%))
+#align(center, image("/pdf/.raster/light-final/d-latch.png", width: 95%))
 
 #caption("7.2")[D latch.]
 
@@ -1006,7 +1012,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-2.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-3.png", width: 100%),
@@ -1014,7 +1020,7 @@ Now with this register, let\'s build a basic accumulator/adder circuit.
   image("/pdf/.raster/light-final/full-accumulator-5.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-6.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-7.png", width: 100%)
-))
+)])
 
 #caption("7.9")[Our full accumulator.]
 
@@ -1076,7 +1082,7 @@ To show the state of the wires, I can write a number in the arrow; the
 number 0 for example means the wires are all off, and the number 2 would
 mean the wires are `00000010` which is 2 in binary.
 
-#align(center, image("/pdf/.raster/light-final/common-bus-example.png", width: 70%))
+#align(center, image("/pdf/.raster/light-final/common-bus-example.png", width: 95%))
 
 #caption("8.1")[Two registers sharing a bus.]
 
@@ -1130,12 +1136,12 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-3.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-4.png", width: 100%)
-))
+)])
 
 #caption("8.2")[A tri-state buffer built with relays.]
 
@@ -1202,13 +1208,15 @@ With that, we can use these new registers with a common bus to move
 data. Here is an example where the content of register `A` gets copied
 into register `B`.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 100%),
-  image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 76%))
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -1314,14 +1322,14 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/cross-section-1.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-2.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-3.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-4.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-5.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-6.png", width: 100%)
-))
+)])
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -1386,7 +1394,7 @@ turn on `WRITE` for that register, and it will write the data on the
 So yea, both AND gates take in 3 inputs, if you are wondering how that
 works, just think of two AND gates chained together.
 
-#align(center, image("/pdf/.raster/light-final/three-input-and.png", width: 70%))
+#align(center, image("/pdf/.raster/light-final/three-input-and.png", width: 95%))
 
 #caption("9.7")[A three input AND gate.]
 
@@ -1395,7 +1403,7 @@ registers, we have a `RAM` array with 256 registers. The same logic can
 be copied, just with two `4-16` decoders instead of two `2-4` decoders
 and 8 address inputs rather than 4.
 
-#align(center, image("/pdf/.raster/light-final/ram-interface.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/ram-interface.png", width: 95%))
 
 #caption("9.8")[Our RAM chip.]
 
@@ -1444,15 +1452,19 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
-  image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
-))
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 76%))
+
+#align(center, image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 76%))
 
 #caption("9.10")[How the MAR works.]
 
