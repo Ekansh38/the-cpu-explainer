@@ -1,6 +1,7 @@
 #set document(title: "The CPU: A very tall pile of simple")
 #let hf-off = state("hf-off", true)
 #let pstyle = state("pstyle", "i")
+#let bm = state("bm", false)
 #set page(
   width: 6in,
   height: 9in,
@@ -108,7 +109,9 @@
 
 #show heading.where(level: 2): it => {
   hf-off.update(true)
-  pagebreak(to: "odd", weak: true)
+  context {
+    if bm.get() { pagebreak(weak: true) } else { pagebreak(to: "odd", weak: true) }
+  }
   v(5em)
   align(center)[
     #block[
@@ -2546,6 +2549,8 @@ I hope you now understand why computers aren\'t \"just\" 1s and 0s, but
 a very tall pile of simple.
 
 
+#bm.update(true)
+
 == Appendix: Quick Reference
 
 #[
@@ -2664,7 +2669,7 @@ mistakes that are left are mine.
 
 
 #hf-off.update(true)
-#pagebreak(to: "odd", weak: true)
+#pagebreak(weak: true)
 #v(4em)
 #align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
 #v(2em)
