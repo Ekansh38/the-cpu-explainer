@@ -18,7 +18,7 @@ How does that become a program sitting in `RAM`, one instruction after another, 
 to do?
 
 Some resources stay extremely high-level, so you never really understand how a CPU actually works. The deeper resources are amazing, but they are long, dense, and intimidating. And frankly, for
-someone who doesn't want that level of detail, a lot of it can often feel like too much. 
+someone who doesn't want that level of detail, a lot of it can often feel like too much.
 
 My goal is to help you understand what is going on under the hood, without exploding your brain or
 eating weeks of time.
@@ -81,7 +81,7 @@ circuit can open or close each switch to answer a yes/no question.
 Let's say switch 1 represents `STINKY`: whether the dog is stinky or not. Switch 2 represents
 `OLD_WASH`: has it been more than 5 days since the last wash.
 
-So the rules for our first circuit are: 
+So the rules for our first circuit are:
 
 If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog is stinky and its last wash was over 5 days ago, then wash the dog.
 
@@ -152,14 +152,14 @@ The output circuit has two breaks in it, one controlled by each input relay. Onl
 are on do both relays close, completing the output loop. Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
 OR gate.
 
-But before the next diagram, I am going to use one more new symbol: ground.  For our purposes here, the ground symbol will simply refer to the common return point of
+But before the next diagram, I am going to use one more new symbol: ground. For our purposes here, the ground symbol will simply refer to the common return point of
 the circuit, usually connected to the negative side of the battery.
 
 Every point marked with the ground symbol is connected together, as if there were hidden wires joining
 them underneath the drawing. It is not a new component. It is just a less messy way to draw the return
 path of the circuit. The circuits are still loops. I am just not explicitly drawing the return wire anymore.
 
-In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color 
+In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color
 it red when that return point is part of the active path for that frame. I think it makes the current path easier to follow visually.
 
 This is how the ground symbol looks:
@@ -266,8 +266,8 @@ With our knowledge about logic gates, let's create the "should-I-wash-my-dog 500
 
 Again this animation doesn't cover all possible states.
 
-Keep in mind these [electromagnetic relays](#diagram-4-3) we used in the examples are quite big and slow.  Relays aren't the only solution. They are simply one of the early and intuitive methods to
-understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) 
+Keep in mind these [electromagnetic relays](#diagram-4-3) we used in the examples are quite big and slow. Relays aren't the only solution. They are simply one of the early and intuitive methods to
+understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I)
 actually used these types of relays.
 
 In modern computers, similar behavior is achieved by using transistors.
@@ -374,7 +374,7 @@ So the sum bit for that column is `0`, and the carry is `1`.
 
 `1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`, and so on.
 
-How do we build a circuit using logic gates that performs this standard addition algorithm? 
+How do we build a circuit using logic gates that performs this standard addition algorithm?
 
 Well, let's start with the rightmost column. If we think about it, all the possible states are:
 
@@ -388,7 +388,7 @@ Well, let's start with the rightmost column. If we think about it, all the possi
 
 
 So just `0 + 0`, `1 + 0`, `1 + 1`, or `0 + 1`. If we can make a tiny circuit that takes two inputs,
-and produces two outputs that match these combinations, we have added the first column. 
+and produces two outputs that match these combinations, we have added the first column.
 
 This is called a half adder. A half adder adds two bits, but it does not handle a carry-in value.
 That is the job of a full adder.
@@ -487,7 +487,7 @@ an adder that can add two one-byte numbers: anything from 0 to 255.
 *Diagram 6.10. An 8-bit adder.*
 
 Each full adder handles one column. The carry-out from one column becomes the carry-in for the next
-column. That is it! That is all addition is! 
+column. That is it! That is all addition is!
 
 Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0. In the chip version below I bring that first carry-in out as a `CI` pin instead, so the chip can be chained too. For now we just feed it 0. Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can add up to a number
 too big to fit in eight bits. It's like how adding two 2-digit numbers could result in a three-digit
@@ -608,7 +608,7 @@ to have is two inputs.
 
 When the enable wire turns on, `Data` gets stored in `Q`. Or in other words, when we turn the
 enable wire on, `Q` mirrors `D`. Then when we turn `E` off, `Q` stays stable with whatever `D` was
-last. 
+last.
 
 This type of latch is called a D latch, D meaning data. It can be made using the SR latch and a few
 extra logic gates.
@@ -637,7 +637,7 @@ then turn back off. That is just hard to do.
 
 As you can see in this diagram, even pressing the button quickly jumps the result up by 5. With real
 transistors, even if you try to physically tap the button, it could count up by millions, overflowing
-these 8 bits thousands of times. How long you hold the button decides the answer. It doesn't count in ones. 
+these 8 bits thousands of times. How long you hold the button decides the answer. It doesn't count in ones.
 
 But what if we had a storage circuit that only copied `D` into `Q` at the exact instant `E` turns on?
 
@@ -723,7 +723,7 @@ Real clocks are built in more sophisticated and reliable ways, often using cryst
 circuits. But we do not need to build the clock itself here. For now, we can treat it as a little chip
 that repeatedly produces the same on-off signal.
 
-Just imagine the new accumulator with a clock signal instead of a `STEP` button. 
+Just imagine the new accumulator with a clock signal instead of a `STEP` button.
 I am too lazy to draw it for you.
 
 We now have some storage. A register that can hold a byte, and update exactly when we want. But registers on their own are not enough. We need to be able to move numbers between registers, the
@@ -738,7 +738,7 @@ A simpler solution is to have one single 8-bit data highway, where components ca
 off. This collection of 8 wires is called a bus.
 
 One more thing, moving forward when I want to draw a collection of 8 wires, instead of drawing each
-wire, I will just draw a thick arrow that represents 8 wires. 
+wire, I will just draw a thick arrow that represents 8 wires.
 
 To show the state of the wires, I can write a number in the arrow; the number 0 for example means
 the wires are all off, and the number 2 would mean the wires are `00000010` which is 2 in binary.
@@ -755,7 +755,7 @@ it is also connected to `+`. What happens?
 Yep. A short-circuit.
 
 We need a way to connect these registers to the bus, but also let them get out of the way when they
-are not supposed to actively drive a wire to `-` or `+`, like I discussed [previously](#diagram-4-9). 
+are not supposed to actively drive a wire to `-` or `+`, like I discussed [previously](#diagram-4-9).
 
 Just setting the output wires to `00000000` is not enough. On a shared bus `00000000` is not
 nothing. It is actively driving the bus to `-`. Of course, in our relay world technically we don't
@@ -769,7 +769,7 @@ We have seen `E` before, in the context of "enable writing" but now we are using
 of "enable outputting".
 
 If `E` is on, the output will just be whatever `D` is, so either `0` or `1`.
-If `E` is off, no matter the value of `D`, the output will be `Z`. 
+If `E` is off, no matter the value of `D`, the output will be `Z`.
 
 `Z` means the buffer's output is disconnected from the bus. Engineers call this "high impedance", which is where the letter `Z` comes from. It is not driving the bus to `+` or `-`,
 so another component can safely drive the bus without a clash or short-circuit.
@@ -885,10 +885,10 @@ Now let's think about exactly what we would want this `RAM` chip to do.
 - `data in`: the value we would like to write
 - `data out`: the data output line
 
-To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire each. 
+To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire each.
 
 For this demo `RAM`, `address` is only 4 input wires. `data in` and `data out` carry bytes and are
-both connected directly to the common bus.  This only works if no other part is driving the bus when `OUT` is enabled.
+both connected directly to the common bus. This only works if no other part is driving the bus when `OUT` is enabled.
 
 So we are going to build a minuscule 16-byte `RAM`: 16 addresses, with each address storing one byte.
 This design can be scaled up easily. Our address will be 4 bits long, because `2^4` is 16.
@@ -1007,7 +1007,7 @@ where we have a separate `D` and `Q`, we can just draw them like this:
 *Diagram 9.9. I/O Registers.*
 
 They both are the same technically, just this is easier to draw, so moving forward, instead of
-drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus. 
+drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus.
 
 Now back to the `RAM` chip.
 
@@ -1087,7 +1087,7 @@ takes `A1` and `B1`, and so on. Eight output wires, which is just another bus.
 *Diagram 10.2. `ALU` internals.*
 
 At its crux, the `ALU` works by routing `A` and `B` into all 4 operations at once, in this case XOR,
-OR, AND, and ADD. We store each of the results in a corresponding result register. 
+OR, AND, and ADD. We store each of the results in a corresponding result register.
 
 To decide which one to output, the `OP` bits go into a `2-4` decoder that enables exactly 1 of the
 result registers onto the `R` bus.
@@ -1254,7 +1254,7 @@ But, how does the `CU` know what wires to flip and when?
 Instructions tell the CPU what to do, and a list of instructions is a program. There are game
 programs, calculator programs, email programs. Everything on your computer is a program. Just a long,
 long list of instructions telling the CPU to do simple things like add these two numbers, move this
-value here, etc. All programs are just a list of instructions stored in `RAM`, each instruction coded as a number. 
+value here, etc. All programs are just a list of instructions stored in `RAM`, each instruction coded as a number.
 
 So here is what number each instruction in our CPU translates to:
 
@@ -1463,7 +1463,7 @@ The best approach to this is just taking our clock signal and flipping it:
 
 *Diagram 13.2. Micro-step timing diagram.*
 
-Purple marks when `W` turns on, and blue is when `O` is on. 
+Purple marks when `W` turns on, and blue is when `O` is on.
 
 Each step changes on a clock edge, and each step is a signal, 1 full clock cycle long, until the
 next rising edge.
@@ -1645,7 +1645,7 @@ their second number into register `B`. Then any `ALU` instruction would automati
 | 8-11 | `ADD`/`AND`/`OR`/`XOR` | `B_OUT`, `ACC_WRITE`, `FLAGS_WRITE` | `ACC_OUT`, `A_WRITE` |
 
 That is why on step 3 we only have `B_OUT` and no `A_OUT` since `A` is directly connected to the `ALU`
-already. 
+already.
 
 But what is `ACC` you might be asking? Well `ACC` is kind of like a temporary register that the
 `ALU` uses to store its result, the `ALU` can't directly put the result onto the bus, since register
@@ -1694,7 +1694,7 @@ Even though the clock is on, the computer stays frozen.
 
 But how do we restart the computer? Well, remember the `TAKEOVER` switch I was telling you about.
 When we flick it on, it resets that latch. But its own inverted signal is ANDed in with the clock
-and the latch too, so a 3-input AND gate basically. 
+and the latch too, so a 3-input AND gate basically.
 
 So the clock stays frozen, but if you flick `TAKEOVER` off, then it will continue going.
 
@@ -1818,7 +1818,7 @@ halt
 ```
 
 My point with showing you all of these tricks is that, even though this CPU might not be the
-most advanced, it can do real things! 
+most advanced, it can do real things!
 
 Modern CPUs have proper solutions to things like subtraction, negative numbers, division, more
 flags, and a lot more that smart computer science people just thought of and you can go learn about
@@ -1868,12 +1868,12 @@ last key pressed.
 
 Real computers are a lot fancier about it. They have dedicated I/O buses, whole controller chips
 that talk to the devices so the CPU doesn't have to, and devices that can even write into `RAM`
-directly on their own. 
+directly on their own.
 
 So to recap, a program is just a list of numbers sitting in `RAM`. The control unit fetches those
 numbers one at a time, decodes them, and executes each one as a few micro-steps, flipping control
 wires that move bytes between registers. Every one of those components is made up of simple logic
-gates, and every gate is made up of relays, or more commonly these days, transistors. 
+gates, and every gate is made up of relays, or more commonly these days, transistors.
 
 I hope you now understand why computers aren't "just" 1s and 0s, but a very tall pile of simple.
 
