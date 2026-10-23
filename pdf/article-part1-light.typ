@@ -234,8 +234,8 @@ Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
 #caption("4.2")[The hand-switch version of OR.]
 
-This is a logical OR: either `MUDDY` or `STINKY` needs to be on for the
-bulb to turn on.
+This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
+for the bulb to turn on. Both on also counts.
 
 Before we combine these, let\'s tackle a bigger problem. So far, every
 switch is flipped by a human. If we ever want to build a computer, it
@@ -267,9 +267,9 @@ This relay is made from a coil of wire and a movable metal arm. When
 current flows through the coil, the coil becomes a magnet and pulls the
 arm down. When current stops, a spring pulls the arm back up.
 
-A relay lets one circuit open or close a switch in another circuit. The
-two circuits stay electrically separate; the coil just magnetically
-pulls the arm, there is no electrical connection between them.
+A relay lets one circuit open or close a switch in another circuit.
+Inside the relay, the coil and the arm never touch electrically; the
+coil just magnetically pulls the arm.
 
 Also, in this example, we end up using a switch in the input circuit
 anyway, but any kind of electrical signal could be used, like the output
@@ -294,9 +294,9 @@ two input wires and outputs an electrical signal.
 #caption("4.4")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
-relay. Only when both inputs have signal do both relays close,
-completing the output loop. Using these relays chained in clever ways,
-you can create every fundamental logic gate, such as the OR gate.
+relay. Only when both inputs are on do both relays close, completing the
+output loop. Using these relays chained in clever ways, you can create
+every fundamental logic gate, such as the OR gate.
 
 But before the next diagram, I am going to use one more new symbol:
 ground. For our purposes here, the ground symbol will simply refer to
@@ -358,9 +358,8 @@ The parentheses indicate order of operations. So in plain English:
 If the dog is muddy or stinky and it\'s been more than 5 days since the
 dog\'s last wash and it\'s not going to rain soon, then wash the dog.
 
-Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
-receives signal, it outputs no signal; if it receives no signal, it
-outputs signal.
+Let\'s focus on this NOT for a second. NOT just flips its input: if the
+input is 1, the output is 0; if the input is 0, the output is 1.
 
 #pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
@@ -537,8 +536,8 @@ have two digits, 0 and 1, so each place is a power of 2.
 
 #caption("5.4")[The binary system.]
 
-So binary is, at the end of the day, decimal but with only two digits
-instead of ten.
+So binary is, at the end of the day, the same place-value idea as
+decimal, just with two digits instead of ten.
 
 A few examples:
 
@@ -660,8 +659,8 @@ XOR:
 
 #caption("6.3")[Half adder sum / XOR.]
 
-OR checks that at least one input is on, and NAND makes sure that both
-inputs are not on.
+OR checks that at least one input is on, and NAND makes sure the inputs
+aren\'t both on.
 
 Here is how an XOR gate looks:
 
@@ -728,11 +727,12 @@ To add three bits, we use two half adders and an OR gate:
 This might look confusing at first. What if both half adders output a
 carry-out at the same time?
 
-That actually never happens. If a half adder outputs a carry, the sum
-bit is always 0. So both can never output carries at the same time. Take
-a moment to think about this if you are confused. So we can confidently
-OR the two carry outputs together. If either one is `1`, the full
-adder\'s carry-out is `1`.
+That actually never happens. If the first half adder outputs a carry,
+its sum bit is 0, and that 0 is one of the second half adder\'s inputs,
+so the second one can\'t carry. So both can never output carries at the
+same time. Take a moment to think about this if you are confused. So we
+can confidently OR the two carry outputs together. If either one is `1`,
+the full adder\'s carry-out is `1`.
 
 Let\'s again package this up into a chip:
 
@@ -755,6 +755,8 @@ becomes the carry-in for the next column. That is it! That is all
 addition is!
 
 Keep in mind, carry-in for the first adder is set to ground, a.k.a. 0.
+In the chip version below I bring that first carry-in out as a `CI` pin
+instead, so the chip can be chained too. For now we just feed it 0.
 Also, notice how we have 9 outputs, not 8. That is because two 8-bit
 values can add up to a number too big to fit in eight bits. It\'s like
 how adding two 2-digit numbers could result in a three-digit number for
@@ -791,10 +793,11 @@ see that the real answer was 256.
 That is called an overflow: the result was too large to fit inside one
 byte, so the extra information spilled out into the carry-out bit.
 
-The adder can also produce little status wires, called flags. For
-example, if the answer is `00000000`, a `ZERO` flag can turn on. If
-addition spills past one byte, a `CARRY` flag can turn on. So
-`11111111 + 00000001` gives `00000000` with carry-out `1`.
+With a bit of extra circuitry around the adder, we can also make little
+status wires, called flags. For example, if the answer is `00000000`, a
+`ZERO` flag can turn on. If addition spills past one byte, a `CARRY`
+flag can turn on. So `11111111 + 00000001` gives `00000000` with
+carry-out `1`.
 
 I don\'t want to go deep into flags yet. Just remember that the adder
 can output little yes/no facts about the sum. That matters later for

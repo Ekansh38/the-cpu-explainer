@@ -112,10 +112,10 @@ In the last section, wiring the output of a circuit back into its input
 led to chaos. But with a smarter configuration, we can use this idea to
 store a bit.
 
-The circuit that stores a single bit is called an SR latch. SR stands
-for set-reset. The value `Q` is the output we really care about. If it
-is `1`, that means the latch is storing a `1`\; if it is `0`, the latch
-is storing a `0`.
+The simplest circuit that stores a single bit is called an SR latch. SR
+stands for set-reset. The value `Q` is the output we really care about.
+If it is `1`, that means the latch is storing a `1`\; if it is `0`, the
+latch is storing a `0`.
 
 The diagram also shows a second output written as a Q with a bar over
 it. That is just how engineers write `NOT Q`, pronounced \"not Q\". It
@@ -376,9 +376,10 @@ are using `E` in the context of \"enable outputting\".
 If `E` is on, the output will just be whatever `D` is, so either `0` or
 `1`. If `E` is off, no matter the value of `D`, the output will be `Z`.
 
-`Z` means the buffer\'s output is disconnected from the bus. It is not
-driving the bus to `+` or `-`, so another component can safely drive the
-bus without a clash or short-circuit.
+`Z` means the buffer\'s output is disconnected from the bus. Engineers
+call this \"high impedance\", which is where the letter `Z` comes from.
+It is not driving the bus to `+` or `-`, so another component can safely
+drive the bus without a clash or short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very
 different: the component is actively driving the wire to `-`. So we have
@@ -492,8 +493,8 @@ Also generally in this diagram, register `B`\'s output is sometimes
 shown as `Z` even when the bus is 53. That is because register `B`\'s
 `OUT` is off, so register `B` is not driving the bus. It may be
 connected to a bus currently at 53, but the 53 is coming from register
-`A`. So technically, those wires are at 53 but... it just looks better
-to keep them at `Z`.
+`A`. `Z` describes what register `B`\'s buffers are doing, which is
+nothing. The 53 on those wires is coming from `A`.
 
 By the end of this sequence, we have copied the value 53 to register
 `B`! We can have many more registers sharing a common bus, as long as
@@ -560,8 +561,8 @@ Once the address selects a slot, two things can happen:
   `data out`.
 
 Let\'s start with building a simple decoder. This decoder will take 2
-bits of our address and, based on that number, turn on exactly one out
-of 4 wires.
+bits of our address and, based on that number, turn on exactly one of
+its 4 outputs.
 
 In the diagram the top bit is the bigger bit, the 2\'s place, the bottom
 is the smaller bit, the 1\'s place.
@@ -595,10 +596,10 @@ own little intersection.
 How a decoder works is extremely simple. It just uses a bunch of logic
 gates to ask these simple questions.
 
-- If `00` -\> turn on wire 1
-- If `01` -\> turn on wire 2
-- If `10` -\> turn on wire 3
-- If `11` -\> turn on wire 4
+- If `00` -\> turn on output 0
+- If `01` -\> turn on output 1
+- If `10` -\> turn on output 2
+- If `11` -\> turn on output 3
 
 Here is how it works if you care:
 
@@ -631,7 +632,8 @@ registers. We also have another blue data out bus that comes out of the
 top of all the registers and combines into one output. Every slot is
 connected to both buses, but only the selected slot is allowed to use
 them. If the slot\'s row and column are selected, it can either read
-from `data in` when `WRITE` is on, or drive `data out` when `OUT` is on.
+from `data in` when `WRITE` turns on, or drive `data out` when `OUT` is
+on.
 
 Let\'s look at one cell more closely:
 
@@ -674,9 +676,9 @@ outside, we can abstract this as one shared data bus with a
 double-headed arrow called `I/O`, which stands for input/output. It is
 practically just like having two buses, one for input, one for output.
 
-If `W` is on, `RAM` copies the value from the data bus into the selected
-address. If `O` is on, `RAM` drives the selected address\'s value onto
-the data bus.
+When `W` turns on, `RAM` copies the value from the data bus into the
+selected address. If `O` is on, `RAM` drives the selected address\'s
+value onto the data bus.
 
 So from now on, instead of drawing registers connected to a common bus
 like this, where we have a separate `D` and `Q`, we can just draw them
@@ -781,8 +783,8 @@ This next diagram uses a new component. It is a mix of two registers we
 have already seen. Remember the D latch, the first storage circuit we
 built? While its enable was on, `Q` simply equaled `D`. No
 edge-triggering or anything like that. This new register is a D latch
-with the enable permanently on: it is always storing whatever value is
-on its input.
+with the enable permanently on: it never really holds anything, its
+output just follows its input.
 
 But like our newer registers, its output goes through tri-state buffers
 with an `OUT` control signal, so we still decide when it outputs. So in
@@ -856,10 +858,9 @@ completely foreign. Of course we still have a lot to learn and build,
 but wow. Just wow.
 
 Some quick notes on the diagram before we dig in. The 8-bit data buses
-are blue when not being driven, just like before. If a control wire is
-red, it means it\'s on. If a bus is red, it means it\'s being driven
-like normal. But we have something new here that we haven\'t seen
-before.
+are blue when not being driven. If a control wire is red, it means it\'s
+on. If a bus is red, it means it\'s being driven like normal. But we
+have something new here that we haven\'t seen before.
 
 Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving. A `G` wire is being driven, with an
@@ -872,8 +873,9 @@ talk more about how register `A` works later), but the other input comes
 from the bus, and when nothing is driving the bus, the input is sitting
 at `Z`. The thing is, in this CPU an input at `Z` would just behave like
 \0. Our gates are built from relays, and a relay coil with nothing
-driving it is simply off, exactly as if you fed it 0. So really, the
-`ALU` would be computing `A + 0` if the second input was `Z`.
+driving it is simply off, exactly as if you fed it 0. So really, with
+`OP` set to ADD like it is here, the `ALU` would be computing `A + 0` if
+the second input was `Z`.
 
 But we mark it as garbage anyway, because in a real CPU made from
 transistors instead of relays, a `Z` value does not settle to a clean 0;
@@ -924,8 +926,10 @@ Next we have `PC`, which is a combination of an adder and a register,
 something like what we have seen previously. The register part of `PC`
 has its regular control signals `W` and `O`, and the `STEP` button from
 before has been replaced with an `I` control signal, which stands for
-increment. We also have the `R` signal which just resets the register
-back to 0 with some more logic gates and wires. Nothing too fancy.
+increment. Inside, a few gates pick which value reaches the register\'s
+input: the bus when `W` is on, the adder\'s output when `I` is on. We
+also have the `R` signal which just resets the register back to 0 with
+some more logic gates and wires. Nothing too fancy.
 
 Our `MAR` and `RAM` are the same as before, but if all of the bits
 stored in `MAR` are 1, meaning the address is 255, then that first AND

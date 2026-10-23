@@ -196,8 +196,8 @@ is that value.
 
 One more thing: the order things are written in. For `MOV`, the
 destination comes first. `MOV B, A` copies `A` into `B`, not the other
-way around. `LOAD` and `STORE` are different: `LOAD A` means a value
-going into `A`, and `STORE A` means `A` going out into memory.
+way around. `STORE` is the odd one out: `LOAD A` means a value going
+into `A`, and `STORE A` means `A` going out into memory.
 
 Also, a number with brackets like `[5]` means whatever is stored at
 address 5, but just `5` means literally the number 5, which would be
@@ -205,7 +205,8 @@ stored in the next byte of `RAM`. It\'s just an easier way for us humans
 to write it.
 
 Now, about the jump instructions: `JMP`, `JE`, `JC`, and `JZ`. All of
-these instructions set `PC` to the address stored in the second byte.
+these instructions can set `PC` to the address stored in the second
+byte.
 
 `JE`, `JC`, and `JZ` each check one flag. The flags from the last `ALU`
 instruction sit in the `FLAGS` register until the next `ALU` instruction
@@ -301,8 +302,9 @@ First the `CU` would flip the `O` signal on the `A` register, driving
 the bus to whatever is stored in `A`. Then the `CU` would flip the `W`
 signal on register `B`, writing the value on the bus into the register.
 Then it would turn off the `O` signal on register `A`, and boom, we are
-done. The `CU` had to take a few tiny micro-steps to execute that
-instruction. We will talk about micro-steps in more detail later on.
+done. The `CU` had to do a few tiny things in exactly the right order to
+execute that instruction. We will talk about micro-steps in more detail
+later on.
 
 How does the `CU` know which wires to flip and when? That is what the
 next section is all about.
@@ -313,9 +315,9 @@ The first thing the control unit needs is a step counter. Something that
 counts, step 0, then step 1, then step 2, and so on, back to step 0.
 That is the core flow of the control unit.
 
-We can combine a simple accumulator and a `3-8` decoder. This will give
-us 8 steps, and because the accumulator overflows and naturally wraps
-back around to 0, the steps will loop correctly.
+We can combine a tiny 3-bit accumulator and a `3-8` decoder. This will
+give us 8 steps, and because the accumulator overflows and naturally
+wraps back around to 0, the steps will loop correctly.
 
 #pad(x: -10mm, image("/assets/frames/cu-counter-1.png", width: 100%))
 
@@ -327,10 +329,12 @@ clock is the heartbeat of the computer, and it lives right here in the
 control unit.
 
 One thing: remember the TAKEOVER switch? Well when it is on it basically
-resets this step counter\'s accumulator to 0, and on 0 nothing happens.
-So every instruction starts at step 1, and step 0 is just unused. This
-also means `TAKEOVER` is a reset switch. Flick it on and off, and both
-`PC` and the stepper get reset to 0.
+resets this step counter\'s accumulator to 0. Output 0 of the decoder is
+wired to nothing, so step 0 is an idle tick: the counter goes 1, 2, \...
+7, 0, and every instruction takes 8 clock cycles whether it uses them or
+not. So after a reset, the first thing that happens is step 1. This also
+means `TAKEOVER` is a reset switch. Flick it on and off, and both `PC`
+and the stepper get reset to 0.
 
 So basically each of these wires turning on is 1 micro-step. If we want
 to execute an instruction like `MOV B, A` we need to enable the output
@@ -359,7 +363,7 @@ it:
 Purple marks when `W` turns on, and blue is when `O` is on.
 
 Each step changes on a clock edge, and each step is a signal, 1 full
-clock cycle long, until the next edge.
+clock cycle long, until the next rising edge.
 
 `O` is directly connected to that step line. If we enable `O` on step 1,
 the bus is driven for that full cycle.
@@ -421,10 +425,12 @@ control signals, and I have kept the enable on for now. You can mostly
 ignore this for now, but it will come back later.
 
 The rest of the micro-steps depend on the instruction we want to
-execute, so we use another decoder, this time a `4-16` decoder because
-each instruction is 4 bits long, but we only have 15 instructions (0-14)
-so we can ignore output 15 of the decoder, and also output 0, since `0`
-is a `NOP` which if we remember does nothing.
+execute, so we use another decoder, this time a `4-16` decoder. Each
+instruction is actually 8 bits long, one byte, but the opcode only needs
+4 bits, so only the bottom 4 bits of `IR` are wired into the decoder and
+the top 4 are ignored. We only have 15 instructions (0-14) so we can
+ignore output 15 of the decoder, and also output 0, since `0` is a `NOP`
+which if we remember does nothing.
 
 Let\'s first focus on the 2-byte instructions, the instructions that
 need to fetch a second byte. Instructions like `LOAD A, n`,
@@ -468,11 +474,12 @@ few logic gates can\'t solve.
   , kind: table
   )
 
-And that \"if else\" in the jump rows? It is just one more AND gate and
-a NOT gate. If the flag is on, then we do `PC_WRITE`. If the flag is off
-we do `PC_INC`, or in simple terms, if we want to actually do that jump,
-then we need to store the new address into `PC`, if we don\'t actually
-do that jump, we just increment `PC` and move on with our lives.
+And that \"if else\" in the jump rows? It is just a NOT gate and two
+more AND gates. If the flag is on, then we do `PC_WRITE`. If the flag is
+off we do `PC_INC`, or in simple terms, if we want to actually do that
+jump, then we need to store the new address into `PC`, if we don\'t
+actually do that jump, we just increment `PC` and move on with our
+lives.
 
 Feel free to try and step through this diagram, or don\'t, it\'s a giant
 mess:
@@ -521,10 +528,12 @@ any of them fire, gate 11 turns on, meaning \"this jump is happening\".
 From there it is simple. Gate 5 takes that signal and checks it is step
 4, then enables `PC_WRITE`, loading the target address into `PC`, so
 then the program will start executing from that target address on the
-next fetch. Gate 12 then flips gate 11\'s output, so when the jump does
-not happen, it enables `PC_INC` instead, letting the program carry on to
-the next instruction. That is the whole \"if else\" we were talking
-about in that table. Quite straightforward.
+next fetch. Gate 12 then flips gate 11\'s output, and that gets ANDed
+with the \"step 4 and 2-byte\" signal from before, so when a 2-byte
+instruction reaches step 4 and the jump does not happen, it enables
+`PC_INC` instead, letting the program carry on to the next instruction.
+That is the whole \"if else\" we were talking about in that table. Quite
+straightforward.
 
 At this point only two instructions even use step 5, `LOAD A, [addr]`
 and `STORE A, [addr]`. Gates 16 and 18 check if it is step 5 and either
@@ -581,8 +590,8 @@ bypasses the tri-state buffers, and feeds directly into the `ALU`. So to
 use our `ALU`, the programmer would first put their first number into
 register `A` using some instructions of their choice, and put their
 second number into register `B`. Then any `ALU` instruction would
-automatically use registers `A` and `B` as the two numbers, and the
-`ALU` stores the result back into register `A`.
+automatically use registers `A` and `B` as the two numbers, and the `CU`
+copies the result back into register `A`.
 
 #figure(
   align(center)[#table(
@@ -604,10 +613,10 @@ temporary register that the `ALU` uses to store its result, the `ALU`
 can\'t directly put the result onto the bus, since register `B` is
 driving the bus.
 
-So on step 3, the `ALU` lets `B` drive the bus, and computes its result
-storing the flags in the register, and also storing the result. Then in
-step 4 when `B` stops driving the bus, then we let `ACC` drive the bus
-and store that value into register `A`.
+So on step 3, the `CU` lets `B` drive the bus, and the `ALU` computes
+its result storing the flags in the register, and also storing the
+result. Then in step 4 when `B` stops driving the bus, then we let `ACC`
+drive the bus and store that value into register `A`.
 
 But now the big question, if all 4 of these instructions run the same
 micro-steps what makes them different? Have a look at the last 2 bits of
@@ -712,7 +721,8 @@ me both know what is really happening.
 
 And there it is, `42` sitting on the lamps. Now let\'s try something
 real, a multiplication program. Put one number in slot 100, the other in
-slot 101, and the product ends up on the `DISPLAY` lamps.
+slot 101, and the product ends up on the `DISPLAY` lamps, as long as it
+fits in a byte.
 
 ```
 0:  LOAD A, 0
@@ -760,9 +770,10 @@ into the CPU\'s registers, adds 255, and stores that back into slot
 `101`. But why?
 
 Well on this computer adding 255 is just like subtracting 1! This is
-because 255 wraps to -1. For example, let\'s say we have the number 5,
-we add 255, we get 260, but a byte runs out after 255 and rolls back
-over to 0, so 260 wraps around to 4!
+because the byte throws away anything past 255, so adding 255 and
+dropping the overflow is the same as taking 1 away. For example, let\'s
+say we have the number 5, we add 255, we get 260, but a byte runs out
+after 255 and rolls back over to 0, so 260 wraps around to 4!
 
 One more oddity:
 
