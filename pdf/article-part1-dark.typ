@@ -460,8 +460,6 @@ computers like the
 actually used these types of relays.
 
 In modern computers, similar behavior is achieved by using transistors.
-If you want to learn more about transistor based logic gates:
-#link("https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html")[visit this site].
 
 I don\'t know about you, but addition seems like a pretty logical next
 step to these logic gates. But not so fast.

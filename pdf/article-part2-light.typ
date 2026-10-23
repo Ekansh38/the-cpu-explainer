@@ -184,9 +184,6 @@ It basically checks: if `D` is true and `E` is true, `SET` is true, and
 if `D` is false and `E` is true, `RESET` is true. That\'s it, so let\'s
 not worry about the exact implementation.
 
-If you really want to know how it works, have a look at
-#link("https://www.build-electronic-circuits.com/d-latch/")[this site].
-
 #align(center, image("/pdf/.raster/light-final/d-latch.png", width: 70%))
 
 #caption("7.2")[D latch.]
