@@ -2532,9 +2532,8 @@ a very tall pile of simple.
   #image("/assets/author.jpg", width: 42mm)
 ]
 #v(2em)
-Ekansh Goenka (b. 2013) wrote this book in 2026, over about six months alongside school.
-He wrote all of it and drew all 71 diagrams by hand. He designed his own
-8-bit CPU for it, and it really works.
+Ekansh Goenka (b. 2013) wrote this book in 2026, over about six months.
+He drew all 71 diagrams by hand and designed its 8-bit CPU from scratch.
 
 He wrote it because once he understood how a CPU works in detail, it turned
 out to be simpler than most people think. The resources he found either
