@@ -15,7 +15,8 @@
     if calc.even(p) {
       align(left)[The CPU: A very tall pile of simple]
     } else {
-      let secs = query(selector(heading.where(level: 3)).before(here()))
+      let pg = here().page()
+      let secs = query(heading.where(level: 3)).filter(h => h.location().page() <= pg)
       if secs.len() > 0 { align(right)[#secs.last().body] }
     }
   },
@@ -180,15 +181,18 @@ one hard idea. It is a very tall pile of simple ones.
 #caption("1.1")[The whole CPU.]
 
 This probably looks like an overwhelming mess, but don\'t worry, that\'s
-normal. We are going to try to understand this simple CPU. It is not a
-modern CPU with decades of optimization, but it has the same core
-functionality.
+normal. Throughout this guide we are going to try to understand how this
+simple CPU works, from the ground up. It is not a modern CPU with
+decades of optimization, but it has the same core functionality.
+
+So if you have ever wondered how a computer truly works, buckle up, we
+are going on a journey.
 
 === How to Read This
 <how-to-read-this>
 - If a diagram is hard to understand, click it and step through each
   frame one by one using the arrow keys, with the provided descriptions.
-  This only works if you are reading on my website.
+  This only works if you are reading on my website, bytecolony.computer.
 
 - Don\'t try to \"memorize\" every layout. Focus on the mental models,
   concepts, and what part each piece has to play.
@@ -196,11 +200,10 @@ functionality.
 - If a section feels dense or hard to understand, follow the diagrams
   first and try to get a feel for what is happening.
 
-=== Circuits & Electricity
-<circuits--electricity>
-First, we need the basics of how electricity and circuits work.
-
-Here is a simple circuit:
+=== Circuits & Switches
+<circuits--switches>
+First, we need the basics of how electricity and circuits work. Here is
+a simple circuit:
 
 #align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
@@ -209,8 +212,11 @@ Here is a simple circuit:
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
-We can think of the battery as being able to push charge around the
-loop. Current can only flow when this loop is completed.
+The wire connected to the `-` of the battery is being driven low, and
+the wire connected to the `+` of the battery is being driven high. This
+difference in voltage causes current to flow through the filament of the
+light bulb, turning the light on. But current can only flow when the
+loop is complete, from `+` through the bulb to `-`.
 
 If the loop is broken, nothing flows. A switch is simply a controlled
 break in the loop, allowing us to break and complete the loop whenever
@@ -223,8 +229,6 @@ doesn\'t.
 Now let\'s see if we can combine switches and relays so the circuit can
 \"answer\" slightly more interesting questions.
 
-=== Switches, Relays, & Logic Gates
-<switches-relays--logic-gates>
 Say we want to build a simple dog washer circuit: a circuit that, based
 on some inputs, can tell us whether to wash our dog or not. Our simple
 circuit is going to use a light bulb being on to mean yes, wash the dog.
@@ -235,14 +239,11 @@ circuit can open or close each switch to answer a yes/no question.
 
 Let\'s say switch 1 represents `STINKY`: whether the dog is stinky or
 not. Switch 2 represents `OLD_WASH`: has it been more than 5 days since
-the last wash.
-
-So the rules for our first circuit are:
+the last wash. So the rules for our first circuit are:
 
 If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog
-is stinky and its last wash was over 5 days ago, then wash the dog.
-
-Here is the circuit:
+is stinky and its last wash was over 5 days ago, then wash the dog. Here
+is the circuit:
 
 #align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
@@ -251,21 +252,19 @@ Here is the circuit:
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
 )])
 
-#caption("4.1")[The hand-switch version of AND.]
+#caption("3.2")[The hand-switch version of AND.]
 
 This circuit shows a logical AND operation. A person is flipping the
 switches manually. The output turns on only when both inputs are true.
 
-Now add a new input: `MUDDY`, if the dog is muddy.
-
-Now the rules of the circuit change:
+Now add a new input: `MUDDY`, if the dog is muddy. The rules of the
+circuit change:
 
 If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
 All this says is, if the dog is muddy or stinky and it\'s been more than
-5 days since the dog\'s last wash, you should wash the dog.
-
-Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
+5 days since the dog\'s last wash, you should wash the dog. Now let\'s
+focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
 #align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
@@ -276,7 +275,7 @@ Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
 )])
 
-#caption("4.2")[The hand-switch version of OR.]
+#caption("3.3")[The hand-switch version of OR.]
 
 This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
 for the bulb to turn on. Both on also counts.
@@ -286,6 +285,8 @@ switch is flipped by a human. If we ever want to build a computer, it
 needs to run by itself: electricity has to be able to flip a switch by
 itself! But how?
 
+=== Relays & Logic Gates
+<relays--logic-gates>
 Electromagnetic relays, that\'s how. Or at least, that is one early
 solution to this problem. We will talk about other solutions a little
 more later on. This probably sounds quite complicated, but it is just a
@@ -305,7 +306,7 @@ Here is how it works:
   image("/pdf/.raster/light-final/basic-relay-4.png", width: 100%)
 ))
 
-#caption("4.3")[An electromagnetic relay.]
+#caption("4.1")[An electromagnetic relay.]
 
 This relay is made from a coil of wire and a movable metal arm. When
 current flows through the coil, the coil becomes a magnet and pulls the
@@ -335,12 +336,19 @@ two input wires and outputs an electrical signal.
   image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
 )])
 
-#caption("4.4")[An AND gate.]
+#caption("4.2")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
 relay. Only when both inputs are on do both relays close, completing the
-output loop. Using these relays chained in clever ways, you can create
-every fundamental logic gate, such as the OR gate.
+output loop.
+
+That is the big difference from the hand-switch version. The inputs are
+still drawn as switches here, but they don\'t have to be. The input
+could just be a wire: driven high, current flows through the coil and
+the relay pulls. Driven low, no current flows and the relay lets go.
+
+Using these relays chained in clever ways, you can create every
+fundamental logic gate, such as the OR gate.
 
 But before the next diagram, I am going to use one more new symbol:
 ground. For our purposes here, the ground symbol will simply refer to
@@ -362,7 +370,7 @@ This is how the ground symbol looks:
 
 #align(center, image("/pdf/.raster/light-final/ground-symbol.png", width: 35%))
 
-#caption("4.5")[The ground symbol.]
+#caption("4.3")[The ground symbol.]
 
 Now here is the OR gate:
 
@@ -373,7 +381,7 @@ Now here is the OR gate:
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
 )])
 
-#caption("4.6")[An electronic OR gate.]
+#caption("4.4")[An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
@@ -381,7 +389,7 @@ up to this point:
 #align(center, image("/pdf/.raster/light-final/dog-washer-v1-1-s.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1")
-#caption("4.7")[The full dog washer circuit built with relays.]
+#caption("4.5")[The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
 a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
@@ -412,7 +420,7 @@ input is 1, the output is 0; if the input is 0, the output is 1.
   image("/pdf/.raster/light-final/not-gate-4.png", width: 100%)
 ))
 
-#caption("4.8")[A NOT gate.]
+#caption("4.6")[A NOT gate.]
 
 Remember the OR output feeding that relay in the dog washer? Here is
 what is actually going on there. We have been showing our outputs as a
@@ -449,7 +457,7 @@ low so as to not mess up your brain.
   image("/pdf/.raster/light-final/before-after-4.png", width: 100%)
 ))
 
-#caption("4.9")[Driving an output wire.]
+#caption("4.7")[Driving an output wire.]
 
 In this diagram, red wire means current is actively flowing. That\'s why
 `OUT = 1` is still white. Later when we start drawing logic gates, and
@@ -460,28 +468,26 @@ logic gate symbols. An AND gate is drawn like this:
 
 #align(center, image("/pdf/.raster/light-final/and-gate.png", width: 60%))
 
-#caption("4.10")[An AND gate.]
+#caption("4.8")[An AND gate.]
 
 This symbol represents the AND circuit we made previously, except
-instead of turning a bulb on and off, it drives an output wire.
-
-An OR gate is drawn like this:
+instead of turning a bulb on and off, it drives an output wire. An OR
+gate is drawn like this:
 
 #align(center, image("/pdf/.raster/light-final/or-gate.png", width: 55%))
 
-#caption("4.11")[An OR gate.]
+#caption("4.9")[An OR gate.]
 
 This symbol represents the OR circuit we made previously.
 
 Whenever I use these symbols moving forward, they can almost directly
 translate to the circuits with the relays I showed you previously, just
-instead of turning on a light bulb, they drive a wire.
-
-Here are three more useful gate symbols:
+instead of turning on a light bulb, they drive a wire. Here are three
+more useful gate symbols:
 
 #align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 95%))
 
-#caption("4.12")[NOT, NAND, NOR gates.]
+#caption("4.10")[NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 That little circle at the end of a gate means \"flip the output.\"
@@ -492,7 +498,7 @@ With our knowledge about logic gates, let\'s create the
 #pad(x: -8mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
-#caption("4.13")[The final dog washer circuit.]
+#caption("4.11")[The final dog washer circuit.]
 
 Again this animation doesn\'t cover all possible states.
 
@@ -543,9 +549,8 @@ than one wire, because one wire can only represent up to two numbers,
 since it only has two possible states: `0` or `1`.
 
 But two wires have `2^2`, or four states, and three wires have `2^3`, or
-eight states. That would allow us to represent more numbers.
-
-Here are all the possible states we have with 3 wires:
+eight states. That would allow us to represent more numbers. Here are
+all the possible states we have with 3 wires:
 
 #pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/3-states-1.png", width: 100%),
@@ -579,9 +584,7 @@ have two digits, 0 and 1, so each place is a power of 2.
 #caption("5.4")[The binary system.]
 
 So binary is, at the end of the day, the same place-value idea as
-decimal, just with two digits instead of ten.
-
-A few examples:
+decimal, just with two digits instead of ten. A few examples:
 
 - `101` means 5
 - `1101` means 13
@@ -604,8 +607,8 @@ together? That is what the next section is all about.
 
 #caption("5.6")[Addition?]
 
-=== Addition
-<addition>
+=== Math?
+<math>
 Let\'s start with a brief reminder of how we algorithmically add two
 decimal numbers.
 
@@ -668,9 +671,7 @@ This is called a half adder. A half adder adds two bits, but it does not
 handle a carry-in value. That is the job of a full adder.
 
 Let\'s first build this half adder. Let\'s start by computing the sum,
-not the carry-out.
-
-This is what we want our circuit to do:
+not the carry-out. This is what we want our circuit to do:
 
 #figure(
   align(center)[#table(
@@ -703,9 +704,7 @@ XOR:
 #caption("6.3")[Half adder sum / XOR.]
 
 OR checks that at least one input is on, and NAND makes sure the inputs
-aren\'t both on.
-
-Here is how an XOR gate looks:
+aren\'t both on. Here is how an XOR gate looks:
 
 #align(center, image("/pdf/.raster/light-final/xor-gate.png", width: 55%))
 
@@ -713,9 +712,7 @@ Here is how an XOR gate looks:
 
 Now let\'s do the carry value. The carry is simple! We only want to
 carry if we are doing `1 + 1`, so we just use an AND gate to check if
-both inputs are on.
-
-Now here is our half adder:
+both inputs are on. Now here is our half adder:
 
 #align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 85%))
 
@@ -734,9 +731,7 @@ will call these packaged-up circuits chips:
 
 Now that we have a half adder, we can add the rightmost column. That
 works because the rightmost column has no carry-in from a previous
-column. It only needs to add two bits.
-
-So if we have a number like this:
+column. It only needs to add two bits. So if we have a number like this:
 
 #align(center, image("/pdf/.raster/light-final/carry-in-issue.png", width: 56%))
 
@@ -750,9 +745,8 @@ original bits, plus the carry from the previous column.
 
 A half adder cannot do that. It only accepts two inputs. To continue
 adding up the other columns, we need a circuit that can take in three
-inputs: `A`, `B`, and `carry-in`.
-
-To add three bits, we use two half adders and an OR gate:
+inputs: `A`, `B`, and `carry-in`. To add three bits, we use two half
+adders and an OR gate:
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
 
@@ -817,9 +811,8 @@ Now let\'s package this up into a chip once again:
 #caption("6.11")[An 8-bit adder chip.]
 
 Now we have the carry-out and carry-in as separate inputs and outputs
-and the whole adder nicely organized into this chip.
-
-Let\'s have a look at some example problems:
+and the whole adder nicely organized into this chip. Let\'s have a look
+at some example problems:
 
 #align(center, image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 76%))
 
@@ -926,9 +919,7 @@ This diagram should help this make sense:
 #caption("7.1")[An SR latch.]
 
 One quick reminder before we trace through this: a NOR gate only turns
-on when both of its inputs are off.
-
-A simple way to think about this is:
+on when both of its inputs are off. A simple way to think about this is:
 
 If `SET` is on, the bottom NOR gate has to output `0`, because one of
 its inputs is on. That makes `NOT Q` equal to `0`.
@@ -1030,9 +1021,8 @@ it can\'t change!
 
 So if `D` changes while enable is off, we are all good because the
 second latch is locked. But if `D` changes while enable is on, we are
-fine because the first latch is locked.
-
-Here is one storage cell, which is just the flip-flop we showed above:
+fine because the first latch is locked. Here is one storage cell, which
+is just the flip-flop we showed above:
 
 #align(center, image("/pdf/.raster/light-final/flip-flop-storage-cell.png", width: 60%))
 
@@ -1104,15 +1094,16 @@ exactly when we want. But registers on their own are not enough. We need
 to be able to move numbers between registers, the adders, and the main
 memory, which we will build later.
 
-=== Buses
-<buses>
+=== Public Transport?
+<public-transport>
 One simple solution to move bytes around would be to give every
 component its own bundle of 8 wires to every other component, but that
 would become a mess very quickly.
 
 A simpler solution is to have one single 8-bit data highway, where
 components can put data on and take data off. This collection of 8 wires
-is called a bus.
+is called a bus. I hope the title of the section now makes sense for any
+of you confused readers, sorry not sorry.
 
 One more thing, moving forward when I want to draw a collection of 8
 wires, instead of drawing each wire, I will just draw a thick arrow that
@@ -1203,9 +1194,7 @@ whichever side `D` picked, so it is driven to `1` or `0`.
 
 When `E` is `0`, both relays touch a point connected to nothing. Both
 wires lead to a dead end. The output wire is touching nothing. That is
-`Z`.
-
-So we have three states:
+`Z`. So we have three states:
 
 #figure(
   align(center)[#table(
@@ -1332,9 +1321,8 @@ bottom 2 bits = row
 ```
 
 Two bits can choose 4 values, so this gives us a 4×4 grid of memory
-slots. That is 16 total bytes!
-
-Once the address selects a slot, two things can happen:
+slots. That is 16 total bytes! Once the address selects a slot, two
+things can happen:
 
 - If `WRITE` turns on, the selected slot stores `data in`.
 - If `OUT` is on, the selected slot drives its stored byte onto
@@ -1591,9 +1579,7 @@ the results in a corresponding result register.
 To decide which one to output, the `OP` bits go into a `2-4` decoder
 that enables exactly 1 of the result registers onto the `R` bus.
 
-Now for the flags.
-
-First, the `ZERO` circuitry. It consists of:
+Now for the flags. First, the `ZERO` circuitry. It consists of:
 
 `NOT` -\> `AND`
 
@@ -1823,9 +1809,8 @@ So here is what number each instruction in our CPU translates to:
 
 So we store `00000001` in address 0 of `RAM`. Then store `00000101` in
 address 1 of `RAM`. Then store `00000011` in address 2, then `11111111`
-in address 3, and finally `00001110` in address 4.
-
-Our `RAM` looks like this:
+in address 3, and finally `00001110` in address 4. Our `RAM` looks like
+this:
 
 ```
 0: 00000001
@@ -2101,6 +2086,8 @@ One more thing, I have used tri-state buffers before the `RAM` and `MAR`
 control signals, and I have kept the enable on for now. You can mostly
 ignore this for now, but it will come back later.
 
+=== Decode & Execute
+<decode--execute>
 The rest of the micro-steps depend on the instruction we want to
 execute, so we use another decoder, this time a `4-16` decoder. Each
 instruction is actually 8 bits long, one byte, but the opcode only needs
@@ -2163,7 +2150,7 @@ mess:
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
 
-#caption("13.4")[All of the 2-byte instructions.]
+#caption("14.1")[All of the 2-byte instructions.]
 
 I know this is quite overwhelming, so let me break it down for you. We
 have the steps 1 and 2 wired just like before to fetch our instruction.
@@ -2230,7 +2217,7 @@ whatever lives at that address into register `A`.
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
-#caption("13.5")[`LOAD A, [addr]` animation.]
+#caption("14.2")[`LOAD A, [addr]` animation.]
 
 When the label for a control signal turns red, that means it\'s on. For
 the gated signals colored in pink, they will only actually turn on at
@@ -2254,7 +2241,7 @@ Quite simple:
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
 
-#caption("13.6")[The MOV instructions.]
+#caption("14.3")[The MOV instructions.]
 
 I have left out all of the 2-byte instructions from this diagram, just
 so it\'s easier to read.
@@ -2315,7 +2302,7 @@ So here we are:
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
 
-#caption("13.7")[The ALU instructions.]
+#caption("14.4")[The ALU instructions.]
 
 Again I am leaving out all the instructions apart from these 4, and
 again this wiring is a mess.
@@ -2334,7 +2321,7 @@ computer.
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
 
-#caption("13.8")[The `HALT` instruction freezing the computer.]
+#caption("14.5")[The `HALT` instruction freezing the computer.]
 
 Even though the clock is on, the computer stays frozen.
 
@@ -2360,7 +2347,7 @@ Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
 #pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
 
-#caption("13.9")[The `HALT` and `TAKEOVER` wiring.]
+#caption("14.6")[The `HALT` and `TAKEOVER` wiring.]
 
 Wait, is that the whole `CU`?
 
@@ -2389,7 +2376,7 @@ Here is our CPU executing it:
 #pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
-#caption("14.1")[The CPU running a simple program.]
+#caption("15.1")[The CPU running a simple program.]
 
 For this animation, I am not animating the idle steps where nothing
 happens, and I am not animating 2 frames per micro-step. That\'s why you
