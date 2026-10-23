@@ -2602,13 +2602,13 @@ Two-byte instructions all share step 3: `PC_OUT`, `MAR_WRITE`. Then:
   columns: (auto, auto, 1fr, auto),
   align: (right, left, left, left),
   table.header([\#], [Instruction], [Step 4], [Step 5]),
-  [1], [`LOAD A, n`], [`RAM_OUT`, `A_WRITE`, `PC_INC`], [—],
+  [1], [`LOAD A, n`], [`RAM_OUT`, `A_WRITE`, `PC_INC`], [Nothing],
   [2], [`LOAD A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`RAM_OUT`, `A_WRITE`],
   [3], [`STORE A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`A_OUT`, `RAM_WRITE`],
-  [6], [`JMP addr`], [`RAM_OUT`, `PC_WRITE`], [—],
-  [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if `EQUAL` else `PC_INC`], [—],
-  [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if `CARRY` else `PC_INC`], [—],
-  [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if `ZERO` else `PC_INC`], [—],
+  [6], [`JMP addr`], [`RAM_OUT`, `PC_WRITE`], [Nothing],
+  [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if `EQUAL` else `PC_INC`], [Nothing],
+  [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if `CARRY` else `PC_INC`], [Nothing],
+  [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if `ZERO` else `PC_INC`], [Nothing],
 )
 
 One-byte instructions finish in one or two steps:
@@ -2617,8 +2617,8 @@ One-byte instructions finish in one or two steps:
   columns: (auto, auto, 1fr, auto),
   align: (right, left, left, left),
   table.header([\#], [Instruction], [Step 3], [Step 4]),
-  [4], [`MOV B, A`], [`A_OUT`, `B_WRITE`], [—],
-  [5], [`MOV A, B`], [`B_OUT`, `A_WRITE`], [—],
+  [4], [`MOV B, A`], [`A_OUT`, `B_WRITE`], [Nothing],
+  [5], [`MOV A, B`], [`B_OUT`, `A_WRITE`], [Nothing],
   [8–11], [`ADD`/`AND`/`OR`/`XOR`], [`B_OUT`, `ACC_WRITE`, `FLAGS_WRITE`], [`ACC_OUT`, `A_WRITE`],
 )
 ]
@@ -2628,7 +2628,7 @@ One-byte instructions finish in one or two steps:
 #[
 #set par(first-line-indent: 0em, spacing: 0.9em)
 
-#let entry(term, def) = par(hanging-indent: 1.2em)[#text(weight: "bold")[#term] --- #def]
+#let entry(term, def) = par(hanging-indent: 1.2em)[#text(weight: "bold")[#term.] #def]
 
 #entry[Accumulator][A register that holds a running result, updating in place as new values arrive.]
 #entry[Address][The number of a slot in RAM.]
@@ -2664,27 +2664,37 @@ One-byte instructions finish in one or two steps:
 #[
 #set par(first-line-indent: 0em, spacing: 1.1em)
 
-#emph[Code: The Hidden Language of Computer Hardware and Software] --- Charles
+#emph[Code: The Hidden Language of Computer Hardware and Software] by Charles
 Petzold. The classic. Builds up a computer from flashlights and telegraph
 relays, slower and deeper than this book. Read it if you want the full story,
 including the history.
 
-#emph[But How Do It Know?] --- J. Clark Scott. Covers similar ground to this
+#emph[But How Do It Know?] by J. Clark Scott. Covers similar ground to this
 book with a different 8-bit CPU design. A good second pass: seeing the same
 ideas in someone else's architecture makes them stick.
 
-#emph[The Elements of Computing Systems] (Nand2Tetris) --- Noam Nisan and
+#emph[The Elements of Computing Systems] (Nand2Tetris) by Noam Nisan and
 Shimon Schocken. A project course where you build a computer, an assembler,
 and an operating system yourself, starting from NAND gates. For when you want
 to build, not read. Free materials at nand2tetris.org.
 
-#emph[Ben Eater's 8-bit breadboard computer] --- a video series at eater.net
-where he physically builds a CPU much like this one, chip by chip, on
-breadboards. The best thing to watch after finishing Part 3.
+#emph[What Every Programmer Should Know About Memory] by Ulrich Drepper. A
+famous paper on how memory really behaves in modern computers: RAM chips,
+caches, and why access patterns decide speed. Much deeper than this book.
+Free online.
 
-#emph[Logic gates from transistors] --- the logic section of
-electronics-tutorials.ws shows how real gates are made from transistors,
-where this book used relays.
+The logic-gates section of electronics-tutorials.ws. Shows how real gates are
+made from transistors, where this book used relays.
+]
+
+== Acknowledgments
+
+#[
+#set par(first-line-indent: 0em)
+
+My dad read the drafts and told me which parts were hard to understand or
+unclear. My family gave opinions and feedback on the cover mockups. Any
+mistakes that are left are mine.
 ]
 
 
