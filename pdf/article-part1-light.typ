@@ -597,7 +597,7 @@ works the same way.
 So the sum bit for that column is `0`, and the carry is `1`.
 
 `1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`,
-and the carry is `1`.
+and the carry is `1`, and so on.
 
 How do we build a circuit using logic gates that performs this standard
 addition algorithm?
@@ -829,7 +829,7 @@ With transistors, it would happen almost instantly.
 There is no boundary between the old value and the new value. There is
 no clean \"step 1, step 2, step 3.\"
 
-So this is not enough. We need a circuit that can hold a value still,
-then update it only when we tell it to.
+So this is not enough. We need a circuit that can hold a value, then
+update it only when we tell it to.
 
 That is the next problem: memory.

@@ -109,7 +109,7 @@
 === Storing a Bit
 <storing-a-bit>
 In the last section, wiring the output of a circuit back into its input
-led to chaos. But with a smarter configuration, we can use this trick to
+led to chaos. But with a smarter configuration, we can use this idea to
 store a bit.
 
 The circuit that stores a single bit is called an SR latch. SR stands
@@ -204,16 +204,9 @@ unpredictably based on how long we hold that button for.
 If we want the accumulator to work correctly, we need the enable wire to
 turn on for an instant and then turn back off. That is just hard to do.
 
-#grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/d-latch-accumulator-1.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-2.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-3.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-4.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-5.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-6.png", width: 100%),
-  image("/pdf/.raster/light-final/d-latch-accumulator-7.png", width: 100%)
-)
+#align(center, image("/pdf/.raster/light-final/d-latch-accumulator-1.png", width: 100%))
 
+#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
 #caption("7.3")[D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
