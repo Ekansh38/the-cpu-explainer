@@ -158,10 +158,10 @@ First, we need the basics of how electricity and circuits work.
 
 Here is a simple circuit:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-circuit-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
-)
+))
 
 #caption("3.1")[A basic circuit with a battery, switch, and bulb.]
 
@@ -200,12 +200,12 @@ is stinky and its last wash was over 5 days ago, then wash the dog.
 
 Here is the circuit:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/switches-1-1.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-2.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-3.png", width: 100%),
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
-)
+))
 
 #caption("4.1")[The hand-switch version of AND.]
 
@@ -223,14 +223,14 @@ All this says is, if the dog is muddy or stinky and it\'s been more than
 
 Now let\'s focus on the (`MUDDY` OR `STINKY`) part of this circuit:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/or-gate-logical-1.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-2.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-3.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-4.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-5.png", width: 100%),
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
-)
+))
 
 #caption("4.2")[The hand-switch version of OR.]
 
@@ -254,12 +254,12 @@ connected to power,\" so the diagram so diagrams stay clear.
 
 Here is how it works:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-4.png", width: 100%)
-)
+))
 
 #caption("4.3")[An electromagnetic relay.]
 
@@ -283,13 +283,13 @@ do not switch instantly.
 Now let\'s see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-10.png", width: 100%)
-)
+))
 
 #caption("4.4")[An AND gate.]
 
@@ -322,12 +322,12 @@ This is how the ground symbol looks:
 
 Now here is the OR gate:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-or-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-5.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
-)
+))
 
 #caption("4.6")[An electronic OR gate.]
 
@@ -362,12 +362,12 @@ Let\'s focus on this NOT for a second. NOT just inverts a signal: if it
 receives signal, it outputs no signal; if it receives no signal, it
 outputs signal.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-2.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-4.png", width: 100%)
-)
+))
 
 #caption("4.8")[A NOT gate.]
 
@@ -399,12 +399,12 @@ transistors, need to be driven low for the 0 logic to work correctly,
 and we are using relays to replace them. So, we just treat 0 as driven
 low so as to not mess up your brain.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-4.png", width: 100%)
-)
+))
 
 #caption("4.9")[Driving an output wire.]
 
@@ -506,7 +506,7 @@ eight states. That would allow us to represent more numbers.
 
 Here are all the possible states we have with 3 wires:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/3-states-1.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-2.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-3.png", width: 100%),
@@ -515,7 +515,7 @@ Here are all the possible states we have with 3 wires:
   image("/pdf/.raster/light-final/3-states-6.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-7.png", width: 100%),
   image("/pdf/.raster/light-final/3-states-8.png", width: 100%)
-)
+))
 
 #caption("5.2")[States with 3 wires.]
 
@@ -581,14 +581,14 @@ write 3 as the sum, and 1 as the carry. We then move left and repeat
 over and over remembering to add any carry-in values. Binary addition
 works the same way.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/binary-addition-1.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-2.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-3.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-4.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-5.png", width: 100%),
   image("/pdf/.raster/light-final/binary-addition-6.png", width: 100%)
-)
+))
 
 #caption("6.2")[Binary addition.]
 
@@ -651,12 +651,12 @@ short for exclusive OR.
 If we combine an OR gate and a NAND gate, and AND them together, we get
 XOR:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-3.png", width: 100%),
   image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 100%)
-)
+))
 
 #caption("6.3")[Half adder sum / XOR.]
 
@@ -712,7 +712,7 @@ inputs: `A`, `B`, and `carry-in`.
 
 To add three bits, we use two half adders and an OR gate:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/full-adder-1.png", width: 100%),
   image("/pdf/.raster/light-final/full-adder-2.png", width: 100%),
   image("/pdf/.raster/light-final/full-adder-3.png", width: 100%),
@@ -721,7 +721,7 @@ To add three bits, we use two half adders and an OR gate:
   image("/pdf/.raster/light-final/full-adder-6.png", width: 100%),
   image("/pdf/.raster/light-final/full-adder-7.png", width: 100%),
   image("/pdf/.raster/light-final/full-adder-8.png", width: 100%)
-)
+))
 
 #caption("6.8")[A full adder.]
 
@@ -771,11 +771,11 @@ and the whole adder nicely organized into this chip.
 
 Let\'s have a look at some example problems:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/8-bit-adder-example-1.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-2.png", width: 100%),
   image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 100%)
-)
+))
 
 #caption("6.12")[Some examples on the adder.]
 
