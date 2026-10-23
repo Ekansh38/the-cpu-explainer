@@ -2539,6 +2539,155 @@ I hope you now understand why computers aren\'t \"just\" 1s and 0s, but
 a very tall pile of simple.
 
 
+== Appendix: Quick Reference
+
+#[
+#set par(first-line-indent: 0em)
+
+#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[The instruction set]]
+
+#table(
+  columns: (auto, auto, auto, auto, 1fr),
+  align: (right, left, left, right, left),
+  table.header([\#], [Binary], [Mnemonic], [Bytes], [Action]),
+  [0], [`0000`], [`NOP`], [1], [do nothing],
+  [1], [`0001`], [`LOAD A, n`], [2], [next byte → A],
+  [2], [`0010`], [`LOAD A, [addr]`], [2], [RAM slot → A],
+  [3], [`0011`], [`STORE A, [addr]`], [2], [A → RAM slot],
+  [4], [`0100`], [`MOV B, A`], [1], [copy A into B],
+  [5], [`0101`], [`MOV A, B`], [1], [copy B into A],
+  [6], [`0110`], [`JMP addr`], [2], [addr → PC],
+  [7], [`0111`], [`JE addr`], [2], [if `EQUAL` flag: addr → PC],
+  [8], [`1000`], [`ADD`], [1], [A = A + B],
+  [9], [`1001`], [`AND`], [1], [A = A AND B],
+  [10], [`1010`], [`OR`], [1], [A = A OR B],
+  [11], [`1011`], [`XOR`], [1], [A = A XOR B],
+  [12], [`1100`], [`JC addr`], [2], [if `CARRY` flag: addr → PC],
+  [13], [`1101`], [`JZ addr`], [2], [if `ZERO` flag: addr → PC],
+  [14], [`1110`], [`HALT`], [1], [stop the clock],
+)
+
+#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[ALU operations and flags]]
+
+#block(breakable: false, grid(columns: (auto, auto), gutter: 14pt,
+  table(
+    columns: (auto, auto, 1fr),
+    align: (right, left, left),
+    table.header([`OP`], [Operation], [Meaning]),
+    [`00`], [ADD], [output `A + B`],
+    [`01`], [AND], [output `A AND B`],
+    [`10`], [OR], [output `A OR B`],
+    [`11`], [XOR], [output `A XOR B`],
+  ),
+  table(
+    columns: (auto, 1fr),
+    align: (left, left),
+    table.header([Flag], [Turns on when]),
+    [`ZERO`], [the result is `00000000`],
+    [`CARRY`], [addition spills past 8 bits],
+    [`EQUAL`], [`A` and `B` are the same],
+  ),
+))
+
+#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[Micro-steps]]
+
+Every instruction starts with the same fetch:
+
++ `PC_OUT`, `MAR_WRITE`
++ `RAM_OUT`, `IR_WRITE`, `PC_INC`
+
+Two-byte instructions all share step 3: `PC_OUT`, `MAR_WRITE`. Then:
+
+#table(
+  columns: (auto, auto, 1fr, auto),
+  align: (right, left, left, left),
+  table.header([\#], [Instruction], [Step 4], [Step 5]),
+  [1], [`LOAD A, n`], [`RAM_OUT`, `A_WRITE`, `PC_INC`], [—],
+  [2], [`LOAD A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`RAM_OUT`, `A_WRITE`],
+  [3], [`STORE A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`A_OUT`, `RAM_WRITE`],
+  [6], [`JMP addr`], [`RAM_OUT`, `PC_WRITE`], [—],
+  [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if `EQUAL` else `PC_INC`], [—],
+  [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if `CARRY` else `PC_INC`], [—],
+  [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if `ZERO` else `PC_INC`], [—],
+)
+
+One-byte instructions finish in one or two steps:
+
+#table(
+  columns: (auto, auto, 1fr, auto),
+  align: (right, left, left, left),
+  table.header([\#], [Instruction], [Step 3], [Step 4]),
+  [4], [`MOV B, A`], [`A_OUT`, `B_WRITE`], [—],
+  [5], [`MOV A, B`], [`B_OUT`, `A_WRITE`], [—],
+  [8–11], [`ADD`/`AND`/`OR`/`XOR`], [`B_OUT`, `ACC_WRITE`, `FLAGS_WRITE`], [`ACC_OUT`, `A_WRITE`],
+)
+]
+
+== Glossary
+
+#[
+#set par(first-line-indent: 0em, spacing: 0.9em)
+
+#let entry(term, def) = par(hanging-indent: 1.2em)[#text(weight: "bold")[#term] --- #def]
+
+#entry[Accumulator][A register that holds a running result, updating in place as new values arrive.]
+#entry[Address][The number of a slot in RAM.]
+#entry[ALU][Arithmetic Logic Unit. The circuit that performs math and logic (ADD, AND, OR, XOR) on its two inputs.]
+#entry[Binary][Counting with only two digits, 0 and 1. What wires can naturally represent.]
+#entry[Bit][One binary digit: a single 0 or 1.]
+#entry[Bus][A shared bundle of 8 wires that components take turns driving, so any one can talk to any other.]
+#entry[Byte][8 bits. The unit this CPU moves and stores.]
+#entry[Clock][The circuit that produces a steady on-off-on-off signal. The heartbeat that steps everything forward.]
+#entry[Control unit (CU)][The circuit that reads the current instruction and turns on the right control signals at the right step.]
+#entry[Decoder][A circuit that turns an n-bit number into exactly one active output line out of 2#super[n].]
+#entry[Flag][A one-bit status output from the ALU: `ZERO`, `CARRY`, or `EQUAL`.]
+#entry[Ground][The common return point of a circuit, drawn as a symbol instead of return wires.]
+#entry[Instruction][A number stored in RAM that tells the CPU one thing to do.]
+#entry[Instruction register (IR)][Holds the instruction currently being executed so the CU can decode it.]
+#entry[Latch][A small circuit that holds one bit. An SR latch sets and resets; a D latch stores its data input while enabled.]
+#entry[Logic gate][A circuit implementing one logical function, like AND, OR, or NOT.]
+#entry[MAR][Memory Address Register. Holds the address of the RAM slot currently being read or written.]
+#entry[Micro-step][One clock-step slice of an instruction: a small move like "register A onto the bus, RAM stores it."]
+#entry[Mnemonic][The human-readable name of an instruction, like `LOAD` or `JMP`.]
+#entry[Opcode][The bits of an instruction that name which operation to perform.]
+#entry[Program counter (PC)][The register holding the address of the next byte to fetch from RAM.]
+#entry[RAM][Random Access Memory: numbered slots of bytes, any of which can be read or written directly.]
+#entry[Register][8 latches side by side, storing one byte, with controls to write it or put it on the bus.]
+#entry[Relay][An electrically controlled switch: a coil becomes a magnet and pulls a metal arm. How this book's gates switch.]
+#entry[Transistor][An electronic switch with no moving parts. What real CPUs use where this book uses relays.]
+#entry[Tri-state buffer][Passes its input through when enabled; otherwise its output is Z, disconnected.]
+#entry[Z (high impedance)][A wire that nothing is driving. Not 1, not 0: electrically disconnected.]
+]
+
+== Further Reading
+
+#[
+#set par(first-line-indent: 0em, spacing: 1.1em)
+
+#emph[Code: The Hidden Language of Computer Hardware and Software] --- Charles
+Petzold. The classic. Builds up a computer from flashlights and telegraph
+relays, slower and deeper than this book. Read it if you want the full story,
+including the history.
+
+#emph[But How Do It Know?] --- J. Clark Scott. Covers similar ground to this
+book with a different 8-bit CPU design. A good second pass: seeing the same
+ideas in someone else's architecture makes them stick.
+
+#emph[The Elements of Computing Systems] (Nand2Tetris) --- Noam Nisan and
+Shimon Schocken. A project course where you build a computer, an assembler,
+and an operating system yourself, starting from NAND gates. For when you want
+to build, not read. Free materials at nand2tetris.org.
+
+#emph[Ben Eater's 8-bit breadboard computer] --- a video series at eater.net
+where he physically builds a CPU much like this one, chip by chip, on
+breadboards. The best thing to watch after finishing Part 3.
+
+#emph[Logic gates from transistors] --- the logic section of
+electronics-tutorials.ws shows how real gates are made from transistors,
+where this book used relays.
+]
+
+
 #hf-off.update(true)
 #pagebreak(to: "odd", weak: true)
 #v(4em)
