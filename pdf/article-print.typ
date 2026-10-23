@@ -2623,42 +2623,6 @@ One-byte instructions finish in one or two steps:
 )
 ]
 
-== Glossary
-
-#[
-#set par(first-line-indent: 0em, spacing: 0.9em)
-
-#let entry(term, def) = par(hanging-indent: 1.2em)[#text(weight: "bold")[#term.] #def]
-
-#entry[Accumulator][A register that holds a running result, updating in place as new values arrive.]
-#entry[Address][The number of a slot in RAM.]
-#entry[ALU][Arithmetic Logic Unit. The circuit that performs math and logic (ADD, AND, OR, XOR) on its two inputs.]
-#entry[Binary][Counting with only two digits, 0 and 1. What wires can naturally represent.]
-#entry[Bit][One binary digit: a single 0 or 1.]
-#entry[Bus][A shared bundle of 8 wires that components take turns driving, so any one can talk to any other.]
-#entry[Byte][8 bits. The unit this CPU moves and stores.]
-#entry[Clock][The circuit that produces a steady on-off-on-off signal. The heartbeat that steps everything forward.]
-#entry[Control unit (CU)][The circuit that reads the current instruction and turns on the right control signals at the right step.]
-#entry[Decoder][A circuit that turns an n-bit number into exactly one active output line out of 2#super[n].]
-#entry[Flag][A one-bit status output from the ALU: `ZERO`, `CARRY`, or `EQUAL`.]
-#entry[Ground][The common return point of a circuit, drawn as a symbol instead of return wires.]
-#entry[Instruction][A number stored in RAM that tells the CPU one thing to do.]
-#entry[Instruction register (IR)][Holds the instruction currently being executed so the CU can decode it.]
-#entry[Latch][A small circuit that holds one bit. An SR latch sets and resets; a D latch stores its data input while enabled.]
-#entry[Logic gate][A circuit implementing one logical function, like AND, OR, or NOT.]
-#entry[MAR][Memory Address Register. Holds the address of the RAM slot currently being read or written.]
-#entry[Micro-step][One clock-step slice of an instruction: a small move like "register A onto the bus, RAM stores it."]
-#entry[Mnemonic][The human-readable name of an instruction, like `LOAD` or `JMP`.]
-#entry[Opcode][The bits of an instruction that name which operation to perform.]
-#entry[Program counter (PC)][The register holding the address of the next byte to fetch from RAM.]
-#entry[RAM][Random Access Memory: numbered slots of bytes, any of which can be read or written directly.]
-#entry[Register][8 latches side by side, storing one byte, with controls to write it or put it on the bus.]
-#entry[Relay][An electrically controlled switch: a coil becomes a magnet and pulls a metal arm. How this book's gates switch.]
-#entry[Transistor][An electronic switch with no moving parts. What real CPUs use where this book uses relays.]
-#entry[Tri-state buffer][Passes its input through when enabled; otherwise its output is Z, disconnected.]
-#entry[Z (high impedance)][A wire that nothing is driving. Not 1, not 0: electrically disconnected.]
-]
-
 == Further Reading
 
 #[
