@@ -762,7 +762,9 @@ We need a way to connect these registers to the bus, but also let them get out o
 are not supposed to actively drive a wire to `-` or `+`, like I discussed [previously](#diagram-4-9). 
 
 Just setting the output wires to `00000000` is not enough. On a shared bus `00000000` is not
-nothing. It is actively driving the bus to `-`.
+nothing. It is actively driving the bus to `-`. Of course, in our relay world technically we don't
+need to drive to `-` like I mentioned before, but in a real world, where transistors are used, we
+certainly do and that causes problems.
 
 One clean way to solve this problem is by using something called a tri-state buffer. It has two
 inputs, `E` and `D`, which stand for enable and data.
@@ -777,7 +779,7 @@ If `E` is off, no matter the value of `D`, the output will be `Z`.
 so another component can safely drive the bus without a clash or short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very different: the component is
-actively pulling the wire down. So we have three states:
+actively driving the wire to `-`. So we have three states:
 
 ```
 1: driven high

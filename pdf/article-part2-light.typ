@@ -135,12 +135,12 @@ behind memory.
 
 This diagram should help this make sense:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/sr-latch-1.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-2.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-3.png", width: 100%),
   image("/pdf/.raster/light-final/sr-latch-4.png", width: 100%)
-)
+))
 
 #caption("7.1")[An SR latch.]
 
@@ -274,7 +274,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let\'s build a basic accumulator/adder circuit.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-2.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-3.png", width: 100%),
@@ -282,7 +282,7 @@ Now with this register, let\'s build a basic accumulator/adder circuit.
   image("/pdf/.raster/light-final/full-accumulator-5.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-6.png", width: 100%),
   image("/pdf/.raster/light-final/full-accumulator-7.png", width: 100%)
-)
+))
 
 #caption("7.9")[Our full accumulator.]
 
@@ -361,7 +361,10 @@ get out of the way when they are not supposed to actively drive a wire
 to `-` or `+`, like I discussed previously.
 
 Just setting the output wires to `00000000` is not enough. On a shared
-bus `00000000` is not nothing. It is actively driving the bus to `-`.
+bus `00000000` is not nothing. It is actively driving the bus to `-`. Of
+course, in our relay world technically we don\'t need to drive to `-`
+like I mentioned before, but in a real world, where transistors are
+used, we certainly do and that causes problems.
 
 One clean way to solve this problem is by using something called a
 tri-state buffer. It has two inputs, `E` and `D`, which stand for enable
@@ -378,7 +381,7 @@ driving the bus to `+` or `-`, so another component can safely drive the
 bus without a clash or short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very
-different: the component is actively pulling the wire down. So we have
+different: the component is actively driving the wire to `-`. So we have
 three states:
 
 ```
@@ -394,12 +397,12 @@ Also I have drawn everything the output wire is currently touching in
 yellow. Yellow is just there so you can follow the path with your eyes;
 it doesn\'t mean anything.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/tri-state-buffer-internals-1.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-2.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-3.png", width: 100%),
   image("/pdf/.raster/light-final/tri-state-buffer-internals-4.png", width: 100%)
-)
+))
 
 #caption("8.2")[A tri-state buffer built with relays.]
 
@@ -466,13 +469,13 @@ With that, we can use these new registers with a common bus to move
 data. Here is an example where the content of register `A` gets copied
 into register `B`.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/common-data-bus-demo-1.png", width: 100%),
   image("/pdf/.raster/light-final/common-data-bus-demo-2.png", width: 100%),
   image("/pdf/.raster/light-final/common-data-bus-demo-3.png", width: 100%),
   image("/pdf/.raster/light-final/common-data-bus-demo-4.png", width: 100%),
   image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 100%)
-)
+))
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
@@ -578,14 +581,14 @@ byte we want to target.
 This diagram shows a few addresses as examples. Each address gets its
 own little intersection.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/cross-section-1.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-2.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-3.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-4.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-5.png", width: 100%),
   image("/pdf/.raster/light-final/cross-section-6.png", width: 100%)
-)
+))
 
 #caption("9.3")[Where the row and column meet.]
 
@@ -599,12 +602,12 @@ gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-3.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-4.png", width: 100%)
-)
+))
 
 #caption("9.4")[2-4 decoder internals.]
 
@@ -707,7 +710,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
@@ -715,7 +718,7 @@ written.
   image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
-)
+))
 
 #caption("9.10")[How the MAR works.]
 
