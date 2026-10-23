@@ -117,9 +117,9 @@ itself: electricity has to be able to flip a switch by itself! But how?
 Electromagnetic relays, that's how. Or at least, that is one early solution to this problem. We will
 talk about other solutions a little more later on. This probably sounds quite complicated, but it is just a magnet powered by electricity.
 
-One thing to mention before the next diagram: if you see several little batteries in a circuit,
-don't interpret that as several totally separate power sources. I am using the battery drawing as a
-symbol for "this point is connected to power," so the diagram doesn't turn into spaghetti.
+One thing to mention before the next diagram: if you see many little batteries in a circuit,
+don't interpret that as several separate power sources. I am using the battery drawing as a
+symbol for "this point is connected to power," so the diagram so diagrams stay clear.
 
 Here is how it works:
 
@@ -160,9 +160,8 @@ Every point marked with the ground symbol is connected together, as if there wer
 them underneath the drawing. It is not a new component. It is just a less messy way to draw the return
 path of the circuit. The circuits are still loops. I am just not explicitly drawing the return wire anymore.
 
-In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I
-sometimes color it red when that return point is part of the active path for that frame. I think it
-makes the current path easier to follow visually.
+In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color 
+it red when that return point is part of the active path for that frame. I think it makes the current path easier to follow visually.
 
 This is how the ground symbol looks:
 
@@ -220,12 +219,17 @@ A `1` output is a wire being driven high. A `0` output is not
 As you can see in the after example below, even when the relay is not pulling the arm, even when the
 output is 0, it is still touching the negative end of that battery, so it is being driven to `-`.
 
+This is because, technically, with relays, we could get away with leaving a 0 output disconnected:
+an unpowered coil just stays off. We drive it low anyway, for two reasons. Real gates, built from
+transistors, need to be driven low for the 0 logic to work correctly, and we are using relays to
+replace them. So, we just treat 0 as driven low so as to not mess up your brain.
+
 <a id="diagram-4-9"></a> <img src="./assets/final/before-after.gif" alt="Driving an output wire">
 
 *Diagram 4.9. Driving an output wire.*
 
 In this diagram, red wire means current is actively flowing. That's why `OUT = 1` is still white.
-Later when we stop drawing every logic gate, red wire will just mean high, or 1.
+Later when we start drawing logic gates, and more high-level diagrams, red wire will just mean high, or 1.
 
 Now before we look at the completed circuit, let's learn some basic logic gate symbols. An AND gate is drawn like this:
 
@@ -245,7 +249,7 @@ An OR gate is drawn like this:
 This symbol represents the [OR circuit](#diagram-4-6) we made previously.
 
 Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
-the relays I showed you previously, but the internal components stay hidden for cleanliness.
+the relays I showed you previously, just instead of turning on a light bulb, they drive a wire.
 
 Here are three more useful gate symbols:
 
@@ -273,11 +277,11 @@ If you want to learn more about transistor based logic gates: [visit this site](
 I don't know about you, but addition seems like a pretty logical next step to these logic gates. But
 not so fast.
 
-This is how circuits make yes/no decisions. Not by understanding what `MUDDY` means, but by wiring
-simple gates so the output turns on only for the exact input we want.
+This is how circuits make yes/no decisions. The circuit doesn't "understand" what `MUDDY` means, but
+it just takes simple logical decisions.
 
-A wire is just a wire. We gave these wires meaning. We decided that
-one wire means `STINKY`, another wire means `MUDDY`, and another means `RAIN_SOON`.
+A wire is just a wire. We gave these wires meaning. We decided that one wire means `STINKY`, another
+wire means `MUDDY`, and another means `RAIN_SOON`.
 
 To make a CPU, we need to give wires a different kind of meaning: numbers. Before we can build a
 circuit that adds, we need a way to represent numbers using only on and off.
@@ -309,11 +313,7 @@ Here are all the possible states we have with 3 wires:
 
 *Diagram 5.2. States with 3 wires.*
 
-We can represent 8 numbers just like this.
-
-But, why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned? 
-
-Not exactly. To understand this, let's take a quick detour to decimal, a.k.a. base ten.
+We can represent 8 numbers just like this. But, why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned? Not exactly. To understand this, let's take a quick detour to decimal, a.k.a. base ten.
 
 <a id="diagram-5-3"></a> <img src="./assets/final/decimal.svg" alt="The decimal system">
 
