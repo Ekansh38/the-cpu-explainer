@@ -2524,9 +2524,7 @@ a very tall pile of simple.
 #align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
 #v(2em)
 #align(center)[
-  #rect(width: 42mm, height: 52mm, stroke: 0.5pt + rgb("#aaaaaa"))[
-    #align(center + horizon)[#text(size: 8pt, fill: rgb("#aaaaaa"))[photo]]
-  ]
+  #image("/assets/author.jpg", width: 42mm)
 ]
 #v(2em)
 Ekansh Goenka wrote this book at 13, over about six months alongside school.
