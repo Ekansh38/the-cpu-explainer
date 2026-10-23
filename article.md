@@ -270,8 +270,7 @@ Keep in mind these [electromagnetic relays](#diagram-4-3) we used in the example
 understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) 
 actually used these types of relays.
 
-In modern computers, similar behavior is achieved by using transistors. 
-If you want to learn more about transistor based logic gates: [visit this site](https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html).
+In modern computers, similar behavior is achieved by using transistors.
 
 I don't know about you, but addition seems like a pretty logical next step to these logic gates. But
 not so fast.
@@ -616,8 +615,6 @@ extra logic gates.
 
 It basically checks: if `D` is true and `E` is true, `SET` is true, and if `D` is false and
 `E` is true, `RESET` is true. That's it, so let's not worry about the exact implementation.
-
-If you really want to know how it works, have a look at [this site](https://www.build-electronic-circuits.com/d-latch/).
 
 <a id="diagram-7-2"></a> <img src="./assets/final/d-latch.svg" alt="D latch">
 

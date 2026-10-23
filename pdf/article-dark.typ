@@ -464,8 +464,6 @@ computers like the
 actually used these types of relays.
 
 In modern computers, similar behavior is achieved by using transistors.
-If you want to learn more about transistor based logic gates:
-#link("https://www.electronics-tutorials.ws/logic/logic-gates-using-transistors.html")[visit this site].
 
 I don\'t know about you, but addition seems like a pretty logical next
 step to these logic gates. But not so fast.
@@ -920,9 +918,6 @@ using the SR latch and a few extra logic gates.
 It basically checks: if `D` is true and `E` is true, `SET` is true, and
 if `D` is false and `E` is true, `RESET` is true. That\'s it, so let\'s
 not worry about the exact implementation.
-
-If you really want to know how it works, have a look at
-#link("https://www.build-electronic-circuits.com/d-latch/")[this site].
 
 #align(center, image("/pdf/.raster/dark/d-latch.png", width: 70%))
 
