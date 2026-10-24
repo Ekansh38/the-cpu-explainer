@@ -344,7 +344,7 @@ Now here is the OR gate:
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
 
-#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
   image("/assets/frames/dog-washer-v1-1-s.png", width: 100%),
   image("/assets/frames/dog-washer-v1-4-s.png", width: 100%),
   image("/assets/frames/dog-washer-v1-6-s.png", width: 100%),
@@ -1173,15 +1173,13 @@ With that, we can use these new registers with a common bus to move
 data. Here is an example where the content of register `A` gets copied
 into register `B`.
 
-#align(center, image("/assets/frames/common-data-bus-demo-1.png", width: 76%))
-
-#align(center, image("/assets/frames/common-data-bus-demo-2.png", width: 76%))
-
-#align(center, image("/assets/frames/common-data-bus-demo-3.png", width: 76%))
-
-#align(center, image("/assets/frames/common-data-bus-demo-4.png", width: 76%))
-
-#align(center, image("/assets/frames/common-data-bus-demo-5.png", width: 76%))
+#align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
+  image("/assets/frames/common-data-bus-demo-1.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-2.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-3.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-4.png", width: 100%),
+  image("/assets/frames/common-data-bus-demo-5.png", width: 100%)
+)])
 
 #caption("8.5")[Copying register A into register B through the shared
 bus.]
