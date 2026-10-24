@@ -99,7 +99,7 @@
   #it
 ]
 
-#show outline.entry: set outline.entry(fill: none)
+#show outline.entry.where(level: 2): set outline.entry(fill: none)
 #show outline.entry.where(level: 2): it => {
   if repr(it.element.body).contains("Part ") {
     v(1.7em, weak: true)

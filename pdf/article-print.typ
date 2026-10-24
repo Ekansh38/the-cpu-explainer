@@ -114,6 +114,27 @@
     depth: 4,
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
+  [#metadata(none) <pend>]
+  pagebreak(to: "odd", weak: true)
+  [#metadata(none) <popen>]
+  [
+#v(4em)
+#align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
+#v(2em)
+#align(center)[
+  #image("/assets/author.jpg", width: 42mm)
+]
+#v(2em)
+Ekansh Goenka (b. 2013) wrote this book in 2026, over about six months.
+He drew all 71 diagrams by hand and designed its 8-bit CPU from scratch.
+
+He wrote it because once he understood how a CPU works in detail, it turned
+out to be simpler than most people think. The resources he found either
+skipped the juicy details, so you never really got it, or were so long and
+intimidating that most people never started.
+
+The web version is free at bytecolony.computer, with the animated diagrams.
+]
   hf-off.update(true)
   [#metadata(none) <pend>]
   pagebreak(to: "odd", weak: true)
@@ -152,7 +173,7 @@
   #it
 ]
 
-#show outline.entry: set outline.entry(fill: none)
+#show outline.entry.where(level: 2): set outline.entry(fill: none)
 #show outline.entry.where(level: 2): it => {
   if repr(it.element.body).contains("Part ") {
     v(1.7em, weak: true)
@@ -2618,28 +2639,8 @@ unclear. My family gave opinions and feedback on the cover mockups. Any
 mistakes that are left are mine.
 ]
 
-
 #hf-off.update(true)
 #metadata(none) <pend>
-#pagebreak(to: "odd", weak: true)
-#metadata(none) <popen>
-#metadata(none) <fsup>
-#v(4em)
-#align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
-#v(2em)
-#align(center)[
-  #image("/assets/author.jpg", width: 42mm)
-]
-#v(2em)
-Ekansh Goenka (b. 2013) wrote this book in 2026, over about six months.
-He drew all 71 diagrams by hand and designed its 8-bit CPU from scratch.
-
-He wrote it because once he understood how a CPU works in detail, it turned
-out to be simpler than most people think. The resources he found either
-skipped the juicy details, so you never really got it, or were so long and
-intimidating that most people never started.
-
-The web version is free at bytecolony.computer, with the animated diagrams.
-
 #pagebreak(to: "even")
+#metadata(none) <popen>
 #metadata(none) <fsup>
