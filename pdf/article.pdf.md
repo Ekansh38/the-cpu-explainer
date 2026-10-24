@@ -116,7 +116,7 @@ power.
 
 Anyway, here is how a relay works:
 
-<a id="diagram-4-1"></a> <img pdf-frames="all" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
+<a id="diagram-4-1"></a> <img pdf-frames="all" class="big" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
 *Diagram 4.1. An electromagnetic relay.*
 
@@ -181,7 +181,7 @@ That is an OR gate using relays. Now here is the full dog washer circuit up to t
 The animation does not show every possible combination of switches, only a handful. But in a
 nutshell, if `MUDDY` or `STINKY` is on, and `OLD_WASH` is also on, the bulb turns on.
 
-Notice the OR gate's bulb is gone. Its output is now a wire, feeding straight into the next relay's
+Notice the OR that checks `MUDDY OR STINKY`, it's bulb is gone. Its output is now a wire, feeding straight into the next relay's
 coil. When `MUDDY` or `STINKY` pulls its arm, that wire gets connected to `+`, current flows through
 the coil, and the next relay pulls. When neither pulls, the wire is connected to nothing at all, so no
 current flows and the relay lets go.
@@ -194,10 +194,10 @@ will cover later).
 A `1` output is a wire being driven high. A `0` output is not "nothing"; it is a wire being driven
 low. Remember this information; it will come in handy later on.
 
-Technically, with relays, we could get away with leaving a `0` output disconnected: an unpowered
-coil just stays off. We drive it low anyway. Real gates, built from transistors, need a `0` to
-actually be driven low for the logic to work correctly, and since we are using relays to replace
-them, we should still follow that rule.
+Technically, with relays, we could get away with leaving a `0` output disconnected, like we have
+done here: an unpowered coil just stays off. We drive it low anyway. Real gates, built from
+transistors, need a `0` to actually be driven low for the logic to work correctly, and since we are
+using relays to replace them, we should still follow that rule.
 
 All of our relay gates can be simply adapted to do this. As you can see in the after example below,
 even when the relay is not pulling the arm, even when the output is 0, it is still touching the
@@ -252,9 +252,15 @@ NAND is AND with the output flipped. NOR is OR with the output flipped. That lit
 
 *Diagram 4.11. The final dog washer circuit.*
 
-Again, this animation doesn't cover all possible states. Keep in mind these [electromagnetic relays](#diagram-4-1) we used in the examples are quite big and slow. Relays aren't the only solution. They are simply an early solution, and an easy one to
-understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I)
-actually used these types of relays. In modern computers, similar behavior is achieved by using transistors.
+Again, this animation doesn't cover all possible states. 
+
+Keep in mind these [electromagnetic relays](#diagram-4-1) we used in the examples are quite big and
+slow. Relays aren't the only solution. They are simply an early solution, and an easy one to
+understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) actually used these types of relays. 
+
+In modern computers, similar behavior is achieved by using transistors. A transistor is kind of like
+a relay, but with no mechanical moving parts. A voltage on one pin decides whether current can pass
+between the other two. This makes transistors much faster and smaller.
 
 This is how circuits make yes/no decisions. The circuit doesn't "understand" what `MUDDY` means. It
 just makes simple logical decisions.
