@@ -110,11 +110,11 @@ switch by itself in order to chain circuits! But how?
 Electromagnetic relays, that's how. Or at least, that is one early solution to this problem. We will
 talk about other solutions a little more later on. This probably sounds quite complicated, but it is just a magnet powered by electricity.
 
-One thing to mention before the next diagram: if you see many little batteries in a circuit, don't
-interpret that as several power sources. The battery symbols show if a wire is connected to
-power.
+> [!NOTE]
+> If you see many little batteries in a circuit, don't interpret that as several power sources.
+> The battery symbols show if a wire is connected to power.
 
-Anyway, here is how a relay works:
+Here is how a relay works:
 
 <a id="diagram-4-1"></a> <img class="big" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
@@ -155,10 +155,10 @@ Every point marked with the ground symbol is connected together, as if there wer
 them underneath the drawing. It is not a new component. It is a less messy way to draw the return
 path of the circuit. The circuits are still loops. I am not explicitly drawing the return wire anymore.
 
-In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color
-it red when that return point is part of the active path for that frame. I think it makes the
-current path easier to follow visually, and so the concept is easier to understand, especially
-for beginners.
+> [!NOTE]
+> In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color
+> it red when that return point is part of the active path for that frame. I think it makes the
+> current path easier to follow visually, especially for beginners.
 
 This is how the ground symbol looks:
 
@@ -207,8 +207,9 @@ negative end of that battery, so it is being driven to `-`.
 
 *Diagram 4.6. Driving an output wire.*
 
-In this diagram, red wire means current is actively flowing. That's why `OUT = 1` is still white.
-Later when we start drawing logic gates, and more high-level diagrams, red wire will just mean high, or 1.
+> [!NOTE]
+> In this diagram, red wire means current is actively flowing. That's why `OUT = 1` is still white.
+> Later when we start drawing logic gates, and more high-level diagrams, red wire will just mean high, or 1.
 
 Okay, back to the dog washer. Let's introduce one last input, or "sensor": `RAIN_SOON`, whether it is predicted to rain soon.
 The rules of the circuit change once again:
@@ -743,8 +744,9 @@ Z: disconnected
 ```
 This relay diagram of how a tri-state buffer works should make this concept crystal clear.
 
-Also I have drawn everything the output wire is currently touching in yellow. Yellow is just there
-so you can follow the path with your eyes; it doesn't mean anything.
+> [!NOTE]
+> I have drawn everything the output wire is currently touching in yellow. Yellow is just there
+> so you can follow the path with your eyes; it doesn't mean anything.
 
 <a id="diagram-8-2"></a> <img src="./assets/final/tri-state-buffer-internals.gif" alt="A tri-state buffer built with relays">
 
@@ -892,8 +894,9 @@ row and selected column cross, that is the byte we want to target. This diagram 
 Honestly? That's it. We can use two decoders, sixteen registers, some wires and buses all mashed
 together with some extra logic gates and BOOM! We have some RAM.
 
-In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
-still ordinary wires; the colors are only there to make the diagram easier to follow.
+> [!NOTE]
+> In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and `WRITE` is orange. They are
+> still ordinary wires; the colors are only there to make the diagram easier to follow.
 
 <a id="diagram-9-5"></a> <img class="big" src="./assets/final/zoomed-out-ram.svg" alt="A zoomed out RAM diagram">
 
@@ -945,8 +948,9 @@ as one shared data bus with a double-headed arrow called `I/O`, which stands for
 
 When `W` turns on, RAM copies the value from the data bus into the selected address. If `O` is on, RAM drives the selected address's value onto the data bus.
 
-So from now on, instead of drawing registers connected to a common bus [like this](#diagram-8-5),
-where we have a separate `D` and `Q`, we can just draw them like this:
+> [!NOTE]
+> From now on, instead of drawing registers connected to a common bus [like this](#diagram-8-5),
+> where we have a separate `D` and `Q`, I'll draw them with one double-headed `I/O` bus, like this:
 
 <a id="diagram-9-9"></a> <img src="./assets/final/io-registers.svg" alt="I/O Registers">
 
@@ -1076,9 +1080,13 @@ Hey? Doesn't this diagram look familiar? Well, yes, we have come full circle fro
 this time the CPU isn't something completely foreign. Of course we still have a lot to learn and
 build, but wow. Just wow.
 
-Some quick notes on the diagram before we dig in. The 8-bit data buses are blue when not being driven. If a control wire is red, it
-means it's on. If a bus is red, it means it's being driven like normal. But we have something new
-here that we haven't seen before.
+Some quick notes on the diagram before we dig in.
+
+> [!NOTE]
+> The 8-bit data buses are blue when not being driven. If a control wire is red, it means it's on.
+> If a bus is red, it means it's being driven like normal.
+
+But we have something new here that we haven't seen before.
 
 Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving. A `G` wire is being driven, with an actual value on it. That
@@ -1428,8 +1436,10 @@ anything else going on, so we just can! And notice, these 2 micro-steps are exac
 One thing I am not drawing: every `W` signal is ANDed with `NOT CLOCK`, like we just discussed. The
 same goes for PC's `I` signal: incrementing stores a value too, it just comes from PC's own
 little adder instead of the bus, so it waits for `NOT CLOCK` like every other store. Drawing that
-same little AND gate nine times would clutter everything up, so instead, every pin colored pink has
-it secretly. Pink pin means stores on `NOT CLOCK`.
+same little AND gate nine times would clutter everything up, so instead:
+
+> [!NOTE]
+> Every pin colored pink has that AND gate secretly. A pink pin only actually turns on at `NOT CLOCK`.
 
 One more thing: I have used tri-state buffers before the RAM and MAR control signals, and I have
 kept the enable on for now. You can mostly ignore this for now, but it will come back later.
@@ -1534,8 +1544,8 @@ instruction, then fetch the `[addr]`, then store whatever lives at that address 
 
 *Diagram 14.2. `LOAD A, [addr]` animation.*
 
-When the label for a control signal turns red, that means it's on. For the gated signals colored in
-pink, they will only actually turn on at `NOT CLOCK`. Next we do the `MOV` instructions.
+When the label for a control signal turns red, that means it's on (pink ones still wait for
+`NOT CLOCK`). Next we do the `MOV` instructions.
 
 
 | # | Instruction | Step 3 |
