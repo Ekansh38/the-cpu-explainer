@@ -2527,10 +2527,6 @@ I hope you now understand why computers aren't "just" 1s and 0s, but
 a very tall pile of simple.
 
 
-#v(1.4em)
-#align(center, text(size: 10pt)[∎])
-
-
 #bm.update(true)
 
 == Appendix: Quick Reference
