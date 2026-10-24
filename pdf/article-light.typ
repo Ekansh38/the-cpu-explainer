@@ -31,7 +31,8 @@
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
   #set text(size: 9.5pt, fill: rgb("#666666"), hyphenate: false)
   #set par(justify: false)
-  Full #(count)-frame animation at #link(url)[#label].
+  #let _ = count
+  The full animation at #link(url)[#label].
 ]
 
 #show raw.where(block: true): block.with(
@@ -97,8 +98,13 @@
 
 #show outline.entry.where(level: 2): set outline.entry(fill: none)
 #show outline.entry.where(level: 2): it => {
-  v(1.8em, weak: true)
-  text(size: 15pt, weight: "bold", it)
+  if repr(it.element.body).contains("Part ") {
+    v(1.8em, weak: true)
+    text(size: 15pt, weight: "bold", it)
+  } else {
+    v(1.1em, weak: true)
+    text(size: 12pt, weight: "bold", it)
+  }
 }
 #show outline.entry.where(level: 3): set text(weight: "regular")
 
