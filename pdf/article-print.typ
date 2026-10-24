@@ -716,9 +716,13 @@ Now let's do the carry value. The carry is simple! We only want to
 carry if we are doing `1 + 1`, so we use an AND gate to check if both
 inputs are on. Here is our half adder:
 
-#align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 85%))
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/half-adder-1.png", width: 100%),
+  image("/pdf/.raster/light-final/half-adder-2.png", width: 100%),
+  image("/pdf/.raster/light-final/half-adder-3.png", width: 100%),
+  image("/pdf/.raster/light-final/half-adder-4.png", width: 100%)
+))
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=half-adder:1", "bytecolony.computer/writing/the-cpu/#f=half-adder:1")
 #caption("1.26")[A half adder.]
 
 As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
@@ -1325,9 +1329,13 @@ its 4 outputs.
 In the diagram, the top bit is the bigger bit (the 2's place) and the
 bottom bit is the smaller bit (the 1's place).
 
-#align(center, image("/pdf/.raster/light-final/2-4-decoder-gates-4.png", width: 100%))
+#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/2-4-decoder-1.png", width: 100%),
+  image("/pdf/.raster/light-final/2-4-decoder-2.png", width: 100%),
+  image("/pdf/.raster/light-final/2-4-decoder-3.png", width: 100%),
+  image("/pdf/.raster/light-final/2-4-decoder-4.png", width: 100%)
+)])
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1", "bytecolony.computer/writing/the-cpu/#f=2-4-decoder:1")
 #caption("2.17")[How a decoder works.]
 
 As you can tell, no matter the inputs, exactly one output wire is on at
