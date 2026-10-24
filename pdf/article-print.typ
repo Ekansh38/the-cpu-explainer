@@ -125,15 +125,20 @@
   #image("/assets/author.jpg", width: 42mm)
 ]
 #v(2em)
-Ekansh Goenka (b. 2013) wrote this book in 2026, over about six months.
-He drew all 71 diagrams by hand and designed its 8-bit CPU from scratch.
+Ekansh Goenka (b. 2013) grew up in Singapore. He got interested in computers
+at eight, thanks to his dad's techy influence. He started out making apps and
+websites, and curiosity slowly led him down the stack. He is also interested
+in robotics, embedded systems, and computer science in general. Outside of
+computers, he likes reading, playing piano and guitar, and Brazilian
+jiu-jitsu.
 
-He wrote it because once he understood how a CPU works in detail, it turned
-out to be simpler than most people think. The resources he found either
-skipped the juicy details, so you never really got it, or were so long and
-intimidating that most people never started.
-
-The web version is free at bytecolony.computer, with the animated diagrams.
+He wrote this book in 2026, over about six months. He drew all 71 diagrams by
+hand and designed its 8-bit CPU from scratch. He wrote it because once he
+understood how a CPU works in detail, it turned out to be simpler than most
+people think. The resources he found either skipped the juicy details, so you
+never really got it, or were so long and intimidating that most people never
+started. The web version of this book is free at bytecolony.computer, his
+personal website, with the animated diagrams.
 ]
   hf-off.update(true)
   [#metadata(none) <pend>]
