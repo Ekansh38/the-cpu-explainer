@@ -4,19 +4,19 @@ title: full accumulator
 `STEP` is off. The register holds 0, and `B` is fixed at 1. The adder is adding them, so a 1 is waiting at the register's `D` inputs.
 
 [frame 2]
-`STEP` is pressed. This is when the calculation happens, the adder works out 0 plus 1, and the result lands at the register's inputs.
+`STEP` is pressed. On that rising edge, the register captures the 1 that was waiting at its `D` inputs.
 
 [frame 3]
-`STEP` is still held, and now the register stores that result, so it holds 1. That 1 loops back into the adder, which starts working out the next number, 2.
+`STEP` is still held, but nothing new happens. The register holds 1, and that 1 loops back into the adder, which starts working out the next number, 2.
 
 [frame 4]
 `STEP` is off, holding 1, with the 2 waiting at the inputs.
 
 [frame 5]
-`STEP` is pressed again. The calculation happens, the adder works out 1 plus 1.
+`STEP` is pressed again. On the rising edge, the register captures the 2 that was waiting at its inputs.
 
 [frame 6]
-`STEP` is still held, and the register stores the 2. That 2 loops back, and the adder starts on 3.
+`STEP` is still held, but nothing new happens. The register holds 2, that 2 loops back, and the adder starts on 3.
 
 [frame 7]
 `STEP` is off, holding 2, with 3 waiting at the inputs. Every press of `STEP` adds 1, so this circuit counts up.

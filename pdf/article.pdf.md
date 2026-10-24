@@ -160,7 +160,9 @@ them underneath the drawing. It is not a new component. It is just a less messy 
 path of the circuit. The circuits are still loops. I am just not explicitly drawing the return wire anymore.
 
 In a real schematic, the ground symbol itself would usually stay white. In these diagrams, I color
-it red when that return point is part of the active path for that frame. I think it makes the current path easier to follow visually.
+it red when that return point is part of the active path for that frame. I think it makes the
+current path easier to follow visually, and so the concept is just easier to understand, especially
+for beginners.
 
 This is how the ground symbol looks:
 
@@ -287,7 +289,7 @@ First, let's define some terms.
 A wire driven low is `0`, and a wire driven high is `1`. Let's call one wire one bit. A bit can
 either be `0` or `1`. These are just labels that represent the state of a wire.
 
-<a id="diagram-5-1"></a> <img src="./assets/final/0-s-and-1-s.svg" class="small" alt="One wire can represent two states: `0` or `1`">
+<a id="diagram-5-1"></a> <img src="./assets/final/0-s-and-1-s.svg" class="small" alt="One wire can represent two states: 0 or 1">
 
 *Diagram 5.1. One wire can represent two states: `0` or `1`.*
 
@@ -309,10 +311,10 @@ But why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned? 
 
 *Diagram 5.3. The decimal system.*
 
-In our decimal counting system, each place value is a power of 10. That is because we have ten
+In our decimal counting system, each place-value is a power of 10. That is because we have ten
 digits: 0-9.
 
-This exact same place value logic can apply to the binary system too. We have two digits, 0 and 1, so
+This exact same place-value logic can apply to the binary system too. We have two digits, 0 and 1, so
 each place is a power of 2.
 
 <a id="diagram-5-4"></a> <img src="./assets/final/binary.svg" alt="The binary system">
@@ -801,8 +803,8 @@ Now let's address this enable conundrum. We now have two uses for the word enabl
 different meanings and contexts. One means enabling writing, and the other means enabling output. From
 now on, we will use two separate terms to avoid confusion: `WRITE` and `OUT`. This `OUT` has nothing to do with the output of the tri-state buffer.
 
-So we can make a new type of register, one with `WRITE`, `OUT`, `data`, and a `Q` output that shows
-the stored bits 0-7. By `data`, I simply mean the input data that we can store when `WRITE` is enabled.
+So we can make a new type of register, one with `WRITE`, `OUT`, a `D` input, and a `Q` output that shows
+the stored bits 0-7. By `D`, I simply mean the input data that we can store when `WRITE` is enabled.
 
 <a id="diagram-8-4"></a> <img src="./assets/final/new-register-internals.svg" alt="Our register with an OUT input">
 
@@ -843,7 +845,7 @@ We want to build a system that organizes data into a simple structure.
 
 Many slots, each with its own address.
 
-This system is known technically as `RAM`: Random Access Memory. It is called RAM because when the CPU
+This system is known technically as `RAM`: Random Access Memory. It is called `RAM` because when the CPU
 wants to access a slot, it just knows the number and can access any slot at will. It is not like
 flipping through a book looking for the right page. It is more like grabbing a book from a
 bookshelf, where you already know exactly where the book sits.
@@ -1010,7 +1012,7 @@ arithmetic and logic. Thus we have "The Arithmetic and Logic Unit," or `ALU` for
 Imagine a chip where we could input two numbers, an operation, and output a result, along with some
 other information.
 
-<a id="diagram-10-1"></a> <img src="./assets/final/alu-interface.svg" alt="The `ALU` chip">
+<a id="diagram-10-1"></a> <img src="./assets/final/alu-interface.svg" alt="The ALU chip">
 
 *Diagram 10.1. The `ALU` chip.*
 
@@ -1051,7 +1053,7 @@ Also, you'll see me feeding two buses into a single logic gate. "How does that w
 think. Well, there are really just eight gates, one per bit. One gate takes `A0` and `B0`, the next
 takes `A1` and `B1`, and so on. Eight output wires, which is just another bus.
 
-<a id="diagram-10-2"></a> <img class="big" src="./assets/final/alu-internals.svg" alt="`ALU` internals">
+<a id="diagram-10-2"></a> <img class="big" src="./assets/final/alu-internals.svg" alt="ALU internals">
 
 *Diagram 10.2. `ALU` internals.*
 
@@ -1407,7 +1409,7 @@ the heartbeat of the computer, and it lives right here in the control unit.
 Output 0 of the decoder is wired to nothing, so step 0 is an idle tick: the counter goes 1, 2, ... 7, 0,
 and every instruction takes 8 clock cycles whether it uses them or not.
 
-One thing: remember the [TAKEOVER](#diagram-11-1) switch? Well, when it is on, it basically resets
+One thing: remember the [`TAKEOVER`](#diagram-11-1) switch? Well, when it is on, it basically resets
 this step counter's accumulator to 0, so after a reset the first thing that happens is step 1. This
 also means `TAKEOVER` is a reset switch. Flick it on and off, and both `PC` and the step counter get
 reset to 0.
@@ -1562,7 +1564,7 @@ into the `PC`. But first we have to figure out whether the jump actually happens
 
 From there it is simple. Gate 5 takes that signal and checks it is step 4, then enables `PC_WRITE`,
 loading the target address into `PC`, so then the program will start executing from that target
-address on the next fetch. Gate 12 then flips gate 11's output, and that gets ANDed with the "step 4 and 2-byte" signal from before. So when a 2-byte instruction reaches step 4 and the jump does not happen, it
+address on the next fetch. Gate 12 then flips gate 11's output, and gate 9 ANDs that with gate 8, which checks "step 4 and 2-byte" again. So when a 2-byte instruction reaches step 4 and the jump does not happen, it
 enables `PC_INC` instead, letting the program carry on to the next instruction. That is the whole
 "if else" we were talking about in that table. Quite straightforward.
 
@@ -1571,14 +1573,14 @@ At this point only two instructions even use step 5, `LOAD A, [addr]` and `STORE
 wires get turned on. Pretty simple.
 
 Also, you might notice, control signals that get activated for different reasons have a "collector"
-OR gate instead of everything being wired together. This is just to prevent a short circuit, one
-wire driving low and another driving high. A simple OR gate solves this. Gates 1, 2, 3, and 4 are
+OR gate instead of everything being wired together. This is just to prevent a short-circuit, one
+wire driving low and another driving high. A simple OR gate solves this. Gates 1, 2, 3, 4, and 21 are
 these collectors. Feel free to check them yourself.
 
 Here is the process of executing the instruction `LOAD A, [addr]`. We first have to fetch the
 instruction, then fetch the `[addr]`, then store whatever lives at that address into register `A`.
 
-<a id="diagram-14-2"></a> <img pdf-frames="all" class="big" src="./assets/final/cu-internals-two-demo.gif" alt="`LOAD A, [addr]` animation">
+<a id="diagram-14-2"></a> <img pdf-frames="all" class="big" src="./assets/final/cu-internals-two-demo.gif" alt="LOAD A, [addr] animation">
 
 *Diagram 14.2. `LOAD A, [addr]` animation.*
 
@@ -1629,7 +1631,7 @@ flags in `FLAGS` and the result in `ACC`. Then in step 4, when `B` stops driving
 
 But now the big question: if all 4 of these instructions run the same micro-steps, what makes them
 different? Have a look at the last 2 bits of the number for each of these instructions in the
-[instruction table](#isa-table). Then have a look at the [ALU's operation table](#alu-op-table).
+[instruction table](#isa-table). Then have a look at the [`ALU`'s operation table](#alu-op-table).
 
 Yep, the last 2 bits of each opcode directly match the `ALU`'s `OP` bits for that specific operation.
 Must be a coincidence...
@@ -1712,7 +1714,7 @@ For this animation, I am not animating the idle steps where nothing happens, and
 2 frames per micro-step. That's why you might see an `OUT` and a `WRITE` turn on at the same time,
 but you and me both know what is [really happening](#diagram-13-2).
 
-And there it is, `42` sitting on the lamps. Now let's try something real, a multiplication program.
+And there it is, 42 sitting on the lamps. Now let's try something real, a multiplication program.
 Put one number in slot 100, the other in slot 101, and the product ends up on the `DISPLAY` lamps, as long as it fits in a byte.
 
 ```
@@ -1744,8 +1746,8 @@ Put one number in slot 100, the other in slot 101, and the product ends up on th
 34: HALT
 ```
 
-The running total lives in slot `102`. The program adds the value in slot `100` into slot `102`, and
-then slot `101` counts down by one each time, until it hits 0. This is basically all the program is:
+The running total lives in slot 102. The program adds the value in slot 100 into slot 102, and
+then slot 101 counts down by one each time, until it hits 0. This is basically all the program is:
 
 ```
 total = 0                      (slot 102)
@@ -1766,8 +1768,8 @@ You might notice something weird:
 26: STORE A, [101]
 ```
 
-This little sequence adds 255 to slot `101`. It loads the right values into the CPU's registers,
-adds 255, and stores that back into slot `101`. But why?
+This little sequence adds 255 to slot 101. It loads the right values into the CPU's registers,
+adds 255, and stores that back into slot 101. But why?
 
 Well on this computer adding 255 is just like subtracting 1! This is because the byte throws away anything past 255, so adding 255 and dropping the overflow is the same as taking 1 away. For
 example, let's say we have the number 5, we add 255, we get 260, but a byte runs out after 255 and
@@ -1783,7 +1785,7 @@ One more oddity:
 10: JZ 30
 ```
 
-Our goal with this chunk of code is to just check if slot `101` is zero. If so, we are done and can
+Our goal with this chunk of code is to just check if slot 101 is zero. If so, we are done and can
 jump to some other part of the program. Because this CPU is slightly more primitive than real
 CPUs, the programmer (me) had to use some weird trickery to check if it is zero. In this case I just
 added 0 to the value to set the `ZERO` flag.

@@ -1,12 +1,12 @@
 title: tri state buffer internals
 
 [frame 1]
-`E` is on, so both relays arms on the right are pulled down, connecting one path to `+` and the other
+`E` is on, so both relay arms on the right are pulled down, connecting one path to `+` and the other
 to `-`. `D` is on, so the top arm is pulled down onto the `+` path. The yellow path runs from the
 output all the way to the battery, so the output is driven to `1`.
 
 [frame 2]
-`E` is on, so both relays arms on the right are pulled down, connecting one path to `+` and the other
+`E` is on, so both relay arms on the right are pulled down, connecting one path to `+` and the other
 to `-`. `D` is off, so the top arm is up to the `-` path. The yellow path runs from the
 output all the way to ground, so the output is driven to `0`.
 
