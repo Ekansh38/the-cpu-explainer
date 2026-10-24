@@ -1478,9 +1478,7 @@ like this:
 
 #caption("2.24")[I/O Registers.]
 
-They both are the same technically, just this is easier to draw, so
-moving forward, instead of drawing two buses for `D` and `Q` I'll just
-draw one double-headed `I/O` bus.
+They both are the same technically, just this is easier to draw.
 
 Now back to the `RAM` chip. If you pay close attention to the diagram,
 you will notice that the address input is not directly connected to the
@@ -2525,6 +2523,14 @@ commonly these days, transistors.
 
 I hope you now understand why computers aren't "just" 1s and 0s, but
 a very tall pile of simple.
+
+#v(1.2em)
+
+Anyway, I hope you have a good rest of your day. Bye!
+
+
+#v(1.4em)
+#align(center, text(size: 10pt)[∎])
 
 
 #bm.update(true)
