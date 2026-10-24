@@ -255,11 +255,10 @@ more later on. This probably sounds quite complicated, but it is just a
 magnet powered by electricity.
 
 One thing to mention before the next diagram: if you see many little
-batteries in a circuit, don't interpret that as several separate power
-sources. I am using the battery drawing as a symbol for "this point is
-connected to power," so diagrams stay clear.
+batteries in a circuit, don't interpret that as several power sources.
+The battery symbols just show if a wire is connected to power.
 
-Here is how a relay works:
+Anyway, here is how a relay works:
 
 #pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/basic-relay-1.png", width: 100%),
@@ -275,13 +274,11 @@ current flows through the coil, the coil becomes a magnet and pulls the
 arm down. When current stops, a spring pulls the arm back up.
 
 A relay lets one circuit open or close a switch in another circuit.
-Inside the relay, the coil and the arm never touch electrically; the
-coil just magnetically pulls the arm.
 
-Also, in this example, we end up using a switch in the input circuit
-anyway, but any kind of electrical signal could be used, like the output
-of another circuit. The switch is just there to demonstrate how the
-relay works.
+In this example, we end up using a switch in the input circuit anyway,
+but any kind of electrical signal could be used, like the output of
+another circuit. The switch is just there to demonstrate how the relay
+works.
 
 As you can also tell by the diagram, there is a slight delay between the
 coil turning on and the metal arm moving. Relays are mechanical, so they
@@ -294,8 +291,7 @@ two input wires and outputs an electrical signal.
   image("/assets/frames/electronic-and-gate-1.png", width: 100%),
   image("/assets/frames/electronic-and-gate-3.png", width: 100%),
   image("/assets/frames/electronic-and-gate-6.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-8.png", width: 100%),
-  image("/assets/frames/electronic-and-gate-10.png", width: 100%)
+  image("/assets/frames/electronic-and-gate-8.png", width: 100%)
 )])
 
 #caption("4.2")[An AND gate.]

@@ -110,11 +110,11 @@ switch by itself in order to chain circuits! But how?
 Electromagnetic relays, that's how. Or at least, that is one early solution to this problem. We will
 talk about other solutions a little more later on. This probably sounds quite complicated, but it is just a magnet powered by electricity.
 
-One thing to mention before the next diagram: if you see many little batteries in a circuit,
-don't interpret that as several separate power sources. I am using the battery drawing as a
-symbol for "this point is connected to power," so diagrams stay clear.
+One thing to mention before the next diagram: if you see many little batteries in a circuit, don't
+interpret that as several power sources. The battery symbols just show if a wire is connected to
+power.
 
-Here is how a relay works:
+Anyway, here is how a relay works:
 
 <a id="diagram-4-1"></a> <img pdf-frames="all" src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
 
@@ -124,10 +124,9 @@ This relay is made from a coil of wire and a movable metal arm. When current flo
 coil, the coil becomes a magnet and pulls the arm down. When current stops, a spring pulls the arm
 back up.
 
-A relay lets one circuit open or close a switch in another circuit. Inside the relay, the coil and the arm never touch electrically; the coil just magnetically pulls
-the arm.
+A relay lets one circuit open or close a switch in another circuit. 
 
-Also, in this example, we end up using a switch in the input circuit anyway, but any kind of
+In this example, we end up using a switch in the input circuit anyway, but any kind of
 electrical signal could be used, like the output of another circuit. The switch is just there to
 demonstrate how the relay works.
 
@@ -137,7 +136,7 @@ metal arm moving. Relays are mechanical, so they do not switch instantly.
 Now let's see how we can build an actual electrical AND gate that takes two input wires and outputs
 an electrical signal.
 
-<a id="diagram-4-2"></a> <img pdf-frames="1,3,6,8,10" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
+<a id="diagram-4-2"></a> <img pdf-frames="1,3,6,8" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
 *Diagram 4.2. An AND gate.*
 
