@@ -35,7 +35,7 @@
   The full animation at #link(url)[#label].
 ]
 
-#show raw: set text(font: "IBM Plex Mono", size: 1em, weight: 500)
+#show raw: set text(font: "IBM Plex Mono", size: 1em, weight: 500, tracking: 0.04em)
 #show raw.where(block: true): set text(size: 0.9em)
 
 #show raw.where(block: true): block.with(
@@ -593,8 +593,8 @@ addition works the same way.
 `1 + 1` gives `10`, which is binary for 2.
 
 So the sum bit for that column is `0`, and the carry is `1`. `1 + 1 + 1`
-gives `11`, which is binary for 3. So the sum bit is `1`, and the carry
-is `1`, and so on.
+in the second column gives `11`, which is binary for 3. So the sum bit
+is `1`, and the carry is `1`, and so on.
 
 How do we build a circuit using logic gates that performs this standard
 addition algorithm? Well, let's start with the rightmost column. If we
@@ -638,9 +638,9 @@ not the carry-out. This is what we want our circuit to do:
   , kind: table
   )
 
-The sum is `1` only when exactly one input is `1`. This is called XOR,
-short for exclusive OR. If we combine an OR gate and a NAND gate, and
-AND them together, we get XOR:
+The sum is `1` only when exactly one input is `1`, not both. This is
+called XOR, short for exclusive OR. If we combine an OR gate and a NAND
+gate, and AND them together, we get XOR:
 
 #align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 63%))
 
@@ -653,15 +653,17 @@ AND them together, we get XOR:
 #caption("6.3")[Half adder sum / XOR.]
 
 OR checks that at least one input is on, and NAND makes sure the inputs
-aren't both on. Here is how an XOR gate looks:
+aren't both on. Let's package that circuit into a gate called XOR.
+Here is how an XOR gate looks:
 
 #align(center, image("/pdf/.raster/light-final/xor-gate.png", width: 65%))
 
 #caption("6.4")[An XOR gate.]
 
-Now let's do the carry value. The carry is simple! We only want to
-carry if we are doing `1 + 1`, so we use an AND gate to check if both
-inputs are on. Here is our half adder:
+Now let's do the carry value. The carry is simple! If you remember, for
+our half adder, the only time we want to carry when we are doing
+`1 + 1`, so we use an AND gate to check if both inputs are on. Here is
+our half adder:
 
 #pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/half-adder-1.png", width: 100%),
@@ -676,7 +678,7 @@ As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
 `1 + 1 = 10`.
 
 Now let's package up our half adder into a little box. From now on, I
-will call these packaged-up circuits chips:
+will call these packaged-up circuits "chips":
 
 #align(center, image("/pdf/.raster/light-final/half-adder-box.png", width: 70%))
 
@@ -992,16 +994,9 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
-#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
-  image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-2.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-3.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-4.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-5.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-6.png", width: 100%),
-  image("/pdf/.raster/light-final/full-accumulator-7.png", width: 100%)
-)])
+#pad(x: -10mm, image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%))
 
+#anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("7.9")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
@@ -1093,10 +1088,10 @@ we are using `E` in the context of "enable outputting".
 If `E` is on, the output will just be whatever `D` is, so either `0` or
 `1`. If `E` is off, no matter the value of `D`, the output will be `Z`.
 
-`Z` means the buffer's output is disconnected from the bus. Engineers
-call this "high impedance", which is where the letter `Z` comes from.
-It is not driving the bus to `+` or `-`, so another component can safely
-drive the bus without a clash or short-circuit.
+`Z` means the buffer's output is disconnected. Engineers call this
+"high impedance", which is where the letter `Z` comes from. It is not
+driving the bus to `+` or `-` just like we saw before, so another
+component can safely drive the bus without a clash or short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very
 different: the component is actively driving the wire to `-`. So we have
