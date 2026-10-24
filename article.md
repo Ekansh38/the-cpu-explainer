@@ -174,7 +174,7 @@ Now here is the OR gate:
 
 That is an OR gate using relays. Now here is the full dog washer circuit up to this point:
 
-<a id="diagram-4-5"></a> <img pdf-frames="states" src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
+<a id="diagram-4-5"></a> <img pdf-frames="states" class="big" src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
 
 *Diagram 4.5. The full dog washer circuit built with relays.*
 
