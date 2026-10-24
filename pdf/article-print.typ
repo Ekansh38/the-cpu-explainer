@@ -55,6 +55,8 @@
   The full animation at #link(url)[#label].
 ]
 
+#show raw: set text(size: 0.85em)
+
 #show raw.where(block: true): block.with(
   fill: rgb("#f0f0f0"),
   inset: 10pt,
@@ -1499,19 +1501,15 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 76%))
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
+))
 
 #caption("9.10")[How the `MAR` works.]
 
@@ -2569,7 +2567,7 @@ a very tall pile of simple.
 #[
 #set par(first-line-indent: 0em)
 
-#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[The instruction set]]
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[The instruction set]]
 
 #table(
   columns: (auto, auto, auto, auto, 1fr),
@@ -2592,7 +2590,7 @@ a very tall pile of simple.
   [14], [`1110`], [`HALT`], [1], [stop the clock],
 )
 
-#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[ALU operations and flags]]
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[ALU operations and flags]]
 
 #block(breakable: false, grid(columns: (auto, auto), gutter: 14pt,
   table(
@@ -2614,7 +2612,7 @@ a very tall pile of simple.
   ),
 ))
 
-#block(above: 1.6em, below: 0.8em)[#text(size: 13pt, weight: "bold")[Micro-steps]]
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[Micro-steps]]
 
 Every instruction starts with the same fetch:
 
