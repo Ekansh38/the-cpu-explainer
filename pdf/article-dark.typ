@@ -35,7 +35,7 @@
   The full animation at #link(url)[#label].
 ]
 
-#show raw: set text(size: 0.85em)
+#show raw: set text(font: "IBM Plex Mono", size: 0.88em)
 
 #show raw.where(block: true): block.with(
   fill: rgb("#1a1a1a"),
