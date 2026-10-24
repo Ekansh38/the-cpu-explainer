@@ -260,12 +260,12 @@ The battery symbols show if a wire is connected to power.
 
 Anyway, here is how a relay works:
 
-#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
   image("/pdf/.raster/dark/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/dark/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/dark/basic-relay-3.png", width: 100%),
   image("/pdf/.raster/dark/basic-relay-4.png", width: 100%)
-))
+)])
 
 #caption("4.1")[An electromagnetic relay.]
 
@@ -357,11 +357,12 @@ The animation does not show every possible combination of switches, only
 a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
 `OLD_WASH` is also on, the bulb turns on.
 
-Notice the OR gate's bulb is gone. Its output is now a wire, feeding
-straight into the next relay's coil. When `MUDDY` or `STINKY` pulls its
-arm, that wire gets connected to `+`, current flows through the coil,
-and the next relay pulls. When neither pulls, the wire is connected to
-nothing at all, so no current flows and the relay lets go.
+Notice the OR that checks `MUDDY OR STINKY`, it's bulb is gone. Its
+output is now a wire, feeding straight into the next relay's coil. When
+`MUDDY` or `STINKY` pulls its arm, that wire gets connected to `+`,
+current flows through the coil, and the next relay pulls. When neither
+pulls, the wire is connected to nothing at all, so no current flows and
+the relay lets go.
 
 That works, but from now on, our gates' outputs will mostly feed other
 gates' inputs, so the output needs to be a wire, not a bulb, and we
@@ -374,10 +375,10 @@ A `1` output is a wire being driven high. A `0` output is not
 it will come in handy later on.
 
 Technically, with relays, we could get away with leaving a `0` output
-disconnected: an unpowered coil just stays off. We drive it low anyway.
-Real gates, built from transistors, need a `0` to actually be driven low
-for the logic to work correctly, and since we are using relays to
-replace them, we should still follow that rule.
+disconnected, like we have done here: an unpowered coil just stays off.
+We drive it low anyway. Real gates, built from transistors, need a `0`
+to actually be driven low for the logic to work correctly, and since we
+are using relays to replace them, we should still follow that rule.
 
 All of our relay gates can be simply adapted to do this. As you can see
 in the after example below, even when the relay is not pulling the arm,
@@ -454,14 +455,19 @@ our knowledge about logic gates, let's create the
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("4.11")[The final dog washer circuit.]
 
-Again, this animation doesn't cover all possible states. Keep in mind
-these electromagnetic relays we used in the examples are quite big and
-slow. Relays aren't the only solution. They are simply an early
-solution, and an easy one to understand, and many real computers like
-the
+Again, this animation doesn't cover all possible states.
+
+Keep in mind these electromagnetic relays we used in the examples are
+quite big and slow. Relays aren't the only solution. They are simply an
+early solution, and an easy one to understand, and many real computers
+like the
 #link("https://en.wikipedia.org/wiki/Harvard_Mark_I")[Harvard Mark I]
-actually used these types of relays. In modern computers, similar
-behavior is achieved by using transistors.
+actually used these types of relays.
+
+In modern computers, similar behavior is achieved by using transistors.
+A transistor is kind of like a relay, but with no mechanical moving
+parts. A voltage on one pin decides whether current can pass between the
+other two. This makes transistors much faster and smaller.
 
 This is how circuits make yes/no decisions. The circuit doesn't
 "understand" what `MUDDY` means. It just makes simple logical

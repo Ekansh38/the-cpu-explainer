@@ -196,7 +196,7 @@ underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not
 one hard idea. It is a very tall pile of simple ones.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("1.1")[The whole CPU.]
 
@@ -313,12 +313,12 @@ The battery symbols show if a wire is connected to power.
 
 Anyway, here is how a relay works:
 
-#pad(x: -0mm, grid(columns: 2, gutter: 6pt,
+#align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
   image("/pdf/.raster/light-final/basic-relay-1.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-2.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-3.png", width: 100%),
   image("/pdf/.raster/light-final/basic-relay-4.png", width: 100%)
-))
+)])
 
 #caption("1.5")[An electromagnetic relay.]
 
@@ -410,11 +410,12 @@ The animation does not show every possible combination of switches, only
 a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
 `OLD_WASH` is also on, the bulb turns on.
 
-Notice the OR gate's bulb is gone. Its output is now a wire, feeding
-straight into the next relay's coil. When `MUDDY` or `STINKY` pulls its
-arm, that wire gets connected to `+`, current flows through the coil,
-and the next relay pulls. When neither pulls, the wire is connected to
-nothing at all, so no current flows and the relay lets go.
+Notice the OR that checks `MUDDY OR STINKY`, it's bulb is gone. Its
+output is now a wire, feeding straight into the next relay's coil. When
+`MUDDY` or `STINKY` pulls its arm, that wire gets connected to `+`,
+current flows through the coil, and the next relay pulls. When neither
+pulls, the wire is connected to nothing at all, so no current flows and
+the relay lets go.
 
 That works, but from now on, our gates' outputs will mostly feed other
 gates' inputs, so the output needs to be a wire, not a bulb, and we
@@ -427,17 +428,17 @@ A `1` output is a wire being driven high. A `0` output is not
 it will come in handy later on.
 
 Technically, with relays, we could get away with leaving a `0` output
-disconnected: an unpowered coil just stays off. We drive it low anyway.
-Real gates, built from transistors, need a `0` to actually be driven low
-for the logic to work correctly, and since we are using relays to
-replace them, we should still follow that rule.
+disconnected, like we have done here: an unpowered coil just stays off.
+We drive it low anyway. Real gates, built from transistors, need a `0`
+to actually be driven low for the logic to work correctly, and since we
+are using relays to replace them, we should still follow that rule.
 
 All of our relay gates can be simply adapted to do this. As you can see
 in the after example below, even when the relay is not pulling the arm,
 even when the output is 0, it is still touching the negative end of that
 battery, so it is being driven to `-`.
 
-#pad(x: -0mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/before-after-1.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-2.png", width: 100%),
   image("/pdf/.raster/light-final/before-after-3.png", width: 100%),
@@ -465,7 +466,7 @@ Let's focus on this NOT for a second. NOT just flips its input: if the
 input is on, the output is off, and if the input is off, the output is
 on.
 
-#pad(x: -0mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/not-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%)
 ))
@@ -502,19 +503,24 @@ That little circle at the end of a gate means "flip the output." With
 our knowledge about logic gates, let's create the
 "should-I-wash-my-dog 5000" machine!
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("1.15")[The final dog washer circuit.]
 
-Again, this animation doesn't cover all possible states. Keep in mind
-these electromagnetic relays we used in the examples are quite big and
-slow. Relays aren't the only solution. They are simply an early
-solution, and an easy one to understand, and many real computers like
-the
+Again, this animation doesn't cover all possible states.
+
+Keep in mind these electromagnetic relays we used in the examples are
+quite big and slow. Relays aren't the only solution. They are simply an
+early solution, and an easy one to understand, and many real computers
+like the
 #link("https://en.wikipedia.org/wiki/Harvard_Mark_I")[Harvard Mark I]
-actually used these types of relays. In modern computers, similar
-behavior is achieved by using transistors.
+actually used these types of relays.
+
+In modern computers, similar behavior is achieved by using transistors.
+A transistor is kind of like a relay, but with no mechanical moving
+parts. A voltage on one pin decides whether current can pass between the
+other two. This makes transistors much faster and smaller.
 
 This is how circuits make yes/no decisions. The circuit doesn't
 "understand" what `MUDDY` means. It just makes simple logical
@@ -744,21 +750,21 @@ adding up the other columns, we need a circuit that can take in three
 inputs: `A`, `B`, and `carry-in`. To add three bits, we use two half
 adders and an OR gate:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-1.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-2.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-2.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-3.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-3.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-4.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-4.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-5.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-5.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-6.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-6.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-7.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-7.png", width: 100%))
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
 
 #caption("1.29")[A full adder.]
 
@@ -1334,7 +1340,7 @@ logic gates to ask these simple questions.
 
 Here is how it works if you care:
 
-#pad(x: -0mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/light-final/2-4-decoder-gates-3.png", width: 100%),
@@ -1367,7 +1373,7 @@ In this diagram, blue lines are 8-bit data buses. `OUT` is yellow, and
 `WRITE` is orange. They are still ordinary wires; the colors are only
 there to make the diagram easier to follow.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
 
 #caption("2.20")[A zoomed out `RAM` diagram.]
 
@@ -1458,7 +1464,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#pad(x: -0mm, grid(columns: 2, gutter: 6pt,
+#pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
   image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
@@ -1540,7 +1546,7 @@ does that work?", you might think. Well, there are really just eight
 gates, one per bit. One gate takes `A0` and `B0`, the next takes `A1`
 and `B1`, and so on. Eight output wires, which is just another bus.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
 
 #caption("2.27")[`ALU` internals.]
 
@@ -1591,7 +1597,7 @@ piece together this whole CPU.
 <the-big-picture>
 Here is a big picture diagram of the whole CPU.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
 #caption("2.28")[The whole CPU.]
 
@@ -1947,7 +1953,7 @@ We can combine a tiny 3-bit accumulator and a `3-8` decoder. This will
 give us 8 steps, and because the accumulator overflows and naturally
 wraps back around to 0, the steps will loop correctly.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
 #caption("3.1")[The step counter.]
@@ -1986,7 +1992,7 @@ not a good way to do it.
 The best approach to this is just taking our clock signal and flipping
 it:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
 
 #caption("3.2")[Micro-step timing diagram.]
 
@@ -2046,7 +2052,7 @@ One more thing: I have used tri-state buffers before the `RAM` and `MAR`
 control signals, and I have kept the enable on for now. You can mostly
 ignore this for now, but it will come back later.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
 
 #caption("3.3")[The first two micro-steps.]
 
@@ -2113,7 +2119,7 @@ increment `PC` and move on with our lives.
 Feel free to try and step through this diagram, or don't, it's a giant
 mess:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
 
 #caption("3.4")[All of the 2-byte instructions.]
 
@@ -2178,7 +2184,7 @@ Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
 whatever lives at that address into register `A`.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("3.5")[`LOAD A, [addr]` animation.]
@@ -2201,7 +2207,7 @@ the gated signals colored in pink, they will only actually turn on at
 
 Quite simple:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
 
 #caption("3.6")[The `MOV` instructions.]
 
@@ -2257,7 +2263,7 @@ the `ALU` on these instructions, sure a `STORE A, [addr]` instruction
 might make the `ALU` XOR, but it doesn't matter because we don't store
 the result, it's garbage. So here we are:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
 
 #caption("3.7")[The `ALU` instructions.]
 
@@ -2273,7 +2279,7 @@ we do this is by using an SR latch, whose `Q` is inverted and then ANDed
 with the clock signal itself. So, on step 3 of instruction number 14, we
 just set that latch, and boom! We froze the computer.
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
 
 #caption("3.8")[The `HALT` instruction freezing the computer.]
 
@@ -2297,7 +2303,7 @@ so the panel can control those signals.
 
 Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
 
 #caption("3.9")[The `HALT` and `TAKEOVER` wiring.]
 
@@ -2320,7 +2326,7 @@ on the `DISPLAY` lamps:
 
 Here is our CPU executing it:
 
-#pad(x: -0mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("3.10")[The CPU running a simple program.]
