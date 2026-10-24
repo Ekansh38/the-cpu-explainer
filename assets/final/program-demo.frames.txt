@@ -25,7 +25,7 @@ Step 2. `RAM` puts the value at address 2 onto the bus, a `3`. `IR` captures it,
 Step 3, fetching the second byte. `PC` (3) drives the bus, `MAR` captures it, pointing at address 3.
 
 [frame 9]
-Step 4. `RAM` puts the value at address 3 onto the bus, `255`. But this time it lands in `MAR`, not a register, because for a `STORE` that byte is the address we want to write to. `PC` increments to 4.
+Step 4. `RAM` puts the value at address 3 onto the bus, `255`. But this time it lands in `MAR`, not register `A`, because for a `STORE` that byte is the address we want to write to. `PC` increments to 4.
 
 [frame 10]
 Step 5, the payoff. `A` drives its value, 42, onto the bus, and `RAM_WRITE` fires, storing it at address 255. And since address 255 is wired to the `DISPLAY`, the lamps light up 42.
@@ -37,4 +37,4 @@ Step 1, one more fetch. `PC` (4) drives the bus, `MAR` captures it. The lamps ke
 Step 2. `RAM` puts the value at address 4 onto the bus, `14`. `IR` captures it. 14 is `HALT`. `PC` increments to 5.
 
 [frame 13]
-Step 3. `HALT` sets a latch inside the `CU` that freezes the clock. Everything stops, the bus goes quiet, and 42 stays frozen on the lamps. The program is done.
+Step 3. `HALT` sets a latch inside the `CU` that blocks the clock. Everything stops, the bus goes quiet, and 42 stays frozen on the lamps. The program is done.

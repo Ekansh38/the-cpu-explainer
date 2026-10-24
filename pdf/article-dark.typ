@@ -331,7 +331,8 @@ drawing the return wire anymore.
 In a real schematic, the ground symbol itself would usually stay white.
 In these diagrams, I color it red when that return point is part of the
 active path for that frame. I think it makes the current path easier to
-follow visually.
+follow visually, and so the concept is just easier to understand,
+especially for beginners.
 
 This is how the ground symbol looks:
 
@@ -540,10 +541,10 @@ decimal, a.k.a. base ten.
 
 #caption("5.3")[The decimal system.]
 
-In our decimal counting system, each place value is a power of 10. That
+In our decimal counting system, each place-value is a power of 10. That
 is because we have ten digits: 0-9.
 
-This exact same place value logic can apply to the binary system too. We
+This exact same place-value logic can apply to the binary system too. We
 have two digits, 0 and 1, so each place is a power of 2.
 
 #align(center, image("/pdf/.raster/dark/binary.png", width: 100%))
@@ -1190,8 +1191,8 @@ enabling writing, and the other means enabling output. From now on, we
 will use two separate terms to avoid confusion: `WRITE` and `OUT`. This
 `OUT` has nothing to do with the output of the tri-state buffer.
 
-So we can make a new type of register, one with `WRITE`, `OUT`, `data`,
-and a `Q` output that shows the stored bits 0-7. By `data`, I simply
+So we can make a new type of register, one with `WRITE`, `OUT`, a `D`
+input, and a `Q` output that shows the stored bits 0-7. By `D`, I simply
 mean the input data that we can store when `WRITE` is enabled.
 
 #align(center, image("/pdf/.raster/dark/new-register-internals.png", width: 100%))
@@ -1253,7 +1254,7 @@ We want to build a system that organizes data into a simple structure.
 Many slots, each with its own address.
 
 This system is known technically as `RAM`: Random Access Memory. It is
-called RAM because when the CPU wants to access a slot, it just knows
+called `RAM` because when the CPU wants to access a slot, it just knows
 the number and can access any slot at will. It is not like flipping
 through a book looking for the right page. It is more like grabbing a
 book from a bookshelf, where you already know exactly where the book
@@ -1962,7 +1963,7 @@ Output 0 of the decoder is wired to nothing, so step 0 is an idle tick:
 the counter goes 1, 2, \... 7, 0, and every instruction takes 8 clock
 cycles whether it uses them or not.
 
-One thing: remember the TAKEOVER switch? Well, when it is on, it
+One thing: remember the `TAKEOVER` switch? Well, when it is on, it
 basically resets this step counter's accumulator to 0, so after a reset
 the first thing that happens is step 1. This also means `TAKEOVER` is a
 reset switch. Flick it on and off, and both `PC` and the step counter
@@ -2164,8 +2165,8 @@ any of them fire, gate 11 turns on, meaning "this jump is happening".
 From there it is simple. Gate 5 takes that signal and checks it is step
 4, then enables `PC_WRITE`, loading the target address into `PC`, so
 then the program will start executing from that target address on the
-next fetch. Gate 12 then flips gate 11's output, and that gets ANDed
-with the "step 4 and 2-byte" signal from before. So when a 2-byte
+next fetch. Gate 12 then flips gate 11's output, and gate 9 ANDs that
+with gate 8, which checks "step 4 and 2-byte" again. So when a 2-byte
 instruction reaches step 4 and the jump does not happen, it enables
 `PC_INC` instead, letting the program carry on to the next instruction.
 That is the whole "if else" we were talking about in that table. Quite
@@ -2178,9 +2179,9 @@ on. Pretty simple.
 
 Also, you might notice, control signals that get activated for different
 reasons have a "collector" OR gate instead of everything being wired
-together. This is just to prevent a short circuit, one wire driving low
+together. This is just to prevent a short-circuit, one wire driving low
 and another driving high. A simple OR gate solves this. Gates 1, 2, 3,
-and 4 are these collectors. Feel free to check them yourself.
+4, and 21 are these collectors. Feel free to check them yourself.
 
 Here is the process of executing the instruction `LOAD A, [addr]`. We
 first have to fetch the instruction, then fetch the `[addr]`, then store
@@ -2257,7 +2258,7 @@ drive the bus and store that value into register `A`.
 But now the big question: if all 4 of these instructions run the same
 micro-steps, what makes them different? Have a look at the last 2 bits
 of the number for each of these instructions in the instruction table.
-Then have a look at the ALU's operation table.
+Then have a look at the `ALU`'s operation table.
 
 Yep, the last 2 bits of each opcode directly match the `ALU`'s `OP`
 bits for that specific operation. Must be a coincidence...
@@ -2353,10 +2354,10 @@ happens, and I am not animating 2 frames per micro-step. That's why you
 might see an `OUT` and a `WRITE` turn on at the same time, but you and
 me both know what is really happening.
 
-And there it is, `42` sitting on the lamps. Now let's try something
-real, a multiplication program. Put one number in slot 100, the other in
-slot 101, and the product ends up on the `DISPLAY` lamps, as long as it
-fits in a byte.
+And there it is, 42 sitting on the lamps. Now let's try something real,
+a multiplication program. Put one number in slot 100, the other in slot
+101, and the product ends up on the `DISPLAY` lamps, as long as it fits
+in a byte.
 
 ```
 0:  LOAD A, 0
@@ -2387,9 +2388,9 @@ fits in a byte.
 34: HALT
 ```
 
-The running total lives in slot `102`. The program adds the value in
-slot `100` into slot `102`, and then slot `101` counts down by one each
-time, until it hits 0. This is basically all the program is:
+The running total lives in slot 102. The program adds the value in slot
+100 into slot 102, and then slot 101 counts down by one each time, until
+it hits 0. This is basically all the program is:
 
 ```
 total = 0                      (slot 102)
@@ -2410,9 +2411,9 @@ You might notice something weird:
 26: STORE A, [101]
 ```
 
-This little sequence adds 255 to slot `101`. It loads the right values
-into the CPU's registers, adds 255, and stores that back into slot
-`101`. But why?
+This little sequence adds 255 to slot 101. It loads the right values
+into the CPU's registers, adds 255, and stores that back into slot 101.
+But why?
 
 Well on this computer adding 255 is just like subtracting 1! This is
 because the byte throws away anything past 255, so adding 255 and
@@ -2430,7 +2431,7 @@ One more oddity:
 10: JZ 30
 ```
 
-Our goal with this chunk of code is to just check if slot `101` is zero.
+Our goal with this chunk of code is to just check if slot 101 is zero.
 If so, we are done and can jump to some other part of the program.
 Because this CPU is slightly more primitive than real CPUs, the
 programmer (me) had to use some weird trickery to check if it is zero.
