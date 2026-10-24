@@ -99,17 +99,21 @@
   #it
 ]
 
-#show outline.entry.where(level: 2): set outline.entry(fill: none)
+#show outline.entry: set outline.entry(fill: none)
 #show outline.entry.where(level: 2): it => {
   if repr(it.element.body).contains("Part ") {
-    v(1.8em, weak: true)
-    text(size: 15pt, weight: "bold", it)
+    v(1.7em, weak: true)
+    text(size: 13pt, weight: "bold", it)
   } else {
     v(1.1em, weak: true)
-    text(size: 12pt, weight: "bold", it)
+    text(size: 11pt, weight: "bold", it)
   }
 }
-#show outline.entry.where(level: 3): set text(weight: "regular")
+#show outline.entry.where(level: 3): set text(size: 10pt, weight: "regular")
+#show outline.entry.where(level: 3): it => {
+  v(0.72em, weak: true)
+  it
+}
 
 #set table(stroke: 0.5pt + rgb("#333333"))
 #show table.cell: set text(fill: rgb("#e6e6e6"))
