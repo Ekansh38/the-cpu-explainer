@@ -35,9 +35,7 @@ tall pile of simple ones.
 
 This probably looks like an overwhelming mess, but don't worry, that's normal. Throughout this guide
 we are going to try to understand how this simple CPU works, from the ground up. It is not a modern
-CPU with decades of optimization, but it has the same core functionality.
-
-So if you have ever wondered how a computer truly works, buckle up, we are going on a journey.
+CPU with decades of optimization, but it has the same core functionality. So if you have ever wondered how a computer truly works, buckle up, we are going on a journey.
 
 ### How to Read This
 
@@ -66,14 +64,10 @@ filament of the light bulb, turning the light on. But current can only flow when
 complete, from `+` through the bulb to `-`.
 
 If the loop is broken, nothing flows. A switch is simply a controlled break in the loop, allowing us
-to break and complete the loop whenever we want. And a light bulb is just a simple light bulb. It glows when current flows through the filament.
-
-Now we have a circuit that can do one yes/no thing. Current flows or it doesn't.
+to break and complete the loop whenever we want. And a light bulb is just a simple light bulb. It glows when current flows through the filament. Now we have a circuit that can do one yes/no thing. Current flows or it doesn't.
 
 Now let's see if we can combine switches and relays so the circuit can "answer" slightly more
-interesting questions.
-
-Say we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
+interesting questions. Say we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
 tell us whether to wash our dog or not. Our simple circuit is going to use a light bulb being on to mean yes, wash the dog. Light bulb off
 means no, don't wash the dog. So we start with an extremely simple version with two switches. In this first version, the switches are directly inside the bulb circuit. The person using the
 circuit can open or close each switch to answer a yes/no question.
@@ -88,9 +82,7 @@ If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog is stink
 *Diagram 3.2. The hand-switch version of AND.*
 
 This circuit shows a logical AND operation. A person is flipping the switches manually. The output
-turns on only when both inputs are true.
-
-Now add a new input: `MUDDY`, if the dog is muddy. The rules of the circuit change:
+turns on only when both inputs are true. Now add a new input: `MUDDY`, if the dog is muddy. The rules of the circuit change:
 
 If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
@@ -147,9 +139,7 @@ are on do both relays close, completing the output loop.
 
 That is the big difference from the hand-switch version. The inputs are still drawn as switches
 here, but they don't have to be. The input could just be a wire: driven high, current flows through
-the coil and the relay pulls. Driven low, no current flows and the relay lets go.
-
-Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
+the coil and the relay pulls. Driven low, no current flows and the relay lets go. Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
 OR gate.
 
 But before the next diagram, I am going to use one more new symbol: ground. For our purposes here, the ground symbol will simply refer to the common return point of
@@ -192,9 +182,7 @@ The rules of the circuit change once again:
 
 `((MUDDY OR STINKY) AND OLD_WASH) AND NOT RAIN_SOON`
 
-The parentheses indicate order of operations. So in plain English:
-
-If the dog is muddy or stinky and it's been more than 5 days since the dog's last wash and it's not going to
+The parentheses indicate order of operations. So in plain English: if the dog is muddy or stinky and it's been more than 5 days since the dog's last wash and it's not going to
 rain soon, then wash the dog.
 
 Let's focus on this NOT for a second. NOT just flips its input: if the input is on, the output is off, and if the input is off, the
@@ -245,18 +233,14 @@ a bulb on and off, it drives an output wire. An OR gate is drawn like this:
 
 *Diagram 4.9. An OR gate.*
 
-This symbol represents the [OR circuit](#diagram-4-4) we made previously.
-
-Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
+This symbol represents the [OR circuit](#diagram-4-4) we made previously. Whenever I use these symbols moving forward, they can almost directly translate to the circuits with
 the relays I showed you previously, just instead of turning on a light bulb, they drive a wire. Here are three more useful gate symbols:
 
 <a id="diagram-4-10"></a> <img src="./assets/final/not-nand-nor-gates.svg" alt="NOT, NAND, NOR gates">
 
 *Diagram 4.10. NOT, NAND, NOR gates.*
 
-NAND is AND with the output flipped. NOR is OR with the output flipped. That little circle at the end of a gate means "flip the output."
-
-With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
+NAND is AND with the output flipped. NOR is OR with the output flipped. That little circle at the end of a gate means "flip the output." With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine!
 
 <a id="diagram-4-11"></a> <img pdf-frames="all" class="big" src="./assets/final/dog-washer-v2.gif" alt="The final dog washer circuit">
 
@@ -264,9 +248,7 @@ With our knowledge about logic gates, let's create the "should-I-wash-my-dog 500
 
 Again, this animation doesn't cover all possible states. Keep in mind these [electromagnetic relays](#diagram-4-1) we used in the examples are quite big and slow. Relays aren't the only solution. They are simply an early solution, and an easy one to
 understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I)
-actually used these types of relays.
-
-In modern computers, similar behavior is achieved by using transistors.
+actually used these types of relays. In modern computers, similar behavior is achieved by using transistors.
 
 This is how circuits make yes/no decisions. The circuit doesn't "understand" what `MUDDY` means. It
 just makes simple logical decisions.
@@ -278,15 +260,11 @@ I don't know about you, but addition seems like a pretty logical next step after
 But not so fast.
 
 To make a CPU, we need to give wires a different kind of meaning: numbers. Before we can build a
-circuit that adds, we need a way to represent numbers using only on and off.
-
-That is what the next section is about.
+circuit that adds, we need a way to represent numbers using only on and off. That is what the next section is about.
 
 ### Counting With Wires
 
-First, let's define some terms.
-
-A wire driven low is `0`, and a wire driven high is `1`. Let's call one wire one bit. A bit can
+First, let's define some terms. A wire driven low is `0`, and a wire driven high is `1`. Let's call one wire one bit. A bit can
 either be `0` or `1`. These are just labels that represent the state of a wire.
 
 <a id="diagram-5-1"></a> <img src="./assets/final/0-s-and-1-s.svg" class="small" alt="One wire can represent two states: 0 or 1">
@@ -312,9 +290,7 @@ But why does `010` mean 2? Why does `101` mean 5? Is it just randomly assigned? 
 *Diagram 5.3. The decimal system.*
 
 In our decimal counting system, each place-value is a power of 10. That is because we have ten
-digits: 0-9.
-
-This exact same place-value logic can apply to the binary system too. We have two digits, 0 and 1, so
+digits: 0-9. This exact same place-value logic can apply to the binary system too. We have two digits, 0 and 1, so
 each place is a power of 2.
 
 <a id="diagram-5-4"></a> <img src="./assets/final/binary.svg" alt="The binary system">
@@ -328,9 +304,7 @@ So binary is, at the end of the day, the same place-value idea as decimal, just 
 - `101010` means 42
 - `1100011` means 99
 
-You don't need to do these problems in your head, but I hope the idea of how binary works makes sense.
-
-Let's walk through `1101` together.
+You don't need to do these problems in your head, but I hope the idea of how binary works makes sense. Let's walk through `1101` together.
 
 <a id="diagram-5-5"></a> <img src="./assets/final/binary-example.svg" alt="An example in binary">
 
@@ -361,13 +335,11 @@ addition works the same way.
 
 `1 + 1` gives `10`, which is binary for 2.
 
-So the sum bit for that column is `0`, and the carry is `1`.
+So the sum bit for that column is `0`, and the carry is `1`. `1 + 1 + 1` gives `11`, which is binary
+for 3. So the sum bit is `1`, and the carry is `1`, and so on.
 
-`1 + 1 + 1` gives `11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`, and so on.
-
-How do we build a circuit using logic gates that performs this standard addition algorithm?
-
-Well, let's start with the rightmost column. If we think about it, all the possible states are:
+How do we build a circuit using logic gates that performs this standard addition algorithm? Well,
+let's start with the rightmost column. If we think about it, all the possible states are:
 
 
 | `A` | `B` | Sum | Carry |
@@ -395,11 +367,7 @@ Let's first build this half adder. Let's start by computing the sum, not the car
 | 1 | 1 | 0 |
 
 
-The sum is `1` only when exactly one input is `1`. This is called XOR, short for exclusive OR.
-
-If we combine an OR gate and a NAND gate, and AND them together, we get XOR:
-
-<a id="diagram-6-3"></a> <img pdf-frames="all" src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
+The sum is `1` only when exactly one input is `1`. This is called XOR, short for exclusive OR. If we combine an OR gate and a NAND gate, and AND them together, we get XOR: <a id="diagram-6-3"></a> <img pdf-frames="all" src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
 
 *Diagram 6.3. Half adder sum / XOR.*
 
@@ -446,9 +414,7 @@ we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`. To ad
 
 *Diagram 6.8. A full adder.*
 
-This might look confusing at first. What if both half adders output a carry-out at the same time?
-
-That actually never happens. If the first half adder outputs a carry, its sum bit is 0, and that 0 is one of the second half
+This might look confusing at first. What if both half adders output a carry-out at the same time? That actually never happens. If the first half adder outputs a carry, its sum bit is 0, and that 0 is one of the second half
 adder's inputs, so the second one can't carry. So both can never output carries at the same time. Take a moment to think about this if you are confused. So we can confidently OR the two carry outputs together. If either one is `1`, the full adder's
 carry-out is `1`.
 
@@ -525,9 +491,7 @@ instantly.
 There is no boundary between the old value and the new value. There is no clean "step 1, step 2, step 3."
 
 So this is not enough. We need a circuit that can hold a value, then update it only when we tell it
-to.
-
-That is the next problem: memory.
+to. That is the next problem: memory.
 
 ## Part 2: Machinery
 
@@ -671,9 +635,7 @@ Now with this register, let's build a basic accumulator/adder circuit.
 
 *Diagram 7.9. Our full accumulator.*
 
-As you can see, the circuit kindly waits for us, and is incrementing by ones!
-
-How this works is, when the `STEP` button is pressed, the output from the adder gets saved into the
+As you can see, the circuit kindly waits for us, and is incrementing by ones! How this works is, when the `STEP` button is pressed, the output from the adder gets saved into the
 register on the rising edge of that press. This then changes the input to the adder, which changes
 its output, but the register holds its value because it only captures on the edge of the press.
 Holding `STEP` down does nothing special. So each press increments the register's value by, in this
@@ -767,9 +729,7 @@ so you can follow the path with your eyes; it doesn't mean anything.
 
 *Diagram 8.2. A tri-state buffer built with relays.*
 
-This looks complicated, so let me break it down.
-
-First, ignore the two relays on the right and look only at the `D` relay at the top. Its arm is
+This looks complicated, so let me break it down. First, ignore the two relays on the right and look only at the `D` relay at the top. Its arm is
 attached to the output wire, and it works just like [the output driver from before](#diagram-4-7).
 When `D` is `1`, the arm is pulled down onto the wire that leads toward the battery, `+`. When `D`
 is `0`, the arm goes up onto the wire that leads toward ground. Remember, ground is just the `-`
@@ -843,9 +803,7 @@ We want to build a system that organizes data into a simple structure.
 
 *Diagram 9.1. Our data structure.*
 
-Many slots, each with its own address.
-
-This system is known technically as `RAM`: Random Access Memory. It is called `RAM` because when the CPU
+Many slots, each with its own address. This system is known technically as `RAM`: Random Access Memory. It is called `RAM` because when the CPU
 wants to access a slot, it just knows the number and can access any slot at will. It is not like
 flipping through a book looking for the right page. It is more like grabbing a book from a
 bookshelf, where you already know exactly where the book sits.
@@ -858,9 +816,7 @@ Now let's think about exactly what we would want this `RAM` chip to do.
 - `data in`: the value we would like to write
 - `data out`: the data output line
 
-To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire each.
-
-For this demo `RAM`, `address` is only 4 input wires. `data in` and `data out` carry bytes and are
+To be clear, `WRITE` and `OUT` are control signals, so just 1 input wire each. For this demo `RAM`, `address` is only 4 input wires. `data in` and `data out` carry bytes and are
 both connected directly to the common bus. This only works if no other part is driving the bus when `OUT` is enabled.
 
 So we are going to build a minuscule 16-byte `RAM`: 16 addresses, with each address storing one byte.
@@ -870,7 +826,7 @@ We could do this as a tall stack of 16 registers, but a grid is nicer. So we wil
 pick the column:
 
 ```text
-top 2 bits    = column
+top 2 bits = column
 bottom 2 bits = row
 ```
 
@@ -889,12 +845,8 @@ In the diagram, the top bit is the bigger bit (the 2's place) and the bottom bit
 
 *Diagram 9.2. How a decoder works.*
 
-As you can tell, no matter the inputs, exactly one output wire is on at a time.
-
-How a decoder works is extremely simple. It just uses a bunch of logic gates to ask these simple
-questions.
-
-- If `00` -> turn on output 0
+As you can tell, no matter the inputs, exactly one output wire is on at a time. How a decoder works is extremely simple. It just uses a bunch of logic gates to ask these simple
+questions. - If `00` -> turn on output 0
 - If `01` -> turn on output 1
 - If `10` -> turn on output 2
 - If `11` -> turn on output 3
@@ -906,9 +858,7 @@ Here is how it works if you care:
 *Diagram 9.3. 2-4 decoder internals.*
 
 We use one `2-4` decoder for the rows and another `2-4` decoder for the columns. Where the selected
-row and selected column cross, that is the byte we want to target.
-
-This diagram shows a few addresses as examples. Each address gets its own little intersection.
+row and selected column cross, that is the byte we want to target. This diagram shows a few addresses as examples. Each address gets its own little intersection.
 
 <a id="diagram-9-4"></a> <img pdf-frames="1,2,3,4,5,6" src="./assets/final/cross-section.gif" alt="Where the row and column meet">
 
@@ -980,9 +930,7 @@ where we have a separate `D` and `Q`, we can just draw them like this:
 They both are the same technically, just this is easier to draw, so moving forward, instead of
 drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus.
 
-Now back to the `RAM` chip.
-
-If you pay close attention to [the diagram](#diagram-9-8), you will notice that the address input is
+Now back to the `RAM` chip. If you pay close attention to [the diagram](#diagram-9-8), you will notice that the address input is
 not directly connected to the common data bus.
 
 That is intentional. The data bus is for moving values around the CPU. During a `RAM` operation, it
@@ -1007,9 +955,7 @@ remove 28 from the common bus and enable `RAM_OUT`, and we get 6 as the value st
 
 If we have a handful of registers and `RAM`, we can now move bytes around using this common data bus.
 But what we really need is a component that can "process" numbers, a component that can do
-arithmetic and logic. Thus we have "The Arithmetic and Logic Unit," or `ALU` for short.
-
-Imagine a chip where we could input two numbers, an operation, and output a result, along with some
+arithmetic and logic. Thus we have "The Arithmetic and Logic Unit," or `ALU` for short. Imagine a chip where we could input two numbers, an operation, and output a result, along with some
 other information.
 
 <a id="diagram-10-1"></a> <img src="./assets/final/alu-interface.svg" alt="The ALU chip">
@@ -1092,9 +1038,7 @@ we can check if they are all true. If even one pair of bits differs, that wire e
 the flip, and the AND outputs `0`. Simple.
 
 The `CARRY` flag is simple: we just connect the adder's carry-out, `CO`, straight out. Of course,
-it only means anything when we are actually adding.
-
-Boom, that's it, the `ALU` is complete. We can now piece together this whole CPU.
+it only means anything when we are actually adding. Boom, that's it, the `ALU` is complete. We can now piece together this whole CPU.
 
 ### The Big Picture
 
@@ -1129,9 +1073,7 @@ But we mark it as garbage anyway, because in a real CPU made from transistors in
 those values as garbage: we just ignore them. If the bus is being driven then we can of course use
 those values.
 
-Now back to the diagram.
-
-Almost every single chip here, we have already built. The `RAM` and `MAR` combination, we have seen
+Now back to the diagram. Almost every single chip here, we have already built. The `RAM` and `MAR` combination, we have seen
 how that works [previously](#diagram-9-10). `A`, `B`, `ACC`, `IR`, `FLAGS`, and `DISPLAY` are all
 just slight variations of registers. `PC` is an accumulator-style circuit, and we know how the `ALU` in
 the bottom left [works](#diagram-10-2).
@@ -1198,11 +1140,7 @@ back to most of our previous demos. Turn `O` on, then `W`, flip this control sig
 this control signal. The `CU` does all of that flipping for us. It turns the control
 wires on and off in the right order, at the right times, to make the computer actually work.
 
-But how exactly does the computer work in the first place?
-
-First we load our program into `RAM`: a list of instructions, each one just a number.
-
-The control unit then fetches the instruction from `RAM` at the address stored in `PC`, so if `PC`
+But how exactly does the computer work in the first place? First we load our program into `RAM`: a list of instructions, each one just a number. The control unit then fetches the instruction from `RAM` at the address stored in `PC`, so if `PC`
 is 0, it fetches the instruction at address 0 and stores it in `IR`. How? It copies `PC` into the
 `MAR` and flips on `RAM_OUT`, [exactly like we have done before](#diagram-9-10). Next it figures
 out what that instruction means, and executes a bunch of steps to actually do that instruction, then
@@ -1251,9 +1189,7 @@ So here is what number each instruction in our CPU translates to:
 
 *Table 12.1. The full instruction set.*
 
-The number for each instruction is called its opcode.
-
-Let's write a tiny program. We store `00000001` in address 0 of `RAM`. Then store `00000101` in address 1 of `RAM`. Then store
+The number for each instruction is called its opcode. Let's write a tiny program. We store `00000001` in address 0 of `RAM`. Then store `00000101` in address 1 of `RAM`. Then store
 `00000011` in address 2, then `11111111` in address 3, and finally `00001110` in address 4. Our `RAM` looks like this:
 
 ```
@@ -1264,9 +1200,7 @@ Let's write a tiny program. We store `00000001` in address 0 of `RAM`. Then stor
 4: 00001110
 ```
 
-If `PC` starts at 0, which it does, then what do you think this program would do?
-
-The first byte is `00000001`, which is 1, and the table says 1 is `LOAD A, n`: load the next byte into
+If `PC` starts at 0, which it does, then what do you think this program would do? The first byte is `00000001`, which is 1, and the table says 1 is `LOAD A, n`: load the next byte into
 register `A`. The next byte is `00000101`, binary for 5, so those two bytes make up the instruction:
 
 `LOAD A, 5`
@@ -1359,12 +1293,12 @@ sometimes run "do-nothing loops" that just waste clock cycles for a set time. He
 example of a simple do-nothing delay loop:
 
 ```
-0:  LOAD A, 1
-2:  MOV B, A
-3:  LOAD A, 0
-5:  ADD
-6:  JC 10
-8:  JMP 5
+0: LOAD A, 1
+2: MOV B, A
+3: LOAD A, 0
+5: ADD
+6: JC 10
+8: JMP 5
 10: (rest of the program)
 ```
 
@@ -1433,9 +1367,7 @@ The best approach to this is just taking our clock signal and flipping it:
 
 *Diagram 13.2. Micro-step timing diagram.*
 
-Purple marks when `W` turns on, and blue is when `O` is on.
-
-Each step changes on a clock edge, and each step is a signal, 1 full clock cycle long, until the
+Purple marks when `W` turns on, and blue is when `O` is on. Each step changes on a clock edge, and each step is a signal, 1 full clock cycle long, until the
 next rising edge.
 
 `O` is directly connected to that step line. If we enable `O` on step 1, the bus is driven for that
@@ -1446,9 +1378,7 @@ come on at the same time. The step line is already on, and then halfway through 
 CLOCK` goes up, and that is when the AND gate's output goes up. That is the edge `W` needs, right in
 the middle, after `O` has had some time to settle.
 
-Now that we have covered that, let's figure out what should happen on each step.
-
-The first thing the `CU` will have to do for every instruction no matter what is to actually fetch
+Now that we have covered that, let's figure out what should happen on each step. The first thing the `CU` will have to do for every instruction no matter what is to actually fetch
 that instruction from `RAM` and store it in `IR`. `IR` stands for Instruction Register and
 is used to store the instruction so the `CU` can decode it and figure out what it means.
 
@@ -1469,9 +1399,7 @@ So to accomplish this, we only need 2 simple micro-steps:
 
 We know how we can output and write to a register in one micro-step, but three things? How can
 we increment `PC` too? Well incrementing `PC` has nothing to do with the bus and doesn't disrupt
-anything else going on, so we just can!
-
-And notice, these 2 micro-steps are exactly the same for every single instruction.
+anything else going on, so we just can! And notice, these 2 micro-steps are exactly the same for every single instruction.
 
 One thing I am not drawing: every `W` signal is ANDed with `NOT CLOCK`, like we just discussed. The
 same goes for `PC`'s `I` signal: incrementing stores a value too, it just comes from `PC`'s own
@@ -1504,9 +1432,7 @@ Because all of these instructions need to fetch another byte, the third micro-st
 3. `PC_OUT`, `MAR_WRITE`
 
 So we can just check, "is this instruction one of the 2-byte instructions?", using a giant OR gate,
-and if it is, on step 3, we can just execute the same micro-step.
-
-Steps 4 and 5 of these instructions all vary slightly, but nothing a few logic gates can't
+and if it is, on step 3, we can just execute the same micro-step. Steps 4 and 5 of these instructions all vary slightly, but nothing a few logic gates can't
 solve.
 
 
@@ -1585,9 +1511,7 @@ instruction, then fetch the `[addr]`, then store whatever lives at that address 
 *Diagram 14.2. `LOAD A, [addr]` animation.*
 
 When the label for a control signal turns red, that means it's on. For the gated signals colored in
-pink, they will only actually turn on at `NOT CLOCK`.
-
-Next we do the `MOV` instructions.
+pink, they will only actually turn on at `NOT CLOCK`. Next we do the `MOV` instructions.
 
 
 | # | Instruction | Step 3 |
@@ -1602,9 +1526,7 @@ Quite simple:
 
 *Diagram 14.3. The `MOV` instructions.*
 
-I have left out all of the 2-byte instructions from this diagram, just so it's easier to read.
-
-Next we need to decode all of our `ALU` instructions. Now this is where things get a bit weird, and
+I have left out all of the 2-byte instructions from this diagram, just so it's easier to read. Next we need to decode all of our `ALU` instructions. Now this is where things get a bit weird, and
 I have some explaining to do.
 
 In our [CPU](#diagram-11-1), if you remember, register `A` has a special `Q` that bypasses the
@@ -1639,17 +1561,13 @@ Must be a coincidence...
 Anyway, because of this, we can just directly wire those 2 last bits into the `ALU`'s `OP` bits. Since
 we only actually store the result of the `ALU` on these instructions, sure a `STORE A, [addr]`
 instruction might make the `ALU` XOR, but it doesn't matter because we don't store the result, it's
-garbage.
-
-So here we are:
+garbage. So here we are:
 
 <a id="diagram-14-4"></a> <img class="big" src="./assets/final/cu-internals-alu.svg" alt="The ALU instructions">
 
 *Diagram 14.4. The `ALU` instructions.*
 
-Again I am leaving out all the instructions apart from these 4, and again this wiring is a mess.
-
-All you need to know is that the bottom 2 bits of the opcode are tapped out and
+Again I am leaving out all the instructions apart from these 4, and again this wiring is a mess. All you need to know is that the bottom 2 bits of the opcode are tapped out and
 connected directly to the `ALU`'s `OP` bits. And the rest of the logic just checks if it is an `ALU`
 instruction and if so, on the appropriate steps, it enables the correct control wires according to
 the table above.
@@ -1663,13 +1581,9 @@ computer.
 
 *Diagram 14.5. The `HALT` instruction freezing the computer.*
 
-The clock keeps ticking, but the AND gate never lets it increment the counter, so the computer stays frozen.
-
-But how do we restart the computer? Well, remember the `TAKEOVER` switch I was telling you about?
+The clock keeps ticking, but the AND gate never lets it increment the counter, so the computer stays frozen. But how do we restart the computer? Well, remember the `TAKEOVER` switch I was telling you about?
 When we flick it on, it resets that latch. But its own inverted signal is ANDed in with the clock
-and the latch too, so a 3-input AND gate basically.
-
-So the computer stays frozen, but if you flick `TAKEOVER` off, then it will continue going.
+and the latch too, so a 3-input AND gate basically. So the computer stays frozen, but if you flick `TAKEOVER` off, then it will continue going.
 
 `TAKEOVER` is also connected to `PC_RESET` which resets the program counter to 0, so the computer
 will start executing from the first instruction when `TAKEOVER` is turned off. It also resets the
@@ -1684,21 +1598,13 @@ Here is how the `HALT` and `TAKEOVER` wiring would look in the `CU`:
 
 *Diagram 14.6. The `HALT` and `TAKEOVER` wiring.*
 
-Wait, is that the whole `CU`?
-
-Umm, yes, that's it. Just combine all of those diagrams together, add in some extra OR gates and
-boom. That is the whole `CU`. You understand it, every wire of it.
-
-In the next short section, let's see how our computer can run a simple program.
+Wait, is that the whole `CU`? Umm, yes, that's it. Just combine all of those diagrams together, add in some extra OR gates and
+boom. That is the whole `CU`. You understand it, every wire of it. In the next short section, let's see how our computer can run a simple program.
 
 
 ### Finally, The Fun Part
 
-That's it, huh? A whole computer. To test it, let's watch it run.
-
-Let's start with the simplest program imaginable, just putting a number on the `DISPLAY` lamps:
-
-```
+That's it, huh? A whole computer. To test it, let's watch it run. Let's start with the simplest program imaginable, just putting a number on the `DISPLAY` lamps: ```
 0: LOAD A, 42
 2: STORE A, [255]
 4: HALT
@@ -1718,13 +1624,13 @@ And there it is, 42 sitting on the lamps. Now let's try something real, a multip
 Put one number in slot 100, the other in slot 101, and the product ends up on the `DISPLAY` lamps, as long as it fits in a byte.
 
 ```
-0:  LOAD A, 0
-2:  STORE A, [102]
+0: LOAD A, 0
+2: STORE A, [102]
 
-4:  LOAD A, 0
-6:  MOV B, A
-7:  LOAD A, [101]
-9:  ADD
+4: LOAD A, 0
+6: MOV B, A
+7: LOAD A, [101]
+9: ADD
 10: JZ 30
 
 12: LOAD A, [100]
@@ -1750,9 +1656,9 @@ The running total lives in slot 102. The program adds the value in slot 100 into
 then slot 101 counts down by one each time, until it hits 0. This is basically all the program is:
 
 ```
-total = 0                      (slot 102)
-while counter is not 0:        (counter is slot 101)
-    total = total + number     (number is slot 100)
+total = 0 (slot 102)
+while counter is not 0: (counter is slot 101)
+    total = total + number (number is slot 100)
     counter = counter - 1
 show total on the lamps
 halt
@@ -1778,10 +1684,10 @@ rolls back over to 0, so 260 wraps around to 4!
 One more oddity:
 
 ```
-4:  LOAD A, 0
-6:  MOV B, A
-7:  LOAD A, [101]
-9:  ADD
+4: LOAD A, 0
+6: MOV B, A
+7: LOAD A, [101]
+9: ADD
 10: JZ 30
 ```
 
@@ -1812,18 +1718,18 @@ Our program could also be seen as just a bunch of numbers:
 And in `RAM`, it is actually just this:
 
 ```
-0:  00000001     12: 00000010     24: 01100101
-1:  00000000     13: 01100100     25: 00001000
-2:  00000011     14: 00000100     26: 00000011
-3:  01100110     15: 00000010     27: 01100101
-4:  00000001     16: 01100110     28: 00000110
-5:  00000000     17: 00001000     29: 00000100
-6:  00000100     18: 00000011     30: 00000010
-7:  00000010     19: 01100110     31: 01100110
-8:  01100101     20: 00000001     32: 00000011
-9:  00001000     21: 11111111     33: 11111111
-10: 00001101     22: 00000100     34: 00001110
-11: 00011110     23: 00000010
+0: 00000001 12: 00000010 24: 01100101
+1: 00000000 13: 01100100 25: 00001000
+2: 00000011 14: 00000100 26: 00000011
+3: 01100110 15: 00000010 27: 01100101
+4: 00000001 16: 01100110 28: 00000110
+5: 00000000 17: 00001000 29: 00000100
+6: 00000100 18: 00000011 30: 00000010
+7: 00000010 19: 01100110 31: 01100110
+8: 01100101 20: 00000001 32: 00000011
+9: 00001000 21: 11111111 33: 11111111
+10: 00001101 22: 00000100 34: 00001110
+11: 00011110 23: 00000010
 ```
 
 Some user would have to manually sit there at the `Control Panel` flipping these values into
