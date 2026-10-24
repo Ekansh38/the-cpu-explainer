@@ -35,6 +35,8 @@
   The full animation at #link(url)[#label].
 ]
 
+#show raw: set text(size: 0.85em)
+
 #show raw.where(block: true): block.with(
   fill: rgb("#f2eee6"),
   inset: 10pt,
@@ -1446,19 +1448,15 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The
 `RAM`, leaving the data bus free to carry the value being read or
 written.
 
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 76%))
-
-#align(center, image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 76%))
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+  image("/pdf/.raster/light-final/mar-ram-demo-1.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-2.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-3.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-4.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-5.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-6.png", width: 100%),
+  image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
+))
 
 #caption("9.10")[How the `MAR` works.]
 
