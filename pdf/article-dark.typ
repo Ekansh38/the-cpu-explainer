@@ -188,9 +188,9 @@ If the loop is broken, nothing flows. A switch is simply a controlled
 break in the loop, allowing us to break and complete the loop whenever
 we want. And a light bulb is just a simple light bulb. It glows when
 current flows through the filament. Now we have a circuit that can do
-one yes/no thing. Current flows or it doesn't.
+one yes/no thing.
 
-Now let's see if we can combine switches and relays so the circuit can
+Now let's see if we can combine more switches so the circuit can
 "answer" slightly more interesting questions. Say we want to build a
 simple dog washer circuit: a circuit that, based on some inputs, can
 tell us whether to wash our dog or not. Our simple circuit is going to
@@ -219,33 +219,33 @@ is the circuit:
 
 This circuit shows a logical AND operation. A person is flipping the
 switches manually. The output turns on only when both inputs are true.
-Now add a new input: `MUDDY`, if the dog is muddy. The rules of the
-circuit change:
+
+Now let's add a new input: `MUDDY`, if the dog is muddy. The rules of
+the circuit change:
 
 If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
 All this says is, if the dog is muddy or stinky and it's been more than
 5 days since the dog's last wash, you should wash the dog. Now let's
-focus on the (`MUDDY` OR `STINKY`) part of this circuit:
+focus on the `MUDDY OR STINKY` part of this circuit:
 
 #align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/or-gate-logical-1.png", width: 100%),
   image("/assets/frames/or-gate-logical-2.png", width: 100%),
-  image("/assets/frames/or-gate-logical-3.png", width: 100%),
   image("/assets/frames/or-gate-logical-4.png", width: 100%),
-  image("/assets/frames/or-gate-logical-5.png", width: 100%),
   image("/assets/frames/or-gate-logical-6.png", width: 100%)
 )])
 
 #caption("3.3")[The hand-switch version of OR.]
 
 This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
-for the bulb to turn on. Both on also counts.
+for the bulb to turn on. Both of them could also be on, and that is
+fine.
 
-Before we combine these, let's tackle a bigger problem. So far, every
-switch is flipped by a human. If we ever want to build a computer, it
-needs to run by itself: electricity has to be able to flip a switch by
-itself! But how?
+Before we continue, let's tackle a bigger problem. So far, every switch
+is flipped by a human. If we ever want to build a computer, it needs to
+run by itself: electricity has to be able to flip a switch by itself in
+order to chain circuits! But how?
 
 === Relays & Logic Gates
 <relays--logic-gates>

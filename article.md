@@ -64,13 +64,16 @@ filament of the light bulb, turning the light on. But current can only flow when
 complete, from `+` through the bulb to `-`.
 
 If the loop is broken, nothing flows. A switch is simply a controlled break in the loop, allowing us
-to break and complete the loop whenever we want. And a light bulb is just a simple light bulb. It glows when current flows through the filament. Now we have a circuit that can do one yes/no thing. Current flows or it doesn't.
+to break and complete the loop whenever we want. And a light bulb is just a simple light bulb. It
+glows when current flows through the filament. Now we have a circuit that can do one yes/no thing.
 
-Now let's see if we can combine switches and relays so the circuit can "answer" slightly more
-interesting questions. Say we want to build a simple dog washer circuit: a circuit that, based on some inputs, can
-tell us whether to wash our dog or not. Our simple circuit is going to use a light bulb being on to mean yes, wash the dog. Light bulb off
-means no, don't wash the dog. So we start with an extremely simple version with two switches. In this first version, the switches are directly inside the bulb circuit. The person using the
-circuit can open or close each switch to answer a yes/no question.
+Now let's see if we can combine more switches so the circuit can "answer" slightly more interesting
+questions. Say we want to build a simple dog washer circuit: a circuit that, based on some inputs,
+can tell us whether to wash our dog or not. Our simple circuit is going to use a light bulb being on
+to mean yes, wash the dog. Light bulb off means no, don't wash the dog. So we start with an
+extremely simple version with two switches. In this first version, the switches are directly inside
+the bulb circuit. The person using the circuit can open or close each switch to answer a yes/no
+question.
 
 Let's say switch 1 represents `STINKY`: whether the dog is stinky or not. Switch 2 represents
 `OLD_WASH`: has it been more than 5 days since the last wash. So the rules for our first circuit are:
@@ -82,21 +85,25 @@ If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog is stink
 *Diagram 3.2. The hand-switch version of AND.*
 
 This circuit shows a logical AND operation. A person is flipping the switches manually. The output
-turns on only when both inputs are true. Now add a new input: `MUDDY`, if the dog is muddy. The rules of the circuit change:
+turns on only when both inputs are true. 
+
+Now let's add a new input: `MUDDY`, if the dog is muddy. The rules of the circuit change:
 
 If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
 All this says is, if the dog is muddy or stinky and it's been more than 5 days since the dog's last
-wash, you should wash the dog. Now let's focus on the (`MUDDY` OR `STINKY`) part of this circuit:
+wash, you should wash the dog. Now let's focus on the `MUDDY OR STINKY` part of this circuit:
 
-<a id="diagram-3-3"></a> <img pdf-frames="1,2,3,4,5,6" src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
+<a id="diagram-3-3"></a> <img pdf-frames="1,2,4,6" src="./assets/final/or-gate-logical.gif" alt="The hand-switch version of OR">
 
 *Diagram 3.3. The hand-switch version of OR.*
 
-This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on for the bulb to turn on. Both on also counts.
+This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on for the bulb to turn on.
+Both of them could also be on, and that is fine.
 
-Before we combine these, let's tackle a bigger problem. So far, every switch is flipped by a human. If we ever want to build a computer, it needs to run by
-itself: electricity has to be able to flip a switch by itself! But how?
+Before we continue, let's tackle a bigger problem. So far, every switch is flipped by a human. If we
+ever want to build a computer, it needs to run by itself: electricity has to be able to flip a
+switch by itself in order to chain circuits! But how?
 
 ### Relays & Logic Gates
 
