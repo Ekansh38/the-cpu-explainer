@@ -1,13 +1,13 @@
 title: not gate
 
 [frame 1]
-The input is off, so no current flows through the coil. The `metal arm` rests against the top contact, completing the output circuit, so the bulb is on. Input off, output on.
+The input is off, so no current flows through the coil. The `metal arm` rests on the top contact, which is connected to `+`, so the output wire is driven high. Input off, `OUT = 1`.
 
 [frame 2]
 We turn the input on. Current flows through the coil and it becomes an electromagnet, pulling the `metal arm` down.
 
 [frame 3]
-The arm is pulled away from the contact, breaking the output circuit, so the bulb turns off. Input on, output off.
+The arm now rests on the bottom contact, which is connected to `-`, so the output wire is driven low. Input on, `OUT = 0`.
 
 [frame 4]
-We turn the input back off. The coil loses its pull and the arm springs back up toward the contact, about to light the bulb again.
+We turn the input back off. The coil loses its pull and the arm springs back up toward the top contact, about to drive the output high again.
