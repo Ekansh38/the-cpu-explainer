@@ -952,8 +952,7 @@ where we have a separate `D` and `Q`, we can just draw them like this:
 
 *Diagram 9.9. I/O Registers.*
 
-They both are the same technically, just this is easier to draw, so moving forward, instead of
-drawing two buses for `D` and `Q` I'll just draw one double-headed `I/O` bus.
+They both are the same technically, just this is easier to draw.
 
 Now back to the `RAM` chip. If you pay close attention to [the diagram](#diagram-9-8), you will notice that the address input is
 not directly connected to the common data bus.
@@ -1783,5 +1782,5 @@ gates, and every gate is made up of relays, or more commonly these days, transis
 
 I hope you now understand why computers aren't "just" 1s and 0s, but a very tall pile of simple.
 
-
+Anyway, I hope you have a good rest of your day. Bye!
 
