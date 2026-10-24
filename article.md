@@ -1782,5 +1782,3 @@ gates, and every gate is made up of relays, or more commonly these days, transis
 
 I hope you now understand why computers aren't "just" 1s and 0s, but a very tall pile of simple.
 
-Anyway, I hope you have a good rest of your day. Bye!
-
