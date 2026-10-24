@@ -642,13 +642,13 @@ The sum is `1` only when exactly one input is `1`. This is called XOR,
 short for exclusive OR. If we combine an OR gate and a NAND gate, and
 AND them together, we get XOR:
 
-#align(center, image("/pdf/.raster/dark/half-adder-sum-1.png", width: 76%))
+#align(center, image("/pdf/.raster/dark/half-adder-sum-1.png", width: 63%))
 
-#align(center, image("/pdf/.raster/dark/half-adder-sum-2.png", width: 76%))
+#align(center, image("/pdf/.raster/dark/half-adder-sum-2.png", width: 63%))
 
-#align(center, image("/pdf/.raster/dark/half-adder-sum-3.png", width: 76%))
+#align(center, image("/pdf/.raster/dark/half-adder-sum-3.png", width: 63%))
 
-#align(center, image("/pdf/.raster/dark/half-adder-sum-4.png", width: 76%))
+#align(center, image("/pdf/.raster/dark/half-adder-sum-4.png", width: 63%))
 
 #caption("6.3")[Half adder sum / XOR.]
 
