@@ -347,8 +347,8 @@ addition works the same way.
 
 `1 + 1` gives `10`, which is binary for 2.
 
-So the sum bit for that column is `0`, and the carry is `1`. `1 + 1 + 1` gives `11`, which is binary
-for 3. So the sum bit is `1`, and the carry is `1`, and so on.
+So the sum bit for that column is `0`, and the carry is `1`. `1 + 1 + 1` in the second column gives
+`11`, which is binary for 3. So the sum bit is `1`, and the carry is `1`, and so on.
 
 How do we build a circuit using logic gates that performs this standard addition algorithm? Well,
 let's start with the rightmost column. If we think about it, all the possible states are:
@@ -379,20 +379,22 @@ Let's first build this half adder. Let's start by computing the sum, not the car
 | 1 | 1 | 0 |
 
 
-The sum is `1` only when exactly one input is `1`. This is called XOR, short for exclusive OR. If we combine an OR gate and a NAND gate, and AND them together, we get XOR:
+The sum is `1` only when exactly one input is `1`, not both. This is called XOR, short for exclusive OR. If we combine an OR gate and a NAND gate, and AND them together, we get XOR:
 
 <a id="diagram-6-3"></a> <img pdf-frames="all" src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
 
 *Diagram 6.3. Half adder sum / XOR.*
 
-OR checks that at least one input is on, and NAND makes sure the inputs aren't both on. Here is how an XOR gate looks:
+OR checks that at least one input is on, and NAND makes sure the inputs aren't both on. Let's
+package that circuit into a gate called XOR. Here is how an XOR gate looks:
 
 <a id="diagram-6-4"></a> <img src="./assets/final/xor-gate.svg" alt="An XOR gate">
 
 *Diagram 6.4. An XOR gate.*
 
-Now let's do the carry value. The carry is simple! We only want to carry if we are doing `1 + 1`, so
-we use an AND gate to check if both inputs are on. Here is our half adder:
+Now let's do the carry value. The carry is simple! If you remember, for our half adder, the only
+time we want to carry when we are doing `1 + 1`, so we use an AND gate to check if both inputs are
+on. Here is our half adder:
 
 <a id="diagram-6-5"></a> <img pdf-frames="all" src="./assets/final/half-adder.gif" alt="A half adder">
 
@@ -401,7 +403,7 @@ we use an AND gate to check if both inputs are on. Here is our half adder:
 As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and `1 + 1 = 10`.
 
 Now let's package up our half adder into a little box. From now on, I will call these packaged-up
-circuits chips:
+circuits "chips":
 
 <a id="diagram-6-6"></a> <img src="./assets/final/half-adder-box.svg" alt="A half adder chip">
 
@@ -428,9 +430,12 @@ we need a circuit that can take in three inputs: `A`, `B`, and `carry-in`. To ad
 
 *Diagram 6.8. A full adder.*
 
-This might look confusing at first. What if both half adders output a carry-out at the same time? That actually never happens. If the first half adder outputs a carry, its sum bit is 0, and that 0 is one of the second half
-adder's inputs, so the second one can't carry. So both can never output carries at the same time. Take a moment to think about this if you are confused. So we can confidently OR the two carry outputs together. If either one is `1`, the full adder's
-carry-out is `1`.
+This might look confusing at first. What if both half adders output a carry-out at the same time?
+That actually never happens. If the first half adder outputs a carry, its sum bit is 0, and that 0
+is one of the second half adder's inputs, so the second one can't carry. So both can never output
+carries at the same time. Take a moment to think about this if you are confused. So we can
+confidently OR the two carry outputs together. If either one is `1`, the full adder's carry-out is
+`1`.
 
 Let's again package this up into a chip:
 
@@ -645,7 +650,7 @@ And we can put all that into a chip called an 8-bit register:
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
-<a id="diagram-7-9"></a> <img pdf-frames="1,2,3,4,5,6,7" src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
+<a id="diagram-7-9"></a> <img class="big" pdf-frames="link" src="./assets/final/full-accumulator.gif" alt="Our full accumulator">
 
 *Diagram 7.9. Our full accumulator.*
 
@@ -723,8 +728,9 @@ of "enable outputting".
 If `E` is on, the output will just be whatever `D` is, so either `0` or `1`.
 If `E` is off, no matter the value of `D`, the output will be `Z`.
 
-`Z` means the buffer's output is disconnected from the bus. Engineers call this "high impedance", which is where the letter `Z` comes from. It is not driving the bus to `+` or `-`,
-so another component can safely drive the bus without a clash or short-circuit.
+`Z` means the buffer's output is disconnected. Engineers call this "high impedance", which is where
+the letter `Z` comes from. It is not driving the bus to `+` or `-` just like we saw before, so another component can safely
+drive the bus without a clash or short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very different: the component is
 actively driving the wire to `-`. So we have three states:
