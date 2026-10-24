@@ -80,12 +80,12 @@
   ]
   v(1.2fr)
   align(center)[
-    #set text(size: 13pt)
+    #set text(size: 13pt, weight: "regular")
     Ekansh Goenka
   ]
   v(2fr)
   align(center)[
-    #set text(size: 9pt, fill: rgb("#777777"))
+    #set text(size: 9pt, weight: "regular", fill: rgb("#777777"))
     bytecolony.computer
   ]
   pagebreak()
@@ -93,7 +93,7 @@
   [#metadata(none) <fsup>]
   v(1fr)
   block[
-    #set text(size: 9pt, fill: rgb("#777777"))
+    #set text(size: 9pt, weight: "regular", fill: rgb("#777777"))
     #set par(leading: 0.8em, first-line-indent: 0em)
     Copyright © 2026 Ekansh Goenka. All rights reserved. \
     First edition. \
