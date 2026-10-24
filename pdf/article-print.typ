@@ -117,7 +117,8 @@
   [#metadata(none) <pend>]
   pagebreak(to: "odd", weak: true)
   [#metadata(none) <popen>]
-  [
+  [#set text(size: 10.5pt, weight: "regular")
+
 #v(4em)
 #align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
 #v(2em)
