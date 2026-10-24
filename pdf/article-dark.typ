@@ -1276,12 +1276,11 @@ bottom bit is the smaller bit (the 1's place).
 
 As you can tell, no matter the inputs, exactly one output wire is on at
 a time. How a decoder works is extremely simple. It just uses a bunch of
-logic gates to ask these simple questions. - If `00` -\> turn on output
-0
+logic gates to ask these simple questions. - If `00` → turn on output 0
 
-- If `01` -\> turn on output 1
-- If `10` -\> turn on output 2
-- If `11` -\> turn on output 3
+- If `01` → turn on output 1
+- If `10` → turn on output 2
+- If `11` → turn on output 3
 
 Here is how it works if you care:
 
@@ -1504,7 +1503,7 @@ that enables exactly 1 of the result registers onto the `R` bus.
 
 Now for the flags. First, the `ZERO` circuitry. It consists of:
 
-NOT -\> AND
+NOT → AND
 
 The NOT gate on the right, labeled 4, is just like before: there are
 actually eight NOT gates, each flipping one wire of the bus. So it takes
@@ -1521,7 +1520,7 @@ gate can only be on if they were originally `00000000`, a.k.a. zero!
 
 Next, let's cover the `EQUAL` circuitry. It consists of:
 
-XOR -\> NOT -\> AND
+XOR → NOT → AND
 
 The XOR gate, labeled 6, is basically like last time: we XOR each pair
 of bits from `A` and `B`, and create an eight-bit bus. Remember, XOR
@@ -1705,19 +1704,19 @@ So here is what number each instruction in our CPU translates to:
     table.header([\#], [Binary], [Mnemonic], [Bytes], [Action],),
     table.hline(),
     [0], [`0000`], [`NOP`], [1], [do nothing],
-    [1], [`0001`], [`LOAD A, n`], [2], [next byte -\> A],
-    [2], [`0010`], [`LOAD A, [addr]`], [2], [RAM slot -\> A],
-    [3], [`0011`], [`STORE A, [addr]`], [2], [A -\> RAM slot],
+    [1], [`0001`], [`LOAD A, n`], [2], [next byte → A],
+    [2], [`0010`], [`LOAD A, [addr]`], [2], [RAM slot → A],
+    [3], [`0011`], [`STORE A, [addr]`], [2], [A → RAM slot],
     [4], [`0100`], [`MOV B, A`], [1], [copy A into B],
     [5], [`0101`], [`MOV A, B`], [1], [copy B into A],
-    [6], [`0110`], [`JMP addr`], [2], [addr -\> PC],
-    [7], [`0111`], [`JE addr`], [2], [if `EQUAL` flag: addr -\> PC],
+    [6], [`0110`], [`JMP addr`], [2], [addr → PC],
+    [7], [`0111`], [`JE addr`], [2], [if `EQUAL` flag: addr → PC],
     [8], [`1000`], [`ADD`], [1], [A = A + B],
     [9], [`1001`], [`AND`], [1], [A = A AND B],
     [10], [`1010`], [`OR`], [1], [A = A OR B],
     [11], [`1011`], [`XOR`], [1], [A = A XOR B],
-    [12], [`1100`], [`JC addr`], [2], [if `CARRY` flag: addr -\> PC],
-    [13], [`1101`], [`JZ addr`], [2], [if `ZERO` flag: addr -\> PC],
+    [12], [`1100`], [`JC addr`], [2], [if `CARRY` flag: addr → PC],
+    [13], [`1101`], [`JZ addr`], [2], [if `ZERO` flag: addr → PC],
     [14], [`1110`], [`HALT`], [1], [stop the clock],
   )]
   , kind: table
