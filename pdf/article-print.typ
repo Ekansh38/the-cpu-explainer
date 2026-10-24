@@ -691,7 +691,9 @@ not the carry-out. This is what we want our circuit to do:
 
 The sum is `1` only when exactly one input is `1`. This is called XOR,
 short for exclusive OR. If we combine an OR gate and a NAND gate, and
-AND them together, we get XOR: #align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 76%))
+AND them together, we get XOR:
+
+#align(center, image("/pdf/.raster/light-final/half-adder-sum-1.png", width: 76%))
 
 #align(center, image("/pdf/.raster/light-final/half-adder-sum-2.png", width: 76%))
 
@@ -1330,8 +1332,9 @@ bottom bit is the smaller bit (the 1's place).
 
 As you can tell, no matter the inputs, exactly one output wire is on at
 a time. How a decoder works is extremely simple. It just uses a bunch of
-logic gates to ask these simple questions. - If `00` → turn on output 0
+logic gates to ask these simple questions.
 
+- If `00` → turn on output 0
 - If `01` → turn on output 1
 - If `10` → turn on output 2
 - If `11` → turn on output 3
@@ -2314,18 +2317,19 @@ section, let's see how our computer can run a simple program.
 <finally-the-fun-part>
 That's it, huh? A whole computer. To test it, let's watch it run.
 Let's start with the simplest program imaginable, just putting a number
-on the `DISPLAY` lamps: \`\`\` 0: LOAD A, 42 2: STORE A, \[255\] 4: HALT
+on the `DISPLAY` lamps:
 
-````
+```
+0: LOAD A, 42
+2: STORE A, [255]
+4: HALT
+```
 
 Here is our CPU executing it:
 
+#pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
-
-```{=typst}
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
-````
-
 #caption("3.10")[The CPU running a simple program.]
 
 For this animation, I am not animating the idle steps where nothing

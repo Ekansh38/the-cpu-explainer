@@ -367,7 +367,9 @@ Let's first build this half adder. Let's start by computing the sum, not the car
 | 1 | 1 | 0 |
 
 
-The sum is `1` only when exactly one input is `1`. This is called XOR, short for exclusive OR. If we combine an OR gate and a NAND gate, and AND them together, we get XOR: <a id="diagram-6-3"></a> <img pdf-frames="all" src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
+The sum is `1` only when exactly one input is `1`. This is called XOR, short for exclusive OR. If we combine an OR gate and a NAND gate, and AND them together, we get XOR:
+
+<a id="diagram-6-3"></a> <img pdf-frames="all" src="./assets/final/half-adder-sum.gif" alt="Half adder sum / XOR">
 
 *Diagram 6.3. Half adder sum / XOR.*
 
@@ -846,7 +848,9 @@ In the diagram, the top bit is the bigger bit (the 2's place) and the bottom bit
 *Diagram 9.2. How a decoder works.*
 
 As you can tell, no matter the inputs, exactly one output wire is on at a time. How a decoder works is extremely simple. It just uses a bunch of logic gates to ask these simple
-questions. - If `00` -> turn on output 0
+questions.
+
+- If `00` -> turn on output 0
 - If `01` -> turn on output 1
 - If `10` -> turn on output 2
 - If `11` -> turn on output 3
@@ -1604,7 +1608,9 @@ boom. That is the whole `CU`. You understand it, every wire of it. In the next s
 
 ### Finally, The Fun Part
 
-That's it, huh? A whole computer. To test it, let's watch it run. Let's start with the simplest program imaginable, just putting a number on the `DISPLAY` lamps: ```
+That's it, huh? A whole computer. To test it, let's watch it run. Let's start with the simplest program imaginable, just putting a number on the `DISPLAY` lamps:
+
+```
 0: LOAD A, 42
 2: STORE A, [255]
 4: HALT
