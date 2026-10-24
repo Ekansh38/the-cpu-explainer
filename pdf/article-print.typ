@@ -56,17 +56,17 @@
 ]
 
 #let callout(label, body, sticky: false) = block(
-  above: 1.3em,
-  below: 1.3em,
+  above: 1.8em,
+  below: 1.8em,
   breakable: false,
   sticky: sticky,
   width: 100%,
-  inset: (left: 11pt, y: 2pt),
-  stroke: (left: 1.5pt + rgb("#777777")),
+  inset: (left: 14pt, right: 6pt, y: 4pt),
+  stroke: (left: 1pt + rgb("#777777")),
 )[
-  #set par(first-line-indent: 0em, justify: true)
+  #set par(first-line-indent: 0em, justify: false, leading: 0.74em)
   #set text(size: 0.92em)
-  #block(below: 0.55em, text(size: 0.78em, weight: "bold", tracking: 0.12em, fill: rgb("#777777"), upper(label)))
+  #block(below: 0.7em, text(size: 0.78em, weight: "bold", tracking: 0.12em, fill: rgb("#777777"), upper(label)))
   #body
 ]
 
