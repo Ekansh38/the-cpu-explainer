@@ -2521,12 +2521,10 @@ bytes between registers. Every one of those components is made up of
 simple logic gates, and every gate is made up of relays, or more
 commonly these days, transistors.
 
-I hope you now understand why computers aren't "just" 1s and 0s, but
-a very tall pile of simple.
-
 #v(1.2em)
 
-Anyway, I hope you have a good rest of your day. Bye!
+I hope you now understand why computers aren't "just" 1s and 0s, but
+a very tall pile of simple.
 
 
 #v(1.4em)

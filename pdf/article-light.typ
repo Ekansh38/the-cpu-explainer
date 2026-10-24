@@ -2442,5 +2442,3 @@ commonly these days, transistors.
 
 I hope you now understand why computers aren't "just" 1s and 0s, but
 a very tall pile of simple.
-
-Anyway, I hope you have a good rest of your day. Bye!
