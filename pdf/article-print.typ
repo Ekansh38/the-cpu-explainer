@@ -21,7 +21,13 @@
     }
   },
   footer: context {
-    if hf-off.get() { return }
+    let pg = here().page()
+    if query(<fsup>).any(m => m.location().page() == pg) { return }
+    let pends = query(<pend>).map(m => m.location().page())
+    let popens = query(<popen>).map(m => m.location().page())
+    for i in range(calc.min(pends.len(), popens.len())) {
+      if popens.at(i) - pends.at(i) == 2 and pends.at(i) + 1 == pg { return }
+    }
     let p = counter(page).get().first()
     align(center, text(size: 10pt, numbering(pstyle.get(), p)))
   },
@@ -57,6 +63,7 @@
 )
 
 #show heading.where(level: 1): it => {
+  [#metadata(none) <fsup>]
   v(2fr)
   align(center)[
     #block(below: 0.9em)[
@@ -80,6 +87,7 @@
   ]
   pagebreak()
   hf-off.update(false)
+  [#metadata(none) <fsup>]
   v(1fr)
   block[
     #set text(size: 9pt, fill: rgb("#777777"))
@@ -104,16 +112,20 @@
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
   hf-off.update(true)
+  [#metadata(none) <pend>]
   pagebreak(to: "odd", weak: true)
+  [#metadata(none) <popen>]
   counter(page).update(1)
   pstyle.update("1")
 }
 
 #show heading.where(level: 2): it => {
   hf-off.update(true)
+  [#metadata(none) <pend>]
   context {
     if bm.get() { pagebreak(weak: true) } else { pagebreak(to: "odd", weak: true) }
   }
+  [#metadata(none) <popen>]
   v(5em)
   align(center)[
     #block[
@@ -2671,6 +2683,7 @@ mistakes that are left are mine.
 
 #hf-off.update(true)
 #pagebreak(weak: true)
+#metadata(none) <fsup>
 #v(4em)
 #align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
 #v(2em)
@@ -2689,3 +2702,4 @@ intimidating that most people never started.
 The web version is free at bytecolony.computer, with the animated diagrams.
 
 #pagebreak(to: "even")
+#metadata(none) <fsup>
