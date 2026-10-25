@@ -338,7 +338,7 @@ Let's start with a brief reminder of how we algorithmically add two decimal numb
 
 *Diagram 6.1. Standard decimal addition.*
 
-We start at the rightmost column, do `5 + 8`, get 13, and carry the 1. So we write 3 as the sum, and 1 as
+We start at the rightmost column, do 5 + 8, get 13, and carry the 1. So we write 3 as the sum, and 1 as
 the carry. We then move left and repeat over and over, remembering to add any carry-in values. Binary
 addition works the same way.
 
@@ -456,7 +456,7 @@ column. That is it! That is all addition is!
 
 Keep in mind, the carry-in for the first adder is set to ground, a.k.a. 0. In the chip version below I bring that first carry-in out as a `CI` pin instead, so the chip can be chained too. For now we just feed it 0. Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can add up to a number
 too big to fit in eight bits. It's like how adding two 2-digit numbers could result in a three-digit
-number for us. Like `50 + 50 = 100`.
+number for us. Like 50 + 50 = 100.
 
 Let's package this up into a chip once again:
 
@@ -474,7 +474,7 @@ organized into this chip. Let's have a look at some example problems:
 As you can see in the third example, adding 1 to 255 turns every sum bit to `0` and turns the
 carry-out on.
 
-This doesn't mean the adder got the wrong answer. In fact, `255 + 1` is `1 00000000` in binary:
+This doesn't mean the adder got the wrong answer. In fact, 255 + 1 is `1 00000000` in binary:
 eight `0` output bits, plus one extra carry-out bit on the left. If we only look at the one-byte
 output, the result looks like `00000000`, or 0. If we also look at the carry-out, we can see that the
 real answer was 256.
@@ -1003,7 +1003,8 @@ four possible operations:
 | `11` | XOR | output `A XOR B` |
 
 
-The ALU will also output a few flags, which are just extra yes/no facts about the result or the inputs:
+The ALU will also output a few flags, which if you remember, are just extra yes/no facts about the
+result or the inputs:
 
 
 | Flag | Turns on when |
@@ -1013,15 +1014,14 @@ The ALU will also output a few flags, which are just extra yes/no facts about th
 | `EQUAL` | `A` and `B` are the same |
 
 
-So, in the [previous diagram](#diagram-10-1), we did 0+0 which is 0, so the `ZERO` flag is on, and the `EQUAL` flag too
+So, in the [previous diagram](#diagram-10-1), we did 0 + 0, which is 0, so the `ZERO` flag is on, and the `EQUAL` flag too
 because both inputs are equal.
 
-This next diagram uses a new component. It is a mix of two registers we have already seen. Remember the [D latch](#diagram-7-2), the one with the `D` and `E` inputs, before we made it edge-triggered? While its enable was on,
-`Q` simply equaled `D`. No edge-triggering or anything like that. This new register is a D latch with the
-enable permanently on: it never really holds anything. Its output just follows its input.
+Before we look at the internals of how the ALU works, we need to cover 2 things.
 
-But like our newer registers, its output goes through tri-state buffers with an `OUT` control
-signal, so we still decide when it outputs. In total: a data input that is always being stored, an `OUT` control signal, and an output.
+First, the ALU uses a new component called an 8-bit buffer. It is just a tri-state buffer for a whole
+bus: 8 of them side by side, all sharing one `OUT`. We use these to only let through the result we
+actually want on the output.
 
 Also, you'll see me feeding two buses into a single logic gate. "How does that work?" you might
 think. Well, there are really just eight gates, one per bit. One gate takes `A0` and `B0`, the next
@@ -1029,13 +1029,11 @@ takes `A1` and `B1`, and so on. Eight output wires, which is just another bus.
 
 <a id="diagram-10-2"></a> <img class="big" src="./assets/final/alu-internals.svg" alt="ALU internals">
 
-*Diagram 10.2. ALU internals.*
-
 At its crux, the ALU works by routing `A` and `B` into all 4 operations at once, in this case XOR,
-OR, AND, and ADD. We store each of the results in a corresponding result register.
+OR, AND, and ADD. Each result goes into its own 8-bit buffer.
 
 To decide which one to output, the `OP` bits go into a `2-4` decoder that enables exactly 1 of the
-result registers onto the `R` bus.
+8-bit buffers onto the `R` bus.
 
 Now for the flags. First, the `ZERO` circuitry. It consists of:
 
