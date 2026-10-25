@@ -52,7 +52,8 @@
   #body
 ]
 
-#show raw: set text(font: "IBM Plex Mono", size: 1em, weight: 500, tracking: 0.04em)
+// typst sets raw text to 0.8em by default; 1.25em restores body size
+#show raw: set text(font: "IBM Plex Mono", size: 1.25em, weight: 500, tracking: 0.04em)
 #show raw.where(block: false): box
 #show raw.where(block: true): set text(size: 0.9em)
 
@@ -136,6 +137,7 @@
 #set table(stroke: 0.5pt + rgb("#cccccc"))
 #show table.cell: set text(fill: rgb("#111111"))
 #show table.cell: set par(justify: false)
+#show table: set text(size: 0.86em)
 
 = The CPU: A very tall pile of simple
 <the-cpu-a-very-tall-pile-of-simple>
