@@ -192,14 +192,14 @@ personal website, with the animated diagrams.
   hf-off.update(false)
 }
 
-#show heading.where(level: 3): it => block(above: 2.6em, below: 1em)[
+#show heading.where(level: 3): it => block(above: 2.6em, below: 1em, sticky: true)[
   #set text(size: 16pt, weight: "bold")
   #it
   #v(0.2em)
   #line(length: 100%, stroke: 0.5pt + rgb("#cccccc"))
 ]
 
-#show heading.where(level: 4): it => block(above: 1.8em, below: 0.6em)[
+#show heading.where(level: 4): it => block(above: 1.8em, below: 0.6em, sticky: true)[
   #set text(size: 13pt, weight: "bold")
   #it
 ]
@@ -1662,9 +1662,11 @@ piece together this whole CPU.
 
 === The Big Picture
 <the-big-picture>
+#block(sticky: true)[
 Here is a big-picture diagram of the whole CPU.
+]
 
-#pad(x: -8mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
+#align(center, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 92%))
 
 #caption("10.1", kind: "Diagram")[The whole CPU.]
 
