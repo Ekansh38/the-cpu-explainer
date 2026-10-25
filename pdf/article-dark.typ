@@ -51,6 +51,7 @@
 ]
 
 #show raw: set text(font: "IBM Plex Mono", size: 1em, weight: 500, tracking: 0.04em)
+#show raw.where(block: false): box
 #show raw.where(block: true): set text(size: 0.9em)
 
 #show raw.where(block: true): block.with(
