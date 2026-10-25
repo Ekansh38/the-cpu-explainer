@@ -23,10 +23,12 @@
 })
 #show link: it => text(fill: rgb("#2a5a8a"))[#it]
 
-#let caption(num, body) = block(above: 1.0em, below: 1.8em)[
+#let caption(num, body, kind: "Diagram") = block(above: 1.0em, below: 1.8em)[
   #set text(size: 9.5pt, fill: rgb("#666666"))
-  #text(weight: "bold")[Diagram #num.] #body
+  #text(weight: "bold")[#kind #num.] #body
 ]
+
+#show figure.where(kind: table): set block(above: 1.5em, below: 1.0em)
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
   #set text(size: 9.5pt, fill: rgb("#666666"), hyphenate: false)
@@ -166,7 +168,7 @@ one hard idea. It is a very tall pile of simple ones.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
-#caption("1.1")[The whole CPU.]
+#caption("1.1", kind: "Diagram")[The whole CPU.]
 
 This probably looks like an overwhelming mess, but don't worry, that's
 normal. Throughout this guide we are going to try to understand how this
@@ -197,7 +199,7 @@ a simple circuit:
   image("/pdf/.raster/light-final/basic-circuit-2.png", width: 100%)
 )])
 
-#caption("3.1")[A basic circuit with a battery, switch, and bulb.]
+#caption("3.1", kind: "Diagram")[A basic circuit with a battery, switch, and bulb.]
 
 The wire connected to the `-` of the battery is being driven low, and
 the wire connected to the `+` of the battery is being driven high. This
@@ -236,7 +238,7 @@ is the circuit:
   image("/pdf/.raster/light-final/switches-1-4.png", width: 100%)
 )])
 
-#caption("3.2")[The hand-switch version of AND.]
+#caption("3.2", kind: "Diagram")[The hand-switch version of AND.]
 
 This circuit shows a logical AND operation. A person is flipping the
 switches manually. The output turns on only when both inputs are true.
@@ -257,7 +259,7 @@ on the `MUDDY OR STINKY` part of this circuit:
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
 )])
 
-#caption("3.3")[The hand-switch version of OR.]
+#caption("3.3", kind: "Diagram")[The hand-switch version of OR.]
 
 This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
 for the bulb to turn on. Both of them could also be on, and that is
@@ -290,7 +292,7 @@ Here is how a relay works:
   image("/pdf/.raster/light-final/basic-relay-4.png", width: 100%)
 )])
 
-#caption("4.1")[An electromagnetic relay.]
+#caption("4.1", kind: "Diagram")[An electromagnetic relay.]
 
 This relay is made from a coil of wire and a movable metal arm. When
 current flows through the coil, the coil becomes a magnet and pulls the
@@ -317,7 +319,7 @@ two input wires and outputs an electrical signal.
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%)
 )])
 
-#caption("4.2")[An AND gate.]
+#caption("4.2", kind: "Diagram")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
 relay. Only when both inputs are on do both relays close, completing the
@@ -352,7 +354,7 @@ This is how the ground symbol looks:
 
 #align(center, image("/pdf/.raster/light-final/ground-symbol.png", width: 35%))
 
-#caption("4.3")[The ground symbol.]
+#caption("4.3", kind: "Diagram")[The ground symbol.]
 
 Now here is the OR gate:
 
@@ -363,7 +365,7 @@ Now here is the OR gate:
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
 )])
 
-#caption("4.4")[An electronic OR gate.]
+#caption("4.4", kind: "Diagram")[An electronic OR gate.]
 
 That is an OR gate using relays. Now here is the full dog washer circuit
 up to this point:
@@ -375,7 +377,7 @@ up to this point:
   image("/pdf/.raster/light-final/dog-washer-v1-8-s.png", width: 100%)
 )])
 
-#caption("4.5")[The full dog washer circuit built with relays.]
+#caption("4.5", kind: "Diagram")[The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
 a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
@@ -416,7 +418,7 @@ battery, so it is being driven to `-`.
   image("/pdf/.raster/light-final/before-after-4.png", width: 100%)
 ))
 
-#caption("4.6")[Driving an output wire.]
+#caption("4.6", kind: "Diagram")[Driving an output wire.]
 
 #callout("Note")[
 In this diagram, red wire means current is actively flowing. That's why
@@ -444,14 +446,14 @@ on.
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%)
 ))
 
-#caption("4.7")[A NOT gate.]
+#caption("4.7", kind: "Diagram")[A NOT gate.]
 
 Now before we look at the completed circuit, let's learn some basic
 logic gate symbols. An AND gate is drawn like this:
 
 #align(center, image("/pdf/.raster/light-final/and-gate.png", width: 70%))
 
-#caption("4.8")[An AND gate.]
+#caption("4.8", kind: "Diagram")[An AND gate.]
 
 This symbol represents the AND circuit we made previously, except
 instead of turning a bulb on and off, it drives an output wire. An OR
@@ -459,7 +461,7 @@ gate is drawn like this:
 
 #align(center, image("/pdf/.raster/light-final/or-gate.png", width: 65%))
 
-#caption("4.9")[An OR gate.]
+#caption("4.9", kind: "Diagram")[An OR gate.]
 
 This symbol represents the OR circuit we made previously. Whenever I use
 these symbols moving forward, they can almost directly translate to the
@@ -469,7 +471,7 @@ gate symbols:
 
 #align(center, image("/pdf/.raster/light-final/not-nand-nor-gates.png", width: 95%))
 
-#caption("4.10")[NOT, NAND, NOR gates.]
+#caption("4.10", kind: "Diagram")[NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
 That little circle at the end of a gate means "flip the output." With
@@ -479,7 +481,7 @@ our knowledge about logic gates, let's create the
 #pad(x: -10mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
-#caption("4.11")[The final dog washer circuit.]
+#caption("4.11", kind: "Diagram")[The final dog washer circuit.]
 
 Again, this animation doesn't cover all possible states.
 
@@ -519,7 +521,7 @@ driven high is `1`. Let's call one wire one bit. A bit can either be
 
 #align(center, image("/pdf/.raster/light-final/0-s-and-1-s.png", width: 35%))
 
-#caption("5.1")[One wire can represent two states: `0` or `1`.]
+#caption("5.1", kind: "Diagram")[One wire can represent two states: `0` or `1`.]
 
 If we want to represent numbers using wires, we are going to need more
 than one wire, because one wire can only represent up to two numbers,
@@ -540,7 +542,7 @@ all the possible states we have with 3 wires:
   image("/pdf/.raster/light-final/3-states-8.png", width: 100%)
 )])
 
-#caption("5.2")[States with 3 wires.]
+#caption("5.2", kind: "Diagram")[States with 3 wires.]
 
 We can represent 8 numbers just like this. Keep going to 8 wires and
 there are `2^8`, or 256, possible patterns. A group of 8 bits is called
@@ -553,7 +555,7 @@ decimal, a.k.a. base ten.
 
 #align(center, image("/pdf/.raster/light-final/decimal.png", width: 100%))
 
-#caption("5.3")[The decimal system.]
+#caption("5.3", kind: "Diagram")[The decimal system.]
 
 In our decimal counting system, each place-value is a power of 10. That
 is because we have ten digits: 0-9. This exact same place-value logic
@@ -562,7 +564,7 @@ place is a power of 2.
 
 #align(center, image("/pdf/.raster/light-final/binary.png", width: 100%))
 
-#caption("5.4")[The binary system.]
+#caption("5.4", kind: "Diagram")[The binary system.]
 
 Binary is, at the end of the day, the same place-value idea as decimal,
 just with two digits instead of ten. A few examples:
@@ -577,14 +579,14 @@ of how binary works makes sense. Let's walk through `1101` together.
 
 #align(center, image("/pdf/.raster/light-final/binary-example.png", width: 100%))
 
-#caption("5.5")[An example in binary.]
+#caption("5.5", kind: "Diagram")[An example in binary.]
 
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
 #align(center, image("/pdf/.raster/light-final/add-magic-box.png", width: 95%))
 
-#caption("5.6")[Math?]
+#caption("5.6", kind: "Diagram")[Math?]
 
 === Math?
 <math>
@@ -597,7 +599,7 @@ decimal numbers.
   image("/pdf/.raster/light-final/decimal-addition-3.png", width: 100%)
 )])
 
-#caption("6.1")[Standard decimal addition.]
+#caption("6.1", kind: "Diagram")[Standard decimal addition.]
 
 We start at the rightmost column, do 5 + 8, get 13, and carry the 1. So
 we write 3 as the sum, and 1 as the carry. We then move left and repeat
@@ -613,7 +615,7 @@ works the same way.
   image("/pdf/.raster/light-final/binary-addition-6.png", width: 100%)
 )])
 
-#caption("6.2")[Binary addition.]
+#caption("6.2", kind: "Diagram")[Binary addition.]
 
 `1 + 1` gives `10`, which is binary for 2.
 
@@ -675,7 +677,7 @@ gate, and AND them together, we get XOR:
 
 #align(center, image("/pdf/.raster/light-final/half-adder-sum-4.png", width: 63%))
 
-#caption("6.3")[Half adder sum / XOR.]
+#caption("6.3", kind: "Diagram")[Half adder sum / XOR.]
 
 OR checks that at least one input is on, and NAND makes sure the inputs
 aren't both on. Let's package that circuit into a gate called XOR.
@@ -683,7 +685,7 @@ Here is how an XOR gate looks:
 
 #align(center, image("/pdf/.raster/light-final/xor-gate.png", width: 65%))
 
-#caption("6.4")[An XOR gate.]
+#caption("6.4", kind: "Diagram")[An XOR gate.]
 
 Now let's do the carry value. The carry is simple! If you remember, for
 our half adder, the only time we want to carry is when we are doing
@@ -697,7 +699,7 @@ our half adder:
   image("/pdf/.raster/light-final/half-adder-4.png", width: 100%)
 ))
 
-#caption("6.5")[A half adder.]
+#caption("6.5", kind: "Diagram")[A half adder.]
 
 As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
 `1 + 1 = 10`.
@@ -707,7 +709,7 @@ will call these packaged-up circuits "chips":
 
 #align(center, image("/pdf/.raster/light-final/half-adder-box.png", width: 70%))
 
-#caption("6.6")[A half adder chip.]
+#caption("6.6", kind: "Diagram")[A half adder chip.]
 
 Now that we have a half adder, we can add the rightmost column. That
 works because the rightmost column has no carry-in from a previous
@@ -715,7 +717,7 @@ column. It only needs to add two bits. So if we have a number like this:
 
 #align(center, image("/pdf/.raster/light-final/carry-in-issue.png", width: 66%))
 
-#caption("6.7")[The next column has to add two bits plus a carry-in.]
+#caption("6.7", kind: "Diagram")[The next column has to add two bits plus a carry-in.]
 
 The half adder can handle the first column: `1 + 1`. That gives us a sum
 bit of `0` and a carry-out of `1`.
@@ -744,7 +746,7 @@ adders and an OR gate:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/full-adder-8.png", width: 100%))
 
-#caption("6.8")[A full adder.]
+#caption("6.8", kind: "Diagram")[A full adder.]
 
 This might look confusing at first. What if both half adders output a
 carry-out at the same time? That actually never happens. If the first
@@ -758,7 +760,7 @@ Let's again package this up into a chip:
 
 #align(center, image("/pdf/.raster/light-final/full-adder-box.png", width: 70%))
 
-#caption("6.9")[A full adder chip.]
+#caption("6.9", kind: "Diagram")[A full adder chip.]
 
 We have made a full adder! Now we can chain full adders together to add
 two 8-bit numbers. Since 8 bits make one byte, this is an adder that can
@@ -766,7 +768,7 @@ add two one-byte numbers: anything from 0 to 255.
 
 #align(center, image("/pdf/.raster/light-final/8-bit-adder.png", width: 100%))
 
-#caption("6.10")[An 8-bit adder.]
+#caption("6.10", kind: "Diagram")[An 8-bit adder.]
 
 Each full adder handles one column. The carry-out from one column
 becomes the carry-in for the next column. That is it! That is all
@@ -784,7 +786,7 @@ Let's package this up into a chip once again:
 
 #align(center, image("/pdf/.raster/light-final/8-bit-adder-box.png", width: 100%))
 
-#caption("6.11")[An 8-bit adder chip.]
+#caption("6.11", kind: "Diagram")[An 8-bit adder chip.]
 
 Now we have the carry-out and carry-in as separate inputs and outputs
 and the whole adder nicely organized into this chip. Let's have a look
@@ -796,7 +798,7 @@ at some example problems:
 
 #align(center, image("/pdf/.raster/light-final/8-bit-adder-example-3.png", width: 76%))
 
-#caption("6.12")[Some examples on the adder.]
+#caption("6.12", kind: "Diagram")[Some examples on the adder.]
 
 As you can see in the third example, adding 1 to 255 turns every sum bit
 to `0` and turns the carry-out on.
@@ -890,7 +892,7 @@ This diagram should help this make sense:
   image("/pdf/.raster/light-final/sr-latch-4.png", width: 100%)
 )])
 
-#caption("7.1")[An SR latch.]
+#caption("7.1", kind: "Diagram")[An SR latch.]
 
 One quick reminder before we trace through this: a NOR gate only turns
 on when both of its inputs are off. Now let's trace through it.
@@ -932,7 +934,7 @@ not worry about the exact implementation.
 
 #align(center, image("/pdf/.raster/light-final/d-latch.png", width: 95%))
 
-#caption("7.2")[D latch.]
+#caption("7.2", kind: "Diagram")[D latch.]
 
 But we have a problem. Let's say we now try to use 8 of these D latches
 to hold the result from our adder, which would then feed back into the
@@ -951,7 +953,7 @@ turn on for an instant and then turn back off. That is just hard to do.
 #align(center, image("/pdf/.raster/light-final/d-latch-accumulator-1.png", width: 100%))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=d-latch-accumulator:1")
-#caption("7.3")[D latch accumulator.]
+#caption("7.3", kind: "Diagram")[D latch accumulator.]
 
 As you can see in this diagram, even pressing the button quickly jumps
 the result up by 5. With real transistors, even if you try to physically
@@ -964,7 +966,7 @@ the exact instant `E` turns on?
 
 #align(center, image("/pdf/.raster/light-final/edge-graph.png", width: 70%))
 
-#caption("7.4")[The rising edge of a signal.]
+#caption("7.4", kind: "Diagram")[The rising edge of a signal.]
 
 This graph shows the state of a wire. When the line is at the top, it is
 on. When it is at the bottom, it is off.
@@ -984,7 +986,7 @@ usually edge-triggered.
 
 #align(center, image("/pdf/.raster/light-final/d-type-edge-triggered-flip-flop.png", width: 100%))
 
-#caption("7.5")[A flip-flop.]
+#caption("7.5", kind: "Diagram")[A flip-flop.]
 
 How it works is, when the enable wire is off, the first latch mirrors
 `D`. That is because the NOT gate flips the enable signal, so the first
@@ -1003,26 +1005,26 @@ Here is one storage cell, which is just the flip-flop we showed above:
 
 #align(center, image("/pdf/.raster/light-final/flip-flop-storage-cell.png", width: 70%))
 
-#caption("7.6")[A one-bit storage cell.]
+#caption("7.6", kind: "Diagram")[A one-bit storage cell.]
 
 If we connect 8 of them side by side, we get one byte of storage:
 
 #align(center, image("/pdf/.raster/light-final/8-storage-cells.png", width: 100%))
 
-#caption("7.7")[Eight storage cells.]
+#caption("7.7", kind: "Diagram")[Eight storage cells.]
 
 And we can put all that into a chip called an 8-bit register:
 
 #align(center, image("/pdf/.raster/light-final/8-bit-register.png", width: 91%))
 
-#caption("7.8")[An 8-bit register.]
+#caption("7.8", kind: "Diagram")[An 8-bit register.]
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/full-accumulator-1.png", width: 100%))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
-#caption("7.9")[Our full accumulator.]
+#caption("7.9", kind: "Diagram")[Our full accumulator.]
 
 As you can see, the circuit kindly waits for us, and is incrementing by
 ones! How this works is, when the `STEP` button is pressed, the output
@@ -1042,7 +1044,7 @@ Here is the basic concept of a clock:
 
 #align(center, image("/pdf/.raster/light-final/clock-signal.png", width: 70%))
 
-#caption("7.10")[A clock signal.]
+#caption("7.10", kind: "Diagram")[A clock signal.]
 
 This repeating on-off behavior can be achieved in different ways. A
 rough toy example is feeding the output of a NOT gate back into its
@@ -1083,7 +1085,7 @@ would mean the wires are `00000010`, which is 2 in binary.
 
 #align(center, image("/pdf/.raster/light-final/common-bus-example.png", width: 95%))
 
-#caption("8.1")[Two registers sharing a bus.]
+#caption("8.1", kind: "Diagram")[Two registers sharing a bus.]
 
 But we have an issue: this diagram is technically not possible yet. Say
 register A is outputting `00000000` and register B is outputting
@@ -1145,7 +1147,7 @@ doesn't mean anything.
   image("/pdf/.raster/light-final/tri-state-buffer-internals-4.png", width: 100%)
 )])
 
-#caption("8.2")[A tri-state buffer built with relays.]
+#caption("8.2", kind: "Diagram")[A tri-state buffer built with relays.]
 
 This looks complicated, so let me break it down. First, ignore the two
 relays on the right and look only at the `D` relay at the top. Its arm
@@ -1183,7 +1185,7 @@ This is the logic gate symbol for a tri-state buffer:
 
 #align(center, image("/pdf/.raster/light-final/tri-state-buffer.png", width: 60%))
 
-#caption("8.3")[A tri-state buffer logic gate.]
+#caption("8.3", kind: "Diagram")[A tri-state buffer logic gate.]
 
 Let's address this enable conundrum. We have two uses for the word
 enable, with completely different meanings and contexts. One means
@@ -1196,7 +1198,7 @@ mean the input data that we can store when `WRITE` is enabled.
 
 #align(center, image("/pdf/.raster/light-final/new-register-internals.png", width: 100%))
 
-#caption("8.4")[Our register with an OUT input.]
+#caption("8.4", kind: "Diagram")[Our register with an OUT input.]
 
 We are just connecting `OUT` to all of the enables in the tri-state
 buffers. So if `OUT` is `0`, `Q` will be all `Z`, and if `OUT` is `1`,
@@ -1216,7 +1218,7 @@ into register B.
 
 #align(center, image("/pdf/.raster/light-final/common-data-bus-demo-5.png", width: 100%))
 
-#caption("8.5")[Copying register A into register B through the shared
+#caption("8.5", kind: "Diagram")[Copying register A into register B through the shared
 bus.]
 
 I have some text inside the register that shows what it is storing. We
@@ -1248,7 +1250,7 @@ We want to build a system that organizes data into a simple structure.
 
 #align(center, image("/pdf/.raster/light-final/cabinet.png", width: 100%))
 
-#caption("9.1")[Our data structure.]
+#caption("9.1", kind: "Diagram")[Our data structure.]
 
 Many slots, each with its own address. This system is known technically
 as RAM: Random Access Memory. It is called RAM because when the CPU
@@ -1307,7 +1309,7 @@ bottom bit is the smaller bit (the 1's place).
   image("/pdf/.raster/light-final/2-4-decoder-4.png", width: 100%)
 )])
 
-#caption("9.2")[How a decoder works.]
+#caption("9.2", kind: "Diagram")[How a decoder works.]
 
 As you can tell, no matter the inputs, exactly one output wire is on at
 a time. How a decoder works is extremely simple. It uses a bunch of
@@ -1327,7 +1329,7 @@ Here is how it works if you care:
   image("/pdf/.raster/light-final/2-4-decoder-gates-4.png", width: 100%)
 ))
 
-#caption("9.3")[2-4 decoder internals.]
+#caption("9.3", kind: "Diagram")[2-4 decoder internals.]
 
 We use one `2-4` decoder for the rows and another `2-4` decoder for the
 columns. Where the selected row and selected column cross, that is the
@@ -1343,7 +1345,7 @@ Each address gets its own little intersection.
   image("/pdf/.raster/light-final/cross-section-6.png", width: 100%)
 )])
 
-#caption("9.4")[Where the row and column meet.]
+#caption("9.4", kind: "Diagram")[Where the row and column meet.]
 
 Honestly? That's it. We can use two decoders, sixteen registers, some
 wires and buses all mashed together with some extra logic gates and
@@ -1357,7 +1359,7 @@ only there to make the diagram easier to follow.
 ]
 #pad(x: -10mm, image("/pdf/.raster/light-final/zoomed-out-ram.png", width: 100%))
 
-#caption("9.5")[A zoomed-out RAM diagram.]
+#caption("9.5", kind: "Diagram")[A zoomed-out RAM diagram.]
 
 This is kind of a lot to unpack, so let me explain the high-level parts
 before we zoom in and take a closer look.
@@ -1374,7 +1376,7 @@ Let's look at one cell more closely:
 
 #align(center, image("/pdf/.raster/light-final/zoomed-in-ram.png", width: 100%))
 
-#caption("9.6")[A zoomed-in RAM cell diagram.]
+#caption("9.6", kind: "Diagram")[A zoomed-in RAM cell diagram.]
 
 What AND gate 1 checks is, if `Row Select` and `Column Select`, and
 `OUT` is on, then that means we have selected that register to output
@@ -1391,7 +1393,7 @@ think of two AND gates chained together.
 
 #align(center, image("/pdf/.raster/light-final/three-input-and.png", width: 95%))
 
-#caption("9.7")[A three-input AND gate.]
+#caption("9.7", kind: "Diagram")[A three-input AND gate.]
 
 So now that we have built RAM, let's pretend that instead of 16
 registers, we have a RAM array with 256 registers. The same logic can be
@@ -1400,7 +1402,7 @@ copied, just with two `4-16` decoders instead of two `2-4` decoders and
 
 #align(center, image("/pdf/.raster/light-final/ram-interface.png", width: 95%))
 
-#caption("9.8")[Our RAM chip.]
+#caption("9.8", kind: "Diagram")[Our RAM chip.]
 
 Technically, there are still two buses inside the RAM: a data-in path
 and a data-out path. That is basically what we saw with the register in
@@ -1423,7 +1425,7 @@ double-headed `I/O` bus, like this:
 ]
 #align(center, image("/pdf/.raster/light-final/io-registers.png", width: 82%))
 
-#caption("9.9")[I/O Registers.]
+#caption("9.9", kind: "Diagram")[I/O Registers.]
 
 They both are the same technically, just this is easier to draw.
 
@@ -1455,7 +1457,7 @@ leaving the data bus free to carry the value being read or written.
   image("/pdf/.raster/light-final/mar-ram-demo-7.png", width: 100%)
 ))
 
-#caption("9.10")[How the MAR works.]
+#caption("9.10", kind: "Diagram")[How the MAR works.]
 
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store
 that into the MAR. We then remove 28 from the common bus and enable
@@ -1472,7 +1474,7 @@ output a result, along with some other information.
 
 #align(center, image("/pdf/.raster/light-final/alu-interface.png", width: 61%))
 
-#caption("10.1")[The ALU chip.]
+#caption("10.1", kind: "Diagram")[The ALU chip.]
 
 For this CPU, I am keeping the ALU simple. It will have two
 operation-select bits, which gives us four possible operations:
@@ -1525,7 +1527,7 @@ and `B1`, and so on. Eight output wires, which is just another bus.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/alu-internals.png", width: 100%))
 
-#caption("10.2")[ALU internals.]
+#caption("10.2", kind: "Diagram")[ALU internals.]
 
 At its crux, the ALU works by routing `A` and `B` into all 4 operations
 at once, in this case XOR, OR, AND, and ADD. Each result goes into its
@@ -1576,7 +1578,7 @@ Here is a big-picture diagram of the whole CPU.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/big-picture-cpu.png", width: 100%))
 
-#caption("11.1")[The whole CPU.]
+#caption("11.1", kind: "Diagram")[The whole CPU.]
 
 Hey? Doesn't this diagram look familiar? Well, yes, we have come full
 circle from the intro, except this time the CPU isn't something
@@ -1763,7 +1765,7 @@ So here is what number each instruction in our CPU translates to:
   , kind: table
   )
 
-#emph[Table 12.1. The full instruction set.]
+#caption("12.1", kind: "Table")[The full instruction set.]
 
 The number for each instruction is called its opcode. Let's write a
 tiny program. We store `00000001` in address 0 of RAM. Then store
@@ -1939,7 +1941,7 @@ wraps back around to 0, the steps will loop correctly.
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-counter-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
-#caption("13.1")[The step counter.]
+#caption("13.1", kind: "Diagram")[The step counter.]
 
 The accumulator part of the step counter is connected to the clock. The
 clock is the heartbeat of the computer, and it lives right here in the
@@ -1977,7 +1979,7 @@ it:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/timing-diagram.png", width: 100%))
 
-#caption("13.2")[Micro-step timing diagram.]
+#caption("13.2", kind: "Diagram")[Micro-step timing diagram.]
 
 Purple marks when `W` turns on, and blue is when `O` is on. Each step
 changes on a clock edge, and each step is a signal, 1 full clock cycle
@@ -2038,7 +2040,7 @@ ignore this for now, but it will come back later.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
 
-#caption("13.3")[The first two micro-steps.]
+#caption("13.3", kind: "Diagram")[The first two micro-steps.]
 
 That is the fetch.
 
@@ -2104,7 +2106,7 @@ mess:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-two.png", width: 100%))
 
-#caption("14.1")[All of the 2-byte instructions.]
+#caption("14.1", kind: "Diagram")[All of the 2-byte instructions.]
 
 I know this is quite overwhelming, so let me break it down for you. We
 have steps 1 and 2 wired just like before to fetch our instruction. Step
@@ -2170,7 +2172,7 @@ whatever lives at that address into register A.
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
-#caption("14.2")[`LOAD A, [addr]` animation.]
+#caption("14.2", kind: "Diagram")[`LOAD A, [addr]` animation.]
 
 When the label for a control signal turns red, that means it's on (pink
 ones still wait for `NOT CLOCK`). Next we do the `MOV` instructions.
@@ -2191,7 +2193,7 @@ Quite simple:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-movs.png", width: 100%))
 
-#caption("14.3")[The `MOV` instructions.]
+#caption("14.3", kind: "Diagram")[The `MOV` instructions.]
 
 I have left out all of the 2-byte instructions from this diagram, just
 so it's easier to read. Next we need to decode all of our ALU
@@ -2246,7 +2248,7 @@ It's garbage. So here we are:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-alu.png", width: 100%))
 
-#caption("14.4")[The ALU instructions.]
+#caption("14.4", kind: "Diagram")[The ALU instructions.]
 
 Again I am leaving out all the instructions apart from these 4, and
 again this wiring is a mess. All you need to know is that the bottom 2
@@ -2262,7 +2264,7 @@ just set that latch, and boom! We froze the computer.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-halt.png", width: 100%))
 
-#caption("14.5")[The `HALT` instruction freezing the computer.]
+#caption("14.5", kind: "Diagram")[The `HALT` instruction freezing the computer.]
 
 The clock keeps ticking, but the AND gate never lets it increment the
 counter, so the computer stays frozen. But how do we restart the
@@ -2286,7 +2288,7 @@ Here is how the `HALT` and `TAKEOVER` wiring would look in the CU:
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-halt-takeover.png", width: 100%))
 
-#caption("14.6")[The `HALT` and `TAKEOVER` wiring.]
+#caption("14.6", kind: "Diagram")[The `HALT` and `TAKEOVER` wiring.]
 
 Wait, is that the whole CU? Umm, yes, that's it. Just combine all of
 those diagrams together, add in some extra OR gates and boom. That is
@@ -2310,7 +2312,7 @@ Here is our CPU executing it:
 #pad(x: -10mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
-#caption("15.1")[The CPU running a simple program.]
+#caption("15.1", kind: "Diagram")[The CPU running a simple program.]
 
 For this animation, I am not animating the idle steps where nothing
 happens, and I am not animating 2 frames per micro-step. That's why you
