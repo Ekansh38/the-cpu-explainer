@@ -1652,7 +1652,7 @@ is always outputting, but it is edge-triggered.
 
 Then we can see the result of the ALU operation is being fed into
 another regular 8-bit register called ACC, short for accumulator, but
-that's just its name. It's not an actual accumulator circuit, that's
+that's just its name. It's not an actual accumulator circuit. That's
 just what this register is traditionally called in CPUs. It is slightly
 different to register B because its input doesn't come from the common
 bus, but from the ALU, so it has a separate `D` and `Q` instead of just
@@ -1789,11 +1789,11 @@ looks like this:
 4: 00001110
 ```
 
-If PC starts at 0 (which it does after being reset when you let go of
-`TAKEOVER`), then what do you think this program would do? The first
-byte is `00000001`, which is 1, and the table says 1 is `LOAD A, n`:
-load the next byte into register A. The next byte is `00000101`, binary
-for 5, so those two bytes make up the instruction:
+If PC, the program counter, starts at 0 (which it does after being reset
+when you let go of `TAKEOVER`), then what do you think this program
+would do? The first byte is `00000001`, which is 1, and the table says 1
+is `LOAD A, n`: load the next byte into register A. The next byte is
+`00000101`, binary for 5, so those two bytes make up the instruction:
 
 `LOAD A, 5`
 
@@ -1827,7 +1827,7 @@ needs to know what value to load, so the next byte in RAM is that value.
 One more thing: the order things are written in. For `MOV`, the
 destination comes first. `MOV B, A` copies `A` into `B`, not the other
 way around. `STORE` is the odd one out: `LOAD A` means the value is
-going into `A`, and `STORE A` means `A` going out into memory.
+going into `A`, and `STORE A` means `A` is going out into memory.
 
 Also, a number with brackets like `[5]` means whatever is stored at
 address 5, but just `5` means literally the number 5, which would be
@@ -1870,8 +1870,8 @@ doubles every loop, and the output shows 1, 2, 4, 8, 16, all the way up
 to 128. On the 8 output bulbs, that looks like a single lit bulb going
 across the display. Pretty neat.
 
-But then 128 + 128 overflows (the third example in Diagram~5.12): `A`
-wraps around to 0. And from that point on, the program is doubling 0
+But then 128 + 128 overflows (like the third example in Diagram~5.12):
+`A` wraps around to 0. And from that point on, the program is doubling 0
 forever, so the display becomes blank forever. The CPU gets stuck in a
 weird spot.
 
@@ -1919,7 +1919,7 @@ addition overflows and the `CARRY` flag lets it escape. It computes
 nothing useful. It just eats up time.
 
 But we don't really need these for our slow computer. Just know real
-computers use a combination of timer hardware, and loops like these to
+computers use a combination of timer hardware and loops like these to
 wait for the right amount of time.
 
 These jump instructions can help us branch on certain conditions,
@@ -2013,35 +2013,35 @@ each step. The first thing the CU will have to do for every instruction,
 no matter what, is to actually fetch that instruction from RAM and store
 it in IR, the instruction register.
 
-Remember, PC, the program counter, holds the address of the next byte
-that we need to fetch. Then after we have fetched that byte, it usually
-gets incremented by 1, but with jump instructions, the value in PC gets
-changed, so the program starts executing from somewhere else.
+Remember, PC holds the address of the next byte that we need to fetch.
+Then after we have fetched that byte, it usually gets incremented by 1,
+but with jump instructions, the value in PC gets changed, so the program
+starts executing from somewhere else.
 
 To fetch the next instruction, first we would need to put the value in
 PC into the MAR. Then activate `RAM_OUT`, putting that instruction on
 the common bus, and store that value inside the IR register. Then we
 increment PC so it points at the next byte in RAM. Sometimes this next
-byte is an instruction and sometimes it's the second part of a 2-byte
-instruction.
+byte is a new instruction and sometimes it's the second part of a
+2-byte instruction.
 
 So to accomplish this, we only need 2 simple micro-steps:
 
 + `PC_OUT`, `MAR_WRITE`
 + `RAM_OUT`, `IR_WRITE`, `PC_INC`
 
-We know how we can output and write to a register in one micro-step, but
-three things? How can we increment PC too? Incrementing PC has nothing
-to do with the bus and doesn't disrupt anything else going on, so we
-just can! And notice, these 2 micro-steps are exactly the same for every
-single instruction.
+We know how we can output and write in one micro-step, but three things?
+How can we increment PC too? Incrementing PC has nothing to do with the
+bus and doesn't disrupt anything else going on, so we just can! And
+notice, these 2 micro-steps are exactly the same for every single
+instruction.
 
-One thing I am not drawing: every `WRITE` signal is ANDed with
-`NOT CLOCK`, like we just discussed. The same goes for PC's `I` signal:
-incrementing stores a value too. It just comes from PC's own little
-adder instead of the bus, so it waits for `NOT CLOCK` like every other
-store. Drawing that same little AND gate nine times would clutter
-everything up, so instead:
+One thing I am not drawing in the following diagrams: every `WRITE`
+signal is ANDed with `NOT CLOCK`, like we just discussed. The same goes
+for PC's `I` signal: incrementing stores a value too. It just comes
+from PC's own little adder instead of the bus, so it waits for
+`NOT CLOCK` like every other store. Drawing that same little AND gate
+nine times would clutter everything up, so instead:
 
 #callout("Note")[
 Every pin colored pink has that AND gate secretly. A pink pin only
@@ -2049,7 +2049,8 @@ actually turns on at `NOT CLOCK`.
 
 ]
 One more thing: I have used tri-state buffers before the RAM and MAR
-control signals, and I have kept the enable on for now. You can mostly
+control signals, and I have kept the enable on for now. This is related
+to interfering with the control panel and `TAKEOVER`. You can mostly
 ignore this for now, but it will come back later.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-one.png", width: 100%))
@@ -2129,10 +2130,10 @@ step 3 and this instruction is a 2-byte instruction. Gate 17, the OR
 gate, basically just checks if we have a 2-byte instruction or not.
 
 So back to step 3, if we have a 2-byte instruction and it is step 3,
-then it enables `PC_OUT` and `MAR_WRITE`, and the `MAR_WRITE` store
-actually fires on `NOT CLOCK`. Step 3 is the same for all 2-byte
-instructions since we always need to fetch that second byte, but what we
-do with that second byte changes.
+then it enables `PC_OUT` and `MAR_WRITE`, and the `MAR_WRITE` of course
+fires on `NOT CLOCK`. Step 3 is the same for all 2-byte instructions
+since we always need to fetch that second byte, but what we do with that
+second byte changes.
 
 On step 4, every 2-byte instruction needs to use that second value, so
 we always call `RAM_OUT` if it is a 2-byte instruction. That is what
@@ -2144,8 +2145,8 @@ it is instruction 1 and step 4, and if so enables `A_WRITE`, gated of
 course, only actually enabling on `NOT CLOCK`.
 
 Instructions 2 and 3 are different. For those, that second value is not
-the number we want. It is the #emph[address] of the number we want. So
-instead of storing it, we feed it into the MAR. Gate 19 checks if it is
+the number we want. It is the address of the number we want. So instead
+of storing it, we feed it into the MAR. Gate 19 checks if it is
 instruction 2 or 3, then gate 20 checks if it is also step 4, and if so
 it enables `MAR_WRITE`. Now the MAR is storing the address of the right
 slot, all ready for step 5 to do the read or write.
@@ -2156,7 +2157,7 @@ figure out whether the jump actually happens. Gates 7, 10, and 15 do
 that: each one pairs a jump with its flag, so `JE` is checked against
 `EQUAL`, `JC` against `CARRY`, and `JZ` against `ZERO`. Those, plus a
 plain `JMP` which always jumps, all feed into gate 11, one big OR. If
-any of them fire, gate 11 turns on, meaning "this jump is happening".
+any of them fire, gate 11 turns on, meaning "we need to jump".
 
 From there it is simple. Gate 5 takes that signal and checks it is step
 4, then enables `PC_WRITE`, loading the target address into PC, so then
@@ -2179,9 +2180,10 @@ together. This is just to prevent a short-circuit, one wire driving low
 and another driving high. A simple OR gate solves this. Gates 1, 2, 3,
 4, and 21 are these collectors. Feel free to check them yourself.
 
-Here is the process of executing the instruction `LOAD A, [addr]`. We
-first have to fetch the instruction, then fetch the `[addr]`, then store
-whatever lives at that address into register A.
+Here is a little demo where it shows the process of executing the
+instruction `LOAD A, [addr]`. We first have to fetch the instruction,
+then fetch the `[addr]`, then store whatever lives at that address into
+register A.
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%))
 
@@ -2312,9 +2314,9 @@ section, let's see how our computer can run a simple program.
 
 === Finally, The Fun Part
 <finally-the-fun-part>
-That's it, huh? A whole computer. To test it, let's watch it run.
-Let's start with the simplest program imaginable, just putting a number
-on the DISPLAY lamps:
+That's it, huh? A whole computer. To test it, let's run a simple
+program on it. Let's start with the simplest program imaginable, just
+putting a number on the DISPLAY lamps:
 
 ```
 0: LOAD A, 42
@@ -2391,9 +2393,11 @@ You might notice something weird:
 26: STORE A, [101]
 ```
 
-This little sequence adds 255 to slot 101. It loads the right values
-into the CPU's registers, adds 255, and stores that back into slot 101.
-But why?
+This little sequence first puts 255 into register B. Our CPU doesn't
+have an instruction to load directly into register B, so we have to load
+it into register A first and then move it over. Then it loads the value
+in slot 101 into register A, adds them, and stores the result back into
+slot 101. But why?
 
 On this computer, adding 255 is just like subtracting 1! This is because
 the byte throws away anything past 255, so adding 255 and dropping the
@@ -2415,7 +2419,10 @@ Our goal with this chunk of code is to just check if slot 101 is zero.
 If so, we are done and can jump to some other part of the program.
 Because this CPU is slightly more primitive than real CPUs, the
 programmer (me) had to use some weird trickery to check if it is zero.
-In this case I just added 0 to the value to set the `ZERO` flag.
+In this case I just added 0 to the value. That doesn't change it, but
+the flags only update after an ALU instruction, and the `ZERO` flag only
+turns on if the answer is 0. The only way 0 + something gives 0 is if
+that something was 0, so now the `ZERO` flag tells us if slot 101 is 0.
 
 My point with showing you all of these tricks is that, even though this
 CPU might not be the most advanced, it can do real things!
@@ -2430,8 +2437,8 @@ like the ones above.
 Modern CPUs are also just bigger in general. Instead of 8 wires in a
 bus, 64. Instead of 256 bytes of RAM, billions. Instead of 2 registers
 you can program with, dozens. Instead of a few ticks per second,
-billions of those too. But it is the same core loop, fetch, decode,
-execute, just bigger and faster.
+billions. But it is the same core loop, fetch, decode, execute, just
+bigger and faster.
 
 Our program could also be seen as just a bunch of numbers:
 
