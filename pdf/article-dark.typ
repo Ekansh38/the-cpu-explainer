@@ -1228,8 +1228,8 @@ into register B.
 bus.]
 
 I have some text inside the register that shows what it is storing. We
-have `W` and `O`, which are `WRITE` and `OUT`, as well as `D` and `Q`,
-which are the inputs and outputs.
+have `WRITE` and `OUT`, as well as `D` and `Q`, which are the inputs and
+outputs.
 
 Of course, on the second frame, when `OUT` of register A is enabled, the
 `D` wires of both registers are also going to be 53 because they are
@@ -1386,12 +1386,12 @@ Let's look at one cell more closely:
 
 What AND gate 1 checks is, if `Row Select` and `Column Select`, and
 `OUT` is on, then that means we have selected that register to output
-its value, so we turn on `OUT` and the register will output something on
-the `data out` bus.
+its value, so we turn on that register's own `OUT`, and it will output
+something on the `data out` bus.
 
 AND gate 2 checks, if `Row Select` and `Column Select`, and `WRITE` is
 on, then that means we have selected that register to write to, so we
-turn on `WRITE` for that register, and it will write the data on the
+turn on that register's own `WRITE`, and it will write the data on the
 `data in` bus.
 
 Both AND gates take in 3 inputs. If you are wondering how that works,
@@ -1419,9 +1419,9 @@ outside, we can abstract this as one shared data bus with a
 double-headed arrow called `I/O`, which stands for input/output. It is
 practically just like having two buses, one for input, one for output.
 
-When `W` turns on, RAM copies the value from the data bus into the
-selected address. If `O` is on, RAM drives the selected address's value
-onto the data bus.
+When `WRITE` turns on, RAM copies the value from the data bus into the
+selected address. If `OUT` is on, RAM drives the selected address's
+value onto the data bus.
 
 #callout("Note", sticky: true)[
 From now on, instead of drawing registers connected to a common bus like
@@ -1632,23 +1632,23 @@ and we know how the ALU in the bottom left works (Diagram~9.2).
 
 Let's examine each element of the CPU closely and see what details
 changed and why. First, register B. It is a normal edge-triggered 8-bit
-register with `W` and `O` control wires. We will talk about its use in
-more detail later.
+register with `WRITE` and `OUT` control wires. We will talk about its
+use in more detail later.
 
 We then have register A, which is just like register B, but it also has
 a `Q` output in addition to `I/O`. This `Q` output is simply the value
 stored inside register A, bypassing the tri-state buffers and feeding
-directly into the first input of the ALU. So even though the output
-(`O`) control signal is off, that `Q` is still driving the ALU's first
-input, in this case to 0.
+directly into the first input of the ALU. So even though the `OUT`
+control signal is off, that `Q` is still driving the ALU's first input,
+in this case to 0.
 
 Next we have the ALU. Its second input comes from the common bus, so the
 other number it works with is just whatever is on the bus at the time.
 Other than that it is as normal, but the flags are all going into a
 register called FLAGS. This register is a 3-bit register: it only stores
 3 bits. These three bits are just the values for each flag. This 3-bit
-register has no `O` control signal, thus no tri-state buffers, so it is
-always outputting, but it is edge-triggered.
+register has no `OUT` control signal, thus no tri-state buffers, so it
+is always outputting, but it is edge-triggered.
 
 Then we can see the result of the ALU operation is being fed into
 another regular 8-bit register called ACC, short for accumulator, but
@@ -1656,11 +1656,11 @@ that's just its name. It's not an actual accumulator circuit, that's
 just what this register is traditionally called in CPUs. It is slightly
 different to register B because its input doesn't come from the common
 bus, but from the ALU, so it has a separate `D` and `Q` instead of just
-one `I/O`. It still has the regular `W` and `O` control signals though
-and like always is edge-triggered.
+one `I/O`. It still has the regular `WRITE` and `OUT` control signals
+though and like always is edge-triggered.
 
 Register IR, which stands for Instruction Register, is a simple register
-without an `O` control signal. It takes input from the bus and outputs
+without an `OUT` control signal. It takes input from the bus and outputs
 it into the CU. It is used to store the instruction so the CU can decode
 it and figure out what it means. We will talk about what exactly the CU
 is and the jobs of these different parts a little later on.
@@ -1669,10 +1669,10 @@ Next we have PC, which stands for Program Counter. All it does is store
 the address of the next byte that we need to fetch. It is a combination
 of an adder and a register, something like what we have seen previously
 (Diagram~6.9). The register part of PC has its regular control signals
-`W` and `O`, and the `STEP` button from before has been replaced with an
-`I` control signal, which stands for increment. We also have the `R`
-signal which resets the register back to 0 with some more logic gates
-and wires. Nothing too fancy.
+`WRITE` and `OUT`, and the `STEP` button from before has been replaced
+with an `I` control signal, which stands for increment. We also have the
+`R` signal which resets the register back to 0 with some more logic
+gates and wires. Nothing too fancy.
 
 Our MAR and RAM are the same as before, but if all of the bits stored in
 MAR are 1, meaning the address is 255, then that first AND gate in the
@@ -1710,11 +1710,11 @@ other way too: when `TAKEOVER` is on, the CU makes sure not to drive
 those RAM control wires, again using tri-state buffers.
 
 Now, about this mysterious box labeled CU. What is it exactly? It is the
-control unit. Think back to most of our previous demos. Turn `O` on,
-then `W`, flip this control signal and then flip that control signal.
-The CU does all of that flipping for us. It turns the control wires on
-and off in the right order, at the right times, to make the computer
-actually work.
+control unit. Think back to most of our previous demos. Turn `OUT` on,
+then `WRITE`, flip this control signal and then flip that control
+signal. The CU does all of that flipping for us. It turns the control
+wires on and off in the right order, at the right times, to make the
+computer actually work.
 
 But how exactly does the computer work in the first place? First we load
 our program into RAM: a list of instructions, each one just a number.
@@ -1919,10 +1919,8 @@ addition overflows and the `CARRY` flag lets it escape. It computes
 nothing useful. It just eats up time.
 
 But we don't really need these for our slow computer. Just know real
-computers use a combination of timer hardware, little counter circuits
-that tick along with the clock, and loops like these to wait for the
-right amount of time. Some CPUs even have a sleep instruction that shuts
-them down completely until something wakes them up.
+computers use a combination of timer hardware, and loops like these to
+wait for the right amount of time.
 
 These jump instructions can help us branch on certain conditions,
 letting our program decide stuff, and also run in loops.
@@ -1931,16 +1929,16 @@ But how would the CPU actually execute an instruction? What control
 wires would it flip, and in what order? Let's take the `MOV B, A`
 instruction as an example.
 
-First the CU would flip the `O` signal on register A, driving the bus to
-whatever is stored in `A`. Then the CU would flip the `W` signal on
-register B, writing the value on the bus into the register. Then it
-would turn off the `O` signal on register A, and boom, we are done. The
-CU had to do a few tiny things in exactly the right order to execute
+First the CU would flip the `OUT` signal on register A, driving the bus
+to whatever is stored in `A`. Then the CU would flip the `WRITE` signal
+on register B, writing the value on the bus into the register. Then it
+would turn off the `OUT` signal on register A, and boom, we are done.
+The CU had to do a few tiny things in exactly the right order to execute
 that instruction. Each of those tiny things is called a micro-step, and
 we will talk about them in more detail later on.
 
-How does the CU know which wires to flip and when? That is what the next
-section is all about.
+But, how does the CU know which wires to flip and when? That is what the
+next section is all about.
 
 === The Not-So-Clever Control Unit
 <the-not-so-clever-control-unit>
@@ -1961,32 +1959,33 @@ The accumulator part of the step counter is connected to the clock
 (Diagram~6.10). The clock is the heartbeat of the computer, and it lives
 right here in the control unit.
 
-Output 0 of the decoder is wired to nothing, so step 0 is an idle tick:
-the counter goes 1, 2, \... 7, 0, and every instruction takes 8 clock
-cycles whether it uses them or not.
+Output 0 of the decoder is wired to nothing, so step 0 is just idle: the
+counter goes 1, 2, \... 7, 0, and every instruction takes 8 clock cycles
+whether it uses them or not.
 
 One thing: remember the `TAKEOVER` switch (on the Control Panel in
 Diagram~10.1)? Well, when it is on, it basically resets this step
-counter's accumulator to 0, so after a reset the first thing that
-happens is step 1. This also means `TAKEOVER` is a reset switch. Flick
-it on and off, and both PC and the step counter get reset to 0.
+counter's accumulator to 0 (that is why we don't actually do anything
+on step 0), so after a reset the first thing that happens is step 1.
+This also means `TAKEOVER` is a reset switch. Flick it on and off, and
+both PC and the step counter get reset to 0.
 
 Each of the decoder's output wires turning on is 1 micro-step. Take
 `MOV B, A` from before: enable the output of `A` onto the bus, then
-enable `W` on `B` to store that value.
+enable `WRITE` on `B` to store that value.
 
-If we tried to just turn `O` and `W` on at the same time, the register
-might capture the value on the bus before the other register has started
-driving the bus. The bus hasn't had time to settle. So this won't
-work. What we want is to turn `O` on, wait for the bus to settle, and
-then turn `W` on, right in the middle of `O` being on.
+If we tried to just turn `OUT` and `WRITE` on at the same time, the
+register might capture the value on the bus before the other register
+has started driving the bus. The bus hasn't had time to settle. So this
+won't work. What we want is to turn `OUT` on, wait for the bus to
+settle, and then turn `WRITE` on, right in the middle of `OUT` being on.
 
-We could try spreading this across two steps: turn `O` on for step 1,
-then keep `O` on for step 2 and turn on `W` too. The problem is that
-when the counter switches from one step to the next, the decoder briefly
-flickers through the wrong output, so `O` can drop at the exact moment
-`W` fires. And every move would now cost two steps instead of one. It's
-not a good way to do it.
+We could try spreading this across two steps: turn `OUT` on for step 1,
+then keep `OUT` on for step 2 and turn on `WRITE` too. The problem is
+that when the counter switches from one step to the next, the decoder
+briefly flickers through the wrong output, so `OUT` can drop at the
+exact moment `WRITE` fires. And every move would now cost two steps
+instead of one. It's not a good way to do it.
 
 The best approach to this is just taking our clock signal and flipping
 it:
@@ -1995,18 +1994,19 @@ it:
 
 #caption("12.2", kind: "Diagram")[Micro-step timing diagram.]
 
-Purple marks when `W` turns on, and blue is when `O` is on. Each step
-changes on a clock edge, and each step is a signal, 1 full clock cycle
-long, until the next rising edge.
+Purple marks when `WRITE` turns on, and blue is when `OUT` is on. Each
+step changes on a clock edge, and each step is a signal, 1 full clock
+cycle long, until the next rising edge.
 
-`O` is directly connected to that step line. If we enable `O` on step 1,
-the bus is driven for that full cycle.
+`OUT` is directly connected to that step line. If we enable `OUT` on
+step 1, the bus is driven for that full cycle.
 
-`W` is ANDed with `NOT CLOCK`, like `step 1 AND NOT CLOCK`. The thing
-is, step and `NOT CLOCK` don't come on at the same time. The step line
-is already on, and then halfway through the cycle `NOT CLOCK` goes up,
-and that is when the AND gate's output goes up. That is the edge `W`
-needs, right in the middle, after `O` has had some time to settle.
+`WRITE` is ANDed with `NOT CLOCK`, like `step 1 AND NOT CLOCK`. The
+thing is, step and `NOT CLOCK` don't come on at the same time. The step
+line is already on, and then halfway through the cycle `NOT CLOCK` goes
+up, and that is when the AND gate's output goes up. That is the edge
+`WRITE` needs, right in the middle, after `OUT` has had some time to
+settle.
 
 Now that we have covered that, let's figure out what should happen on
 each step. The first thing the CU will have to do for every instruction,
@@ -2036,12 +2036,12 @@ to do with the bus and doesn't disrupt anything else going on, so we
 just can! And notice, these 2 micro-steps are exactly the same for every
 single instruction.
 
-One thing I am not drawing: every `W` signal is ANDed with `NOT CLOCK`,
-like we just discussed. The same goes for PC's `I` signal: incrementing
-stores a value too. It just comes from PC's own little adder instead of
-the bus, so it waits for `NOT CLOCK` like every other store. Drawing
-that same little AND gate nine times would clutter everything up, so
-instead:
+One thing I am not drawing: every `WRITE` signal is ANDed with
+`NOT CLOCK`, like we just discussed. The same goes for PC's `I` signal:
+incrementing stores a value too. It just comes from PC's own little
+adder instead of the bus, so it waits for `NOT CLOCK` like every other
+store. Drawing that same little AND gate nine times would clutter
+everything up, so instead:
 
 #callout("Note")[
 Every pin colored pink has that AND gate secretly. A pink pin only
