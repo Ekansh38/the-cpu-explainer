@@ -713,7 +713,7 @@ it is also connected to `+`. What happens?
 Yep. A short-circuit.
 
 We need a way to connect these registers to the bus, but also let them get out of the way when they
-are not supposed to actively drive a wire to `-` or `+`, like I discussed [previously](#diagram-4-6) (Diagram 3.6).
+are not supposed to actively drive a wire to `-` or `+`, like I discussed [previously](#diagram-4-6) (the "after" frames of Diagram 3.6).
 
 Just setting the output wires to `00000000` is not enough. On a shared bus, `00000000` is not
 nothing. It is actively driving the bus to `-`. Of course, in our relay world technically we don't
@@ -730,8 +730,8 @@ If `E` is on, the output will just be whatever `D` is, so either `0` or `1`.
 If `E` is off, no matter the value of `D`, the output will be `Z`.
 
 `Z` means the buffer's output is disconnected. Engineers call this "high impedance", which is where
-the letter `Z` comes from. It is not driving the bus to `+` or `-` just like we saw
-[before](#diagram-4-5) (Diagram 3.5), so another component can safely drive the bus without a clash or
+the letter `Z` comes from. It is not driving the bus to `+` or `-`,
+so another component can safely drive the bus without a clash or
 short-circuit.
 
 Or in other words, this buffer is not touching the wire. `0` is very different: the component is
@@ -753,7 +753,7 @@ This relay diagram of how a tri-state buffer works should make this concept crys
 *Diagram 7.2. A tri-state buffer built with relays.*
 
 This looks complicated, so let me break it down. First, ignore the two relays on the right and look only at the `D` relay at the top. Its arm is
-attached to the output wire, and it works just like [the output driver from before](#diagram-4-6) (Diagram 3.6).
+attached to the output wire, and it works just like [the output driver from before](#diagram-4-6) (the "after" frames of Diagram 3.6).
 When `D` is `1`, the arm is pulled down onto the wire that leads toward the battery, `+`. When `D`
 is `0`, the arm goes up onto the wire that leads toward ground. Remember, ground is just the `-`
 side.
@@ -1144,7 +1144,7 @@ the `STEP` button from before has been replaced with an `I` control signal, whic
 increment. We also have the `R` signal which resets the register back to 0 with some more logic
 gates and wires. Nothing too fancy.
 
-Our MAR and RAM are the same as [before](#diagram-9-10) (Diagram 8.10), but if all of the bits stored in MAR
+Our MAR and RAM are the same as before, but if all of the bits stored in MAR
 are 1, meaning the address is 255, then that first AND gate in the diagram, labeled 1, turns on. We
 then AND that with `RAM_WRITE`: if we are writing to address 255, we also write into the DISPLAY
 register.
@@ -1252,24 +1252,23 @@ address of RAM that we specify. Again, the first byte tells us the instruction a
 tells us the address, in this case `11111111`, which is address 255.
 
 Hey? Isn't address 255 different from the rest? Yep, if we write to address 255 we also write to the
-DISPLAY register where we can see that value on some light bulbs. Have a look at [Diagram 10.1](#diagram-11-1) for a recap.
+DISPLAY register where we can see that value on some light bulbs. Have a look at DISPLAY and the AND gates labeled 1 and 2 in [Diagram 10.1](#diagram-11-1) for a recap.
 
-The last byte is `14`, which [Table 11.1](#isa-table) says is `HALT`. It stops the clock, the whole
-machine freezes, and the program is over.
+The last byte is `14`, which is `HALT`. It stops the clock, the whole machine freezes, and the
+program is over.
 
-But why do we even need to stop the CPU? Well, if we don't, PC would just keep counting up and
-the CPU would keep fetching. It doesn't know our program ended at address 4. It would march
-straight into the rest of RAM and run whatever is sitting there as if it were instructions,
-leftovers from the last program, or whatever junk the memory happened to wake up holding. We need a
-way to stop.
+But why do we even need to stop the CPU? Well, if we don't, PC would just keep counting up and the
+CPU would keep fetching. It doesn't know our program ended at address 4. It would march straight
+into the rest of RAM and run whatever is sitting there as if it were instructions, leftovers from
+the last program, or whatever junk the memory happened to have in it. We need a way to stop.
 
 This program puts 5 on the output and stops. Pretty simple. As you can tell, some instructions take two bytes, and some only need one. A 2-byte instruction
 is one where the first byte alone is not enough. `LOAD A, n` needs to know what value to load, so
 the next byte in RAM is that value.
 
 One more thing: the order things are written in. For `MOV`, the destination comes first. `MOV B, A`
-copies `A` into `B`, not the other way around. `STORE` is the odd one out: `LOAD A` means a value
-going into `A`, and `STORE A` means `A` going out into memory.
+copies `A` into `B`, not the other way around. `STORE` is the odd one out: `LOAD A` means the value
+is going into `A`, and `STORE A` means `A` going out into memory.
 
 Also, a number with brackets like `[5]` means whatever is stored at address 5, but just `5` means
 literally the number 5, which would be stored in the next byte of RAM. It's just an easier way
@@ -1282,7 +1281,7 @@ the address stored in the second byte.
 register until the next ALU instruction overwrites them. So to make a decision, you run an ALU
 instruction, then jump based on what it found. If the flag is on, the jump sets PC to that
 address. If not, the program just carries on to the next instruction. This is the core element used
-in creating programs that can decide stuff and loop.
+in creating programs that can branch (if else statements) and loop.
 
 For example:
 
@@ -1299,12 +1298,14 @@ That is why you can see it jump in twos for 2-byte instructions.
 
 This jumping back to the start of the loop is done with a jump instruction, so whenever
 PC reaches 6, it jumps back to 2 and repeats all over again. Each loop, this program displays `A`,
-copies `A` into `B`, and then adds. Both ALU inputs are the same number, so `A` doubles every loop,
+copies `A` into `B`, and then adds. Also, in case you missed it in the table, the ALU instructions always
+work on registers A and B: A is fed straight into the ALU, and B is put onto the bus by the CU. `ADD`
+adds them and puts the result back into A. Both ALU inputs are the same number, so `A` doubles every loop,
 and the output shows 1, 2, 4, 8, 16, all the way up to 128. On the 8 output bulbs, that looks like
 a single lit bulb going across the display. Pretty neat.
 
-But then 128 + 128 [overflows](#diagram-6-12) (Diagram 5.12): `A` wraps around to 0. And from that point on, the
-program is doubling 0 forever, so the display goes dark and stays dark. The CPU gets stuck in a
+But then 128 + 128 [overflows](#diagram-6-12) (the third example in Diagram 5.12): `A` wraps around to 0. And from that point on, the
+program is doubling 0 forever, so the display becomes blank forever. The CPU gets stuck in a
 weird spot.
 
 To solve this overflow problem, and in general to make decisions, we can use the flags to jump to
@@ -1383,7 +1384,7 @@ the heartbeat of the computer, and it lives right here in the control unit.
 Output 0 of the decoder is wired to nothing, so step 0 is an idle tick: the counter goes 1, 2, ... 7, 0,
 and every instruction takes 8 clock cycles whether it uses them or not.
 
-One thing: remember the [`TAKEOVER`](#diagram-11-1) switch (Diagram 10.1)? Well, when it is on, it basically resets
+One thing: remember the [`TAKEOVER`](#diagram-11-1) switch (on the Control Panel in Diagram 10.1)? Well, when it is on, it basically resets
 this step counter's accumulator to 0, so after a reset the first thing that happens is step 1. This
 also means `TAKEOVER` is a reset switch. Flick it on and off, and both PC and the step counter get
 reset to 0.
