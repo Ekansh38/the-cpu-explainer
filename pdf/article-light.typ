@@ -1228,7 +1228,7 @@ into register B.
 bus.]
 
 I have some text inside the register that shows what it is storing. We
-have `WRITE` and `OUT`, as well as `D` and `Q`, which are the inputs and
+have `W` and `O`, as well as `D` and `Q`, which are the inputs and
 outputs.
 
 Of course, on the second frame, when `OUT` of register A is enabled, the
