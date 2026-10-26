@@ -29,9 +29,9 @@ gates, memory, and the basic circuits underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not one hard idea. It is a very
 tall pile of simple ones.
 
-<a id="diagram-1-1"></a> <img class="big" src="./assets/final/big-picture-cpu.svg" alt="The whole CPU">
+<a id="diagram-1-1"></a> <img class="big" src="./assets/final/big-picture-cpu.svg" alt="The whole computer">
 
-*Diagram 0.1. The whole CPU.*
+*Diagram 0.1. The whole computer.*
 
 This probably looks like an overwhelming mess, but don't worry, that's normal. Throughout this guide
 we are going to try to understand how this simple CPU works, from the ground up. It is not a modern
@@ -1071,15 +1071,24 @@ complete. We can now piece together this whole CPU.
 
 ### The Big Picture
 
-Here is a big-picture diagram of the whole CPU.
+Here is a big-picture diagram of the whole computer.
 
-<a id="diagram-11-1"></a> <img class="big" src="./assets/final/big-picture-cpu.svg" alt="The whole CPU">
+<a id="diagram-11-1"></a> <img class="big" src="./assets/final/big-picture-cpu.svg" alt="The whole computer">
 
-*Diagram 10.1. The whole CPU.*
+*Diagram 10.1. The whole computer.*
 
 Hey? Doesn't this diagram look familiar? Well, yes, we have come full circle from the intro, except
 this time the CPU isn't something completely foreign. Of course we still have a lot to learn and
 build, but wow. Just wow.
+
+Now comes the time where I finally explain to you curious readers what a CPU actually is. CPU is
+short for Central Processing Unit, and its job is to run programs: grab instructions from RAM one at
+a time, figure out what they mean, and carry them out. The CU is part of the CPU, and so are the ALU,
+the registers and the buses. RAM is not part of the CPU; the CPU just talks to it. Same for the
+DISPLAY and the Control Panel. In a real computer, all of those core parts are usually packaged onto
+their own chip, which talks to RAM and everything else through separate wires. But as you can tell, I
+have included everything in this one diagram, from the DISPLAY and the Control Panel to the CU, so
+really it's a whole little computer.
 
 Some quick notes on the diagram before we dig in.
 
