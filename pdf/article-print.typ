@@ -320,8 +320,13 @@ is because the direction was decided (thanks, Benjamin Franklin!) before
 electrons were discovered, and it turns out the direction doesn't
 really matter (mostly). So we just stick to thinking of it as `+` to
 `-`, even though in reality the physical electrons flow from `-` to `+`.
-Later on, when I say a wire is driven high or low, that just means it is
-connected to `+` or `-`.
+Also, later on, when I say a wire is driven high or low, that just means
+it is connected to `+` or `-`.
+
+This is just the tip of the iceberg when it comes to electrical
+circuits. There is a lot more interesting stuff to learn, so if you are
+curious, check out #emph[Lessons in Electric Circuits] in the Further
+Reading section at the end.
 
 Either way, current can only flow when the loop is complete. A switch is
 simply a controlled break in the loop, allowing us to break and complete
@@ -2822,21 +2827,29 @@ One-byte instructions finish in one or two steps:
 #[
 #set par(first-line-indent: 0em, spacing: 1.1em)
 
-#emph[Code: The Hidden Language of Computer Hardware and Software] by Charles
-Petzold. The classic. This book is what got me excited about CPU architecture
-and was my introduction to the field. Much deeper than this book, with some
-history too if that interests you. Highly recommended.
+#emph[Lessons in Electric Circuits, Volume I: DC] by Tony R. Kuphaldt. A
+free online textbook on electricity. If the electricity basics at the
+start of this book got you curious, this goes much deeper into voltage,
+current, resistance, and a lot more. Free online at
+#link("https://www.allaboutcircuits.com/textbook/direct-current/")[allaboutcircuits.com].
+
+#emph[Code: The Hidden Language of Computer Hardware and Software] by
+Charles Petzold. The classic. This book is what got me excited about CPU
+architecture and was my introduction to the field. Much deeper than this
+book, with some history too if that interests you. Highly recommended.
 
 #emph[The Elements of Computing Systems] (Nand2Tetris) by Noam Nisan and
-Shimon Schocken. A project course where you build a computer, an assembler,
-and an operating system yourself, starting from NAND gates. Quite demanding;
-consider it if you want to go deep into computer science. Free materials at
-nand2tetris.org.
+Shimon Schocken. A project course where you build a computer, an
+assembler, and an operating system yourself, starting from NAND gates.
+Quite demanding; consider it if you want to go deep into computer
+science. Free materials at
+#link("https://www.nand2tetris.org")[nand2tetris.org].
 
-#emph[What Every Programmer Should Know About Memory] by Ulrich Drepper. A
-great paper on how memory really works. It expands on the RAM ideas in this
-book, covering DRAM, caches, and a lot more. Much deeper than this book.
-Free online.
+#emph[What Every Programmer Should Know About Memory] by Ulrich Drepper.
+A great paper on how memory really works. It expands on the RAM ideas in
+this book, covering DRAM, caches, and a lot more. Much deeper than this
+book. Free online.
+
 ]
 
 == Acknowledgments
