@@ -686,7 +686,7 @@ decimal, a.k.a. base ten.
 #caption("4.3", kind: "Diagram")[The decimal system.]
 
 In our decimal counting system, each place-value is a power of 10. That
-is because we have ten digits: 0-9. This exact same place-value logic
+is because we have ten digits: 0--9. This exact same place-value logic
 can apply to #metadata(none)<gl-binary>the binary system too. We have two digits, 0 and 1, so each
 place is a power of 2.
 
@@ -953,7 +953,7 @@ ourselves.
 
 We have just built addition! But we also need something else: storage.
 For example, let's say we want to build a circuit that counts by ones,
-like 1, 2, 3, 4, \...
+like 1, 2, 3, 4, …
 
 The obvious idea is to feed the output of the adder back into one of its
 inputs. Start with `00000000`, add `00000001`, get `00000001`. Feed that
@@ -1323,8 +1323,8 @@ enabling writing, and the other means enabling output. From now on, we
 will use two separate terms to avoid confusion: `WRITE` and `OUT`.
 
 We can make a new type of register, one with `WRITE`, `OUT`, a `D`
-input, and a `Q` output that shows the stored bits 0-7. By `D`, I simply
-mean the input data that we can store when `WRITE` is enabled.
+input, and a `Q` output that shows the stored bits 0--7. By `D`, I
+simply mean the input data that we can store when `WRITE` is enabled.
 
 #align(center, image("/pdf/.raster/light-final/new-register-internals.png", width: 100%))
 
@@ -2096,7 +2096,7 @@ The accumulator part of the step counter is connected to the clock
 right here in the control unit.
 
 Output 0 of the decoder is wired to nothing, so step 0 is just idle: the
-counter goes 1, 2, \... 7, 0, and every instruction takes 8 clock cycles
+counter goes 1, 2, … 7, 0, and every instruction takes 8 clock cycles
 whether it uses them or not.
 
 One thing: remember the `TAKEOVER` switch (on the Control Panel in
@@ -2202,7 +2202,7 @@ instruction. The rest of the micro-steps depend on the instruction we
 want to execute, so we use another decoder, this time a `4-16` decoder.
 Each instruction is actually 8 bits long, one byte, but the opcode only
 needs 4 bits, so only the bottom 4 bits of IR are wired into the decoder
-and the top 4 are ignored. We only have 15 instructions (0-14, Table
+and the top 4 are ignored. We only have 15 instructions (0--14, Table
 11.1), so we can ignore output 15 of the decoder, and also output 0,
 since `0` is a `NOP`, which, if we remember, does nothing.
 
@@ -2366,7 +2366,7 @@ into register A.
     align: (right,auto,auto,auto,),
     table.header([\#], [Instruction], [Step 3], [Step 4],),
     table.hline(),
-    [8-11], [`ADD`/`AND`/`OR`/`XOR`], [`B_OUT`, `ACC_WRITE`,
+    [8--11], [`ADD`/`AND`/`OR`/`XOR`], [`B_OUT`, `ACC_WRITE`,
     `FLAGS_WRITE`], [`ACC_OUT`, `A_WRITE`],
   )]
   , kind: table
