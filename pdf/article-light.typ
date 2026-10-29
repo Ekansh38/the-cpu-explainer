@@ -316,12 +316,12 @@ do not switch instantly.
 Now let's see how we can build an actual electrical AND gate that takes
 two input wires and outputs an electrical signal.
 
-#align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
+#pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-3.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-6.png", width: 100%),
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%)
-)])
+))
 
 #caption("3.2", kind: "Diagram")[An AND gate.]
 
