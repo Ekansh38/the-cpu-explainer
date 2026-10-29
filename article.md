@@ -58,14 +58,36 @@ First, we need the basics of how electricity and circuits work. Here is a simple
 
 *Diagram 2.1. A basic circuit with a battery, switch, and bulb.*
 
-The wire connected to the `-` of the battery is being driven low, and the wire connected to the `+`
-of the battery is being driven high. This difference in voltage causes current to flow through the
-filament of the light bulb, turning the light on. But current can only flow when the loop is
-complete, from `+` through the bulb to `-`.
+A battery has two sides, `+` and `-`. On the `-` side, the atoms have an excess of electrons. On the
+`+` side, the atoms are starved of electrons. Voltage is how big that imbalance is: the difference in
+potential between the two sides. The bigger the difference, the harder the electrons are pushed and
+pulled from `-` to `+`. A 9-volt battery pushes/pulls harder than a 1.5-volt one.
 
-If the loop is broken, nothing flows. A switch is simply a controlled break in the loop, allowing us
-to break and complete the loop whenever we want. And a light bulb is just a simple light bulb. It
-glows when current flows through the filament. Now we have a circuit that can do one yes/no thing.
+When we connect the two ends of a battery with a wire, the electrons are able to flow. That's because
+wires are made of metals like copper, which are conductors: their electrons can move easily from atom
+to atom. Materials like plastic, rubber and air are insulators: they don't let go of their electrons
+easily, so almost nothing flows through them. As the electrons travel from the `-` side of the
+battery to the `+` side of the battery, they pass through the filament of the light bulb, turning on
+the light. The filament is a very thin wire, so it's harder for the electrons to squeeze through.
+This is called resistance, and pushing current through it makes the filament heat up so much that it
+glows. The battery has chemicals that keep that imbalance of electrons going, to keep the current
+flowing.
+
+The filament's resistance is actually important: it limits how much current can flow. If we connect
+`+` directly to `-` with just a wire, there's almost no resistance in the way, so a huge amount of
+current flows. The wire and the battery heat up fast, the battery drains, and things can melt or even
+catch fire. This is called a short circuit, and it is really bad!
+
+Even though technically electrons flow from `-` to `+`, I, and most resources in the real world,
+show current flowing from `+` to `-`. This is because the direction was decided (thanks, Benjamin
+Franklin!) before electrons were discovered, and it turns out the direction doesn't really matter
+(mostly). So we just stick to thinking of it as `+` to `-`, even though in reality the physical
+electrons flow from `-` to `+`. Later on, when I say a wire is driven high or low, that just means it
+is connected to `+` or `-`.
+
+Either way, current can only flow when the loop is complete. A switch is simply a controlled break
+in the loop, allowing us to break and complete the loop whenever we want. Now we have a circuit that
+can do one yes/no thing.
 
 Let's see if we can combine more switches so the circuit can "answer" slightly more interesting
 questions. Say we want to build a simple dog washer circuit: a circuit that, based on some inputs,
@@ -101,9 +123,12 @@ wash, you should wash the dog. Let's focus on the `MUDDY OR STINKY` part of this
 This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on for the bulb to turn on.
 Both of them could also be on, and that is fine.
 
-Before we continue, let's tackle a bigger problem. So far, every switch is flipped by a human. If we
-ever want to build a computer, it needs to run by itself: electricity has to be able to flip a
-switch by itself in order to chain circuits! But how?
+Now let's take a step back and talk about why we're doing this. What we just built are called logic
+gates: an AND gate and an OR gate. A computer is made of lots of these gates chained together, where
+the output of one gate becomes the input of the next. But right now, the inputs of our gates are
+switches flipped by a human, and the output is a bulb read by a human. To chain gates together, both
+the inputs and the output need to be wires, driven high or low. So how can we make a wire flip a
+switch?
 
 ### Relays & Logic Gates
 
@@ -172,7 +197,10 @@ Now here is the OR gate:
 
 *Diagram 3.4. An electronic OR gate.*
 
-That is an OR gate using relays. Now here is the full dog washer circuit up to this point:
+That is an OR gate using relays. Instead of two breaks one after another like in the AND gate, the
+output loop has two paths side by side, one through each relay's arm. If either input is on, its
+relay closes its path, and the loop is complete. If both are on, the current just has two paths
+instead of one. Now here is the full dog washer circuit up to this point:
 
 <a id="diagram-4-5"></a> <img pdf-frames="states" class="big" src="./assets/final/dog-washer-v1.gif" alt="The full dog washer circuit built with relays">
 

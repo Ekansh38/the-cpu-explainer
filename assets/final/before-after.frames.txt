@@ -4,7 +4,7 @@ title: before after
 The switch is open, so the coil is off. The relay is open, and there is a break in the circuit.
 
 [frame 2]
-The switch is closed, so the coil is on. The relay is now closed, and the light bulb is powered because there is a difference in voltage.
+The switch is closed, so the coil is on. The relay is now closed, so the loop is complete and the light bulb is on.
 
 [frame 3]
 The switch is open, so the coil is off. The relay is not pulling, so the arm rests on the `-` side and is actively driving the output wire low.
