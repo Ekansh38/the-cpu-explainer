@@ -34,11 +34,12 @@
 
 #show figure.where(kind: table): set block(above: 1.5em, below: 1.0em)
 
-#let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
+#let anim-note(count, url, label, partial: false) = block(above: 0.8em, below: 1.4em)[
   #set text(size: 9.5pt, fill: rgb("#8a8a8a"), hyphenate: false)
   #set par(justify: false)
   #let _ = count
-  The full animation at #link(url)[#label].
+  The full animation is at #box(link(url)[#label]).
+  #if partial [Only a few key frames are shown here; transitions and minor moments may be cut.]
 ]
 
 #let callout(label, body, sticky: false) = block(
@@ -297,6 +298,7 @@ on the `MUDDY OR STINKY` part of this circuit:
   image("/assets/frames/or-gate-logical-6.png", width: 100%)
 )])
 
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", partial: true)
 #caption("2.3", kind: "Diagram")[The hand-switch version of OR.]
 
 This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
@@ -361,6 +363,7 @@ two input wires and outputs an electrical signal.
   image("/assets/frames/electronic-and-gate-8.png", width: 100%)
 ))
 
+#anim-note(11, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", partial: true)
 #caption("3.2", kind: "Diagram")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
@@ -407,6 +410,7 @@ Now here is the OR gate:
   image("/pdf/.raster/dark/electronic-or-gate-7.png", width: 100%)
 )])
 
+#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", partial: true)
 #caption("3.4", kind: "Diagram")[An electronic OR gate.]
 
 That is an OR gate using relays. Instead of two breaks one after another
@@ -423,6 +427,7 @@ point:
   image("/assets/frames/dog-washer-v1-8-s.png", width: 100%)
 )])
 
+#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", partial: true)
 #caption("3.5", kind: "Diagram")[The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
@@ -453,9 +458,9 @@ to actually be driven low for the logic to work correctly, and since we
 are using relays to replace them, we should still follow that rule.
 
 All of our relay gates can be simply adapted to do this. As you can see
-in the after example below, even when the relay is not pulling the arm,
-even when the output is 0, it is still touching the negative end of that
-battery, so it is being driven to `-`.
+in the "after" frames below, even when the relay is not pulling the
+arm, even when the output is `0`, it is still touching the negative end
+of that battery, so it is being driven to `-`.
 
 #pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/before-after-1.png", width: 100%),
@@ -467,9 +472,14 @@ battery, so it is being driven to `-`.
 #caption("3.6", kind: "Diagram")[Driving an output wire.]
 
 #callout("Note")[
-In this diagram, red wire means current is actively flowing. That's why
-`OUT = 1` is still white. Later when we start drawing logic gates, and
-more high-level diagrams, red wire will just mean high, or 1.
+In this diagram, a wire is only red when current is actively flowing
+through it, meaning it is part of a complete loop. That's why the
+output wire is still white when `OUT = 1`. It is being driven high, but
+it isn't part of a closed loop. It's just a single wire connected to
+`+`, so no current flows through it. Later, when we start drawing logic
+gate symbols and more high-level diagrams, we won't be working at the
+circuit level anymore, and red will just mean a wire is driven high, or
+`1`.
 
 ]
 Okay, back to the dog washer. Let's introduce one last input, or
@@ -492,6 +502,7 @@ on.
   image("/pdf/.raster/dark/not-gate-3.png", width: 100%)
 ))
 
+#anim-note(4, "https://www.bytecolony.computer/writing/the-cpu/#f=not-gate:1", "bytecolony.computer/writing/the-cpu/#f=not-gate:1", partial: true)
 #caption("3.7", kind: "Diagram")[A NOT gate.]
 
 Now before we look at the completed circuit, let's learn some basic
@@ -529,8 +540,6 @@ our knowledge about logic gates, let's create the
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("3.11", kind: "Diagram")[The final dog washer circuit.]
 
-Again, this animation doesn't cover all possible states.
-
 Keep in mind these electromagnetic relays (Diagram~3.1) we used in the
 examples are quite big and slow. Relays aren't the only solution. They
 are simply an early solution, and an easy one to understand, and many
@@ -551,8 +560,8 @@ A wire is just a wire. We gave these wires meaning. We decided that one
 wire means `STINKY`, another wire means `MUDDY`, and another means
 `RAIN_SOON`.
 
-I don't know about you, but addition seems like a pretty logical next
-step after these logic gates. But not so fast.
+Addition seems like a pretty logical next step after these logic gates,
+but not so fast.
 
 To make a CPU, we need to give wires a different kind of meaning:
 numbers. Before we can build a circuit that adds, we need a way to
@@ -2384,11 +2393,6 @@ Here is our CPU executing it:
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1", kind: "Diagram")[The CPU running a simple program.]
-
-For this animation, I am not animating the idle steps where nothing
-happens, and I am not animating 2 frames per micro-step. That's why you
-might see an `OUT` and a `WRITE` turn on at the same time, but you and I
-both know what is really happening (Diagram~12.2).
 
 And there it is, 42 sitting on the lamps. Now let's try something real,
 a multiplication program. Put one number in slot 100, the other in slot

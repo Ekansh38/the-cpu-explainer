@@ -231,8 +231,8 @@ done here: an unpowered coil just stays off. We drive it low anyway. Real gates,
 transistors, need a `0` to actually be driven low for the logic to work correctly, and since we are
 using relays to replace them, we should still follow that rule.
 
-All of our relay gates can be simply adapted to do this. As you can see in the after example below,
-even when the relay is not pulling the arm, even when the output is 0, it is still touching the
+All of our relay gates can be simply adapted to do this. As you can see in the "after" frames below,
+even when the relay is not pulling the arm, even when the output is `0`, it is still touching the
 negative end of that battery, so it is being driven to `-`.
 
 <a id="diagram-4-6"></a> <img pdf-frames="all" src="./assets/final/before-after.gif" alt="Driving an output wire">
@@ -240,8 +240,11 @@ negative end of that battery, so it is being driven to `-`.
 *Diagram 3.6. Driving an output wire.*
 
 > [!NOTE]
-> In this diagram, red wire means current is actively flowing. That's why `OUT = 1` is still white.
-> Later when we start drawing logic gates, and more high-level diagrams, red wire will just mean high, or 1.
+> In this diagram, a wire is only red when current is actively flowing through it, meaning it is part
+> of a complete loop. That's why the output wire is still white when `OUT = 1`. It is being driven
+> high, but it isn't part of a closed loop. It's just a single wire connected to `+`, so no current
+> flows through it. Later, when we start drawing logic gate symbols and more high-level diagrams, we
+> won't be working at the circuit level anymore, and red will just mean a wire is driven high, or `1`.
 
 Okay, back to the dog washer. Let's introduce one last input, or "sensor": `RAIN_SOON`, whether it is predicted to rain soon.
 The rules of the circuit change once again:
@@ -301,8 +304,7 @@ just makes simple logical decisions.
 A wire is just a wire. We gave these wires meaning. We decided that one wire means `STINKY`, another
 wire means `MUDDY`, and another means `RAIN_SOON`.
 
-I don't know about you, but addition seems like a pretty logical next step after these logic gates.
-But not so fast.
+Addition seems like a pretty logical next step after these logic gates, but not so fast.
 
 To make a CPU, we need to give wires a different kind of meaning: numbers. Before we can build a
 circuit that adds, we need a way to represent numbers using only on and off. That is what the next section is about.
