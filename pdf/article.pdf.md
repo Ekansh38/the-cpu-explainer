@@ -1847,7 +1847,7 @@ I hope you now understand why computers aren't "just" 1s and 0s, but a very tall
 
 ## Further Reading
 
-*Lessons in Electric Circuits, Volume I: DC* by Tony R. Kuphaldt. A free online textbook on electricity. If the electricity basics at the start of this book got you curious, this goes much deeper into voltage, current, resistance, and a lot more. Free online at [allaboutcircuits.com](https://www.allaboutcircuits.com/textbook/direct-current/).
+*Lessons in Electric Circuits, Volume I: DC* by Tony R. Kuphaldt. A free online textbook on electricity. If the electricity basics at the start of this book got you curious, this goes much deeper into voltage, current, resistance, and a lot more. Really loved this book, amazing read! Free online at [allaboutcircuits.com](https://www.allaboutcircuits.com/textbook/direct-current/).
 
 *Code: The Hidden Language of Computer Hardware and Software* by Charles Petzold. The classic. This book is what got me excited about CPU architecture and was my introduction to the field. Much deeper than this book, with some history too if that interests you. Highly recommended.
 
