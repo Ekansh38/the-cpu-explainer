@@ -2550,25 +2550,23 @@ a very tall pile of simple.
 == Further Reading
 <further-reading>
 #emph[Lessons in Electric Circuits, Volume I: DC] by Tony R. Kuphaldt. A
-free online textbook on electricity. If the electricity basics at the
-start of this book got you curious, this goes much deeper into voltage,
-current, resistance, and a lot more. Really loved this book, amazing
-read! Free online at
+textbook on electricity. If the electricity basics at the start got you
+curious, this goes much deeper into voltage, current, resistance, and a
+lot more. Really loved this book, amazing read! Free online at
 #link("https://www.allaboutcircuits.com/textbook/direct-current/")[allaboutcircuits.com].
 
 #emph[Code: The Hidden Language of Computer Hardware and Software] by
 Charles Petzold. The classic. This book is what got me excited about CPU
-architecture and was my introduction to the field. Much deeper than this
-book, with some history too if that interests you. Highly recommended.
+architecture and was my introduction to the field. Goes much deeper,
+with some history too if that interests you. Highly recommended.
 
 #emph[The Elements of Computing Systems] (Nand2Tetris) by Noam Nisan and
 Shimon Schocken. A project course where you build a computer, an
-assembler, and an operating system yourself, starting from NAND gates.
-Quite demanding; consider it if you want to go deep into computer
-science. Free materials at
+assembler, a compiler, and an operating system yourself, starting from
+NAND gates. Quite demanding; consider it if you want to go deep into
+computer science. Free materials at
 #link("https://www.nand2tetris.org")[nand2tetris.org].
 
 #emph[What Every Programmer Should Know About Memory] by Ulrich Drepper.
-A great paper on how memory really works. It expands on the RAM ideas in
-this book, covering DRAM, caches, and a lot more. Much deeper than this
-book. Free online.
+A great paper on how memory really works. It expands on the RAM ideas
+here, covering DRAM, caches, and a lot more. Free online.
