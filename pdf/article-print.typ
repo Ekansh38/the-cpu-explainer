@@ -118,8 +118,8 @@
   [#metadata(none) <fsup>]
   v(1fr)
   block[
-    #set text(size: 9pt, weight: "regular", fill: rgb("#777777"))
-    #set par(leading: 0.8em, first-line-indent: 0em)
+    #set text(size: 9pt, weight: "regular", fill: rgb("#777777"), hyphenate: false)
+    #set par(leading: 0.8em, first-line-indent: 0em, justify: false)
     Copyright © 2026 Ekansh Goenka. All rights reserved. \
     First edition. \
     \
