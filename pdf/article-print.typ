@@ -56,12 +56,11 @@
 
 #show figure.where(kind: table): set block(above: 1.5em, below: 1.0em)
 
-#let anim-note(count, url, label, partial: false) = block(above: 0.8em, below: 1.4em)[
+#let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em)[
   #set text(size: 9pt, fill: rgb("#555555"), hyphenate: false)
   #set par(justify: false)
   #let _ = count
   The full animation is at #box(link(url)[#label]).
-  #if partial [Only a few key frames are shown here; transitions and minor moments may be cut.]
 ]
 
 #let callout(label, body, sticky: false) = block(
@@ -266,9 +265,9 @@ going on a journey.
 
 === How to Read This
 <how-to-read-this>
-- If a diagram is hard to understand, click it and step through each
-  frame one by one using the arrow keys, with the provided descriptions.
-  This only works if you are reading on my website, bytecolony.computer.
+- In the book, animated diagrams show a few key frames, so transitions
+  and minor moments may be cut. When something is cut, a link points to
+  the full animation at bytecolony.computer.
 
 - Don't try to "memorize" every layout. Focus on the mental models,
   concepts, and what part each piece has to play.
@@ -380,7 +379,7 @@ on the `MUDDY OR STINKY` part of this circuit:
   image("/pdf/.raster/light-final/or-gate-logical-6.png", width: 100%)
 )])
 
-#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", partial: true)
+#anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("2.3", kind: "Diagram")[The hand-switch version of OR.]
 
 #metadata(none)<gl-or>This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
@@ -436,7 +435,8 @@ coil turning on and the metal arm moving. Relays are mechanical, so they
 do not switch instantly.
 
 Now let's see how we can build an actual #metadata(none)<gl-and>electrical AND gate that takes
-two input wires and outputs an electrical signal.
+two input wires. For now, the output is still a bulb, but we will fix
+that soon.
 
 #pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/light-final/electronic-and-gate-1.png", width: 100%),
@@ -445,7 +445,7 @@ two input wires and outputs an electrical signal.
   image("/pdf/.raster/light-final/electronic-and-gate-8.png", width: 100%)
 ))
 
-#anim-note(11, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", partial: true)
+#anim-note(11, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-and-gate:1")
 #caption("3.2", kind: "Diagram")[An AND gate.]
 
 The output circuit has two breaks in it, one controlled by each input
@@ -454,10 +454,14 @@ output loop.
 
 That is the big difference from the hand-switch version. The inputs are
 still drawn as switches here, but they don't have to be. The input
-could just be a wire: driven high, current flows through the coil and
-the relay pulls. Driven low, no current flows and the relay lets go.
-Using these relays chained in clever ways, you can create every
-#metadata(none)<gl-gate>fundamental logic gate, such as the OR gate.
+could just be a wire. One end of each coil is always connected to `-`,
+and the other end is the input wire. If the input wire is driven high,
+there is a voltage across the coil, so current flows through it and the
+relay pulls. If it is driven low, both ends of the coil are connected to
+`-`. There is no difference in potential between them, so the voltage is
+0, no current flows, and the relay lets go. Using these relays chained
+in clever ways, you can create every #metadata(none)<gl-gate>fundamental logic gate, such as the
+OR gate.
 
 But before the next diagram, I am going to use one more new #metadata(none)<gl-ground>symbol:
 ground. For our purposes here, the ground symbol will simply refer to
@@ -492,7 +496,7 @@ Now here is the OR gate:
   image("/pdf/.raster/light-final/electronic-or-gate-7.png", width: 100%)
 )])
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", partial: true)
+#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1")
 #caption("3.4", kind: "Diagram")[An electronic OR gate.]
 
 That is an OR gate using relays. Instead of two breaks one after another
@@ -509,7 +513,7 @@ point:
   image("/pdf/.raster/light-final/dog-washer-v1-8-s.png", width: 100%)
 )])
 
-#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", partial: true)
+#anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1")
 #caption("3.5", kind: "Diagram")[The full dog washer circuit built with relays.]
 
 The animation does not show every possible combination of switches, only
@@ -584,7 +588,7 @@ on.
   image("/pdf/.raster/light-final/not-gate-3.png", width: 100%)
 ))
 
-#anim-note(4, "https://www.bytecolony.computer/writing/the-cpu/#f=not-gate:1", "bytecolony.computer/writing/the-cpu/#f=not-gate:1", partial: true)
+#anim-note(4, "https://www.bytecolony.computer/writing/the-cpu/#f=not-gate:1", "bytecolony.computer/writing/the-cpu/#f=not-gate:1")
 #caption("3.7", kind: "Diagram")[A NOT gate.]
 
 Now before we look at the completed circuit, let's learn some basic

@@ -162,8 +162,8 @@ demonstrate how the relay works.
 As you can also tell by the diagram, there is a slight delay between the coil turning on and the
 metal arm moving. Relays are mechanical, so they do not switch instantly.
 
-Now let's see how we can build an actual electrical AND gate that takes two input wires and outputs
-an electrical signal.
+Now let's see how we can build an actual electrical AND gate that takes two input wires. For now, the
+output is still a bulb, but we will fix that soon.
 
 <a id="diagram-4-2"></a> <img pdf-frames="1,3,6,8" src="./assets/final/electronic-and-gate.gif" alt="An AND gate">
 
@@ -173,8 +173,11 @@ The output circuit has two breaks in it, one controlled by each input relay. Onl
 are on do both relays close, completing the output loop.
 
 That is the big difference from the hand-switch version. The inputs are still drawn as switches
-here, but they don't have to be. The input could just be a wire: driven high, current flows through
-the coil and the relay pulls. Driven low, no current flows and the relay lets go. Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
+here, but they don't have to be. The input could just be a wire. One end of each coil is always
+connected to `-`, and the other end is the input wire. If the input wire is driven high, there is a
+voltage across the coil, so current flows through it and the relay pulls. If it is driven low, both
+ends of the coil are connected to `-`. There is no difference in potential between them, so the
+voltage is 0, no current flows, and the relay lets go. Using these relays chained in clever ways, you can create every fundamental logic gate, such as the
 OR gate.
 
 But before the next diagram, I am going to use one more new symbol: ground. For our purposes here, the ground symbol will simply refer to the common return point of
