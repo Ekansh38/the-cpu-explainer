@@ -445,15 +445,15 @@ the bulb turns on.
 Notice the OR that checks `MUDDY OR STINKY`: its bulb is gone. Its
 output is now a wire, feeding straight into the next relay's coil. When
 `MUDDY` or `STINKY` pulls its arm, that wire gets connected to `+`,
-current flows through the coil, and the next relay pulls. When neither
-pulls, the wire is connected to nothing at all, so no current flows and
-the relay lets go.
+current flows through the coil, and the input relay for the next gate
+pulls. When neither pulls, the wire is connected to nothing at all, so
+no current flows and the input relay for the next gate lets go.
 
 That works, but from now on, our gates' outputs will mostly feed other
-gates' inputs, so the output needs to be a wire, not a bulb, and we
-want that wire to always be in one of exactly two states: connected to
-`+`, or connected to `-`. Never disconnected (unless we are using a
-specific gate that we will cover later).
+gates' inputs (as we discussed earlier), so the output needs to be a
+wire, not a bulb. We also want that wire to always be in one of exactly
+two states: connected to `+`, or connected to `-`. Never disconnected
+(unless we are using a specific gate that we will cover later).
 
 A `1` output is a wire being driven high. A `0` output is not
 "nothing"; it is a wire being driven low. Remember this information;
