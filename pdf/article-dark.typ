@@ -439,9 +439,8 @@ point:
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v1:1")
 #caption("3.5", kind: "Diagram")[The full dog washer circuit built with relays.]
 
-The animation does not show every possible combination of switches, only
-a handful. But in a nutshell, if `MUDDY` or `STINKY` is on, and
-`OLD_WASH` is also on, the bulb turns on.
+In a nutshell, if `MUDDY` or `STINKY` is on, and `OLD_WASH` is also on,
+the bulb turns on.
 
 Notice the OR that checks `MUDDY OR STINKY`: its bulb is gone. Its
 output is now a wire, feeding straight into the next relay's coil. When
