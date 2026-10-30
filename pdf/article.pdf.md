@@ -42,6 +42,10 @@ CPU with decades of optimization, but it has the same core functionality. So if 
 - If a diagram is hard to understand, click it and step through each frame one by one using the arrow
   keys, with the provided descriptions. This only works if you are reading on my website, bytecolony.computer.
 
+- If you are reading this as a book (print, PDF, or ebook), animated diagrams show a few key frames,
+  so transitions and minor moments may be cut. When something is cut, a link points to the full
+  animation at bytecolony.computer.
+
 - Don't try to "memorize" every layout. Focus on the mental models, concepts, and what part each
   piece has to play.
 
