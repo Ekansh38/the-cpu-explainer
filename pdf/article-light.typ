@@ -539,8 +539,15 @@ more useful gate symbols:
 #caption("3.10", kind: "Diagram")[NOT, NAND, NOR gates.]
 
 NAND is AND with the output flipped. NOR is OR with the output flipped.
-That little circle at the end of a gate means "flip the output." With
-our knowledge about logic gates, let's create the
+That little circle at the end of a gate means "flip the output."
+
+#callout("Try it")[
+A NAND gate gets `1` and `1`. What does it output?
+
+#strong[Answer:] `0`. It's AND, flipped.
+
+]
+With our knowledge about logic gates, let's create the
 "should-I-wash-my-dog 5000" machine!
 
 #pad(x: -10mm, image("/pdf/.raster/light-final/dog-washer-v2-1.png", width: 100%))
@@ -644,6 +651,12 @@ of how binary works makes sense. Let's walk through `1101` together.
 
 #caption("4.5", kind: "Diagram")[An example in binary.]
 
+#callout("Try it")[
+What is `00001010` in decimal?
+
+#strong[Answer:] 10, which is 8 + 2.
+
+]
 So now that we can represent numbers with wires, how can we add numbers
 together? That is what the next section is all about.
 
@@ -767,6 +780,12 @@ our half adder:
 As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and
 `1 + 1 = 10`.
 
+#callout("Try it")[
+What are the sum and carry for `1 + 1`?
+
+#strong[Answer:] Sum `0`, carry `1`.
+
+]
 Now let's package up our half adder into a little box. From now on, I
 will call these packaged-up circuits "chips":
 
@@ -875,6 +894,12 @@ see that the real answer was 256.
 That is called an overflow: the result was too large to fit inside one
 byte, so the extra information spilled out into the carry-out bit.
 
+#callout("Try it")[
+What does the adder output for `00000011 + 00000001`?
+
+#strong[Answer:] `00000100`, which is 4.
+
+]
 With a bit of extra circuitry around the adder, we can also make little
 status wires, called flags. For example, if the answer is `00000000`, a
 `ZERO` flag can turn on. If addition spills past one byte, a `CARRY`
@@ -919,6 +944,14 @@ update it only when we tell it to. That is the next problem: memory.
 
 == Part 2: Machinery
 <part-2-machinery>
+Before we start, here is what we have so far:
+
+- A switch can complete or break a loop.
+- Combinations of relays can make logic gates (AND, OR, NOT, and
+  others).
+- A row of wires can hold a number in binary, one bit per wire.
+- Combinations of logic gates can be used to add two numbers.
+
 === Storing a Bit
 <storing-a-bit>
 In the last section, wiring the output of a circuit back into its input
@@ -1252,6 +1285,13 @@ This is the logic gate symbol for a tri-state buffer:
 
 #caption("7.3", kind: "Diagram")[A tri-state buffer logic gate.]
 
+#callout("Try it")[
+`E` is `0` and `D` is `1`. What is the output? Is that the same as `0`?
+
+#strong[Answer:] `Z`. It is not the same as `0`: `0` is actively driven
+low, but `Z` is not touching the wire at all.
+
+]
 Let's address this enable conundrum. We have two uses for the word
 enable, with completely different meanings and contexts. One means
 enabling writing, and the other means enabling output. From now on, we
@@ -1637,6 +1677,13 @@ The `CARRY` flag is simple: we just connect the adder's carry-out,
 when we are actually adding. That's it, the ALU is complete. We can now
 piece together this whole CPU.
 
+#callout("Try it")[
+The ALU adds `11111111` and `00000001`. Which flags turn on?
+
+#strong[Answer:] `ZERO` and `CARRY`. `EQUAL` stays off, because the two
+inputs are different.
+
+]
 === The Big Picture
 <the-big-picture>
 #block(sticky: true)[
@@ -1808,6 +1855,14 @@ instructions work. What does an instruction even look like?
 
 == Part 3: Execution
 <part-3-execution>
+Before we continue, here is what we have covered in Part 2:
+
+- A flip-flop stores a bit, and 8 of them make a register.
+- A bus lets registers share wires, and tri-state buffers make sure only
+  one component drives it at a time.
+- RAM is a big array of registers, chosen by an address.
+- The ALU does math and logic on two bytes and sets flags.
+
 === Instructions Are Numbers
 <instructions-are-numbers>
 Instructions tell the CPU what to do, and a list of instructions is a
@@ -1845,6 +1900,18 @@ So here is what number each instruction in our CPU translates to:
   )
 
 #caption("11.1", kind: "Table")[The full instruction set.]
+
+A few notes on reading this table. The mnemonic is just a short name for
+the instruction, so we humans don't have to remember numbers. `n`
+stands for a number, and `addr` stands for an address in RAM. Brackets
+mean the RAM slot at that address, so `[addr]` is whatever is stored
+there: `[5]` means whatever is stored at address 5, but just `5` means
+literally the number 5. Without brackets, like in the jump instructions,
+`addr` is just the address number itself. The arrow → means "goes
+into". Bytes is how many bytes of RAM the instruction takes up. And the
+binary column only shows 4 bits because 4 bits are enough to number all
+15 instructions. In RAM, the opcode still takes up a full byte. The top
+4 bits are just `0000`.
 
 The number for each instruction is called its opcode. Let's write a
 tiny program. We store `00000001` in address 0 of RAM. Then store
@@ -1895,16 +1962,28 @@ tell, some instructions take two bytes, and some only need one. A 2-byte
 instruction is one where the first byte alone is not enough. `LOAD A, n`
 needs to know what value to load, so the next byte in RAM is that value.
 
+#callout("Try it")[
+How many bytes do `LOAD A, 5`, `STORE A, [255]`, `HALT` physically take
+up in RAM?
+
+#strong[Answer:] 5. Two each for `LOAD` and `STORE`, and one for `HALT`.
+That's why our first program fills addresses 0 to 4.
+
+]
 One more thing: the order things are written in. For `MOV`, the
 destination comes first. `MOV B, A` copies `A` into `B`, not the other
-way around. `STORE` is the odd one out: `LOAD A` means the value is
-going into `A`, and `STORE A` means `A` is going out into memory.
+way around. It is really more like a "copy", since `A` keeps its
+value, but we just call it move. `STORE` is the odd one out: `LOAD A`
+means the value is going into `A`, and `STORE A` means `A` is going out
+into memory.
 
-Also, a number with brackets like `[5]` means whatever is stored at
-address 5, but just `5` means literally the number 5, which would be
-stored in the next byte of RAM. It's just an easier way for us humans
-to write it.
+#callout("Try it")[
+What ends up on DISPLAY after `LOAD A, 3`, `MOV B, A`, `ADD`,
+`STORE A, [255]`, `HALT`?
 
+#strong[Answer:] 6.
+
+]
 Now, about the jump instructions: `JMP`, `JE`, `JC`, and `JZ`. All of
 these instructions can set PC to the address stored in the second byte.
 
@@ -2135,11 +2214,11 @@ That is the fetch.
 Steps 1 and 2 are the fetch, and they are the same for every
 instruction. The rest of the micro-steps depend on the instruction we
 want to execute, so we use another decoder, this time a `4-16` decoder.
-Each instruction is actually 8 bits long, one byte, but the opcode only
-needs 4 bits, so only the bottom 4 bits of IR are wired into the decoder
-and the top 4 are ignored. We only have 15 instructions (0--14, Table
-11.1), so we can ignore output 15 of the decoder, and also output 0,
-since `0` is a `NOP`, which, if we remember, does nothing.
+The opcode is stored in a full byte, 8 bits, but it only needs 4 bits,
+so only the bottom 4 bits of IR are wired into the decoder and the top 4
+are ignored. We only have 15 instructions (0--14, Table~11.1), so we can
+ignore output 15 of the decoder, and also output 0, since `0` is a
+`NOP`, which, if we remember, does nothing.
 
 Let's first focus on the 2-byte instructions, the instructions that
 need to fetch a second byte. Instructions like `LOAD A, n`,
@@ -2497,8 +2576,8 @@ Modern CPUs have proper solutions to things like subtraction, negative
 numbers, division, more flags, and a lot more that smart computer
 science people just thought of. You can go learn about them yourself.
 But here is the thing: those dedicated circuits exist mostly for speed.
-Our funky little CPU can already do all of it, just slower, with tricks
-like the ones above.
+Our funky little CPU can already do a lot more than you'd think, just
+slower, with tricks like the ones above.
 
 Modern CPUs are also just bigger in general. Instead of 8 wires in a
 bus, 64. Instead of 256 bytes of RAM, billions. Instead of 2 registers
