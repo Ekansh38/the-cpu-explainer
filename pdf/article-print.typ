@@ -35,7 +35,7 @@
   },
 )
 #set text(font: "TeX Gyre Pagella", fill: rgb("#111111"), size: 10.5pt, hyphenate: auto)
-#set par(justify: true, leading: 0.68em, spacing: 0.68em, first-line-indent: (amount: 1.2em, all: false))
+#set par(justify: true, leading: 0.68em, spacing: 1.5em, first-line-indent: 0em)
 #set block(spacing: 1.1em)
 #let sec-offsets = (0, 5, 10,)
 #set heading(numbering: (..n) => {
