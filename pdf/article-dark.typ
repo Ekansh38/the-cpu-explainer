@@ -81,7 +81,7 @@
     ]
     #block[
       #set text(size: 10pt, fill: rgb("#666666"))
-      October 2026
+      November 2026
     ]
   ]
   pagebreak()
@@ -200,8 +200,10 @@ going on a journey.
 
 === Circuits & Switches
 <circuits--switches>
+#block(sticky: true)[
 First, we need the basics of how electricity and circuits work. Here is
 a simple circuit:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/basic-circuit-1.png", width: 100%),
@@ -235,7 +237,7 @@ current can flow. If we connect `+` directly to `-` with just a wire,
 there's almost no resistance in the way, so a huge amount of current
 flows. The wire and the battery heat up fast, the battery drains, and
 things can melt or even catch fire. This is called a short circuit, and
-it is really bad!
+it is bad!
 
 Even though technically electrons flow from `-` to `+`, I, and most
 resources in the real world, show current flowing from `+` to `-`. This
@@ -253,8 +255,14 @@ Reading section at the end.
 
 Either way, current can only flow when the loop is complete. A switch is
 simply a controlled break in the loop, allowing us to break and complete
-the loop whenever we want. Now we have a circuit that can do one yes/no
-thing.
+the loop whenever we want. When the switch is closed, the loop is
+complete and current flows. When it's open, the loop is broken and
+nothing flows.
+
+In the first diagram (Diagram~2.1), the circuit is answering a simple
+question. Is the switch closed? If it is, the light turns on. If it's
+not, the light turns off. This might seem silly at first, but this is
+the simplest question a circuit can answer.
 
 Let's see if we can combine more switches so the circuit can "answer"
 slightly more interesting questions. Say we want to build a simple dog
@@ -266,13 +274,17 @@ two switches. In this first version, the switches are directly inside
 the bulb circuit. The person using the circuit can open or close each
 switch to answer a yes/no question.
 
+#block(sticky: true)[
 Let's say switch 1 represents `STINKY`: whether the dog is stinky or
 not. Switch 2 represents `OLD_WASH`: has it been more than 5 days since
 the last wash? The rules for our first circuit are:
+]
 
+#block(sticky: true)[
 If `STINKY AND OLD_WASH`, the bulb is on. Or in other words, if the dog
 is stinky and its last wash was over 5 days ago, then wash the dog. Here
 is the circuit:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/switches-1-1.png", width: 100%),
@@ -291,9 +303,11 @@ circuit change:
 
 If `(MUDDY OR STINKY) AND OLD_WASH`, the bulb is on.
 
+#block(sticky: true)[
 All this says is, if the dog is muddy or stinky and it's been more than
 5 days since the dog's last wash, you should wash the dog. Let's focus
 on the `MUDDY OR STINKY` part of this circuit:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/or-gate-logical-1.png", width: 100%),
@@ -331,7 +345,9 @@ several power sources. The battery symbols show if a wire is connected
 to power.
 
 ]
+#block(sticky: true)[
 Here is how a relay works:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
   image("/pdf/.raster/dark/basic-relay-1.png", width: 100%),
@@ -404,13 +420,17 @@ active path for that frame. I think it makes the current path easier to
 follow visually, especially for beginners.
 
 ]
+#block(sticky: true)[
 This is how the ground symbol looks:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/ground-symbol.png", width: 35%)))
 
 #caption("3.3", kind: "Diagram")[The ground symbol.]
 
+#block(sticky: true)[
 Now here is the OR gate:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/electronic-or-gate-1.png", width: 100%),
@@ -422,12 +442,14 @@ Now here is the OR gate:
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1", "bytecolony.computer/writing/the-cpu/#f=electronic-or-gate:1")
 #caption("3.4", kind: "Diagram")[An electronic OR gate.]
 
+#block(sticky: true)[
 That is an OR gate using relays. Instead of two breaks one after another
 like in the AND gate, the output loop has two paths side by side, one
 through each relay's arm. If either input is on, its relay closes its
 path, and the loop is complete. If both are on, the current just has two
 paths instead of one. Now here is the full dog washer circuit up to this
 point:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 100%)[#grid(columns: 2, gutter: 8pt,
   image("/assets/frames/dog-washer-v1-1-s.png", width: 100%),
@@ -513,26 +535,32 @@ on.
 #anim-note(4, "https://www.bytecolony.computer/writing/the-cpu/#f=not-gate:1", "bytecolony.computer/writing/the-cpu/#f=not-gate:1")
 #caption("3.7", kind: "Diagram")[A NOT gate.]
 
+#block(sticky: true)[
 Now before we look at the completed circuit, let's learn some basic
 logic gate symbols. An AND gate is drawn like this:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/and-gate.png", width: 70%)))
 
 #caption("3.8", kind: "Diagram")[An AND gate.]
 
+#block(sticky: true)[
 This symbol represents the AND circuit we made previously (Diagram~3.2),
 except instead of turning a bulb on and off, it drives an output wire.
 An OR gate is drawn like this:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/or-gate.png", width: 65%)))
 
 #caption("3.9", kind: "Diagram")[An OR gate.]
 
+#block(sticky: true)[
 This symbol represents the OR circuit we made previously (Diagram~3.4).
 Whenever I use these symbols moving forward, they can almost directly
 translate to the circuits with the relays I showed you previously, just
 instead of turning on a light bulb, they drive a wire. Here are three
 more useful gate symbols:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/not-nand-nor-gates.png", width: 95%)))
 
@@ -597,9 +625,11 @@ If we want to represent numbers using wires, we are going to need more
 than one wire, because one wire can only represent up to two numbers,
 since it only has two possible states: `0` or `1`.
 
+#block(sticky: true)[
 But two wires have `2^2`, or four states, and three wires have `2^3`, or
 eight states. That would allow us to represent more numbers. Here are
 all the possible states we have with 3 wires:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 76%)[#grid(columns: 2, gutter: 10pt,
   image("/pdf/.raster/dark/3-states-1.png", width: 100%),
@@ -636,8 +666,10 @@ place is a power of 2.
 
 #caption("4.4", kind: "Diagram")[The binary system.]
 
+#block(sticky: true)[
 Binary is, at the end of the day, the same place-value idea as decimal,
 just with two digits instead of ten. A few examples:
+]
 
 - `101` means 5
 - `1101` means 13
@@ -699,9 +731,11 @@ So the sum bit for that column is `0`, and the carry is `1`. `1 + 1 + 1`
 in the second column gives `11`, which is binary for 3. So the sum bit
 is `1`, and the carry is `1`, and so on.
 
+#block(sticky: true)[
 How do we build a circuit using logic gates that performs this standard
 addition algorithm? Well, let's start with the rightmost column. If we
 think about it, all the possible states are:
+]
 
 #figure(
   align(center)[#table(
@@ -724,8 +758,10 @@ combinations, we have added the first column.
 This is called a half adder. A half adder adds two bits, but it does not
 handle a carry-in value. That is the job of a full adder.
 
+#block(sticky: true)[
 Let's first build this half adder. Let's start by computing the sum,
 not the carry-out. This is what we want our circuit to do:
+]
 
 #figure(
   align(center)[#table(
@@ -741,9 +777,11 @@ not the carry-out. This is what we want our circuit to do:
   , kind: table
   )
 
+#block(sticky: true)[
 The sum is `1` only when exactly one input is `1`, not both. This is
 called XOR, short for exclusive OR. If we combine an OR gate and a NAND
 gate, and AND them together, we get XOR:
+]
 
 #align(center, image("/pdf/.raster/dark/half-adder-sum-1.png", width: 63%))
 
@@ -755,18 +793,22 @@ gate, and AND them together, we get XOR:
 
 #caption("5.3", kind: "Diagram")[Half adder sum / XOR.]
 
+#block(sticky: true)[
 OR checks that at least one input is on, and NAND makes sure the inputs
 aren't both on. Let's package that circuit into a gate called XOR.
 Here is how an XOR gate looks:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/xor-gate.png", width: 65%)))
 
 #caption("5.4", kind: "Diagram")[An XOR gate.]
 
+#block(sticky: true)[
 Now let's do the carry value. The carry is simple! If you remember, for
 our half adder, the only time we want to carry is when we are doing
 `1 + 1`, so we use an AND gate to check if both inputs are on. Here is
 our half adder:
+]
 
 #block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/half-adder-1.png", width: 100%),
@@ -786,16 +828,20 @@ What are the sum and carry for `1 + 1`?
 #strong[Answer:] Sum `0`, carry `1`.
 
 ]
+#block(sticky: true)[
 Now let's package up our half adder into a little box. From now on, I
 will call these packaged-up circuits "chips":
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/half-adder-box.png", width: 70%)))
 
 #caption("5.6", kind: "Diagram")[A half adder chip.]
 
+#block(sticky: true)[
 Now that we have a half adder, we can add the rightmost column. That
 works because the rightmost column has no carry-in from a previous
 column. It only needs to add two bits. So if we have a number like this:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/carry-in-issue.png", width: 66%)))
 
@@ -807,10 +853,12 @@ bit of `0` and a carry-out of `1`.
 But now the next column has three things to add: `1 + 1 + 1`. The two
 original bits, plus the carry from the previous column.
 
+#block(sticky: true)[
 A half adder cannot do that. It only accepts two inputs. To continue
 adding up the other columns, we need a circuit that can take in three
 inputs: `A`, `B`, and `carry-in`. To add three bits, we use two half
 adders and an OR gate:
+]
 
 #pad(x: -10mm, image("/pdf/.raster/dark/full-adder-1.png", width: 100%))
 
@@ -838,7 +886,9 @@ never output carries at the same time. Take a moment to think about this
 if you are confused. So we can confidently OR the two carry outputs
 together. If either one is `1`, the full adder's carry-out is `1`.
 
+#block(sticky: true)[
 Let's again package this up into a chip:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/full-adder-box.png", width: 70%)))
 
@@ -864,15 +914,19 @@ values can add up to a number too big to fit in eight bits. It's like
 how adding two 2-digit numbers could result in a three-digit number for
 us. Like 50 + 50 = 100.
 
+#block(sticky: true)[
 Let's package this up into a chip once again:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/8-bit-adder-box.png", width: 100%)))
 
 #caption("5.11", kind: "Diagram")[An 8-bit adder chip.]
 
+#block(sticky: true)[
 Now we have the carry-out and carry-in as separate inputs and outputs
 and the whole adder nicely organized into this chip. Let's have a look
 at some example problems:
+]
 
 #align(center, image("/pdf/.raster/dark/8-bit-adder-example-1.png", width: 76%))
 
@@ -923,9 +977,11 @@ back in, add `00000001` again, get `00000010`. Then `00000011`, then
 That seems correct at first glance. But there is a big problem. An adder
 just looks at its current inputs and computes an output.
 
+#block(sticky: true)[
 So if we wire the output straight back into the input, there is no
 stable value anymore. The adder is basically being asked to make a
 number equal to itself plus one:
+]
 
 ```text
 input = input + 1
@@ -944,7 +1000,9 @@ update it only when we tell it to. That is the next problem: memory.
 
 == Part 2: Machinery
 <part-2-machinery>
+#block(sticky: true)[
 Before we start, here is what we have so far:
+]
 
 - A switch can complete or break a loop.
 - Combinations of relays can make logic gates (AND, OR, NOT, and
@@ -979,7 +1037,9 @@ whatever we last did to it! The output loops back into the circuit, so
 the current state keeps reinforcing itself. This is the basic concept
 behind memory.
 
+#block(sticky: true)[
 This diagram should help this make sense:
+]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/sr-latch-1.png", width: 100%),
@@ -1097,19 +1157,25 @@ second latch is locked. But if `D` changes while enable is on, we are
 fine because the first latch is locked. So `Q` can only change at the
 exact moment `E` turns on. That is our rising edge!
 
+#block(sticky: true)[
 Here is one storage cell, which is just the flip-flop we showed above:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/flip-flop-storage-cell.png", width: 70%)))
 
 #caption("6.6", kind: "Diagram")[A one-bit storage cell.]
 
+#block(sticky: true)[
 If we connect 8 of them side by side, we get one byte of storage:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/8-storage-cells.png", width: 100%)))
 
 #caption("6.7", kind: "Diagram")[Eight storage cells.]
 
+#block(sticky: true)[
 And we can put all that into a chip called an 8-bit register:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/8-bit-register.png", width: 91%)))
 
@@ -1136,7 +1202,9 @@ step button. What we have is a circuit that automatically goes on, off,
 on, off billions of times per second. This is called a clock. Each
 rising edge of the clock acts like one press of `STEP`.
 
+#block(sticky: true)[
 Here is the basic concept of a clock:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/clock-signal.png", width: 70%)))
 
@@ -1218,9 +1286,11 @@ If `E` is on, the output will just be whatever `D` is, so either `0` or
 driving the bus to `+` or `-`, so another component can safely drive the
 bus without a clash or short-circuit.
 
+#block(sticky: true)[
 Or in other words, this buffer is not touching the wire. `0` is very
 different: the component is actively driving the wire to `-`. So we have
 three states:
+]
 
 ```
 1: driven high
@@ -1261,9 +1331,11 @@ controlled by `E`.
 When `E` is `1`, both gaps close. The output is now connected to
 whichever side `D` picked, so it is driven to `1` or `0`.
 
+#block(sticky: true)[
 When `E` is `0`, both relays touch a point connected to nothing. Both
 wires lead to a dead end. The output wire is touching nothing. That is
 `Z`. Here is the full table:
+]
 
 #figure(
   align(center)[#table(
@@ -1279,7 +1351,9 @@ wires lead to a dead end. The output wire is touching nothing. That is
   , kind: table
   )
 
+#block(sticky: true)[
 This is the logic gate symbol for a tri-state buffer:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/tri-state-buffer.png", width: 60%)))
 
@@ -1385,18 +1459,22 @@ So we are going to build a minuscule 16-byte RAM: 16 addresses, with
 each address storing one byte. This design can be scaled up easily. Our
 address will be 4 bits long, because `2^4` is 16.
 
+#block(sticky: true)[
 We could do this as a tall stack of 16 registers, but a grid is nicer.
 So we will split the 4-bit address in half. The bottom two bits pick the
 row, and the top two bits pick the column:
+]
 
 ```text
 top 2 bits = column
 bottom 2 bits = row
 ```
 
+#block(sticky: true)[
 Two bits can choose 4 values, so this gives us a 4×4 grid of memory
 slots. That is 16 total bytes! Once the address selects a slot, two
 things can happen:
+]
 
 - If `WRITE` turns on, the selected slot stores `data in`.
 - If `OUT` is on, the selected slot drives its stored byte onto
@@ -1427,7 +1505,9 @@ logic gates to ask these simple questions.
 - If `10` → turn on output 2
 - If `11` → turn on output 3
 
+#block(sticky: true)[
 Here is how it works if you care:
+]
 
 #block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/2-4-decoder-gates-1.png", width: 100%),
@@ -1479,7 +1559,9 @@ them. If the slot's row and column are selected, it can either read
 from `data in` when `WRITE` turns on, or drive `data out` when `OUT` is
 on.
 
+#block(sticky: true)[
 Let's look at one cell more closely:
+]
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/zoomed-in-ram.png", width: 100%)))
 
@@ -1583,8 +1665,10 @@ output a result, along with some other information.
 
 #caption("9.1", kind: "Diagram")[The ALU chip.]
 
+#block(sticky: true)[
 For this CPU, I am keeping the ALU simple. It will have two
 operation-select bits, which gives us four possible operations:
+]
 
 #figure(
   align(center)[#table(
@@ -1600,8 +1684,10 @@ operation-select bits, which gives us four possible operations:
   , kind: table
   )
 
+#block(sticky: true)[
 The ALU will also output a few flags, which, if you remember, are just
 extra yes/no facts about the result or the inputs:
+]
 
 #figure(
   align(center)[#table(
@@ -1857,7 +1943,9 @@ instructions work. What does an instruction even look like?
 
 == Part 3: Execution
 <part-3-execution>
+#block(sticky: true)[
 Before we continue, here is what we have covered in Part 2:
+]
 
 - A flip-flop stores a bit, and 8 of them make a register.
 - A bus lets registers share wires, and tri-state buffers make sure only
@@ -1874,7 +1962,9 @@ instructions telling the CPU to do simple things like add these two
 numbers, move this value here, etc. All programs are just a list of
 instructions stored in RAM, each instruction coded as a number.
 
+#block(sticky: true)[
 So here is what number each instruction in our CPU translates to:
+]
 
 #figure(
   align(center)[#table(
@@ -1915,11 +2005,13 @@ binary column only shows 4 bits because 4 bits are enough to number all
 15 instructions. In RAM, the opcode still takes up a full byte. The top
 4 bits are just `0000`.
 
+#block(sticky: true)[
 The number for each instruction is called its opcode. Let's write a
 tiny program. We store `00000001` in address 0 of RAM. Then store
 `00000101` in address 1 of RAM. Then store `00000011` in address 2, then
 `11111111` in address 3, and finally `00001110` in address 4. Our RAM
 looks like this:
+]
 
 ```
 0: 00000001
@@ -1997,7 +2089,9 @@ address. If not, the program just carries on to the next instruction.
 This is the core element used in creating programs that can branch (if
 else statements) and loop.
 
+#block(sticky: true)[
 For example:
+]
 
 ```
 0: LOAD A, 1
@@ -2051,10 +2145,12 @@ probably watch the light walk across the display with our own eyes. If
 we want to slow it down some, we can pad the program with some #box[`NOP`s]
 that waste clock cycles.
 
+#block(sticky: true)[
 Real computers are insanely fast and usually have specialized timer
 hardware and such, but sometimes run "do-nothing loops" that just
 waste clock cycles for a set time. Here is an example of a simple
 do-nothing delay loop:
+]
 
 ```
 0: LOAD A, 1
@@ -2139,8 +2235,10 @@ briefly flickers through the wrong output, so `OUT` can drop at the
 exact moment `WRITE` fires. And every move would now cost two steps
 instead of one. It's not a good way to do it.
 
+#block(sticky: true)[
 The best approach to this is just taking our clock signal and flipping
 it:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/timing-diagram.png", width: 100%)))
 
@@ -2177,7 +2275,9 @@ increment PC so it points at the next byte in RAM. Sometimes this next
 byte is a new instruction and sometimes it's the second part of a
 2-byte instruction.
 
+#block(sticky: true)[
 So to accomplish this, we only need 2 simple micro-steps:
+]
 
 + `PC_OUT`, `MAR_WRITE`
 + `RAM_OUT`, `IR_WRITE`, `PC_INC`
@@ -2188,12 +2288,14 @@ bus and doesn't disrupt anything else going on, so we just can! And
 notice, these 2 micro-steps are exactly the same for every single
 instruction.
 
+#block(sticky: true)[
 One thing I am not drawing in the following diagrams: every `WRITE`
 signal is ANDed with `NOT CLOCK`, like we just discussed. The same goes
 for PC's `I` signal: incrementing stores a value too. It just comes
 from PC's own little adder instead of the bus, so it waits for
 `NOT CLOCK` like every other store. Drawing that same little AND gate
 nine times would clutter everything up, so instead:
+]
 
 #callout("Note")[
 Every pin colored pink has that AND gate secretly. A pink pin only
@@ -2227,8 +2329,10 @@ need to fetch a second byte. Instructions like `LOAD A, n`,
 `LOAD A, [addr]`, `STORE A, [addr]`, `JMP addr`, `JE addr`, `JC addr`,
 `JZ addr`.
 
+#block(sticky: true)[
 Because all of these instructions need to fetch another byte, the third
 micro-step is always the same:
+]
 
 #block[
 #set enum(numbering: "1.", start: 3)
@@ -2268,8 +2372,10 @@ off, we do `PC_INC`. In simple terms: if we want to actually do that
 jump, we store the new address into PC. If we don't, we just increment
 PC and move on with our lives.
 
+#block(sticky: true)[
 Feel free to try and step through this diagram, or don't, it's a giant
 mess:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-two.png", width: 100%)))
 
@@ -2357,7 +2463,9 @@ ones still wait for `NOT CLOCK`). Next we do the `MOV` instructions.
   , kind: table
   )
 
+#block(sticky: true)[
 Quite simple:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-movs.png", width: 100%)))
 
@@ -2408,11 +2516,13 @@ of the number for each of these instructions in the instruction table
 Yep, the last 2 bits of each opcode directly match the ALU's `OP` bits
 for that specific operation. Must be a coincidence...
 
+#block(sticky: true)[
 Anyway, because of this, we can just directly wire those 2 last bits
 into the ALU's `OP` bits. We only actually store the result of the ALU
 on these instructions. Sure, a `STORE A, [addr]` instruction might make
 the ALU XOR, but it doesn't matter because we don't store the result.
 It's garbage. So here we are:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-alu.png", width: 100%)))
 
@@ -2453,7 +2563,9 @@ computer turns back on.
 panel's tri-state buffers for `MAR_WRITE`, `RAM_WRITE`, and `RAM_OUT`,
 so the panel can control those signals.
 
+#block(sticky: true)[
 Here is how the `HALT` and `TAKEOVER` wiring would look in the CU:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-halt-takeover.png", width: 100%)))
 
@@ -2466,9 +2578,11 @@ section, let's see how our computer can run a simple program.
 
 === Finally, The Fun Part
 <finally-the-fun-part>
+#block(sticky: true)[
 That's it, huh? A whole computer. To test it, let's run a simple
 program on it. Let's start with the simplest program imaginable, just
 putting a number on the DISPLAY lamps:
+]
 
 ```
 0: LOAD A, 42
@@ -2476,7 +2590,9 @@ putting a number on the DISPLAY lamps:
 4: HALT
 ```
 
+#block(sticky: true)[
 Here is our CPU executing it:
+]
 
 #block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/program-demo-1.png", width: 100%)))
 
@@ -2517,9 +2633,11 @@ a byte.
 34: HALT
 ```
 
+#block(sticky: true)[
 The running total lives in slot 102. The program adds the value in slot
 100 into slot 102, and then slot 101 counts down by one each time, until
 it hits 0. This is basically all the program is:
+]
 
 ```
 total = 0 (slot 102)
@@ -2530,7 +2648,9 @@ show total on the lamps
 halt
 ```
 
+#block(sticky: true)[
 You might notice something weird:
+]
 
 ```
 20: LOAD A, 255
@@ -2552,7 +2672,9 @@ overflow is the same as taking 1 away. For example, let's say we have
 the number 5, we add 255, we get 260, but a byte runs out after 255 and
 rolls back over to 0, so 260 wraps around to 4!
 
+#block(sticky: true)[
 One more oddity:
+]
 
 ```
 4: LOAD A, 0
@@ -2587,14 +2709,18 @@ you can program with, dozens. Instead of a few ticks per second,
 billions. But it is the same core loop, fetch, decode, execute, just
 bigger and faster.
 
+#block(sticky: true)[
 Our program could also be seen as just a bunch of numbers:
+]
 
 ```
 1 0 3 102 1 0 4 2 101 8 13 30 2 100 4 2 102 8 3 102
 1 255 4 2 101 8 3 101 6 4 2 102 3 255 14
 ```
 
+#block(sticky: true)[
 And in RAM, it is actually just this:
+]
 
 ```
 0: 00000001 12: 00000010 24: 01100101

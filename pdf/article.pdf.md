@@ -80,7 +80,7 @@ flowing.
 The filament's resistance is actually important: it limits how much current can flow. If we connect
 `+` directly to `-` with just a wire, there's almost no resistance in the way, so a huge amount of
 current flows. The wire and the battery heat up fast, the battery drains, and things can melt or even
-catch fire. This is called a short circuit, and it is really bad!
+catch fire. This is called a short circuit, and it is bad!
 
 Even though technically electrons flow from `-` to `+`, I, and most resources in the real world,
 show current flowing from `+` to `-`. This is because the direction was decided (thanks, Benjamin
@@ -94,8 +94,12 @@ interesting stuff to learn, so if you are curious, check out *Lessons in Electri
 Further Reading section at the end.
 
 Either way, current can only flow when the loop is complete. A switch is simply a controlled break
-in the loop, allowing us to break and complete the loop whenever we want. Now we have a circuit that
-can do one yes/no thing.
+in the loop, allowing us to break and complete the loop whenever we want. When the switch is closed,
+the loop is complete and current flows. When it's open, the loop is broken and nothing flows.
+
+In [the first diagram](#diagram-3-1) (Diagram 2.1), the circuit is answering a simple question. Is the
+switch closed? If it is, the light turns on. If it's not, the light turns off. This might seem silly
+at first, but this is the simplest question a circuit can answer.
 
 Let's see if we can combine more switches so the circuit can "answer" slightly more interesting
 questions. Say we want to build a simple dog washer circuit: a circuit that, based on some inputs,
