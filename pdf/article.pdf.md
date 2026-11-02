@@ -308,7 +308,7 @@ With our knowledge about logic gates, let's create the "should-I-wash-my-dog 500
 
 Again, this animation doesn't cover all possible states.
 
-Keep in mind these [electromagnetic relays](#diagram-4-1) (Diagram 3.1) we used in the examples are quite big and
+The [electromagnetic relays](#diagram-4-1) (Diagram 3.1) we used in the examples are quite big and
 slow. Relays aren't the only solution. They are simply an early solution, and an easy one to
 understand, and many real computers like the [Harvard Mark I](https://en.wikipedia.org/wiki/Harvard_Mark_I) actually used these types of relays.
 
@@ -514,7 +514,7 @@ an adder that can add two one-byte numbers: anything from 0 to 255.
 *Diagram 5.10. An 8-bit adder.*
 
 Each full adder handles one column. The carry-out from one column becomes the carry-in for the next
-column. That is it! That is all addition is!
+column. We did it, that's all addition is!
 
 Keep in mind, the carry-in for the first adder is set to ground, a.k.a. 0. In the chip version below I bring that first carry-in out as a `CI` pin instead, so the chip can be chained too. For now we just feed it 0. Also, notice how we have 9 outputs, not 8. That is because two 8-bit values can add up to a number
 too big to fit in eight bits. It's like how adding two 2-digit numbers could result in a three-digit
@@ -755,7 +755,6 @@ circuits. But we do not need to build the clock itself here. For now, we can tre
 that repeatedly produces the same on-off signal.
 
 Just imagine the new accumulator with a clock signal instead of a `STEP` button.
-I am too lazy to draw it for you.
 
 We now have some storage. A register that can hold a byte, and update exactly when we want. But registers on their own are not enough. We need to be able to move numbers between registers, the
 adders, and the main memory, which we will build later.
@@ -780,9 +779,9 @@ the wires are all off, and the number 2 would mean the wires are `00000010`, whi
 *Diagram 7.1. Two registers sharing a bus.*
 
 But we have an issue: this diagram is technically not possible yet. Say register A is outputting
-`00000000` and register B is outputting `00000001`, both onto the same 8 wires. Look at the last
-wire. Register A is driving it low, so that wire is connected to `-`. Register B is driving the same wire high, so
-it is also connected to `+`. What happens?
+`00000000` and register B is outputting `00000001`, both onto the same 8 wires. Notice what would
+happen to the last wire. Register A is driving it low, so that wire is connected to `-`. Register B
+is driving the same wire high, so it is also connected to `+`. What happens?
 
 Yep. A short-circuit.
 
@@ -820,7 +819,7 @@ This relay diagram of how a tri-state buffer works should make this concept crys
 
 > [!NOTE]
 > I have drawn everything the output wire is currently touching in yellow. Yellow is just there
-> so you can follow the path with your eyes; it doesn't mean anything.
+> so you can follow the path; it doesn't mean anything.
 
 <a id="diagram-8-2"></a> <img pdf-frames="all" src="./assets/final/tri-state-buffer-internals.gif" alt="A tri-state buffer built with relays">
 
@@ -1146,7 +1145,7 @@ we can check if they are all true. If even one pair of bits differs, that wire e
 the flip, and the AND outputs `0`. Simple.
 
 The `CARRY` flag is simple: we just connect the adder's carry-out, `CO`, directly to the flag
-output. Of course, it only means anything when we are actually adding. That's it, the ALU is
+output. Of course, it only means anything when we are actually adding. The ALU is
 complete. We can now piece together this whole CPU.
 
 > [!TRY-OUT]
