@@ -1,6 +1,8 @@
 # The CPU: A Very Tall Pile of Simple
 
-<img src="./assets/final/big-picture-cpu.svg" alt="The whole CPU">
+<p align="center">
+  <img src="./assets/final/big-picture-cpu.svg" alt="The whole CPU" width="640">
+</p>
 
 This guide starts with a switch and a light bulb, and builds up part by part towards a working simple 8-bit CPU.
 
@@ -14,9 +16,11 @@ Relays, logic gates, adders, memory, a bus, an ALU, a control unit, and finally 
 
 ## A few of the diagrams
 
-<img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay">
-<img src="./assets/final/dog-washer-v2.gif" alt="The dog washer circuit built from logic gates">
-<img src="./assets/final/common-data-bus-demo.gif" alt="Copying register A into register B through the shared bus">
+<p align="center">
+  <img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay" width="290">
+  <img src="./assets/final/dog-washer-v2.gif" alt="The dog washer circuit built from logic gates" width="290">
+  <img src="./assets/final/zoomed-out-ram.svg" alt="The 16-byte RAM" width="290">
+</p>
 
 ## What's inside
 
