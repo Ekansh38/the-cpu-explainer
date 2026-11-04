@@ -5,3 +5,11 @@ scripts/
 pdf/.raster/
 pdf/print-test-a4.pdf
 pdf/cover-test-a4.pdf
+
+# cover drafts, author photos and planning notes (not part of the book)
+about-the-author-photos/
+plan/
+cover*.pdf
+cover*.jpg
+backcover*.pdf
+backk*.pdf
