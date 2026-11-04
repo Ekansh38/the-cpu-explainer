@@ -17,10 +17,19 @@ Relays, logic gates, adders, memory, a bus, an ALU, a control unit, and finally 
 ## A few of the diagrams
 
 <p align="center">
-  <img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay" width="290">
-  <img src="./assets/final/dog-washer-v2.gif" alt="The dog washer circuit built from logic gates" width="290">
-  <img src="./assets/final/zoomed-out-ram.svg" alt="The 16-byte RAM" width="290">
+  <img src="./assets/final/basic-relay.gif" alt="An electromagnetic relay" width="560">
 </p>
+<p align="center"><em>An electromagnetic relay</em></p>
+<br>
+<p align="center">
+  <img src="./assets/final/dog-washer-v2.gif" alt="The dog washer circuit built from logic gates" width="560">
+</p>
+<p align="center"><em>The dog washer circuit, built from logic gates</em></p>
+<br>
+<p align="center">
+  <img src="./assets/final/sr-latch.gif" alt="An SR latch storing one bit" width="480">
+</p>
+<p align="center"><em>An SR latch, the simplest circuit that remembers a bit</em></p>
 
 ## What's inside
 
