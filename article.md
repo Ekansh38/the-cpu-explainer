@@ -56,7 +56,7 @@ CPU with decades of optimization, but it has the same core functionality. So if 
 
 ### Circuits & Switches
 
-First, we need the basics of how electricity and circuits work. Here is a simple circuit:
+First, we need to know the basics of how electricity and circuits work. Here is a simple circuit:
 
 <a id="diagram-3-1"></a> <img src="./assets/final/basic-circuit.gif" alt="A basic circuit with a battery, switch, and bulb">
 

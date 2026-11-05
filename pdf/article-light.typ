@@ -201,8 +201,8 @@ going on a journey.
 === Circuits & Switches
 <circuits--switches>
 #block(sticky: true)[
-First, we need the basics of how electricity and circuits work. Here is
-a simple circuit:
+First, we need to know the basics of how electricity and circuits work.
+Here is a simple circuit:
 ]
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
