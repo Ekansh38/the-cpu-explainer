@@ -88,6 +88,7 @@
   inset: 10pt,
   radius: 2pt,
   width: 100%,
+  breakable: false,
 )
 
 #show heading.where(level: 1): it => {
@@ -2724,10 +2725,10 @@ on the DISPLAY bulbs:
 ```
 
 #block(sticky: true)[
-Here is our CPU executing it:
+Here is our CPU after it has finished executing it:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/light-final/program-demo-13.png", width: 100%)))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1", kind: "Diagram")[The CPU running a simple program.]
@@ -2889,7 +2890,18 @@ write, where the value is a code for the last key pressed.
 Real computers are a lot fancier about it. They have dedicated I/O
 buses, whole controller chips that talk to the devices so the CPU
 doesn't have to, and devices that can even write into RAM directly on
-their own.
+their own. They also have storage, like a disk or SSD, which lets
+information persist even when the power goes off.
+
+Then there is the operating system. It is the first program that runs
+when you turn your computer on, and it does a lot. It loads programs
+from storage into RAM and runs them. It switches between programs so
+fast that it creates the illusion of many things happening at once. It
+handles the keyboard, the screen, and the disk. It makes the
+programmer's life much easier. This is of course the very basics.
+Operating systems do a lot of interesting and complex things, so if you
+are curious, check out #emph[Operating Systems: Three Easy Pieces] in
+the Further Reading section.
 
 So to recap, a program is just a list of numbers sitting in RAM. The
 control unit fetches those numbers one at a time, decodes them, and

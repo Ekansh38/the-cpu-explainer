@@ -1838,7 +1838,7 @@ Let's start with the simplest program imaginable, just putting a number on the D
 
 Here is our CPU executing it:
 
-<a id="diagram-15-1"></a> <img pdf-frames="all" class="big" src="./assets/final/program-demo.gif" alt="The CPU running a simple program">
+<a id="diagram-15-1"></a> <img pdf-frames="link-last" class="big" src="./assets/final/program-demo.gif" alt="The CPU running a simple program">
 
 *Diagram 14.1. The CPU running a simple program.*
 
@@ -1979,7 +1979,15 @@ last key pressed.
 
 Real computers are a lot fancier about it. They have dedicated I/O buses, whole controller chips
 that talk to the devices so the CPU doesn't have to, and devices that can even write into RAM
-directly on their own.
+directly on their own. They also have storage, like a disk or SSD, which lets information persist
+even when the power goes off.
+
+Then there is the operating system. It is the first program that runs when you turn your computer
+on, and it does a lot. It loads programs from storage into RAM and runs them. It switches between
+programs so fast that it creates the illusion of many things happening at once. It handles the
+keyboard, the screen, and the disk. It makes the programmer's life much easier. This is of course
+the very basics. Operating systems do a lot of interesting and complex things, so if you are
+curious, check out *Operating Systems: Three Easy Pieces* in the Further Reading section.
 
 So to recap, a program is just a list of numbers sitting in RAM. The control unit fetches those
 numbers one at a time, decodes them, and executes each one as a few micro-steps, flipping control
