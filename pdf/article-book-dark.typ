@@ -1,19 +1,41 @@
 #set document(title: "The CPU: A very tall pile of simple")
+#let hf-off = state("hf-off", true)
+#let pstyle = state("pstyle", "i")
+#let bm = state("bm", false)
 #set page(
-  paper: "a4",
+  width: 6in,
+  height: 9in,
   fill: rgb("#111111"),
-  margin: (x: 24mm, y: 22mm),
-  numbering: "1",
-  number-align: center,
+  margin: (inside: 20mm, outside: 15mm, y: 20mm),
   header: context {
-    if counter(page).get().first() > 2 [
-      #set text(size: 9pt, fill: rgb("#666666"), style: "italic")
-      #align(right)[The CPU: A very tall pile of simple]
-    ]
+    if hf-off.get() { return }
+    if pstyle.get() != "1" { return }
+    set text(size: 9pt, fill: rgb("#666666"), style: "italic")
+    let p = counter(page).get().first()
+    if calc.even(p) {
+      align(left)[The CPU: A very tall pile of simple]
+    } else {
+      let pg = here().page()
+      let secs = query(heading.where(level: 3).or(heading.where(level: 2)))
+        .filter(h => h.location().page() <= pg)
+        .filter(h => not repr(h.body).contains("Part "))
+      if secs.len() > 0 { align(right)[#secs.last().body] }
+    }
+  },
+  footer: context {
+    let pg = here().page()
+    if query(<fsup>).any(m => m.location().page() == pg) { return }
+    let pends = query(<pend>).map(m => m.location().page())
+    let popens = query(<popen>).map(m => m.location().page())
+    for i in range(calc.min(pends.len(), popens.len())) {
+      if popens.at(i) - pends.at(i) == 2 and pends.at(i) + 1 == pg { return }
+    }
+    let p = counter(page).get().first()
+    align(center, text(size: 10pt, numbering(pstyle.get(), p)))
   },
 )
-#set text(font: "TeX Gyre Pagella", fill: rgb("#e6e6e6"), size: 11.5pt, hyphenate: auto)
-#set par(justify: true, leading: 0.7em, spacing: 1.1em)
+#set text(font: "TeX Gyre Pagella", fill: rgb("#e6e6e6"), size: 10.5pt, hyphenate: auto)
+#set par(justify: true, leading: 0.68em, spacing: 1.5em, first-line-indent: 0em)
 #set block(spacing: 1.1em)
 #let sec-offsets = (0, 5, 10,)
 #set heading(numbering: (..n) => {
@@ -25,17 +47,17 @@
     numbering("1.1.", sec, ..nums.slice(3))
   }
 })
-#show link: it => text(fill: rgb("#8ab4d8"))[#it]
+#show link: it => it
 
 #let caption(num, body, kind: "Diagram") = block(above: 1.0em, below: 1.8em)[
-  #set text(size: 9.5pt, fill: rgb("#8a8a8a"))
+  #set text(size: 9pt, fill: rgb("#8a8a8a"))
   #text(weight: "bold")[#kind #num.] #body
 ]
 
 #show figure.where(kind: table): set block(above: 1.5em, below: 1.0em)
 
 #let anim-note(count, url, label) = block(above: 0.8em, below: 1.4em, sticky: true)[
-  #set text(size: 9.5pt, fill: rgb("#8a8a8a"), hyphenate: false)
+  #set text(size: 9pt, fill: rgb("#8a8a8a"), hyphenate: false)
   #set par(justify: false)
   #let _ = count
   The full animation is at #box(link(url)[#label]).
@@ -70,24 +92,47 @@
 )
 
 #show heading.where(level: 1): it => {
-  v(6em)
+  [#metadata(none) <fsup>]
+  v(2fr)
   align(center)[
-    #block(below: 1.2em)[
-      #set text(size: 32pt, weight: "bold")
-      #it.body
-    ]
-    #block(below: 0.5em)[
-      #set text(size: 14pt, style: "italic", weight: "regular")
-      Ekansh Goenka
+    #block(below: 0.9em)[
+      #set text(size: 30pt, weight: "bold")
+      The CPU
     ]
     #block[
-      #set text(size: 10pt, fill: rgb("#666666"))
-      November 2026
+      #set text(size: 15pt, style: "italic", weight: "regular")
+      A very tall pile of simple
     ]
+  ]
+  v(1.2fr)
+  align(center)[
+    #set text(size: 13pt, weight: "regular")
+    Ekansh Goenka
+  ]
+  v(2fr)
+  align(center)[
+    #set text(size: 9pt, weight: "regular", fill: rgb("#666666"))
+    bytecolony.computer
+  ]
+  pagebreak()
+  hf-off.update(false)
+  [#metadata(none) <fsup>]
+  v(1fr)
+  block[
+    #set text(size: 9pt, weight: "regular", fill: rgb("#666666"), hyphenate: false)
+    #set par(leading: 0.8em, first-line-indent: 0em, justify: false)
+    Copyright © 2026 Ekansh Goenka. All rights reserved. \
+    First edition, 2026. \
+    \
+    The web edition of this book, including animated versions of the
+    diagrams, is available at bytecolony.computer. \
+    \
+    Cover design by Ekansh Goenka. \
+    Typeset in TeX Gyre Pagella, with IBM Plex Mono for code.
   ]
   pagebreak()
   block(below: 1.4em)[
-    #set text(size: 20pt, weight: "bold")
+    #set text(size: 18pt, weight: "bold")
     Contents
   ]
   outline(
@@ -96,23 +141,61 @@
     depth: 4,
     target: heading.where(level: 2).or(heading.where(level: 3)),
   )
-  pagebreak()
+  [#metadata(none) <pend>]
+  pagebreak(to: "odd", weak: true)
+  [#metadata(none) <popen>]
+  [#set text(size: 10.5pt, weight: "regular")
+
+#v(4em)
+#align(center)[#text(size: 16pt, weight: "bold")[About the Author]]
+#v(2em)
+#align(center)[
+  #image("/assets/author.jpg", width: 42mm)
+]
+#v(2em)
+Ekansh Goenka (b. 2013) grew up in Singapore. He got interested in computers
+at eight, thanks to his dad's techy influence. He started out making apps and
+websites, and curiosity slowly led him down the stack. He is also interested
+in robotics, embedded systems, and computer science in general. Outside of
+computers, he likes reading, playing piano and guitar, and Brazilian
+jiu-jitsu.
+
+He wrote this book in 2026, over about six months. He drew all 71 diagrams by
+hand and designed its 8-bit CPU from scratch. He wrote it because once he
+understood how a CPU works in detail, it turned out to be simpler than most
+people think. The resources he found either skipped the juicy details, so you
+never really got it, or were so long and intimidating that most people never
+started. The web version of this book is free at bytecolony.computer, his
+personal website, with the animated diagrams.
+]
+  hf-off.update(true)
+  [#metadata(none) <pend>]
+  pagebreak(to: "odd", weak: true)
+  [#metadata(none) <popen>]
+  counter(page).update(1)
+  pstyle.update("1")
 }
 
 #show heading.where(level: 2): it => {
-  pagebreak(weak: true)
+  hf-off.update(true)
+  [#metadata(none) <pend>]
+  context {
+    if bm.get() { pagebreak(weak: true) } else { pagebreak(to: "odd", weak: true) }
+  }
+  [#metadata(none) <popen>]
   v(5em)
   align(center)[
     #block[
-      #set text(size: 32pt, weight: "bold")
+      #set text(size: 26pt, weight: "bold")
       #it.body
     ]
   ]
   v(2em)
+  hf-off.update(false)
 }
 
 #show heading.where(level: 3): it => block(above: 2.6em, below: 1em, sticky: true)[
-  #set text(size: 18pt, weight: "bold")
+  #set text(size: 16pt, weight: "bold")
   #it
   #v(0.2em)
   #line(length: 100%, stroke: 0.5pt + rgb("#333333"))
@@ -157,7 +240,7 @@ How does that become a program sitting in RAM, one instruction after
 another, telling a machine what to do?
 
 Some resources stay extremely high-level, so you never really understand
-how a CPU actually works. The deeper resources are amazing, but they are
+how a #metadata(none)<gl-cpu>CPU actually works. The deeper resources are amazing, but they are
 long, dense, and intimidating. And frankly, for someone who doesn't
 want that level of detail, a lot of it can often feel like too much.
 
@@ -171,7 +254,7 @@ underneath them.
 The key point is that nothing here is smart in isolation. A CPU is not
 one hard idea. It is a very tall pile of simple ones.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/big-picture-cpu.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/big-picture-cpu.png", width: 100%)))
 
 #caption("0.1", kind: "Diagram")[The whole computer.]
 
@@ -320,7 +403,7 @@ Let's focus on the `MUDDY OR STINKY` part of this circuit:
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
 #caption("2.3", kind: "Diagram")[The hand-switch version of OR.]
 
-This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
+#metadata(none)<gl-or>This is a logical OR: at least one of `MUDDY` or `STINKY` needs to be on
 for the bulb to turn on. Both of them could also be on, and that is
 fine.
 
@@ -335,7 +418,7 @@ flip a switch?
 
 === Relays & Logic Gates
 <relays--logic-gates>
-Electromagnetic relays, that's how. Or at least, that is one early
+#metadata(none)<gl-relay>Electromagnetic relays, that's how. Or at least, that is one early
 solution to this problem. We will talk about other solutions a little
 more later on. This probably sounds quite complicated, but it is just a
 magnet powered by electricity.
@@ -376,11 +459,11 @@ As you can also tell by the diagram, there is a slight delay between the
 coil turning on and the metal arm moving. Relays are mechanical, so they
 do not switch instantly.
 
-Now let's see how we can build an actual electrical AND gate that takes
+Now let's see how we can build an actual #metadata(none)<gl-and>electrical AND gate that takes
 two input wires. For now, the output is still a bulb, but we will fix
 that soon.
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/assets/frames/electronic-and-gate-1.png", width: 100%),
   image("/assets/frames/electronic-and-gate-3.png", width: 100%),
   image("/assets/frames/electronic-and-gate-6.png", width: 100%),
@@ -402,10 +485,10 @@ there is a voltage across the coil, so current flows through it and the
 relay pulls. If it is driven low, both ends of the coil are connected to
 `-`. There is no difference in potential between them, so the voltage is
 0, no current flows, and the relay lets go. Using these relays chained
-in clever ways, you can create every fundamental logic gate, such as the
+in clever ways, you can create every #metadata(none)<gl-gate>fundamental logic gate, such as the
 OR gate.
 
-But before the next diagram, I am going to use one more new symbol:
+But before the next diagram, I am going to use one more new #metadata(none)<gl-ground>symbol:
 ground. For our purposes here, the ground symbol will simply refer to
 the common return point of the circuit, usually connected to the
 negative side of the battery.
@@ -481,7 +564,7 @@ wire, not a bulb. We also want that wire to always be in one of exactly
 two states: connected to `+`, or connected to `-`. Never disconnected
 (unless we are using a specific gate that we will cover later).
 
-A `1` output is a wire being driven high. A `0` output is not
+A `1` output is a wire #metadata(none)<gl-driven>being driven high. A `0` output is not
 "nothing"; it is a wire being driven low. Remember this information;
 it will come in handy later on.
 
@@ -496,7 +579,7 @@ in the "after" frames below, even when the relay is not pulling the
 arm, even when the output is `0`, it is still touching the negative end
 of that battery, so it is being driven to `-`.
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/before-after-1.png", width: 100%),
   image("/pdf/.raster/dark/before-after-2.png", width: 100%),
   image("/pdf/.raster/dark/before-after-3.png", width: 100%),
@@ -527,11 +610,11 @@ plain English: if the dog is muddy or stinky and it's been more than 5
 days since the dog's last wash and it's not going to rain soon, then
 wash the dog.
 
-Let's focus on this NOT for a second. NOT just flips its input: if the
+Let's focus on this NOT for a second. #metadata(none)<gl-not>NOT just flips its input: if the
 input is on, the output is off, and if the input is off, the output is
 on.
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/not-gate-1.png", width: 100%),
   image("/pdf/.raster/dark/not-gate-3.png", width: 100%)
 )))
@@ -544,7 +627,7 @@ Now before we look at the completed circuit, let's learn some basic
 logic gate symbols. An AND gate is drawn like this:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/and-gate.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/and-gate.png", width: 60%)))
 
 #caption("3.8", kind: "Diagram")[An AND gate.]
 
@@ -555,7 +638,7 @@ except instead of turning a bulb on and off, it drives an output wire.
 An OR gate is drawn like this:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/or-gate.png", width: 65%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/or-gate.png", width: 55%)))
 
 #caption("3.9", kind: "Diagram")[An OR gate.]
 
@@ -572,7 +655,7 @@ Here are three more useful gate symbols:
 
 #caption("3.10", kind: "Diagram")[NOT, NAND, NOR gates.]
 
-NAND is AND with the output flipped. NOR is OR with the output flipped.
+#metadata(none)<gl-nandnor>NAND is AND with the output flipped. NOR is OR with the output flipped.
 That little circle at the end of a gate means "flip the output."
 
 #callout("Try it")[
@@ -584,7 +667,7 @@ A NAND gate gets `1` and `1`. What does it output?
 With our knowledge about logic gates, let's create the
 "should-I-wash-my-dog 5000" machine.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/dog-washer-v2-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/dog-washer-v2-1.png", width: 100%)))
 
 #anim-note(8, "https://www.bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1", "bytecolony.computer/writing/the-cpu/#f=dog-washer-v2:1")
 #caption("3.11", kind: "Diagram")[The final dog washer circuit.]
@@ -620,7 +703,7 @@ is about.
 === Counting With Wires
 <counting-with-wires>
 First, let's define some terms. A wire driven low is `0`, and a wire
-driven high is `1`. Let's call one wire one bit. A bit can either be
+driven high is `1`. Let's #metadata(none)<gl-bit>call one wire one bit. A bit can either be
 `0` or `1`. These are labels that represent the state of a wire.
 
 #block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/0-s-and-1-s.png", width: 35%)))
@@ -652,7 +735,7 @@ Here are all the possible states we have with 3 wires:
 #caption("4.2", kind: "Diagram")[States with 3 wires.]
 
 We can represent 8 numbers just like this. Keep going to 8 wires and
-there are `2^8`, or 256, possible patterns. A group of 8 bits is called
+there are `2^8`, or 256, possible patterns. A group of 8 bits is #metadata(none)<gl-byte>called
 a byte. If we use those patterns to represent non-negative numbers, one
 byte can represent 0 through 255.
 
@@ -660,16 +743,16 @@ But why does `010` mean 2? Why does `101` mean 5? Is it just randomly
 assigned? Not exactly. To understand this, let's take a quick detour to
 decimal, a.k.a. base ten.
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/decimal.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/decimal.png", width: 85%)))
 
 #caption("4.3", kind: "Diagram")[The decimal system.]
 
 In our decimal counting system, each place-value is a power of 10. That
 is because we have ten digits: 0--9. This exact same place-value logic
-can apply to the binary system too. We have two digits, 0 and 1, so each
+can apply to #metadata(none)<gl-binary>the binary system too. We have two digits, 0 and 1, so each
 place is a power of 2.
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/binary.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/binary.png", width: 85%)))
 
 #caption("4.4", kind: "Diagram")[The binary system.]
 
@@ -686,7 +769,7 @@ just with two digits instead of ten. A few examples:
 You don't need to do these problems in your head, but I hope the idea
 of how binary works makes sense. Let's walk through `1101` together.
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/binary-example.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/binary-example.png", width: 85%)))
 
 #caption("4.5", kind: "Diagram")[An example in binary.]
 
@@ -763,8 +846,8 @@ So just `0 + 0`, `1 + 0`, `1 + 1`, or `0 + 1`. If we can make a tiny
 circuit that takes two inputs, and produces two outputs that match these
 combinations, we have added the first column.
 
-This is called a half adder. A half adder adds two bits, but it does not
-handle a carry-in value. That is the job of a full adder.
+This is #metadata(none)<gl-halfadder>called a half adder. A half adder adds two bits, but it does not
+handle a carry-in value. That is the #metadata(none)<gl-fulladder>job of a full adder.
 
 #block(sticky: true)[
 Let's first build this half adder. Let's start by computing the sum,
@@ -786,7 +869,7 @@ not the carry-out. This is what we want our circuit to do:
   )
 
 The sum is `1` only when exactly one input is `1`, not both. This is
-called XOR, short for exclusive OR.
+#metadata(none)<gl-xor>called XOR, short for exclusive OR.
 
 #block(sticky: true)[
 If we combine an OR gate and a NAND gate, and AND them together, we get
@@ -810,7 +893,7 @@ aren't both on. Let's package that circuit into a gate called XOR.
 Here is how an XOR gate looks:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/xor-gate.png", width: 65%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/xor-gate.png", width: 55%)))
 
 #caption("5.4", kind: "Diagram")[An XOR gate.]
 
@@ -822,7 +905,7 @@ our half adder, the only time we want to carry is when we are doing
 Here is our half adder:
 ]
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/half-adder-1.png", width: 100%),
   image("/pdf/.raster/dark/half-adder-2.png", width: 100%),
   image("/pdf/.raster/dark/half-adder-3.png", width: 100%),
@@ -845,7 +928,7 @@ Now let's package up our half adder into a little box. From now on, I
 will call these packaged-up circuits "chips":
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/half-adder-box.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/half-adder-box.png", width: 60%)))
 
 #caption("5.6", kind: "Diagram")[A half adder chip.]
 
@@ -857,7 +940,7 @@ column. It only needs to add two bits.
 So if we have a problem like this:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/carry-in-issue.png", width: 66%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/carry-in-issue.png", width: 56%)))
 
 #caption("5.7", kind: "Diagram")[The next column has to add two bits plus a carry-in.]
 
@@ -875,21 +958,21 @@ inputs: `A`, `B`, and carry-in.
 To add three bits, we use two half adders and an OR gate:
 ]
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-1.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-1.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-2.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-2.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-3.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-3.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-4.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-4.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-5.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-5.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-6.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-6.png", width: 100%))
 
-#pad(x: -10mm, image("/pdf/.raster/dark/full-adder-7.png", width: 100%))
+#pad(x: -8mm, image("/pdf/.raster/dark/full-adder-7.png", width: 100%))
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/full-adder-8.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/full-adder-8.png", width: 100%)))
 
 #caption("5.8", kind: "Diagram")[A full adder.]
 
@@ -905,7 +988,7 @@ together. If either one is `1`, the full adder's carry-out is `1`.
 Let's again package this up into a chip:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/full-adder-box.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/full-adder-box.png", width: 60%)))
 
 #caption("5.9", kind: "Diagram")[A full adder chip.]
 
@@ -961,7 +1044,7 @@ bit on the left. If we only look at the one-byte output, the result
 looks like `00000000`, or 0. If we also look at the carry-out, we can
 see that the real answer was 256.
 
-That is called an overflow: the result was too large to fit inside one
+That is #metadata(none)<gl-overflow>called an overflow: the result was too large to fit inside one
 byte, so the extra information spilled out into the carry-out bit.
 
 #callout("Try it")[
@@ -971,7 +1054,7 @@ What does the adder output for `00000011 + 00000001`?
 
 ]
 With a bit of extra circuitry around the adder, we can also make little
-status wires, called flags. For example, if the answer is `00000000`, a
+status wires, #metadata(none)<gl-flags>called flags. For example, if the answer is `00000000`, a
 `ZERO` flag can turn on. If addition spills past one byte, a `CARRY`
 flag can turn on. So `11111111 + 00000001` gives `00000000` with
 carry-out `1`.
@@ -1034,7 +1117,7 @@ In the last section, wiring the output of a circuit back into its input
 led to chaos. But with a smarter configuration, we can use this idea to
 store a bit.
 
-The simplest circuit that stores a single bit is called an SR latch. SR
+The simplest circuit that stores a single bit is #metadata(none)<gl-sr>called an SR latch. SR
 stands for set-reset. The value `Q` is the output we really care about.
 If it is `1`, that means the latch is storing a `1`\; if it is `0`, the
 latch is storing a `0`.
@@ -1099,7 +1182,7 @@ When the enable wire turns on, `Data` gets stored in `Q`. Or in other
 words, when we turn the enable wire on, `Q` mirrors `D`. Then when we
 turn `E` off, `Q` stays stable with whatever `D` was last.
 
-This type of latch is called a D latch, D meaning data. It can be made
+This type of latch is #metadata(none)<gl-dlatch>called a D latch, D meaning data. It can be made
 using the SR latch and a few extra logic gates.
 
 It basically checks: if `D` is true and `E` is true, `SET` is true, and
@@ -1113,7 +1196,7 @@ not worry about the exact implementation.
 But we have a problem. Let's say we now try to use 8 of these D latches
 to hold the result from our adder, which would then feed back into one
 input of the adder (that counting circuit from the last section; I'll
-call it an accumulator from now on). It still wouldn't work.
+#metadata(none)<gl-accumulator>call it an accumulator from now on). It still wouldn't work.
 
 Here is the problem: say we have the enable wire hooked up to a button.
 When that button is pressed down, the enable wire is on, so `Q=D` for
@@ -1138,7 +1221,7 @@ doesn't count in ones.
 But what if we had a storage circuit that only copied `D` into `Q` at
 the exact instant `E` turns on?
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/edge-graph.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/edge-graph.png", width: 60%)))
 
 #caption("6.4", kind: "Diagram")[The rising edge of a signal.]
 
@@ -1147,18 +1230,18 @@ on. When it is at the bottom, it is off.
 
 When a switch is flicked or a button is pressed, a transition happens.
 That transition is called an "edge", and when the wire turns from off
-to on, it is a rising edge.
+to on, #metadata(none)<gl-edge>it is a rising edge.
 
 Now what if we only set `Q` to `D` on that transition, at the rising
 edge? The edge is an instant of time, not a duration.
 
-The circuit that does this is called a D-type edge-triggered flip-flop.
+The circuit that does this is called a D-type #metadata(none)<gl-flipflop>edge-triggered flip-flop.
 This might sound like a mouthful, but D-type just means it takes in a
 data input, edge-triggered means it triggers on the edge of a signal,
 and flip-flop means it is a storage circuit similar to a latch, but
 usually edge-triggered.
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/d-type-edge-triggered-flip-flop.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/d-type-edge-triggered-flip-flop.png", width: 85%)))
 
 #caption("6.5", kind: "Diagram")[A flip-flop.]
 
@@ -1179,7 +1262,7 @@ exact moment `E` turns on. That is our rising edge.
 Here is one storage cell, which is just the flip-flop we showed above:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/flip-flop-storage-cell.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/flip-flop-storage-cell.png", width: 60%)))
 
 #caption("6.6", kind: "Diagram")[A one-bit storage cell.]
 
@@ -1192,16 +1275,16 @@ If we connect 8 of them side by side, we get one byte of storage:
 #caption("6.7", kind: "Diagram")[Eight storage cells.]
 
 #block(sticky: true)[
-And we can put all that into a chip called an 8-bit register:
+And we can put all that into a chip #metadata(none)<gl-register>called an 8-bit register:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/8-bit-register.png", width: 91%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/8-bit-register.png", width: 77%)))
 
 #caption("6.8", kind: "Diagram")[An 8-bit register.]
 
 Now with this register, let's build a basic accumulator/adder circuit.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/full-accumulator-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/full-accumulator-1.png", width: 100%)))
 
 #anim-note(7, "https://www.bytecolony.computer/writing/the-cpu/#f=full-accumulator:1", "bytecolony.computer/writing/the-cpu/#f=full-accumulator:1")
 #caption("6.9", kind: "Diagram")[Our full accumulator.]
@@ -1217,14 +1300,14 @@ press increments the register's value by, in this case, 1.
 Now, a real computer would need to do these kinds of things millions or
 billions of times per second, and we don't have some human clicking a
 step button. What we have is a circuit that automatically goes on, off,
-on, off billions of times per second. This is called a clock. Each
+on, off billions of times per second. This is #metadata(none)<gl-clock>called a clock. Each
 rising edge of the clock acts like one press of `STEP`.
 
 #block(sticky: true)[
 Here is the basic concept of a clock:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/clock-signal.png", width: 70%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/clock-signal.png", width: 60%)))
 
 #caption("6.10", kind: "Diagram")[A clock signal.]
 
@@ -1254,7 +1337,7 @@ would become a mess very quickly.
 
 A simpler solution is to have one single 8-bit data highway, where
 components can put data on and take data off. This collection of 8 wires
-is called a bus. I hope the title of the section now makes sense for any
+#metadata(none)<gl-bus>is called a bus. I hope the title of the section now makes sense for any
 of you confused readers, sorry not sorry.
 
 One more thing: moving forward, when I want to draw a collection of 8
@@ -1289,7 +1372,7 @@ Of course, in our relay world technically we don't need to drive to `-`
 like I mentioned before, but in the real world, where transistors are
 used, we certainly do, and that causes problems.
 
-One clean way to solve this problem is by using something called a
+One clean way to solve this problem is by using something #metadata(none)<gl-tristate>called a
 tri-state buffer. It has two inputs, `E` and `D`, which stand for enable
 and data.
 
@@ -1299,7 +1382,7 @@ we are using `E` in the context of "enable outputting".
 If `E` is on, the output will just be whatever `D` is, so either `0` or
 `1`. If `E` is off, no matter the value of `D`, the output will be `Z`.
 
-`Z` means the buffer's output is disconnected. Engineers call this
+#metadata(none)<gl-z>`Z` means the buffer's output is disconnected. Engineers call this
 "high impedance", which is where the letter `Z` comes from. It is not
 driving the bus to `+` or `-`, so another component can safely drive the
 bus without a clash or short-circuit.
@@ -1376,7 +1459,7 @@ Here is the full table:
 This is the logic gate symbol for a tri-state buffer:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/tri-state-buffer.png", width: 60%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/tri-state-buffer.png", width: 51%)))
 
 #caption("7.3", kind: "Diagram")[A tri-state buffer logic gate.]
 
@@ -1450,12 +1533,12 @@ handful of registers aren't enough.
 We want to build a system that organizes data into a simple structure.
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/cabinet.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/cabinet.png", width: 85%)))
 
 #caption("8.1", kind: "Diagram")[Our data structure.]
 
-It is a set of slots, each with its own address. This system is known
-technically as RAM: Random Access Memory. It is called RAM because when
+It is a set of slots, each with #metadata(none)<gl-address>its own address. This system is known
+technically as RAM: #metadata(none)<gl-ram>Random Access Memory. It is called RAM because when
 the CPU wants to access a slot, it just knows the number and can access
 any slot at will. It is not like flipping through a book looking for the
 right page. It is more like grabbing a book from a bookshelf, where you
@@ -1470,7 +1553,7 @@ and what inputs and outputs it would have.
 - `data in`: the value we would like to write
 - `data out`: the data output line
 
-To be clear, `WRITE` and `OUT` are control signals, so 1 input wire
+To be clear, `WRITE` and `OUT` #metadata(none)<gl-ctrl>are control signals, so 1 input wire
 each. For this demo RAM, `address` is only 4 input wires. `data in` and
 `data out` carry bytes and are both connected directly to the common
 bus. This only works if no other part is driving the bus when `OUT` is
@@ -1503,7 +1586,7 @@ Once the address selects a slot, two things can happen:
 - If `OUT` is on, the selected slot drives its stored byte onto
   `data out`.
 
-Let's start with building a simple decoder. This decoder will take 2
+Let's start with building a #metadata(none)<gl-decoder>simple decoder. This decoder will take 2
 bits of our address and, based on that number, turn on exactly one of
 its 4 outputs.
 
@@ -1532,7 +1615,7 @@ logic gates to ask these simple questions.
 Here is how it works if you care:
 ]
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/2-4-decoder-gates-1.png", width: 100%),
   image("/pdf/.raster/dark/2-4-decoder-gates-2.png", width: 100%),
   image("/pdf/.raster/dark/2-4-decoder-gates-3.png", width: 100%),
@@ -1566,7 +1649,7 @@ and `WRITE` is orange. They are still ordinary wires; the colors are
 only there to make the diagram easier to follow.
 
 ]
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/zoomed-out-ram.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/zoomed-out-ram.png", width: 100%)))
 
 #caption("8.5", kind: "Diagram")[A zoomed-out RAM diagram.]
 
@@ -1585,7 +1668,7 @@ on.
 Let's look at one cell more closely:
 ]
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/zoomed-in-ram.png", width: 100%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/zoomed-in-ram.png", width: 85%)))
 
 #caption("8.6", kind: "Diagram")[A zoomed-in RAM cell diagram.]
 
@@ -1621,7 +1704,7 @@ the bus section (Diagram~7.5).
 
 But drawing two separate data buses every time is cumbersome. From the
 outside, we can abstract this as one shared data bus with a
-double-headed arrow called `I/O`, which stands for input/output. It is
+double-headed arrow called `I/O`, which #metadata(none)<gl-io>stands for input/output. It is
 practically just like having two buses, one for input, one for output.
 
 When `WRITE` turns on, RAM copies the value from the data bus into the
@@ -1634,7 +1717,7 @@ this (Diagram~7.5), where we have a separate `D` and `Q`, I'll draw
 them with one double-headed `I/O` bus, like this:
 
 ]
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/io-registers.png", width: 82%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/io-registers.png", width: 70%)))
 
 #caption("8.9", kind: "Diagram")[I/O Registers.]
 
@@ -1650,7 +1733,7 @@ or the value being read from RAM. So it cannot also keep holding the
 address at the same time.
 
 We need something to hold the address while the data bus is being used
-for the actual I/O. This is called the Memory Address Register, or MAR.
+for the actual I/O. This is called the #metadata(none)<gl-mar>Memory Address Register, or MAR.
 The MAR is just a regular 8-bit register with no `OUT` control signal,
 as it is always outputting directly into RAM.
 
@@ -1658,7 +1741,7 @@ We first put an address on the data bus and turn on `MAR_WRITE`. The MAR
 stores that address. Then the MAR keeps sending that address to RAM,
 leaving the data bus free to carry the value being read or written.
 
-#block(sticky: true, breakable: false, width: 100%, pad(x: -10mm, grid(columns: 2, gutter: 6pt,
+#block(sticky: true, breakable: false, width: 100%, pad(x: -8mm, grid(columns: 2, gutter: 6pt,
   image("/assets/frames/mar-ram-demo-1.png", width: 100%),
   image("/assets/frames/mar-ram-demo-2.png", width: 100%),
   image("/assets/frames/mar-ram-demo-3.png", width: 100%),
@@ -1679,11 +1762,11 @@ that into the MAR. We then remove 28 from the common bus and enable
 If we have a handful of registers and RAM, we can now move bytes around
 using this common data bus. But what we really need is a component that
 can "process" numbers, a component that can do arithmetic and logic.
-Thus we have "The Arithmetic and Logic Unit," or ALU for short.
+Thus we have "The #metadata(none)<gl-alu>Arithmetic and Logic Unit," or ALU for short.
 Imagine a chip where we could input two numbers, an operation, and
 output a result, along with some other information.
 
-#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/alu-interface.png", width: 61%)))
+#block(sticky: true, width: 100%, align(center, image("/pdf/.raster/dark/alu-interface.png", width: 52%)))
 
 #caption("9.1", kind: "Diagram")[The ALU chip.]
 
@@ -1730,7 +1813,7 @@ on, and the `EQUAL` flag too because both inputs are equal.
 Before we look at the internals of how the ALU works, we need to cover
 two things.
 
-First, the ALU uses a new component called an 8-bit buffer. It is just a
+First, the ALU uses a new component #metadata(none)<gl-buf8>called an 8-bit buffer. It is just a
 tri-state buffer for a whole bus: 8 of them side by side, all sharing
 one `OUT`. We use these to only let through the result we actually want
 on the output.
@@ -1740,7 +1823,7 @@ does that work?" you might think. Well, there are really just eight
 gates, one per bit. One gate takes `A0` and `B0`, the next takes `A1`
 and `B1`, and so on. Eight output wires, which is just another bus.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/alu-internals.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/alu-internals.png", width: 100%)))
 
 #caption("9.2", kind: "Diagram")[ALU internals.]
 
@@ -1831,7 +1914,7 @@ like normal.
 ]
 But we have something new here that we haven't seen before.
 
-Purple wires and buses mean garbage. This is not the same as `Z`. A `Z`
+Purple wires and buses #metadata(none)<gl-garbage>mean garbage. This is not the same as `Z`. A `Z`
 wire is one that nothing is driving. A `G` wire is being driven, with an
 actual value on it. That value is just nonsense, hence the name garbage.
 So where does that garbage value come from in this diagram?
@@ -1879,7 +1962,7 @@ register has no `OUT` control signal, thus no tri-state buffers, so it
 is always outputting, but it is edge-triggered.
 
 Then we can see the result of the ALU operation is being fed into
-another regular 8-bit register called ACC, short for accumulator, but
+another regular 8-bit register #metadata(none)<gl-acc>called ACC, short for accumulator, but
 that's just its name. It's not an actual accumulator circuit. That's
 just what this register is traditionally called in CPUs. It is slightly
 different to register B because its input doesn't come from the common
@@ -1887,13 +1970,13 @@ bus, but from the ALU, so it has a separate `D` and `Q` instead of just
 one `I/O`. It still has the regular `WRITE` and `OUT` control signals
 though and like always is edge-triggered.
 
-Register IR, which stands for Instruction Register, is a simple register
+Register IR, which stands for #metadata(none)<gl-ir>Instruction Register, is a simple register
 without an `OUT` control signal. It takes input from the bus and outputs
 it into the CU. It is used to store the instruction so the CU can decode
 it and figure out what it means. We will talk about what exactly the CU
 is and the jobs of these different parts a little later on.
 
-Next we have PC, which stands for Program Counter. All it does is store
+Next we have PC, which stands for #metadata(none)<gl-pc>Program Counter. All it does is store
 the address of the next byte that we need to fetch. It is a combination
 of an adder and a register, something like what we have seen previously
 (Diagram~6.9). The register part of PC has its regular control signals
@@ -1915,7 +1998,7 @@ think of this as our simple output for any programs we might write.
 Then we have the Control Panel. Its job is to load a program into RAM in
 the first place. It can read and write to any RAM address it wants.
 
-How it works is, first you flip the `TAKEOVER` switch, which inside the
+How it works is, first you #metadata(none)<gl-takeover>flip the `TAKEOVER` switch, which inside the
 CU basically freezes the computer and resets PC. So, while `TAKEOVER` is
 on and the `RAM_OUT` button is off, the value on the panel's input
 switches is put onto the common bus. This is done with some logic gates
@@ -1938,15 +2021,15 @@ CU and the panel don't drive the wires at the same time. This works the
 other way too: when `TAKEOVER` is on, the CU makes sure not to drive
 those RAM control wires, again using tri-state buffers.
 
-Now, about this mysterious box labeled CU. What is it exactly? It is the
+Now, about this mysterious box labeled CU. What is it exactly? #metadata(none)<gl-cu>It is the
 control unit. Think back to most of our previous demos. Turn `OUT` on,
 then `WRITE`, flip this control signal and then flip that control
 signal. The CU does all of that flipping for us. It turns the control
 wires on and off in the right order, at the right times, to make the
 computer actually work.
 
-But how exactly does the computer work in the first place? First we load
-our program into RAM: a list of instructions, each one just a number.
+But how exactly does the computer work in the first place? First we #metadata(none)<gl-program>load
+our program into RAM: a #metadata(none)<gl-instr>list of instructions, each one just a number.
 The control unit then fetches the instruction from RAM at the address
 stored in PC, so if PC is 0, it fetches the instruction at address 0 and
 stores it in IR. How? It copies PC into the MAR and flips on `RAM_OUT`,
@@ -1957,7 +2040,7 @@ whole cycle.
 
 This is kind of a simplified version of what our CPU will do, but we
 will dive into it in the following sections. You can think of this cycle
-as fetch, decode, execute. Fetching gets us the instruction, decoding
+as #metadata(none)<gl-fde>fetch, decode, execute. Fetching gets us the instruction, decoding
 figures out what it means, and executing actually flips those control
 wires on and off to accomplish that instruction.
 
@@ -2028,7 +2111,7 @@ binary column only shows 4 bits because 4 bits are enough to number all
 15 instructions. In RAM, the opcode still takes up a full byte. The top
 4 bits are just `0000`.
 
-The number for each instruction is called its opcode. Let's write a
+The number for each instruction is #metadata(none)<gl-opcode>called its opcode. Let's write a
 tiny program. We store `00000001` in address 0 of RAM. Then store
 `00000101` in address 1 of RAM. Then store `00000011` in address 2, then
 `11111111` in address 3, and finally `00001110` in address 4.
@@ -2207,7 +2290,7 @@ to whatever is stored in `A`. Then the CU would flip the `WRITE` signal
 on register B, writing the value on the bus into the register. Then it
 would turn off the `OUT` signal on register A, and boom, we are done.
 The CU had to do a few tiny things in exactly the right order to execute
-that instruction. Each of those tiny things is called a micro-step, and
+that instruction. Each of those tiny things is #metadata(none)<gl-micro>called a micro-step, and
 we will talk about them in more detail later on.
 
 But, how does the CU know which wires to flip and when? That is what the
@@ -2215,7 +2298,7 @@ next section is all about.
 
 === The Not-So-Clever Control Unit
 <the-not-so-clever-control-unit>
-The first thing the control unit needs is a step counter. Something that
+The first thing the control unit needs #metadata(none)<gl-step>is a step counter. Something that
 counts, step 0, then step 1, then step 2, and so on, back to step 0.
 That is the core flow of the control unit.
 
@@ -2223,7 +2306,7 @@ We can combine a tiny 3-bit accumulator and a `3-8` decoder. This will
 give us 8 steps, and because the accumulator overflows and naturally
 wraps back around to 0, the steps will loop correctly.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/cu-counter-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/cu-counter-1.png", width: 100%)))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-counter:1", "bytecolony.computer/writing/the-cpu/#f=cu-counter:1")
 #caption("12.1", kind: "Diagram")[The step counter.]
@@ -2265,7 +2348,7 @@ The best approach to this is just taking our clock signal and flipping
 it:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/timing-diagram.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/timing-diagram.png", width: 100%)))
 
 #caption("12.2", kind: "Diagram")[Micro-step timing diagram.]
 
@@ -2276,7 +2359,7 @@ cycle long, until the next rising edge.
 `OUT` is directly connected to that step line. If we enable `OUT` on
 step 1, the bus is driven for that full cycle.
 
-`WRITE` is ANDed with `NOT CLOCK`, like `step 1 AND NOT CLOCK`. The
+`WRITE` is ANDed with #metadata(none)<gl-notclock>`NOT CLOCK`, like `step 1 AND NOT CLOCK`. The
 thing is, step and `NOT CLOCK` don't come on at the same time. The step
 line is already on, and then halfway through the cycle `NOT CLOCK` goes
 up, and that is when the AND gate's output goes up. That is the edge
@@ -2334,7 +2417,7 @@ control signals, and I have kept the enable on for now. This is related
 to interfering with the Control Panel and `TAKEOVER`. You can mostly
 ignore this for now, but it will come back later.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-one.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-one.png", width: 100%)))
 
 #caption("12.3", kind: "Diagram")[The first two micro-steps.]
 
@@ -2404,7 +2487,7 @@ Feel free to try and step through this diagram, or don't, it's a giant
 mess:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-two.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-two.png", width: 100%)))
 
 #caption("13.1", kind: "Diagram")[All of the 2-byte instructions.]
 
@@ -2490,7 +2573,7 @@ instruction `LOAD A, [addr]`. We first have to fetch the instruction,
 then fetch the `[addr]`, then store whatever lives at that address into
 register A.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/cu-internals-two-demo-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/cu-internals-two-demo-1.png", width: 100%)))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.2", kind: "Diagram")[Executing `LOAD A, [addr]`.]
@@ -2514,7 +2597,7 @@ ones still wait for `NOT CLOCK`). Next we do the `MOV` instructions.
 Quite simple:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-movs.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-movs.png", width: 100%)))
 
 #caption("13.3", kind: "Diagram")[The `MOV` instructions.]
 
@@ -2573,7 +2656,7 @@ It's garbage.
 So here we are:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-alu.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-alu.png", width: 100%)))
 
 #caption("13.4", kind: "Diagram")[The ALU instructions.]
 
@@ -2590,7 +2673,7 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and we have frozen the
 computer.
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-halt.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-halt.png", width: 100%)))
 
 #caption("13.5", kind: "Diagram")[The `HALT` instruction freezing the computer.]
 
@@ -2616,7 +2699,7 @@ so the panel can control those signals.
 Here is how the `HALT` and `TAKEOVER` wiring would look in the CU:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/pdf/.raster/dark/cu-internals-halt-takeover.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-halt-takeover.png", width: 100%)))
 
 #caption("13.6", kind: "Diagram")[The `HALT` and `TAKEOVER` wiring.]
 
@@ -2645,7 +2728,7 @@ on the DISPLAY bulbs:
 Here is our CPU after it has finished executing it:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -10mm, image("/assets/frames/program-demo-13.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/program-demo-13.png", width: 100%)))
 
 #anim-note(13, "https://www.bytecolony.computer/writing/the-cpu/#f=program-demo:1", "bytecolony.computer/writing/the-cpu/#f=program-demo:1")
 #caption("14.1", kind: "Diagram")[The CPU running a simple program.]
@@ -2827,11 +2910,207 @@ bytes between registers. Every one of those components is made up of
 simple logic gates, and every gate is made up of relays, or more
 commonly these days, transistors.
 
+#v(1.2em)
+
 I hope you now understand why computers aren't "just" 1s and 0s, but
 a very tall pile of simple.
 
+
+#bm.update(true)
+
+== Appendix: Quick Reference
+
+#[
+#set par(first-line-indent: 0em)
+
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[The instruction set]]
+
+#table(
+  columns: (auto, auto, auto, auto, 1fr),
+  align: (right, left, left, right, left),
+  table.header([\#], [Binary], [Mnemonic], [Bytes], [Action]),
+  [0], [`0000`], [`NOP`], [1], [do nothing],
+  [1], [`0001`], [`LOAD A, n`], [2], [next byte → A],
+  [2], [`0010`], [`LOAD A, [addr]`], [2], [RAM slot → A],
+  [3], [`0011`], [`STORE A, [addr]`], [2], [A → RAM slot],
+  [4], [`0100`], [`MOV B, A`], [1], [copy A into B],
+  [5], [`0101`], [`MOV A, B`], [1], [copy B into A],
+  [6], [`0110`], [`JMP addr`], [2], [addr → PC],
+  [7], [`0111`], [`JE addr`], [2], [if `EQUAL` flag: addr → PC],
+  [8], [`1000`], [`ADD`], [1], [A = A + B],
+  [9], [`1001`], [`AND`], [1], [A = A AND B],
+  [10], [`1010`], [`OR`], [1], [A = A OR B],
+  [11], [`1011`], [`XOR`], [1], [A = A XOR B],
+  [12], [`1100`], [`JC addr`], [2], [if `CARRY` flag: addr → PC],
+  [13], [`1101`], [`JZ addr`], [2], [if `ZERO` flag: addr → PC],
+  [14], [`1110`], [`HALT`], [1], [stop the clock],
+)
+
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[ALU operations and flags]]
+
+#block(breakable: false, grid(columns: (auto, auto), gutter: 14pt,
+  table(
+    columns: (auto, auto, 1fr),
+    align: (right, left, left),
+    table.header([`OP`], [Operation], [Meaning]),
+    [`00`], [ADD], [output `A + B`],
+    [`01`], [AND], [output `A AND B`],
+    [`10`], [OR], [output `A OR B`],
+    [`11`], [XOR], [output `A XOR B`],
+  ),
+  table(
+    columns: (auto, 1fr),
+    align: (left, left),
+    table.header([Flag], [Turns on when]),
+    [`ZERO`], [the result is `00000000`],
+    [`CARRY`], [addition spills past 8 bits],
+    [`EQUAL`], [`A` and `B` are the same],
+  ),
+))
+
+#block(above: 1.6em, below: 0.8em, sticky: true)[#text(size: 13pt, weight: "bold")[Micro-steps]]
+
+Every instruction starts with the same fetch:
+
++ `PC_OUT`, `MAR_WRITE`
++ `RAM_OUT`, `IR_WRITE`, `PC_INC`
+
+Two-byte instructions all share step 3: `PC_OUT`, `MAR_WRITE`. Then:
+
+#table(
+  columns: (auto, auto, 1fr, auto),
+  align: (right, left, left, left),
+  table.header([\#], [Instruction], [Step 4], [Step 5]),
+  [1], [`LOAD A, n`], [`RAM_OUT`, `A_WRITE`, `PC_INC`], [Nothing],
+  [2], [`LOAD A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`RAM_OUT`, `A_WRITE`],
+  [3], [`STORE A, [addr]`], [`RAM_OUT`, `MAR_WRITE`, `PC_INC`], [`A_OUT`, `RAM_WRITE`],
+  [6], [`JMP addr`], [`RAM_OUT`, `PC_WRITE`], [Nothing],
+  [7], [`JE addr`], [`RAM_OUT`, `PC_WRITE` if `EQUAL` else `PC_INC`], [Nothing],
+  [12], [`JC addr`], [`RAM_OUT`, `PC_WRITE` if `CARRY` else `PC_INC`], [Nothing],
+  [13], [`JZ addr`], [`RAM_OUT`, `PC_WRITE` if `ZERO` else `PC_INC`], [Nothing],
+)
+
+One-byte instructions finish in one or two steps:
+
+#table(
+  columns: (auto, auto, 1fr, auto),
+  align: (right, left, left, left),
+  table.header([\#], [Instruction], [Step 3], [Step 4]),
+  [4], [`MOV B, A`], [`A_OUT`, `B_WRITE`], [Nothing],
+  [5], [`MOV A, B`], [`B_OUT`, `A_WRITE`], [Nothing],
+  [8–11], [`ADD`/`AND`/`OR`/`XOR`], [`B_OUT`, `ACC_WRITE`, `FLAGS_WRITE`], [`ACC_OUT`, `A_WRITE`],
+)
+]
+
+== Glossary
+
+#[
+#let gl-ref = rgb("#666666")
+#set par(first-line-indent: 0em, hanging-indent: 1.1em, justify: true, spacing: 0.62em)
+#set text(size: 9.5pt)
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[ACC.]] Short for accumulator. That is just its name, though: it is not an actual accumulator with its own adder. It is the register that stores the ALU's result. Its input comes from the ALU instead of the bus, so it has a separate `D` and `Q`.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-acc>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Accumulator.]] A circuit that feeds its own output back into an adder, so each step adds to the running total. This is the concept behind PC.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-accumulator>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Address.]] The number of a slot in RAM. RAM has 256 slots, so addresses go from 0 to 255.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-address>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[ALU.]] Arithmetic Logic Unit. Takes two numbers and performs an operation on them, chosen by its `OP` bits. It also outputs the flags.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-alu>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[AND gate.]] Outputs 1 only when all of its inputs are 1. Usually drawn with two inputs, but it can take three or more, even a whole bus; an AND gate with more than two inputs can be made by chaining two-input AND gates together.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-and>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Binary.]] A number system that represents values using only two digits, 0 and 1. Each column is a power of 2: ones, twos, fours, eights, and so on.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-binary>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Bit.]] A single 0 or 1. One wire, driven high or low.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-bit>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Bus.]] A group of 8 wires carrying one value together. A shared, or common, bus lets many components transfer data over the same wires.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-bus>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Byte.]] A group of 8 bits. It can hold 256 different values, so the numbers 0 to 255.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-byte>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Clock.]] A signal that turns on and off over and over at a steady rate. Each tick moves the computer forward one step.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-clock>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Control signal.]] A wire that tells a component what to do, like `W` (write) or `O` (output). The CU turns these on and off. Named after the part they control, like `MAR_WRITE` or `RAM_OUT`.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-ctrl>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Control unit (CU).]] The part of the CPU that flips the control signals in the right order and at the right times to make the computer work.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-cu>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[CPU.]] Central Processing Unit. The registers, ALU, buses, and control unit together. Technically, RAM is not part of the CPU, since the CPU is only the processing unit, but the two are usually taught together.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-cpu>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[D latch.]] A latch with a data input `D` and an enable input `E`. While enable is on, `Q` copies `D`. When enable turns off, `Q` holds its value.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-dlatch>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Decoder.]] Takes a number in binary and turns on exactly one of its output wires. A `2-4` decoder has 2 inputs and 4 outputs; a `4-16` decoder has 4 inputs and 16 outputs.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-decoder>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Driven high / driven low.]] A wire connected to `+` (a 1) or to `-` (a 0). A real 0 is driven low, not just left disconnected.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-driven>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Edge-triggered.]] Only stores a new value at the instant a signal turns from off to on. That instant is called the rising edge.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-edge>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[8-bit buffer.]] Eight tri-state buffers side by side sharing one `OUT` signal. Lets a whole byte onto a bus only when enabled.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-buf8>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Fetch, decode, execute.]] The cycle the CPU repeats forever. Fetch copies the next instruction from RAM into IR. Decode figures out which instruction it is. Execute flips the control signals that carry it out.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-fde>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Flags.]] Extra yes/no facts about the ALU's result. Stored in the FLAGS register.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-flags>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Flip-flop.]] Two D latches chained together to make an edge-triggered circuit that stores one bit. The building block of a register.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-flipflop>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Full adder.]] Adds three bits: `A`, `B`, and a carry-in. Made from two half adders and an OR gate.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-fulladder>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Garbage.]] A value that means nothing, such as a result computed from a bus nobody is driving. Shown in purple and always ignored.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-garbage>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Ground.]] The common return point of a circuit, usually connected to the negative side of the battery.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-ground>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Half adder.]] Adds two bits and outputs a sum bit (XOR) and a carry-out bit (AND). It cannot take a carry-in.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-halfadder>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Instruction.]] One command for the CPU, stored as a number in RAM. Some instructions take one byte; others take a second byte holding a value or an address.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-instr>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[I/O.]] Input/output. A single double-headed bus used both to put a value into a component and to read one out.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-io>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[IR.]] Instruction Register. Holds the instruction currently being run so the CU can decode it.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-ir>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Logic gate.]] A small circuit that answers a yes/no question about its inputs. The basic gates are AND, OR, NOT, NAND, NOR, and XOR.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-gate>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[MAR.]] Memory Address Register. Holds the address RAM should read from or write to, so the data bus stays free to carry the data itself.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-mar>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Micro-step.]] One small action inside an instruction, lasting one clock cycle, like "copy PC into MAR". Every instruction is a short sequence of micro-steps.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-micro>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[NAND / NOR.]] AND and OR with their outputs flipped.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-nandnor>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[NOT gate.]] Flips its input: 1 becomes 0, and 0 becomes 1.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-not>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[`NOT CLOCK`.]] The clock signal flipped. Writes are ANDed with it so values are stored halfway through a step, after the bus has settled.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-notclock>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Opcode.]] The number that says which instruction it is, such as `0001` for `LOAD A, n`. The bottom 4 bits of an instruction byte.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-opcode>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[OR gate.]] Outputs 1 when any of its inputs is 1.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-or>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Overflow.]] When a result is too big to fit in one byte and the extra bit spills out as a carry.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-overflow>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[PC.]] Program Counter. Holds the address of the next byte to fetch, and normally counts up by one after each fetch. Jump instructions overwrite it.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-pc>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Program.]] A list of instructions sitting in RAM, run one after another.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-program>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[RAM.]] Random Access Memory. Many registers in a grid, each with its own address. Any address can be read or written directly.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-ram>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Register.]] Eight flip-flops side by side: a component that stores one byte and is edge-triggered. Usually has `W` (write) and `O` (output) control signals.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-register>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Relay.]] A switch flipped by electricity. Current through a coil makes a magnet that pulls a metal arm, closing a second circuit.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-relay>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[SR latch.]] The simplest circuit that stores one bit. `SET` makes `Q` 1, `RESET` makes `Q` 0, and with neither pressed it remembers.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-sr>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Step counter.]] The counter inside the CU that tracks which micro-step the current instruction is on.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-step>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[`TAKEOVER`.]] The control panel switch that freezes the CPU and resets PC. While it is on, the panel's buttons control `MAR_WRITE`, `RAM_WRITE`, and `RAM_OUT` instead of the CU, so a person can load a program by hand.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-takeover>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[Tri-state buffer.]] A gate with three possible outputs: driven high, driven low, or disconnected (`Z`). Lets many components share one bus without short-circuiting.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-tristate>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[XOR gate.]] Exclusive OR. Outputs 1 when exactly one input is 1.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-xor>)).first()])]
+#par[#[#show raw: set text(weight: 700)
+#text(weight: "bold")[`Z`.]] High impedance: a wire that nothing is driving. Not driven high or low, just disconnected.#h(0.5em)#box(width: 1.3em, text(size: 0.85em, fill: gl-ref)[#context counter(page).at(locate(<gl-z>)).first()])]
+]
+
 == Further Reading
-<further-reading>
+
+#[
+#set par(first-line-indent: 0em, spacing: 1.1em)
+
 #emph[Lessons in Electric Circuits, Volume I: DC] by Tony R. Kuphaldt. A
 textbook on electricity. If the electricity basics at the start got you
 curious, this goes much deeper into voltage, current, resistance, and a
@@ -2859,3 +3138,22 @@ funny, and highly recommended. Free online at
 #emph[What Every Programmer Should Know About Memory] by Ulrich Drepper.
 A great paper on how memory really works. It expands on the RAM ideas
 here, covering DRAM, caches, and a lot more. Free online.
+
+]
+
+== Acknowledgments
+
+#[
+#set par(first-line-indent: 0em)
+
+My dad read the drafts and told me which parts were hard to understand or
+unclear. My family gave opinions and feedback on the cover mockups. Any
+mistakes that are left are mine.
+]
+
+#hf-off.update(true)
+#metadata(none) <bookend>
+#context if calc.odd(locate(<bookend>).page()) {
+  pagebreak()
+  [#metadata(none) <fsup>]
+}

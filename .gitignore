@@ -13,3 +13,6 @@ cover*.pdf
 cover*.jpg
 backcover*.pdf
 backk*.pdf
+
+# cover files the build stitches on (front.pdf, back.pdf, front.jpg)
+cover/
