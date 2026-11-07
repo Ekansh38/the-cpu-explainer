@@ -702,8 +702,8 @@ together? That is what the next section is all about.
 
 #caption("4.6", kind: "Diagram")[Math?]
 
-=== 1 + 1 = 10
-<1--1--10>
+=== Making 1 + 1 = 10
+<making-1--1--10>
 Let's start with a brief reminder of how we algorithmically add two
 decimal numbers.
 

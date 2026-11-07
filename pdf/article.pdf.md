@@ -400,7 +400,7 @@ next section is all about.
 
 *Diagram 4.6. Math?*
 
-### 1 + 1 = 10
+### Making 1 + 1 = 10
 
 Let's start with a brief reminder of how we algorithmically add two decimal numbers.
 
