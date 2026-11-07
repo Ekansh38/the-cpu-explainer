@@ -121,12 +121,13 @@
     #set text(size: 9pt, weight: "regular", fill: rgb("#777777"), hyphenate: false)
     #set par(leading: 0.8em, first-line-indent: 0em, justify: false)
     Copyright © 2026 Ekansh Goenka. All rights reserved. \
-    First edition. \
+    First edition, 2026. \
     \
     The web edition of this book, including animated versions of the
     diagrams, is available at bytecolony.computer. \
     \
-    Typeset in TeX Gyre Pagella.
+    Cover design by Ekansh Goenka. \
+    Typeset in TeX Gyre Pagella, with IBM Plex Mono for code.
   ]
   pagebreak()
   block(below: 1.4em)[
