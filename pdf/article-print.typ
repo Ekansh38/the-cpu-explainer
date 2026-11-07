@@ -257,7 +257,7 @@ one hard idea. It is a very tall pile of simple ones.
 #caption("0.1", kind: "Diagram")[The whole computer.]
 
 This probably looks like an overwhelming mess, but don't worry, that's
-normal. Throughout this guide we are going to try to understand how this
+normal. Throughout this book we are going to try to understand how this
 simple CPU works, from the ground up. It is not a modern CPU with
 decades of optimization, but it has the same core functionality. So if
 you have ever wondered how a computer truly works, buckle up, we are
