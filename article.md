@@ -2004,4 +2004,6 @@ I hope you now understand why computers aren't "just" 1s and 0s, but a very tall
 
 *The Elements of Computing Systems* (Nand2Tetris) by Noam Nisan and Shimon Schocken. A project course where you build a computer, an assembler, a compiler, and an operating system yourself, starting from NAND gates. Quite demanding; consider it if you want to go deep into computer science. Free materials at [nand2tetris.org](https://www.nand2tetris.org).
 
+*Operating Systems: Three Easy Pieces* by Remzi H. Arpaci-Dusseau and Andrea C. Arpaci-Dusseau. The next step up the stack. This book breaks down how operating systems work in three easy pieces. Clear, funny, and highly recommended. Free online at [ostep.org](https://www.ostep.org).
+
 *What Every Programmer Should Know About Memory* by Ulrich Drepper. A great paper on how memory really works. It expands on the RAM ideas here, covering DRAM, caches, and a lot more. Free online.
