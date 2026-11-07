@@ -1668,7 +1668,7 @@ address into register A.
 
 <a id="diagram-14-2"></a> <img pdf-frames="all" class="big" src="./assets/final/cu-internals-two-demo.gif" alt="LOAD A, [addr] animation">
 
-*Diagram 13.2. `LOAD A, [addr]` animation.*
+*Diagram 13.2. Executing `LOAD A, [addr]`.*
 
 When the label for a control signal turns red, that means it's on (pink ones still wait for
 `NOT CLOCK`). Next we do the `MOV` instructions.

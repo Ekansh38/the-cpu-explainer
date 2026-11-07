@@ -2528,7 +2528,7 @@ register A.
 #block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/light-final/cu-internals-two-demo-1.png", width: 100%)))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
-#caption("13.2", kind: "Diagram")[`LOAD A, [addr]` animation.]
+#caption("13.2", kind: "Diagram")[Executing `LOAD A, [addr]`.]
 
 When the label for a control signal turns red, that means it's on (pink
 ones still wait for `NOT CLOCK`). Next we do the `MOV` instructions.
