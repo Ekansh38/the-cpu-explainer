@@ -1563,8 +1563,11 @@ So we are going to build a minuscule 16-byte RAM: 16 addresses, with
 each address storing one byte. This design can be scaled up easily. Our
 address will be 4 bits long, because `2^4` is 16.
 
-We could do this as a tall stack of 16 registers, but a grid is nicer.
-So we will split the 4-bit address in half.
+We could do this as a tall stack of 16 registers, but that would take 16
+select wires, one for every slot. If we arrange the slots into 4 rows
+and 4 columns instead, we only need 8 select wires: 4 to pick the row
+and 4 to pick the column. It is just more efficient, and on bigger chips
+the savings get huge. So we will split the 4-bit address in half.
 
 #block(sticky: true)[
 The bottom two bits pick the row, and the top two bits pick the column:
