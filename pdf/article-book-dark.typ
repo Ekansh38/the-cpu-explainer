@@ -395,9 +395,9 @@ Let's focus on the `MUDDY OR STINKY` part of this circuit:
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/or-gate-logical-1.png", width: 100%),
-  image("/assets/frames/or-gate-logical-2.png", width: 100%),
-  image("/assets/frames/or-gate-logical-4.png", width: 100%),
-  image("/assets/frames/or-gate-logical-6.png", width: 100%)
+  image("/pdf/.raster/dark/or-gate-logical-2.png", width: 100%),
+  image("/pdf/.raster/dark/or-gate-logical-4.png", width: 100%),
+  image("/pdf/.raster/dark/or-gate-logical-6.png", width: 100%)
 )]))
 
 #anim-note(6, "https://www.bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1", "bytecolony.computer/writing/the-cpu/#f=or-gate-logical:1")
@@ -1634,11 +1634,11 @@ Each address gets its own little intersection.
 
 #block(sticky: true, breakable: false, width: 100%, align(center, block(width: 86%)[#grid(columns: 2, gutter: 6pt,
   image("/pdf/.raster/dark/cross-section-1.png", width: 100%),
-  image("/assets/frames/cross-section-2.png", width: 100%),
-  image("/assets/frames/cross-section-3.png", width: 100%),
-  image("/assets/frames/cross-section-4.png", width: 100%),
-  image("/assets/frames/cross-section-5.png", width: 100%),
-  image("/assets/frames/cross-section-6.png", width: 100%)
+  image("/pdf/.raster/dark/cross-section-2.png", width: 100%),
+  image("/pdf/.raster/dark/cross-section-3.png", width: 100%),
+  image("/pdf/.raster/dark/cross-section-4.png", width: 100%),
+  image("/pdf/.raster/dark/cross-section-5.png", width: 100%),
+  image("/pdf/.raster/dark/cross-section-6.png", width: 100%)
 )]))
 
 #caption("8.4", kind: "Diagram")[Where the row and column meet.]
@@ -2420,7 +2420,7 @@ control signals, and I have kept the enable on for now. This is related
 to interfering with the Control Panel and `TAKEOVER`. You can mostly
 ignore this for now, but it will come back later.
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-one.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-one.png", width: 100%)))
 
 #caption("12.3", kind: "Diagram")[The first two micro-steps.]
 
@@ -2490,7 +2490,7 @@ Feel free to try and step through this diagram, or don't, it's a giant
 mess:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-two.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-two.png", width: 100%)))
 
 #caption("13.1", kind: "Diagram")[All of the 2-byte instructions.]
 
@@ -2576,7 +2576,7 @@ instruction `LOAD A, [addr]`. We first have to fetch the instruction,
 then fetch the `[addr]`, then store whatever lives at that address into
 register A.
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/assets/frames/cu-internals-two-demo-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/frames/cu-internals-two-demo-1.png", width: 100%)))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.2", kind: "Diagram")[Executing `LOAD A, [addr]`.]
@@ -2600,7 +2600,7 @@ ones still wait for `NOT CLOCK`). Next we do the `MOV` instructions.
 Quite simple:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-movs.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-movs.png", width: 100%)))
 
 #caption("13.3", kind: "Diagram")[The `MOV` instructions.]
 
@@ -2659,7 +2659,7 @@ It's garbage.
 So here we are:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-alu.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-alu.png", width: 100%)))
 
 #caption("13.4", kind: "Diagram")[The ALU instructions.]
 
@@ -2676,7 +2676,7 @@ and then ANDed with the clock signal itself. So, on step 3 of
 instruction number 14, we just set that latch, and we have frozen the
 computer.
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-halt.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-halt.png", width: 100%)))
 
 #caption("13.5", kind: "Diagram")[The `HALT` instruction freezing the computer.]
 
@@ -2702,7 +2702,7 @@ so the panel can control those signals.
 Here is how the `HALT` and `TAKEOVER` wiring would look in the CU:
 ]
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/dark/cu-internals-halt-takeover.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-halt-takeover.png", width: 100%)))
 
 #caption("13.6", kind: "Diagram")[The `HALT` and `TAKEOVER` wiring.]
 
