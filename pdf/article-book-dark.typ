@@ -2576,7 +2576,7 @@ instruction `LOAD A, [addr]`. We first have to fetch the instruction,
 then fetch the `[addr]`, then store whatever lives at that address into
 register A.
 
-#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/frames/cu-internals-two-demo-1.png", width: 100%)))
+#block(sticky: true, width: 100%, pad(x: -8mm, image("/pdf/.raster/cropped/dark/cu-internals-two-demo-1.png", width: 100%)))
 
 #anim-note(16, "https://www.bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1", "bytecolony.computer/writing/the-cpu/#f=cu-internals-two-demo:1")
 #caption("13.2", kind: "Diagram")[Executing `LOAD A, [addr]`.]
