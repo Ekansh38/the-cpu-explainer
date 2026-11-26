@@ -309,7 +309,7 @@ NAND is AND with the output flipped. NOR is OR with the output flipped. That lit
 > [!TRY-OUT]
 > A NAND gate gets `1` and `1`. What does it output?
 >
-> **Answer:** `0`. It's AND, flipped.
+> Answer: `0`. It's AND, flipped.
 
 With our knowledge about logic gates, let's create the "should-I-wash-my-dog 5000" machine.
 
@@ -391,7 +391,7 @@ You don't need to do these problems in your head, but I hope the idea of how bin
 > [!TRY-OUT]
 > What is `00001010` in decimal?
 >
-> **Answer:** 10, which is 8 + 2.
+> Answer: 10, which is 8 + 2.
 
 So now that we can represent numbers with wires, how can we add numbers together? That is what the
 next section is all about.
@@ -484,7 +484,7 @@ As you can see, it works! `0 + 0 = 0`, `1 + 0 = 1`, `0 + 1 = 1`, and `1 + 1 = 10
 > [!TRY-OUT]
 > What are the sum and carry for `1 + 1`?
 >
-> **Answer:** Sum `0`, carry `1`.
+> Answer: Sum `0`, carry `1`.
 
 Now let's package up our half adder into a little box. From now on, I will call these packaged-up
 circuits "chips":
@@ -574,7 +574,7 @@ information spilled out into the carry-out bit.
 > [!TRY-OUT]
 > What does the adder output for `00000011 + 00000001`?
 >
-> **Answer:** `00000100`, which is 4.
+> Answer: `00000100`, which is 4.
 
 With a bit of extra circuitry around the adder, we can also make little status wires, called flags. For example, if the answer is `00000000`, a `ZERO` flag can turn on. If addition spills past one byte,
 a `CARRY` flag can turn on. So `11111111 + 00000001` gives `00000000` with carry-out `1`.
@@ -660,6 +660,11 @@ forcing `NOT Q` to `0`, and `NOT Q` being `0` allows `Q` to stay `1`.
 `1`. Then even after `RESET` turns off, `NOT Q` keeps forcing `Q` to stay `0`.
 
 The circuit has state. Its output depends not only on the current input, but on what happened before.
+
+> [!TRY-OUT]
+> You press `SET` and let go. Then you press `RESET` and let go. What is `Q` now?
+>
+> Answer: `0`. The last thing you did was `RESET`, and the latch holds whatever you did last.
 
 Now that we have the core mechanism, let's refine the interface. Right now
 `SET` and `RESET` are super clunky. While they demonstrate the mechanism, what we would really like
@@ -891,7 +896,7 @@ This is the logic gate symbol for a tri-state buffer:
 > [!TRY-OUT]
 > `E` is `0` and `D` is `1`. What is the output? Is that the same as `0`?
 >
-> **Answer:** `Z`. It is not the same as `0`: `0` is actively driven low, but `Z` is not touching
+> Answer: `Z`. It is not the same as `0`: `0` is actively driven low, but `Z` is not touching
 > the wire at all.
 
 Let's address this enable conundrum. We have two uses for the word enable, with completely different
@@ -973,6 +978,12 @@ bottom 2 bits = row
 ```
 
 Two bits can choose 4 values, so this gives us a 4×4 grid of memory slots. That is 16 total bytes.
+
+> [!TRY-OUT]
+> The address is `0110`. Which row and which column get selected?
+>
+> Answer: Row 2 and column 1. The bottom two bits `10` pick the row, and the top two bits `01`
+> pick the column.
 
 Once the address selects a slot, two things can happen:
 
@@ -1098,6 +1109,12 @@ read or written.
 So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store that into the MAR. We then
 remove 28 from the common bus and enable `RAM_OUT`, and we get 6 as the value stored in slot 28. Cool.
 
+> [!TRY-OUT]
+> Why can't we just leave 28 on the bus while RAM outputs, and skip the MAR?
+>
+> Answer: Because RAM needs to drive the bus to output the 6. One bus can't hold the address
+> and carry the value at the same time.
+
 ### The ALU
 
 If we have a handful of registers and RAM, we can now move bytes around using this common data bus.
@@ -1191,7 +1208,7 @@ complete. We can now piece together this whole CPU.
 > [!TRY-OUT]
 > The ALU adds `11111111` and `00000001`. Which flags turn on?
 >
-> **Answer:** `ZERO` and `CARRY`. `EQUAL` stays off, because the two inputs are different.
+> Answer: `ZERO` and `CARRY`. `EQUAL` stays off, because the two inputs are different.
 
 ### The Big Picture
 
@@ -1422,7 +1439,7 @@ the next byte in RAM is that value.
 > [!TRY-OUT]
 > How many bytes do `LOAD A, 5`, `STORE A, [255]`, and `HALT` physically take up in RAM?
 >
-> **Answer:** 5. Two each for `LOAD` and `STORE`, and one for `HALT`. That's why our first program
+> Answer: 5. Two each for `LOAD` and `STORE`, and one for `HALT`. That's why our first program
 > fills addresses 0 to 4.
 
 One more thing: the order things are written in. For `MOV`, the destination comes first. `MOV B, A`
@@ -1433,7 +1450,7 @@ value, but we just call it move. `STORE` is the odd one out: `LOAD A` means the 
 > [!TRY-OUT]
 > What ends up on DISPLAY after `LOAD A, 3`, `MOV B, A`, `ADD`, `STORE A, [255]`, `HALT`?
 >
-> **Answer:** 6.
+> Answer: 6.
 
 Now, about the jump instructions: `JMP`, `JE`, `JC`, and `JZ`. All of these instructions can set PC to
 the address stored in the second byte.
@@ -1544,6 +1561,12 @@ the heartbeat of the computer, and it lives right here in the control unit.
 
 Output 0 of the decoder is wired to nothing, so step 0 is just idle: the counter goes 1, 2, ... 7, 0,
 and every instruction takes 8 clock cycles whether it uses them or not.
+
+> [!TRY-OUT]
+> `MOV B, A` only needs 3 micro-steps. How many clock cycles does it take?
+>
+> Answer: 8. The step counter always runs 1 to 7 and back to 0, no matter what the instruction
+> is.
 
 One thing: remember the [`TAKEOVER`](#diagram-11-1) switch (on the Control Panel in Diagram 10.1)?
 Well, when it is on, it basically resets this step counter's accumulator to 0 (that is why we don't actually do anything on step 0), so after a reset the first thing that happens is step 1. This also

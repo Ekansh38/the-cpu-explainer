@@ -1171,6 +1171,14 @@ which allows `NOT Q` to become `1`. Then even after `RESET` turns off,
 The circuit has state. Its output depends not only on the current input,
 but on what happened before.
 
+#callout("Try it")[
+You press `SET` and let go. Then you press `RESET` and let go. What is
+`Q` now?
+
+#strong[Answer:] `0`. The last thing you did was `RESET`, and the latch
+holds whatever you did last.
+
+]
 Now that we have the core mechanism, let's refine the interface. Right
 now `SET` and `RESET` are super clunky. While they demonstrate the
 mechanism, what we would really like to have is two inputs.
@@ -1581,6 +1589,13 @@ bottom 2 bits = row
 Two bits can choose 4 values, so this gives us a 4×4 grid of memory
 slots. That is 16 total bytes.
 
+#callout("Try it")[
+The address is `0110`. Which row and which column get selected?
+
+#strong[Answer:] Row 2 and column 1. The bottom two bits `10` pick the
+row, and the top two bits `01` pick the column.
+
+]
 #block(sticky: true)[
 Once the address selects a slot, two things can happen:
 ]
@@ -1760,6 +1775,14 @@ So first, we put 28 onto the common bus. Enable `MAR_WRITE` and store
 that into the MAR. We then remove 28 from the common bus and enable
 `RAM_OUT`, and we get 6 as the value stored in slot 28. Cool.
 
+#callout("Try it")[
+Why can't we just leave 28 on the bus while RAM outputs, and skip the
+MAR?
+
+#strong[Answer:] Because RAM needs to drive the bus to output the 6. One
+bus can't hold the address and carry the value at the same time.
+
+]
 === The ALU
 <the-alu>
 If we have a handful of registers and RAM, we can now move bytes around
@@ -2322,6 +2345,13 @@ Output 0 of the decoder is wired to nothing, so step 0 is just idle: the
 counter goes 1, 2, … 7, 0, and every instruction takes 8 clock cycles
 whether it uses them or not.
 
+#callout("Try it")[
+`MOV B, A` only needs 3 micro-steps. How many clock cycles does it take?
+
+#strong[Answer:] 8. The step counter always runs 1 to 7 and back to 0,
+no matter what the instruction is.
+
+]
 One thing: remember the `TAKEOVER` switch (on the Control Panel in
 Diagram~10.1)? Well, when it is on, it basically resets this step
 counter's accumulator to 0 (that is why we don't actually do anything
